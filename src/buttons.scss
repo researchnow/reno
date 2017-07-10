@@ -1,0 +1,177 @@
+// Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/224575826
+
+@import "./colors";
+
+
+// constants
+
+$reno-button-sizes: (
+	large:  (14px, 40px, 20px),
+	medium: (12px, 28px, 16px),
+	small:  (11px, 20px, 12px)
+);
+
+$reno-button-states: (
+	normal:   (1, 1, 1, none),
+	special:  (1, 0.8, 0.8, 0 0 7px $reno-gray-medium-dark),
+	disabled: (0.5, 0.5, 0.5, none)
+);
+
+$reno-button-styles: (
+	primary:         ($reno-color-white,   $reno-color-primary, $reno-color-primary),
+	secondary:       ($reno-color-primary, $reno-color-white,   $reno-color-primary),
+	tertiary:        ($reno-color-primary, $reno-color-white,   $reno-color-white),
+	caution:         ($reno-color-white,   $reno-color-error,   $reno-color-error),
+	primary-reverse: ($reno-color-black,   $reno-color-white,   $reno-color-white)
+);
+
+$reno-button-reverse-states: (
+	normal:   (1, 0, 1, none),
+	special:  (1, 0.15, 0.8, 0 0 7px $reno-gray-medium-dark),
+	disabled: (0.5, 0, 0.3, none)
+);
+
+$reno-button-reverse-styles: (
+	secondary-reverse: ($reno-color-black, $reno-color-white, $reno-color-white)
+);
+
+@mixin reno-button-size($font-size, $h-pad, $v-pad) {
+	font-family: gotham a, gotham b, sans-serif;
+	font-weight: 500;
+	font-size: $font-size;
+	line-height: 1em;
+	padding: $v-pad $h-pad;
+}
+
+@mixin reno-button-style($text-color, $bg-color, $border-color) {
+	color: $text-color;
+	background-color: $bg-color;
+	border: 1px solid $border-color;
+}
+
+@mixin reno-button-state($text-color, $text-opacity, $bg-color, $bg-opacity, $border-color, $border-opacity, $box-shadow) {
+	@include reno-button-style(rgba($text-color, $text-opacity), rgba($bg-color, $bg-opacity), rgba($border-color, $border-opacity));
+	box-shadow: $box-shadow;
+}
+
+@function reno-button-name($name) {
+	@if $name == small or $name == normal or $name == primary {
+		@return '';
+	}
+	@if $name == primary-reverse {
+		@return -reverse;
+	}
+	@return -#{$name};
+}
+
+
+// generate classes
+
+@each $style-name, $style-parameters in $reno-button-styles {
+	@each $state-name, $state-parameters in $reno-button-states {
+		@each $size-name, $size-parameters in $reno-button-sizes {
+			$style: reno-button-name($style-name);
+			$state: reno-button-name($state-name);
+			$size:  reno-button-name($size-name);
+			.reno-button#{$style}#{$size}#{$state} {
+				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
+				@include reno-button-size($size-parameters...);
+				@if $state == -special and $style == -tertiary {
+					text-decoration: underline;
+				}
+			}
+			@if $state == '' {
+				.reno-button#{$style}#{$size}:disabled { @extend .reno-button#{$style}#{$size}-disabled; }
+				.reno-button#{$style}#{$size}:active, .reno-button#{$style}#{$size}:focus, .reno-button#{$style}#{$size}:hover { @extend .reno-button#{$style}#{$size}-special; }
+			}
+		}
+	}
+}
+
+@each $style-name, $style-parameters in $reno-button-reverse-styles {
+	@each $state-name, $state-parameters in $reno-button-reverse-states {
+		@each $size-name, $size-parameters in $reno-button-sizes {
+			$style: reno-button-name($style-name);
+			$state: reno-button-name($state-name);
+			$size:  reno-button-name($size-name);
+			.reno-button#{$style}#{$size}#{$state} {
+				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
+				@include reno-button-size($size-parameters...);
+			}
+			@if $state == '' {
+				.reno-button#{$style}#{$size}:disabled { @extend .reno-button#{$style}#{$size}-disabled; }
+				.reno-button#{$style}#{$size}:active, .reno-button#{$style}#{$size}:focus, .reno-button#{$style}#{$size}:hover { @extend .reno-button#{$style}#{$size}-special; }
+			}
+		}
+	}
+}
+
+
+// helpers and special cases
+
+.reno {
+	button, input[type=submit], input[type=reset], input[type=button] {
+		@extend .reno-button;
+	}
+	button:disabled, input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled {
+		@extend .reno-button-disabled;
+	}
+	button:active, input[type=submit]:active, input[type=reset]:active, input[type=button]:active,
+	button:focus,  input[type=submit]:focus,  input[type=reset]:focus,  input[type=button]:focus,
+	button:hover,  input[type=submit]:hover,  input[type=reset]:hover,  input[type=button]:hover {
+		@extend .reno-button-special;
+	}
+}
+
+.reno-dark {
+	button, input[type=submit], input[type=reset], input[type=button] {
+		@extend .reno-button-reverse;
+	}
+	button:disabled, input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled {
+		@extend .reno-button-reverse-disabled;
+	}
+	button:active, input[type=submit]:active, input[type=reset]:active, input[type=button]:active,
+	button:focus,  input[type=submit]:focus,  input[type=reset]:focus,  input[type=button]:focus,
+	button:hover,  input[type=submit]:hover,  input[type=reset]:hover,  input[type=button]:hover {
+		@extend .reno-button-reverse-special;
+	}
+}
+
+.reno-button-ok     { @extend .reno-button; }
+.reno-button-cancel { @extend .reno-button-tertiary; }
+
+.reno-dark {
+	.reno-button-ok     { @extend .reno-button-reverse; }
+	.reno-button-cancel { @extend .reno-button-secondary-reverse; }
+}
+
+// Naming convention:
+//
+// All button classes use the following schema:
+//
+// .reno-button[-style][-size][-state]
+//
+// Where:
+//
+// * style: primary (the default, skipped), secondary, tertiary, caution, primary-reverse (as -reverse), and secondary-reverse.
+// * size:  small (the default, skipped), medium, large.
+// * state: normal (the default, skipped), special (for focus, hover, and active), disabled.
+//
+// Examples:
+//
+// * .reno-button => primary, small, normal
+// * .reno-button-tertiary-large-disabled => tertiary, large, disabled
+// * .reno-button-caution-special => caution, small, special
+// * .reno-button-medium => primary, medium, normal
+// * .reno-button-reverse => primary-reverse, small, normal
+//
+// Shortcuts:
+//
+// * All normal buttons define the corresponding [-disabled] CSS class for `:disabled` pseudo-class,
+//   and [-special] for `:active`, `:focus`, and `:hover` pseudo-classes.
+// * Under `.reno` all unstyled buttons styled as `.reno-button` using the convention for pseudo-classes
+//   described above. This is useful for light backgrounds.
+// * Under `.reno-dark` all unstyled buttons styled as `.reno-button-reverse` using the convention for pseudo-classes
+//   described above. This is useful for dark backgrounds.
+// * `.reno-button-ok` is `.reno-button`, `.reno-button-cancel` is `.reno-button-tertiary`.
+//   * When under `.reno-dark`, `.reno-button-ok` is `.reno-button-reverse`, and `.reno-button-cancel` is `.reno-button.secondary-reverse`.

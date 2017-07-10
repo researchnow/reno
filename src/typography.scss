@@ -1,0 +1,63 @@
+// Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715072
+
+@import "./colors";
+
+
+// constants
+
+$reno-header-state: (
+	1: (gotham a, 34px, 40),
+	2: (gotham a, 24px, 32),
+	3: (gotham a, 20px, 28),
+	4: (gotham a, 16px, 24)
+);
+
+$reno-body-state: (
+	bold:    (gotham b, 14px, 24),
+	default: (gotham a, 14px, 24),
+);
+
+
+// generate classes
+
+@each $state-index, $style-parameters in $reno-header-state {
+	.reno-header#{$state-index}, .reno-header#{$state-index}-reverse, .reno h#{$state-index}, .reno-dark h#{$state-index} {
+		font-family: nth($style-parameters, 1), sans-serif;
+		font-size:   nth($style-parameters, 2);
+		line-height: nth($style-parameters, 3);
+		color: $reno-color-dark-gray;
+	}
+	.reno-header#{$state-index}-reverse, .reno-dark h#{$state-index} {
+		color: $reno-color-light-gray;
+	}
+}
+
+.reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno body {
+	font-family: gotham a, sans-serif;
+	font-size:   14px;
+	line-height: 24;
+	color: $reno-color-dark-gray;
+}
+
+.reno-body-reverse, .reno-body-bold-reverse, .reno-dark body {
+	color: $reno-color-light-gray;
+}
+
+.reno-body-bold, .reno-body-bold-reverse, .reno body b, .reno body strong, .reno-dark body b, .reno-dark body strong {
+	font-family: gotham b, sans-serif;
+}
+
+.reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse {
+	font-family: gotham a, sans-serif;
+	font-size:   12px;
+	line-height: 20;
+	color: $reno-color-dark-gray;
+}
+
+.reno-caption-reverse, .reno-caption-bold-reverse {
+	color: $reno-color-light-gray;
+}
+
+.reno-caption-bold, .reno-caption-bold-reverse {
+	font-family: gotham b, sans-serif;
+}
