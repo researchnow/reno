@@ -32,18 +32,18 @@ $reno-body-state: (
 	}
 }
 
-.reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno body {
+.reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno {
 	font-family: gotham a, sans-serif;
 	font-size:   14px;
 	line-height: 24;
 	color: $reno-color-dark-gray;
 }
 
-.reno-body-reverse, .reno-body-bold-reverse, .reno-dark body {
+.reno-body-reverse, .reno-body-bold-reverse, .reno-dark {
 	color: $reno-color-light-gray;
 }
 
-.reno-body-bold, .reno-body-bold-reverse, .reno body b, .reno body strong, .reno-dark body b, .reno-dark body strong {
+.reno-body-bold, .reno-body-bold-reverse, .reno b, .reno strong, .reno-dark b, .reno-dark strong {
 	font-family: gotham b, sans-serif;
 }
 
