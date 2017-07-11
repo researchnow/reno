@@ -1,0 +1,14 @@
+{
+  "name": "reno",
+  "version": "1.0.0",
+  "description": "The biggest little UI in the world.",
+  "engines": {
+    "node": ">=8"
+  },
+  "private": true,
+  "license": "UNLICENSED",
+  "dependencies": {
+    "BaseComponent": "github:clubajax/BaseComponent",
+    "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill"
+  }
+}
