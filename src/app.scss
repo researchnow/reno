@@ -21,6 +21,7 @@ th, td {
 	border: 1px solid $reno-color-super-light-gray;
 }
 
+
 // section
 
 section {
@@ -28,3 +29,31 @@ section {
 	margin: 1em 0;
 	border: 1px solid $reno-color-light-gray;
 }
+
+
+// helper classes to showcase variables
+
+.reno-color-primary   {color: white; background-color: $reno-color-primary}
+.reno-color-secondary {color: white; background-color: $reno-color-secondary}
+.reno-color-tertiary  {color: white; background-color: $reno-color-tertiary}
+.reno-color-success   {color: white; background-color: $reno-color-success}
+.reno-color-alert     {color: white; background-color: $reno-color-alert}
+.reno-color-error     {color: white; background-color: $reno-color-error}
+
+.reno-color-black             {color: white; background-color: $reno-color-black}
+.reno-color-dark-gray         {color: white; background-color: $reno-color-dark-gray}
+.reno-color-medium-dark-gray  {color: white; background-color: $reno-color-medium-dark-gray}
+
+.reno-color-medium-light-gray {color: black; background-color: $reno-color-medium-light-gray}
+.reno-color-light-gray        {color: black; background-color: $reno-color-light-gray}
+.reno-color-super-light-gray  {color: black; background-color: $reno-color-super-light-gray}
+
+.reno-gray-dark               {color: white; background-color: $reno-gray-dark}
+.reno-gray-medium-dark        {color: white; background-color: $reno-gray-medium-dark}
+
+.reno-gray-medium-light       {color: black; background-color: $reno-gray-medium-light}
+.reno-gray-light              {color: black; background-color: $reno-gray-light}
+.reno-gray-super-light        {color: black; background-color: $reno-gray-super-light}
+
+.reno-color-dirty-white       {color: black; background-color: $reno-color-dirty-white}
+.reno-color-white             {color: black; background-color: $reno-color-white}
