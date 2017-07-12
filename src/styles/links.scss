@@ -7,7 +7,7 @@
 
 $reno-links-states: (
 	normal:   (none, 1),
-	special:  (underlined, 1),
+	special:  (underline, 1),
 	disabled: (none, 0.6)
 );
 
@@ -32,14 +32,14 @@ $reno-links-styles: (
 	@each $state-name, $state-parameters in $reno-links-states {
 		$style: reno-link-name($style-name);
 		$state: reno-link-name($state-name);
-		.reno-link#{$style}#{$state} {
+		a.reno-link#{$style}#{$state} {
 			color: $style-color;
 			opacity: nth($state-parameters, 2);
 			text-decoration: nth($state-parameters, 1);
 		}
 		@if $state == '' {
-			.reno-link#{$style}:disabled { @extend .reno-link#{$style}-disabled; }
-			.reno-link#{$style}:active, .reno-link#{$style}:focus, .reno-link#{$style}:hover { @extend .reno-link#{$style}-special; }
+			a.reno-link#{$style}:disabled { @extend .reno-link#{$style}-disabled; }
+			a.reno-link#{$style}:active, a.reno-link#{$style}:focus, a.reno-link#{$style}:hover { @extend .reno-link#{$style}-special; }
 		}
 	}
 }
@@ -51,7 +51,7 @@ $reno-links-styles: (
 	a {
 		@extend .reno-link;
 	}
-	a:disabled {
+	a:disabled, a.reno-link-disabled {
 		@extend .reno-link-disabled;
 	}
 	a:active, a:focus, a:hover {
@@ -63,7 +63,7 @@ $reno-links-styles: (
 	a {
 		@extend .reno-link-reverse;
 	}
-	a:disabled {
+	a:disabled, a.reno-link-disabled {
 		@extend .reno-link-reverse-disabled;
 	}
 	a:active, a:focus, a:hover {
