@@ -6,15 +6,15 @@
 // constants
 
 $reno-header-state: (
-	1: (gotham a, 34px, 40),
-	2: (gotham a, 24px, 32),
-	3: (gotham a, 20px, 28),
-	4: (gotham a, 16px, 24)
+	1: (gotham a, 34px, 40px),
+	2: (gotham a, 24px, 32px),
+	3: (gotham a, 20px, 28px),
+	4: (gotham a, 16px, 24px)
 );
 
 $reno-body-state: (
-	bold:    (gotham b, 14px, 24),
-	default: (gotham a, 14px, 24),
+	bold:    (gotham b, 14px, 24px),
+	default: (gotham a, 14px, 24px),
 );
 
 
@@ -35,7 +35,7 @@ $reno-body-state: (
 .reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno {
 	font-family: gotham a, sans-serif;
 	font-size:   14px;
-	line-height: 24;
+	line-height: 24px;
 	color: $reno-color-dark-gray;
 }
 
@@ -50,7 +50,7 @@ $reno-body-state: (
 .reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse {
 	font-family: gotham a, sans-serif;
 	font-size:   12px;
-	line-height: 20;
+	line-height: 20px;
 	color: $reno-color-dark-gray;
 }
 
