@@ -6,15 +6,10 @@
 // constants
 
 $reno-header-state: (
-	1: (gotham a, 34px, 40px),
-	2: (gotham a, 24px, 32px),
-	3: (gotham a, 20px, 28px),
-	4: (gotham a, 16px, 24px)
-);
-
-$reno-body-state: (
-	bold:    (gotham b, 14px, 24px),
-	default: (gotham a, 14px, 24px),
+	1: (34px, 40px),
+	2: (24px, 32px),
+	3: (20px, 28px),
+	4: (16px, 24px)
 );
 
 
@@ -22,9 +17,10 @@ $reno-body-state: (
 
 @each $state-index, $style-parameters in $reno-header-state {
 	.reno-header#{$state-index}, .reno-header#{$state-index}-reverse, .reno h#{$state-index}, .reno-dark h#{$state-index} {
-		font-family: nth($style-parameters, 1), sans-serif;
-		font-size:   nth($style-parameters, 2);
-		line-height: nth($style-parameters, 3);
+		font-family: gotham a, gotham b, sans-serif;
+		font-size:   nth($style-parameters, 1);
+		font-weight: 300;
+		line-height: nth($style-parameters, 2);
 		color: $reno-color-dark-gray;
 	}
 	.reno-header#{$state-index}-reverse, .reno-dark h#{$state-index} {
@@ -32,38 +28,35 @@ $reno-body-state: (
 	}
 }
 
-.reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno {
-	font-family: gotham a, sans-serif;
+.reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno, .reno-dark {
+	font-family: gotham a, gotham b, sans-serif;
 	font-size:   14px;
+	font-weight: 300;
 	line-height: 24px;
 	color: $reno-color-dark-gray;
-}
-
-.reno-body-reverse, .reno-body-bold-reverse, .reno-dark {
-	color: $reno-color-light-gray;
-}
-
-.reno-body-bold, .reno-body-bold-reverse, .reno b, .reno strong, .reno-dark b, .reno-dark strong {
-	font-family: gotham b, sans-serif;
 }
 
 .reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse,
 .reno caption, .reno caption b, .reno caption strong, .reno-dark caption, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption, .reno figcaption b, .reno figcaption strong, .reno-dark figcaption, .reno-dark figcaption b, .reno-dark figcaption strong {
-	font-family: gotham a, sans-serif;
+	font-family: gotham a, gotham b,sans-serif;
 	font-size:   12px;
 	line-height: 20px;
+	font-weight: 400;
 	color: $reno-color-dark-gray;
 }
 
+.reno-body-reverse, .reno-body-bold-reverse, .reno-dark,
 .reno-caption-reverse, .reno-caption-bold-reverse,
 .reno-dark caption, .reno-dark caption b, .reno-dark caption strong,
 .reno-dark figcaption, .reno-dark figcaption b, .reno-dark figcaption strong {
 	color: $reno-color-light-gray;
 }
 
+.reno-body-bold, .reno-body-bold-reverse, .reno b, .reno strong, .reno-dark b, .reno-dark strong,
 .reno-caption-bold, .reno-caption-bold-reverse,
 .reno caption b, .reno caption strong, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption b, .reno figcaption strong, .reno-dark figcaption b, .reno-dark figcaption strong {
-	font-family: gotham b, sans-serif;
+	font-family: gotham a, gotham b, sans-serif;
+	font-weight: 500;
 }
