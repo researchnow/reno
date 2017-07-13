@@ -32,7 +32,7 @@ $reno-button-reverse-states: (
 );
 
 $reno-button-reverse-styles: (
-	secondary-reverse: ($reno-color-black, $reno-color-white, $reno-color-white)
+	secondary-reverse: ($reno-color-white, $reno-color-white, $reno-color-white)
 );
 
 @mixin reno-button-size($font-size, $h-pad, $v-pad) {
@@ -73,9 +73,13 @@ $reno-button-reverse-styles: (
 			$style: reno-button-name($style-name);
 			$state: reno-button-name($state-name);
 			$size:  reno-button-name($size-name);
-			.reno-button#{$style}#{$size}#{$state} {
-				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
+			.reno-button#{$style}#{$size}#{$state}, .reno .reno-button#{$style}#{$size}#{$state} {
 				@include reno-button-size($size-parameters...);
+			}
+			.reno-button#{$style}#{$size}#{$state}, .reno .reno-button#{$style}#{$size}#{$state} {
+				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
+			}
+			.reno-button#{$style}#{$size}#{$state}, .reno .reno-button#{$style}#{$size}#{$state} {
 				@if $state == -special and $style == -tertiary {
 					text-decoration: underline;
 				}
@@ -94,9 +98,11 @@ $reno-button-reverse-styles: (
 			$style: reno-button-name($style-name);
 			$state: reno-button-name($state-name);
 			$size:  reno-button-name($size-name);
-			.reno-button#{$style}#{$size}#{$state} {
-				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
+			.reno-button#{$style}#{$size}#{$state}, .reno-dark .reno-button#{$style}#{$size}#{$state} {
 				@include reno-button-size($size-parameters...);
+			}
+			.reno-button#{$style}#{$size}#{$state}, .reno-dark .reno-button#{$style}#{$size}#{$state} {
+				@include reno-button-state(nth($style-parameters, 1), nth($state-parameters, 1), nth($style-parameters, 2), nth($state-parameters, 2), nth($style-parameters, 3), nth($state-parameters, 3), nth($state-parameters, 4));
 			}
 			@if $state == '' {
 				.reno-button#{$style}#{$size}:disabled { @extend .reno-button#{$style}#{$size}-disabled; }
@@ -110,7 +116,7 @@ $reno-button-reverse-styles: (
 // helpers and special cases
 
 .reno {
-	button, input[type=submit], input[type=reset], input[type=button] {
+	button, input[type=submit], input[type=button] {
 		@extend .reno-button;
 	}
 	button:disabled, input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled {
@@ -135,6 +141,20 @@ $reno-button-reverse-styles: (
 	button:hover,  input[type=submit]:hover,  input[type=reset]:hover,  input[type=button]:hover {
 		@extend .reno-button-reverse-special;
 	}
+}
+
+.reno-dark {
+	.reno-button-reverse        { @extend .reno-button-reverse; }
+	.reno-button-reverse-medium { @extend .reno-button-reverse-medium; }
+	.reno-button-reverse-large  { @extend .reno-button-reverse-large; }
+
+	.reno-button-reverse:disabled        { @extend .reno-button-reverse-disabled; }
+	.reno-button-reverse-medium:disabled { @extend .reno-button-reverse-medium-disabled; }
+	.reno-button-reverse-large:disabled  { @extend .reno-button-reverse-large-disabled; }
+
+	.reno-button-reverse:active, .reno-button-reverse:focus, .reno-button-reverse:hover                      { @extend .reno-button-reverse-special; }
+	.reno-button-reverse-medium:active, .reno-button-reverse-medium:focus, .reno-button-reverse-medium:hover { @extend .reno-button-reverse-medium-special; }
+	.reno-button-reverse-large:active, .reno-button-reverse-large:focus, .reno-button-reverse-large:hover    { @extend .reno-button-reverse-large-special; }
 }
 
 .reno-button-ok     { @extend .reno-button; }
