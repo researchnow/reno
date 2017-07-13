@@ -119,26 +119,26 @@ $reno-button-reverse-styles: (
 	button, input[type=submit], input[type=button] {
 		@extend .reno-button;
 	}
-	button:disabled, input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled {
+	button:disabled, input[type=submit]:disabled, input[type=button]:disabled {
 		@extend .reno-button-disabled;
 	}
-	button:active, input[type=submit]:active, input[type=reset]:active, input[type=button]:active,
-	button:focus,  input[type=submit]:focus,  input[type=reset]:focus,  input[type=button]:focus,
-	button:hover,  input[type=submit]:hover,  input[type=reset]:hover,  input[type=button]:hover {
+	button:active, input[type=submit]:active, input[type=button]:active,
+	button:focus,  input[type=submit]:focus,  input[type=button]:focus,
+	button:hover,  input[type=submit]:hover,  input[type=button]:hover {
 		@extend .reno-button-special;
 	}
 }
 
 .reno-dark {
-	button, input[type=submit], input[type=reset], input[type=button] {
+	button, input[type=submit], input[type=button] {
 		@extend .reno-button-reverse;
 	}
-	button:disabled, input[type=submit]:disabled, input[type=reset]:disabled, input[type=button]:disabled {
+	button:disabled, input[type=submit]:disabled, input[type=button]:disabled {
 		@extend .reno-button-reverse-disabled;
 	}
-	button:active, input[type=submit]:active, input[type=reset]:active, input[type=button]:active,
-	button:focus,  input[type=submit]:focus,  input[type=reset]:focus,  input[type=button]:focus,
-	button:hover,  input[type=submit]:hover,  input[type=reset]:hover,  input[type=button]:hover {
+	button:active, input[type=submit]:active, input[type=button]:active,
+	button:focus,  input[type=submit]:focus,  input[type=button]:focus,
+	button:hover,  input[type=submit]:hover,  input[type=button]:hover {
 		@extend .reno-button-reverse-special;
 	}
 }
