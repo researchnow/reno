@@ -1,0 +1,81 @@
+// Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715069
+
+@import "./colors";
+
+
+// constants
+
+
+// generate classes
+
+.reno-form label:not([for]) {
+	display: inline-block;
+	position: relative;
+	user-select: none;
+
+	input[type="checkbox"] {
+		visibility: hidden;
+
+		&::before {
+			content: "";
+	    display: inline-block;
+			visibility: visible;
+			position: absolute;
+			left: 4px;
+			bottom: 0.25em;
+	    height: 12px;
+	    width:  12px;
+	    border: 1px solid black;
+		}
+
+		&::after {
+	    content: none;
+		  display: inline-block;
+			visibility: visible;
+			position: absolute;
+			left: 7px;
+			bottom: calc(0.25em + 5px);
+		  height: 3px;
+		  width: 6px;
+		  border-left: 2px solid black;
+		  border-bottom: 2px solid black;
+		  transform: rotate(-45deg);
+		}
+	}
+
+	input[type="radio"] {
+		visibility: hidden;
+
+		&::before {
+			content: "";
+	    display: inline-block;
+			visibility: visible;
+			position: absolute;
+			left: 4px;
+			bottom: 0.25em;
+	    height: 12px;
+	    width:  12px;
+	    border: 1px solid black;
+			border-radius: 50%;
+		}
+
+		&::after {
+	    content: none;
+		  display: inline-block;
+			visibility: visible;
+			position: absolute;
+			left: 7px;
+			bottom: calc(0.25em + 3px);
+	    height: 8px;
+	    width:  8px;
+	    background-color: black;
+			border-radius: 50%;
+		}
+	}
+
+	input[type="checkbox"]:checked, input[type="radio"]:checked {
+		&::after {
+	    content: "";
+		}
+	}
+}
