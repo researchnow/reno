@@ -64,7 +64,6 @@ $reno-button-reverse-styles: (
 	@return -#{$name};
 }
 
-
 // generate classes
 
 @each $style-name, $style-parameters in $reno-button-styles {

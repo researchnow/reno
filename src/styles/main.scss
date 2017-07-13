@@ -3,3 +3,9 @@
 @import "./typography";
 @import "./buttons";
 @import "./links";
+@import "./pageElements";
+
+.test-box div {
+	width: 80px;
+	height: 80px;
+}
