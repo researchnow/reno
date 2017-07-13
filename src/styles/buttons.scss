@@ -157,12 +157,22 @@ $reno-button-reverse-styles: (
 	.reno-button-reverse-large:active, .reno-button-reverse-large:focus, .reno-button-reverse-large:hover    { @extend .reno-button-reverse-large-special; }
 }
 
-.reno-button-ok     { @extend .reno-button; }
-.reno-button-cancel { @extend .reno-button-tertiary; }
+.reno-button-ok            { @extend .reno-button; }
+.reno-button-ok-medium     { @extend .reno-button-medium; }
+.reno-button-ok-large      { @extend .reno-button-large; }
+
+.reno-button-cancel        { @extend .reno-button-tertiary; }
+.reno-button-cancel-medium { @extend .reno-button-tertiary-medium; }
+.reno-button-cancel-large  { @extend .reno-button-tertiary-large; }
 
 .reno-dark {
-	.reno-button-ok     { @extend .reno-button-reverse; }
-	.reno-button-cancel { @extend .reno-button-secondary-reverse; }
+	.reno-button-ok            { @extend .reno-button-reverse; }
+	.reno-button-ok-medium     { @extend .reno-button-reverse-medium; }
+	.reno-button-ok-large      { @extend .reno-button-reverse-large; }
+
+	.reno-button-cancel        { @extend .reno-button-secondary-reverse; }
+	.reno-button-cancel-medium { @extend .reno-button-secondary-reverse-medium; }
+	.reno-button-cancel-large  { @extend .reno-button-secondary-reverse-large; }
 }
 
 // Naming convention:
