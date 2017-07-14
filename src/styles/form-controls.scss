@@ -101,6 +101,30 @@ $reno-outside-offset: 10000px;
 		}
 	}
 
+	input[type="text"] {
+		font-size: 14px;
+		font-weight: 300;
+		color: $reno-color-dark-gray;
+		border: 1px solid $reno-color-light-gray;
+		padding: 7px 11px;
+	}
+
+	input[type="text"]::placeholder {
+		color: $reno-color-medium-dark-gray;
+	}
+
+	input[type="text"]:active, input[type="text"]:focus {
+		border-color: $reno-color-secondary;
+		box-shadow: 0 0 2px 0 $reno-color-secondary;
+		outline: none;
+	}
+
+	input[type="text"]:disabled {
+		border-color: $reno-color-super-light-gray;
+		background-color: $reno-color-super-light-gray;
+		box-shadow: none;
+	}
+
 	label:focus {
 		outline: 1px solid $reno-color-super-light-gray;
 
