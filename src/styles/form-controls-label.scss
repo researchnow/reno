@@ -1,0 +1,19 @@
+@import "./colors";
+
+
+// generate classes: label
+
+.reno-form, .reno, .reno-dark {
+	label:focus {
+		outline: 1px solid $reno-color-super-light-gray;
+	}
+}
+
+
+// helper classes
+
+.reno, .reno-dark {
+	label {
+		font-size: 14px;
+	}
+}

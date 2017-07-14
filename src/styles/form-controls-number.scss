@@ -1,0 +1,41 @@
+@import "./colors";
+
+
+// generate classes: number
+
+.reno-form, .reno, .reno-dark {
+	input[type="number"] {
+		color: $reno-color-dark-gray;
+		padding: 7px 11px;
+		border: 1px solid $reno-color-light-gray;
+		border-radius: 2px;
+		background-color: $reno-color-white;
+		text-align: right;
+	}
+
+	input[type="number"]::placeholder {
+		color: $reno-color-medium-dark-gray;
+	}
+
+	input[type="number"]:active, input[type="number"]:focus {
+		border-color: $reno-color-secondary;
+		box-shadow: 0 0 2px 0 $reno-color-secondary;
+		outline: none;
+	}
+
+	input[type="number"]:disabled {
+		border-color: $reno-color-super-light-gray;
+		background-color: $reno-color-super-light-gray;
+		box-shadow: none;
+	}
+}
+
+
+// helper classes
+
+.reno, .reno-dark {
+	input[type="number"] {
+		font-size: 14px;
+		font-weight: 300;
+	}
+}
