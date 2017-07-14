@@ -69,3 +69,11 @@ section {
 .reno-spacing-x-large   {background-color: $reno-color-primary; width: $reno-spacing-x-large;   height: $reno-spacing-x-large;}
 .reno-spacing-xx-large  {background-color: $reno-color-primary; width: $reno-spacing-xx-large;  height: $reno-spacing-xx-large;}
 .reno-spacing-xxx-large {background-color: $reno-color-primary; width: $reno-spacing-xxx-large; height: $reno-spacing-xxx-large;}
+
+
+// application-specific helper classes
+
+.test-box div {
+	width: 80px;
+	height: 80px;
+}
