@@ -4,18 +4,13 @@
 
 // constants
 
-$reno-rule-styles: (
-	default:  (14px, 40px, 20px),
-	light: (12px, 28px, 16px)
-);
-
 $reno-box-colors: (
 	white: ($reno-color-white),
 	dirty-white: ($reno-color-dirty-white)
 );
 
 $reno-box-borders: (
-	with-border: ($reno-color-dark-gray),
+	with-border: ($reno-color-light-gray),
 	no-border: (transparent)
 );
 
@@ -62,4 +57,20 @@ $reno-box-shadows: (
 			}
 		}
 	}
+}
+
+.reno-rule-default {
+	box-sizing: border-box;
+	height: 3px;
+	width: 150px;
+	background-color: $reno-color-medium-light-gray;
+	border: 1px solid $reno-color-white;
+}
+
+.reno-rule-light {
+	box-sizing: border-box;
+	height: 3px;
+	width: 150px;
+	background-color: $reno-color-light-gray;
+	border: 1px solid $reno-color-white;
 }
