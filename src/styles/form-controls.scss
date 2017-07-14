@@ -5,70 +5,69 @@
 
 // constants
 
+$reno-outside-offset: 10000px;
 
 // generate classes
 
 .reno-form label:not([for]) {
-	display: inline-block;
-	position: relative;
 	user-select: none;
 
 	input[type="checkbox"] {
-		visibility: hidden;
+		position: relative;
+		left: -$reno-outside-offset;
+		width: 20px;
 
 		&::before {
 			content: "";
 	    display: inline-block;
-			visibility: visible;
 			position: absolute;
-			left: 4px;
-			bottom: 0.25em;
-	    height: 12px;
-	    width:  12px;
-	    border: 1px solid black;
+			left: $reno-outside-offset + 4px;
+			bottom: 0;
+	    height: 14px;
+	    width:  14px;
+	    border: 1px solid $reno-color-medium-dark-gray;
 		}
 
 		&::after {
 	    content: none;
 		  display: inline-block;
-			visibility: visible;
 			position: absolute;
-			left: 7px;
-			bottom: calc(0.25em + 5px);
-		  height: 3px;
-		  width: 6px;
-		  border-left: 2px solid black;
-		  border-bottom: 2px solid black;
+			left: $reno-outside-offset + 7px;
+			bottom: 6px;
+		  height: 4px;
+		  width: 8px;
+		  border-left: 2px solid $reno-color-black;
+		  border-bottom: 2px solid $reno-color-black;
 		  transform: rotate(-45deg);
 		}
 	}
 
 	input[type="radio"] {
-		visibility: hidden;
+		position: relative;
+		left: -$reno-outside-offset;
+		width: 20px;
 
 		&::before {
 			content: "";
 	    display: inline-block;
-			visibility: visible;
 			position: absolute;
-			left: 4px;
-			bottom: 0.25em;
-	    height: 12px;
-	    width:  12px;
-	    border: 1px solid black;
+			left: $reno-outside-offset + 4px;
+			bottom: 0;
+	    height: 14px;
+	    width:  14px;
+	    border: 1px solid $reno-color-medium-dark-gray;
 			border-radius: 50%;
 		}
 
 		&::after {
 	    content: none;
 		  display: inline-block;
-			visibility: visible;
 			position: absolute;
-			left: 7px;
-			bottom: calc(0.25em + 3px);
-	    height: 8px;
-	    width:  8px;
-	    background-color: black;
+			left: $reno-outside-offset + 7px;
+			bottom: 3px;
+	    height: 10px;
+	    width:  10px;
+	    background-color: $reno-color-black;
 			border-radius: 50%;
 		}
 	}
@@ -76,6 +75,42 @@
 	input[type="checkbox"]:checked, input[type="radio"]:checked {
 		&::after {
 	    content: "";
+		}
+	}
+
+	input[type="checkbox"]:active, input[type="checkbox"]:focus, input[type="radio"]:active, input[type="radio"]:focus {
+		&::before {
+			border-color: $reno-color-secondary;
+			box-shadow: 0 0 2px 0 $reno-color-secondary;
+		}
+	}
+
+	input[type="checkbox"]:disabled, input[type="radio"]:disabled {
+		&::before {
+			border-color: $reno-color-medium-light-gray;
+			box-shadow: none;
+		}
+	}
+
+	input[type="checkbox"]:disabled {
+		&::after {
+			border-color: $reno-color-medium-light-gray;
+		}
+	}
+	input[type="radio"]:disabled {
+		&::after {
+			background-color: $reno-color-medium-light-gray;
+		}
+	}
+}
+
+.reno-form label:not([for]):focus {
+	outline: 1px solid $reno-color-super-light-gray;
+
+	input[type="checkbox"], input[type="radio"] {
+		&::before {
+			border-color: $reno-color-secondary;
+			box-shadow: 0 0 2px 0 $reno-color-secondary;
 		}
 	}
 }

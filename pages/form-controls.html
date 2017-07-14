@@ -12,16 +12,18 @@
 		<form class="reno-form">
 			<fieldset>
 				<legend>Checkboxes:</legend>
-				<p><label><input type="checkbox" name="c1" value="c1">         this is checkbox #1</label></p>
-				<p><label><input type="checkbox" name="c2" value="c2" checked> this is checkbox #2</label></p>
-				<p><label><input type="checkbox" name="c3" value="c3">         this is checkbox #3</label></p>
+				<p><label tabindex="1"><input type="checkbox" name="c1" value="c1">                  this is checkbox #1</label></p>
+				<p><label tabindex="2"><input type="checkbox" name="c2" value="c2" checked>          this is checkbox #2</label></p>
+				<p><label tabindex="3"><input type="checkbox" name="c3" value="c3" disabled>         this is checkbox #3</label></p>
+				<p><label tabindex="4"><input type="checkbox" name="c4" value="c4" disabled checked> this is checkbox #3</label></p>
 			</fieldset>
 
 			<fieldset>
 				<legend>Radio buttons:</legend>
-				<p><label><input type="radio" name="r1" value="r1" checked>    this is radio #1</label></p>
-				<p><label><input type="radio" name="r1" value="r2">            this is radio #2</label></p>
-				<p><label><input type="radio" name="r1" value="r3">            this is radio #3</label></p>
+				<p><label tabindex="5"><input type="radio" name="r1" value="r1" checked>          this is radio #1</label></p>
+				<p><label tabindex="6"><input type="radio" name="r1" value="r2">                  this is radio #2</label></p>
+				<p><label tabindex="7"><input type="radio" name="r2" value="r3" disabled>         this is radio #3</label></p>
+				<p><label tabindex="8"><input type="radio" name="r2" value="r4" disabled checked> this is radio #3</label></p>
 			</fieldset>
 		</form>
 
