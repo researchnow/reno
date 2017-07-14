@@ -9,9 +9,7 @@ $reno-outside-offset: 10000px;
 
 // generate classes
 
-.reno-form label:not([for]) {
-	user-select: none;
-
+.reno-form, .reno, .reno-dark {
 	input[type="checkbox"] {
 		position: relative;
 		left: -$reno-outside-offset;
@@ -102,15 +100,21 @@ $reno-outside-offset: 10000px;
 			background-color: $reno-color-medium-light-gray;
 		}
 	}
+
+	label:focus {
+		outline: 1px solid $reno-color-super-light-gray;
+
+		input[type="checkbox"], input[type="radio"] {
+			&::before {
+				border-color: $reno-color-secondary;
+				box-shadow: 0 0 2px 0 $reno-color-secondary;
+			}
+		}
+	}
 }
 
-.reno-form label:not([for]):focus {
-	outline: 1px solid $reno-color-super-light-gray;
-
-	input[type="checkbox"], input[type="radio"] {
-		&::before {
-			border-color: $reno-color-secondary;
-			box-shadow: 0 0 2px 0 $reno-color-secondary;
-		}
+.reno, .reno-dark {
+	label {
+		font-size: 14px;
 	}
 }
