@@ -45,27 +45,98 @@
 			</table>
 		</form>
 
+		<h2>Text, Number &amp; Select</h2>
+
 		<form class="reno-form">
 			<table>
 				<thead>
-					<tr><th>Initial state</th><th>Text input</th></tr>
+					<tr>
+						<th>Initial state</th>
+						<th>Text input</th>
+						<th>Number input</th>
+						<th>Select</th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>Default with placeholder</td>
 						<td><input type="text" name="t1" value="" placeholder="Placeholder"></td>
+						<td><input type="number" name="n1" value="" placeholder="Placeholder"></td>
+						<td>
+							<select required name="s1" placeholder="Placeholder">
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange">Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Placeholder + disabled</td>
-						<td><input type="text" name="t1" value="" placeholder="Placeholder" disabled></td>
+						<td><input type="text" name="t2" value="" placeholder="Placeholder" disabled></td>
+						<td><input type="number" name="n2" value="" placeholder="Placeholder" disabled></td>
+						<td>
+							<select required name="s2" placeholder="Placeholder" disabled>
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange">Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Default with value</td>
-						<td><input type="text" name="t1" value="Value" placeholder="Placeholder"></td>
+						<td><input type="text" name="t3" value="Value" placeholder="Placeholder"></td>
+						<td><input type="number" name="n3" value="42" placeholder="Placeholder"></td>
+						<td>
+							<select required name="s3" placeholder="Placeholder">
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange" selected>Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>Value + disabled</td>
-						<td><input type="text" name="t1" value="Value" placeholder="Placeholder" disabled></td>
+						<td><input type="text" name="t4" value="Value" placeholder="Placeholder" disabled></td>
+						<td><input type="number" name="n4" value="42" placeholder="Placeholder" disabled></td>
+						<td>
+							<select required name="s4" placeholder="Placeholder" disabled>
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange" selected>Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -105,6 +176,103 @@
 					</tbody>
 				</table>
 			</form>
+
+			<h2>Text, Number &amp; Select</h2>
+
+			<form>
+				<table>
+					<thead>
+						<tr>
+							<th>Initial state</th>
+							<th>Text input</th>
+							<th>Number input</th>
+							<th>Select</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Default with placeholder</td>
+							<td><input type="text" name="t1" value="" placeholder="Placeholder"></td>
+							<td><input type="number" name="n1" value="" placeholder="Placeholder"></td>
+							<td>
+								<select required name="s1" placeholder="Placeholder">
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange">Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Placeholder + disabled</td>
+							<td><input type="text" name="t2" value="" placeholder="Placeholder" disabled></td>
+							<td><input type="number" name="n2" value="" placeholder="Placeholder" disabled></td>
+							<td>
+								<select required name="s2" placeholder="Placeholder" disabled>
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange">Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Default with value</td>
+							<td><input type="text" name="t3" value="Value" placeholder="Placeholder"></td>
+							<td><input type="number" name="n3" value="42" placeholder="Placeholder"></td>
+							<td>
+								<select required name="s3" placeholder="Placeholder">
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange" selected>Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Value + disabled</td>
+							<td><input type="text" name="t4" value="Value" placeholder="Placeholder" disabled></td>
+							<td><input type="number" name="n4" value="42" placeholder="Placeholder" disabled></td>
+							<td>
+								<select required name="s4" placeholder="Placeholder" disabled>
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange" selected>Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</section>
 
 		<section class="reno-dark">
@@ -137,6 +305,103 @@
 							<td>Selected + disabled</td>
 							<td><label><input type="checkbox" name="c4" value="c4" checked disabled>Field Label</label></td>
 							<td><label><input type="radio" name="r2" value="r4" checked disabled>Field Label</label></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+
+			<h2>Text, Number &amp; Select</h2>
+
+			<form>
+				<table>
+					<thead>
+						<tr>
+							<th>Initial state</th>
+							<th>Text input</th>
+							<th>Number input</th>
+							<th>Select</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Default with placeholder</td>
+							<td><input type="text" name="t1" value="" placeholder="Placeholder"></td>
+							<td><input type="number" name="n1" value="" placeholder="Placeholder"></td>
+							<td>
+								<select required name="s1" placeholder="Placeholder">
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange">Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Placeholder + disabled</td>
+							<td><input type="text" name="t2" value="" placeholder="Placeholder" disabled></td>
+							<td><input type="number" name="n2" value="" placeholder="Placeholder" disabled></td>
+							<td>
+								<select required name="s2" placeholder="Placeholder" disabled>
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange">Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Default with value</td>
+							<td><input type="text" name="t3" value="Value" placeholder="Placeholder"></td>
+							<td><input type="number" name="n3" value="42" placeholder="Placeholder"></td>
+							<td>
+								<select required name="s3" placeholder="Placeholder">
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange" selected>Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Value + disabled</td>
+							<td><input type="text" name="t4" value="Value" placeholder="Placeholder" disabled></td>
+							<td><input type="number" name="n4" value="42" placeholder="Placeholder" disabled></td>
+							<td>
+								<select required name="s4" placeholder="Placeholder" disabled>
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple">Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange" selected>Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
 						</tr>
 					</tbody>
 				</table>
