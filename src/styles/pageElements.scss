@@ -62,7 +62,6 @@ $reno-box-shadows: (
 .reno-rule-default {
 	box-sizing: border-box;
 	height: 3px;
-	width: 150px;
 	background-color: $reno-color-medium-light-gray;
 	border: 1px solid $reno-color-white;
 }
@@ -70,7 +69,6 @@ $reno-box-shadows: (
 .reno-rule-light {
 	box-sizing: border-box;
 	height: 3px;
-	width: 150px;
 	background-color: $reno-color-light-gray;
 	border: 1px solid $reno-color-white;
 }
