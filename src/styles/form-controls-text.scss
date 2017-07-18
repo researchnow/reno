@@ -4,7 +4,7 @@
 // generate classes: text
 
 .reno-form, .reno, .reno-dark {
-	input[type="text"] {
+	input[type="text"], textarea {
 		color: $reno-color-dark-gray;
 		padding: 7px 11px;
 		border: 1px solid $reno-color-light-gray;
@@ -12,17 +12,17 @@
 		background-color: $reno-color-white;
 	}
 
-	input[type="text"]::placeholder {
+	input[type="text"]::placeholder, textarea::placeholder {
 		color: $reno-color-medium-dark-gray;
 	}
 
-	input[type="text"]:active, input[type="text"]:focus {
+	input[type="text"]:active, input[type="text"]:focus, textarea:active, textarea:focus {
 		border-color: $reno-color-secondary;
 		box-shadow: 0 0 2px 0 $reno-color-secondary;
 		outline: none;
 	}
 
-	input[type="text"]:disabled {
+	input[type="text"]:disabled, textarea:disabled {
 		border-color: $reno-color-super-light-gray;
 		background-color: $reno-color-super-light-gray;
 		box-shadow: none;
@@ -33,7 +33,7 @@
 // helper classes
 
 .reno, .reno-dark {
-	input[type="text"] {
+	input[type="text"], textarea {
 		font-size: 14px;
 		font-weight: 300;
 	}
