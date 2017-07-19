@@ -1,34 +1,57 @@
 @import "./colors";
-
+@font-face {
+	font-family: "reno";
+	src: 	url('../fonts/reno-font.woff2') format('woff2'),
+				url('../fonts/reno-font.woff') format('woff')
+}
 
 // generate classes: text
 
-.reno-form, .reno, .reno-dark {
-	input[type="text"].seacrh {
-		color: $reno-color-dark-gray;
-		padding: 7px 11px;
-		border: 1px solid $reno-color-light-gray;
-		border-radius: 2px;
-		background-color: $reno-color-white;
+.reno-form .reno-search, .reno .reno-search, .reno-dark .reno-search {
+	position: relative;
+	display: inline-block;
+	border: 1px solid $reno-color-light-gray;
+	border-radius: 2px;
+	background-color: $reno-color-white;
+	box-sizing: border-box;
+	width: 171px;
+
+	&:after {
+		font-family: "reno" !important;
+		content: "\e91c";
+		color: $reno-color-medium-light-gray;
+		font-size: 16px;
+		vertical-align: middle;
 	}
 
-	input[type="text"].search::placeholder {
+	input[type="text"] {
+		background-color: transparent;
+		border: none;
+		color: $reno-color-dark-gray;
+		display: inline-block;
+		width: calc(100% - 43px);
+
+		//&:focus {
+		//	box-shadow: none;
+		//}
+	}
+
+	.reno-search input[type="text"]::placeholder {
 		color: $reno-color-medium-dark-gray;
 	}
 
-	input[type="text"].search:active, input[type="text"].search:focus {
+	.reno-search input[type="text"]:active, .reno-search input[type="text"]:focus {
 		border-color: $reno-color-secondary;
 		box-shadow: 0 0 2px 0 $reno-color-secondary;
 		outline: none;
 	}
 
-	input[type="text"].search:disabled {
+	.reno-search input[type="text"]:disabled {
 		border-color: $reno-color-super-light-gray;
 		background-color: $reno-color-super-light-gray;
 		box-shadow: none;
 	}
 }
-
 
 // helper classes
 
