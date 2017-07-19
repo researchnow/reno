@@ -46,14 +46,19 @@
 		}
 	}
 
+	&.reno-search-disabled {
+		border-color: $reno-color-super-light-gray;
+
+		input[type="text"]:disabled {
+			border: none;
+			background-color: $reno-color-super-light-gray;
+		}
+	}
+
 	input[type="text"]::placeholder {
 		color: $reno-color-medium-dark-gray;
 	}
 
-	input[type="text"]:disabled {
-		border: none;
-		background-color: $reno-color-super-light-gray;
-	}
 }
 
 // helper classes
