@@ -5,6 +5,7 @@
 
 .reno-form, .reno, .reno-dark {
 	input[type="text"], textarea {
+		font-family: gotham a, gotham b, sans-serif;
 		color: $reno-color-dark-gray;
 		padding: 7px 11px;
 		border: 1px solid $reno-color-light-gray;

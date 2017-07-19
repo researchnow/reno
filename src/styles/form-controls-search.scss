@@ -17,10 +17,10 @@
 	width: 171px;
 
 	&:after {
-		font-family: "reno" !important;
+		font-family: "reno";
 		content: "\e91c";
 		color: $reno-color-medium-light-gray;
-		font-size: 16px;
+		font-size: 13px;
 		position: absolute;
 		top: 4px;
 		right: 7px;
@@ -35,20 +35,24 @@
 		padding-right: 28px;
 	}
 
-	.reno-search input[type="text"]::placeholder {
+	&.reno-search-has-value {
+		&:after {
+			font-family: "reno" !important;
+			content: "\e929";
+			color: $reno-color-medium-light-gray;
+			font-size: 10px;
+			position: absolute;
+			right: 7px;
+		}
+	}
+
+	input[type="text"]::placeholder {
 		color: $reno-color-medium-dark-gray;
 	}
 
-	.reno-search input[type="text"]:active, .reno-search input[type="text"]:focus {
-		border-color: $reno-color-secondary;
-		box-shadow: 0 0 2px 0 $reno-color-secondary;
-		outline: none;
-	}
-
-	.reno-search input[type="text"]:disabled {
-		border-color: $reno-color-super-light-gray;
+	input[type="text"]:disabled {
+		border: none;
 		background-color: $reno-color-super-light-gray;
-		box-shadow: none;
 	}
 }
 
