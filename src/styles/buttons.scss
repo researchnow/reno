@@ -7,19 +7,24 @@
 
 $reno-button-sizes: (
 // font size, horizontal padding, vertical padding
-	large:  (14px, 40px, 20px),
-	medium: (12px, 28px, 16px),
-	small:  (11px, 20px, 12px)
+	large:  (14px, 40px, 20px, 52px),
+	medium: (12px, 28px, 16px, 40px),
+	small:  (11px, 20px, 12px, 32px)
 );
 
 $reno-button-outline-color: $reno-color-secondary;
 
-@mixin reno-button-size($font-size, $h-pad, $v-pad) {
+@mixin reno-button-size($font-size, $h-pad, $v-pad, $max-height) {
 	font-family: gotham a, gotham b, sans-serif;
 	font-weight: 500;
 	font-size: $font-size;
 	line-height: 1em;
-	padding: $v-pad $h-pad;
+	max-height: $max-height;
+	padding-left: $h-pad;
+	padding-right: $h-pad;
+	padding-bottom: $v-pad;
+	padding-top: calc(#{$max-height} - #{$v-pad} - #{$font-size});
+	box-sizing: border-box;
 }
 
 @mixin reno-button-style($text-color, $bg-color, $border-color,$box-shadow) {
@@ -139,6 +144,16 @@ $reno-button-outline-color: $reno-color-secondary;
 	.reno-button-cancel        { @extend .reno-button-secondary-reverse; }
 	.reno-button-cancel-medium { @extend .reno-button-secondary-reverse-medium; }
 	.reno-button-cancel-large  { @extend .reno-button-secondary-reverse-large; }
+}
+
+.reno-button-group {
+	button {
+		margin-right: $reno-spacing-small;
+	}
+
+	button:last-of-type {
+		margin-right: 0;
+	}
 }
 
 // Naming convention:

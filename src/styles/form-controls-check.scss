@@ -5,6 +5,11 @@
 // generate classes: checkboxes and radio buttons
 
 .reno-form, .reno, .reno-dark {
+
+	input[type="checkbox"], input[type="radio"] {
+		margin-right: 12px;
+	}
+
 	input[type="checkbox"] {
 		position: relative;
 		left: -$reno-outside-offset;
@@ -19,6 +24,7 @@
 	    height: 14px;
 	    width:  14px;
 	    border: 1px solid $reno-color-medium-dark-gray;
+			background-color: $reno-color-white;
 		}
 
 		&::after {
@@ -29,8 +35,8 @@
 			bottom: 6px;
 		  height: 4px;
 		  width: 8px;
-		  border-left: 2px solid $reno-color-black;
-		  border-bottom: 2px solid $reno-color-black;
+		  border-left: 1px solid $reno-color-black;
+		  border-bottom: 1px solid $reno-color-black;
 		  transform: rotate(-45deg);
 		}
 	}
@@ -50,6 +56,7 @@
 	    width:  14px;
 	    border: 1px solid $reno-color-medium-dark-gray;
 			border-radius: 50%;
+			background-color: $reno-color-white;
 		}
 
 		&::after {
@@ -93,6 +100,23 @@
 	input[type="radio"]:disabled {
 		&::after {
 			background-color: $reno-color-medium-light-gray;
+		}
+	}
+}
+
+.reno-form, .reno, .reno-dark {
+	label {
+		margin: 12px 0;		// TODO: spacing as a variable
+	}
+
+	.reno-checkbox-group-stacked, .reno-radio-group-stacked {
+		label {
+			display: block;
+		}
+	}
+	.reno-checkbox-group-inline, .reno-radio-group-inline {
+		label {
+			margin-right: 36px;	// TODO: spacing as a variable
 		}
 	}
 }
