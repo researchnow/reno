@@ -9,34 +9,67 @@
 <body>
 <h1>Reno: forms</h1>
 
+<p><code>.reno-check-groups-stacked</code> is used for stacked checkboxes/radio buttons.
+	If you need a single checkbox/radio button displayed as block, use this as well.</p>
+<p><code>.reno-check-groups-inline</code> is used for checkboxes/radio buttons aligned in one line.</p>
+
 <section class="reno">
 
 	<form>
-		<div class="reno-group-title">Checkbox Group Label</div>
-
-		<div class="reno-checkbox-group-stacked">
-			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
-			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
-			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
+		<div class="reno-caption-bold">Single checkbox/radio button group title</div>
+		<div class="reno-check-groups-stacked">
+			<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
 		</div>
 
-		<div class="reno-checkbox-group-inline">
-			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
-			<label><input type="checkbox" name="c1" value="c1">Field Labellllllllllllllllll</label>
-			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
+		<div class="reno-caption-bold">Multiple checkboxes/radio buttons group title</div>
+		<div class="reno-check-groups-stacked">
+			<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
+			<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
+			<label class="reno-check-group"><input type="radio" name="c1" value="c1">Field Label</label>
+			<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
+			<label class="reno-check-group"><input type="radio" name="c1" value="c1">Field Label</label>
+		</div>
+		<div class="reno-check-groups-stacked">
+			<div class="reno-check-groups-inline">
+				<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
+				<label class="reno-check-group"><input type="radio" name="c1" value="c1">Field Label</label>
+			</div>
+			<div class="reno-check-groups-inline">
+				<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Labellllllllllllllllll</label>
+				<label class="reno-check-group"><input type="checkbox" name="c1" value="c1">Field Label</label>
+			</div>
+		</div>
+		<div class="reno-text-groups">
+			<div class="reno-text-group">
+				<div class="reno-caption-bold">Field Label</div>
+				<label class="reno-search"><input type="text" name="s1" value="" placeholder="Placeholder"></label>
+			</div>
+			<div class="reno-text-group">
+				<div class="reno-caption-bold">Field Label</div>
+				<input type="text" name="t1" value="" placeholder="Placeholder">
+			</div>
+			<div class="reno-text-group">
+				<div class="reno-caption-bold">Field Label</div>
+				<input type="number" name="n1" value="" placeholder="Placeholder">
+			</div>
+			<div class="reno-text-group">
+				<div class="reno-caption-bold">Field Label</div>
+				<select required name="s1" placeholder="Placeholder">
+					<option value="" hidden>Placeholder</option>
+					<optgroup label="Fruit">
+						<option value="apple">Apple</option>
+						<option value="banana">Banana</option>
+						<option value="orange">Orange</option>
+					</optgroup>
+					<optgroup label="Numbers">
+						<option value="one">One</option>
+						<option value="two">Two</option>
+						<option value="three">Three</option>
+					</optgroup>
+				</select>
+			</div>
 		</div>
 
-		<div class="reno-radio-group-stacked">
-			<label><input type="radio" name="c1" value="c1">Field Label</label>
-			<label><input type="radio" name="c1" value="c1">Field Label</label>
-			<label><input type="radio" name="c1" value="c1">Field Label</label>
-		</div>
-
-		<div class="reno-radio-group-inline">
-			<label><input type="radio" name="c1" value="c1">Field Label</label>
-			<label><input type="radio" name="c1" value="c1">Field Labellllllllllllllllll</label>
-			<label><input type="radio" name="c1" value="c1">Field Label</label>
-		</div>
 	</form>
 </section>
 

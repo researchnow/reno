@@ -7,7 +7,7 @@
 .reno-form, .reno, .reno-dark {
 
 	input[type="checkbox"], input[type="radio"] {
-		margin-right: 12px;
+		margin-right: $reno-spacing-small;
 	}
 
 	input[type="checkbox"] {
@@ -19,7 +19,7 @@
 			content: "";
 	    display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 4px;
+			left: $reno-outside-offset;
 			bottom: 0;
 	    height: 14px;
 	    width:  14px;
@@ -31,7 +31,7 @@
 	    content: none;
 		  display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 7px;
+			left: $reno-outside-offset + 3px;
 			bottom: 6px;
 		  height: 4px;
 		  width: 8px;
@@ -50,7 +50,7 @@
 			content: "";
 	    display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 4px;
+			left: $reno-outside-offset;
 			bottom: 0;
 	    height: 14px;
 	    width:  14px;
@@ -63,7 +63,7 @@
 	    content: none;
 		  display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 7px;
+			left: $reno-outside-offset + 3px;
 			bottom: 3px;
 	    height: 10px;
 	    width:  10px;
@@ -100,23 +100,6 @@
 	input[type="radio"]:disabled {
 		&::after {
 			background-color: $reno-color-medium-light-gray;
-		}
-	}
-}
-
-.reno-form, .reno, .reno-dark {
-	label {
-		margin: 12px 0;		// TODO: spacing as a variable
-	}
-
-	.reno-checkbox-group-stacked, .reno-radio-group-stacked {
-		label {
-			display: block;
-		}
-	}
-	.reno-checkbox-group-inline, .reno-radio-group-inline {
-		label {
-			margin-right: 36px;	// TODO: spacing as a variable
 		}
 	}
 }

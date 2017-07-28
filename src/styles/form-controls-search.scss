@@ -14,6 +14,8 @@
 	border-radius: 2px;
 	background-color: $reno-color-white;
 	box-sizing: border-box;
+	width: 171px;
+	max-height: 32px;
 
 	&:after {
 		font-family: "reno";
@@ -48,15 +50,12 @@
 	&.reno-search-disabled {
 		border-color: $reno-color-super-light-gray;
 
-		input[type="text"]:disabled {
-			border: none;
-			background-color: $reno-color-super-light-gray;
-		}
 	}
 
 	input[type="text"]::placeholder {
 		color: $reno-color-medium-dark-gray;
 	}
+
 
 }
 

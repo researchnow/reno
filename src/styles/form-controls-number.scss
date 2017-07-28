@@ -12,6 +12,8 @@
 		border-radius: 2px;
 		background-color: $reno-color-white;
 		text-align: right;
+		height: 32px;
+		box-sizing: border-box;
 	}
 
 	input[type="number"]::placeholder {

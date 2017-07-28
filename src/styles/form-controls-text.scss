@@ -11,6 +11,8 @@
 		border: 1px solid $reno-color-light-gray;
 		border-radius: 2px;
 		background-color: $reno-color-white;
+		height: 32px;
+		box-sizing: border-box;
 	}
 
 	input[type="text"]::placeholder, textarea::placeholder {

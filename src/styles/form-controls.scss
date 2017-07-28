@@ -6,3 +6,43 @@
 @import "./form-controls-select";
 @import "./form-controls-number";
 @import "./form-controls-search";
+
+
+// positioning relationship between elements
+
+// labels (checkboxes, radio buttons)
+.reno-form, .reno, .reno-dark {
+	input[type="checkbox"], input[type="radio"] {
+		margin-left: 0;
+	}
+
+	.reno-check-group {
+		margin: 12px 0;
+	}
+
+	.reno-check-group:first-of-type {
+		margin-top: $reno-spacing-small;
+	}
+
+	.reno-check-groups-stacked > * {
+		display: block;
+	}
+	.reno-check-groups-inline {
+		margin: 12px 0;
+
+		.reno-check-group {
+			margin-right: 43px;
+		}
+	}
+}
+
+// number, search, select, text
+.reno-form, .reno, .reno-dark {
+	.reno-text-group .reno-caption-bold {
+		margin-bottom: 2px;
+	}
+
+	.reno-text-group {
+		margin: 25px 0;
+	}
+}
