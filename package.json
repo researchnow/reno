@@ -11,17 +11,26 @@
     "start": "webpack-dev-server --progress --colors --hot --inline",
     "start:dev": "webpack-dev-server --config ./webpack.dev.config.js  --progress --colors",
     "build:dev": "webpack --config ./webpack.dev.config.js --progress --colors",
-    "build": "webpack -p --config ./webpack.prod.config.js --progress --colors"
+    "build": "webpack -p --config ./webpack.prod.config.js --progress --colors",
+    "dist-components": "BABEL_ENV=components babel src/components/ -d dist/components/",
+    "dist-react": "BABEL_ENV=react babel src/react/ -d dist/react/",
+    "clean": "rm -fr dist/",
+    "dist": "npm run clean && npm run dist-components && npm run dist-react",
+    "prepublish": "npm run dist"
   },
   "dependencies": {
-    "BaseComponent": "github:clubajax/BaseComponent",
-    "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill"
+    "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill",
+    "heya-io": "^1.1.5"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "css-hot-loader": "^1.3.0",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^3.0.0",

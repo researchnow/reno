@@ -21,7 +21,7 @@ module.exports = {
     ],
     output: {
         filename: 'main.js',
-        path: resolve(__dirname, 'dist'),
+        path: resolve(__dirname, 'build'),
         publicPath: '/'
         // necessary for HMR to know where to load the hot update chunks
     },

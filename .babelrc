@@ -1,4 +1,16 @@
 {
-  "presets": [["es2015", {"modules": false}], "react"],
-  "plugins": ["react-hot-loader/babel"]
+	"env": {
+		"development": {
+			"presets": [["latest", {"es2015": {"modules": false}}], "react", "stage-2"],
+		  "plugins": ["transform-export-extensions", "react-hot-loader/babel"]
+		},
+		"components": {
+			"presets": ["es2015"],
+			"plugins": []
+		},
+		"react": {
+			"presets": ["latest", "react", "stage-2"],
+			"plugins": ["transform-export-extensions"]
+		}
+	}
 }

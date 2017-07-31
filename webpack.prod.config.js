@@ -12,7 +12,7 @@ module.exports = {
     ],
     output: {
         filename: 'main.js',
-        path: resolve(__dirname, 'dist')
+        path: resolve(__dirname, 'build')
     },
     devtool: false,
     module: {
