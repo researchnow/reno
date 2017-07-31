@@ -16,21 +16,23 @@
 		margin-left: 0;
 	}
 
-	.reno-check-group {
-		margin: 12px 0;
+
+	.reno-check-groups-stacked {
+		>:first-child {
+			margin-top: $reno-spacing-small;
+		}
+		> label {
+			margin: 12px 0;
+		}
+		> * {
+			display: block;
+		}
 	}
 
-	.reno-check-group:first-of-type {
-		margin-top: $reno-spacing-small;
-	}
-
-	.reno-check-groups-stacked > * {
-		display: block;
-	}
 	.reno-check-groups-inline {
 		margin: 12px 0;
 
-		.reno-check-group {
+		> label {
 			margin-right: 43px;
 		}
 	}
