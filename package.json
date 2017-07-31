@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill",
-    "heya-io": "^1.1.5"
+    "heya-io": "^1.1.5",
+    "hyperhtml": "^0.17.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
