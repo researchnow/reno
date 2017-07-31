@@ -28,7 +28,8 @@ class RenoTableView extends HTMLElement {
 			this.fieldList = (newVal || 'name').split(',').map(field => field.trim());
 			this.fieldMap = {};
 			this.fieldList.forEach(field => {
-				this.fieldMap[field] = field.charAt(0).toUpperCase() + field.substr(1).replace(/_|\-/g, ' ');
+				const start = field.charAt(0) === '-' ? 1 : 0;
+				this.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
 			});
 		}
 		this.io();
@@ -69,11 +70,11 @@ class RenoTableView extends HTMLElement {
 	io () {
 		// prepare parameters
 		const url = this.getAttribute('url');
-		if (!url) return;
+		if (!url || !this.fieldList) return;
 
 		const offset = Math.max(0, parseInt(this.getAttribute('offset') ||  '0',  10));
 		const limit  = Math.max(1, parseInt(this.getAttribute('limit')  || '10',  10));
-		const fields = this.getAttribute('fields') || '';
+		const fields = this.fieldList.filter(field => field.charAt(0) !== '-').join(',');
 		const filter = this.getAttribute('filter');
 		const sort   = this.getAttribute('sort');
 
@@ -81,7 +82,7 @@ class RenoTableView extends HTMLElement {
 		const request = {limit, offset, fields};
 		if (filter) { request.filter = filter; }
 		if (sort) { request.sort = sort; }
-		heya.io.get(url, request).then(page => {
+		heya.io.get(url, this.sanitizeRequest(request)).then(page => {
 			this.page  = page instanceof Array ? {data: page} : page;
 			this.total = this.page.total;
 			this.realOffset = this.page.offset;
@@ -115,6 +116,7 @@ class RenoTableView extends HTMLElement {
 		}
 	}
 	// user-supplied callbacks
-	formatFieldValue (o, field) { return o[field]; }
+	formatFieldValue (o, field) { return field.charAt(0) === '-' ? '<em>TBD</em>' : o[field]; }
+	sanitizeRequest (request) { return request; }
 }
 customElements.define('reno-table-view', RenoTableView);

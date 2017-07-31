@@ -64,7 +64,8 @@ var RenoTableView = function (_HTMLElement) {
 				});
 				this.fieldMap = {};
 				this.fieldList.forEach(function (field) {
-					_this2.fieldMap[field] = field.charAt(0).toUpperCase() + field.substr(1).replace(/_|\-/g, ' ');
+					var start = field.charAt(0) === '-' ? 1 : 0;
+					_this2.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
 				});
 			}
 			this.io();
@@ -118,11 +119,13 @@ var RenoTableView = function (_HTMLElement) {
 
 			// prepare parameters
 			var url = this.getAttribute('url');
-			if (!url) return;
+			if (!url || !this.fieldList) return;
 
 			var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
 			var limit = Math.max(1, parseInt(this.getAttribute('limit') || '10', 10));
-			var fields = this.getAttribute('fields') || '';
+			var fields = this.fieldList.filter(function (field) {
+				return field.charAt(0) !== '-';
+			}).join(',');
 			var filter = this.getAttribute('filter');
 			var sort = this.getAttribute('sort');
 
@@ -134,7 +137,7 @@ var RenoTableView = function (_HTMLElement) {
 			if (sort) {
 				request.sort = sort;
 			}
-			heya.io.get(url, request).then(function (page) {
+			heya.io.get(url, this.sanitizeRequest(request)).then(function (page) {
 				_this4.page = page instanceof Array ? { data: page } : page;
 				_this4.total = _this4.page.total;
 				_this4.realOffset = _this4.page.offset;
@@ -179,7 +182,12 @@ var RenoTableView = function (_HTMLElement) {
 	}, {
 		key: 'formatFieldValue',
 		value: function formatFieldValue(o, field) {
-			return o[field];
+			return field.charAt(0) === '-' ? '<em>TBD</em>' : o[field];
+		}
+	}, {
+		key: 'sanitizeRequest',
+		value: function sanitizeRequest(request) {
+			return request;
 		}
 	}], [{
 		key: 'observedAttributes',
