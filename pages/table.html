@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8" />
+	    <title>Reno: table</title>
+			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	    <link rel="stylesheet" href="../styles.css">
+			<!-- dependencies -->
+			<!-- <script src="../node_modules/on/dist/on.js"></script> -->
+			<!-- <script src="../node_modules/custom-elements-polyfill/index.js"></script> -->
+			<!-- <script src="../node_modules/BaseComponent/dist/BaseComponent.js"></script> -->
+			<!-- <script src="../node_modules/@webcomponents/custom-elements/custom-elements.min.js"></script> -->
+			<script src="../node_modules/custom-elements-polyfill/index.js"></script>
+			<script src="../node_modules/heya-io/dist/io.js"></script>
+			<script src="../node_modules/heya-io/dist/FauxXHR.js"></script>
+			<script src="../node_modules/heya-io/dist/scaffold.js"></script>
+			<script src="../node_modules/heya-io/dist/mock.js"></script>
+			<script src="../node_modules/hyperhtml/hyperhtml.js"></script>
+			<!-- component files -->
+			<!-- <script src="../dist/components/reno-table-view.js"></script>
+			<script src="../dist/components/reno-table-pager.js"></script> -->
+			<!-- application-specific styles and scripts -->
+			<style>
+				reno-table-view .tbody .td.field-diameter { text-align: right; }
+				@media (max-width: 480px) {
+					reno-table-view[labels] .tbody .td.field-diameter { text-align: inherit; }
+				}
+				reno-table-pager {
+					margin-top: 1em;
+				}
+			</style>
+			<script src="scripts/table.js"></script>
+	</head>
+	<body>
+		<h1>Reno: table</h1>
+
+		<reno-table-view url="/planets" fields="name,diameter,climate" offset="0" limit="10" labels></reno-table-view>
+		<reno-table-pager current="ignore"></reno-table-pager>
+
+		<script src="../main.js"></script>
+	</body>
+</html>
