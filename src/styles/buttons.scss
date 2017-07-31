@@ -6,25 +6,20 @@
 // constants
 
 $reno-button-sizes: (
-// font size, horizontal padding, vertical padding
-	large:  (14px, 40px, 20px, 52px),
-	medium: (12px, 28px, 16px, 40px),
-	small:  (11px, 20px, 12px, 32px)
+	// font size, horizontal padding, vertical padding
+	large:  (14px, 40px, 20px),
+	medium: (12px, 28px, 16px),
+	small:  (11px, 20px, 12px)
 );
 
 $reno-button-outline-color: $reno-color-secondary;
 
-@mixin reno-button-size($font-size, $h-pad, $v-pad, $max-height) {
+@mixin reno-button-size($font-size, $h-pad, $v-pad) {
 	font-family: gotham a, gotham b, sans-serif;
 	font-weight: 500;
 	font-size: $font-size;
 	line-height: 1em;
-	max-height: $max-height;
-	padding-left: $h-pad;
-	padding-right: $h-pad;
-	padding-bottom: $v-pad;
-	padding-top: calc(#{$max-height} - #{$v-pad} - #{$font-size});
-	box-sizing: border-box;
+	padding: $v-pad $h-pad;
 }
 
 @mixin reno-button-style($text-color, $bg-color, $border-color,$box-shadow) {
