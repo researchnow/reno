@@ -1,0 +1,149 @@
+@import "./colors";
+
+/* reno-table-view */
+
+reno-table-view {
+
+	/* layout */
+
+	display: table;
+	cursor: pointer;
+
+	.thead { display: table-header-group; user-select: none; }
+	.tfoot { display: table-footer-group; }
+	.tbody { display: table-row-group; }
+	.tr { display: table-row; }
+	.td {
+		display: table-cell;
+		.label { display: none; }
+		.value { display: inline; }
+	}
+
+	.thead {
+		.ascending::after  { content: " \2193" }
+		.descending::after { content: " \2191" }
+	}
+
+	/* visuals */
+
+	.td {
+		padding: 0.5em 1em;
+		border: 1px solid $reno-color-light-gray;
+	}
+	.thead {
+		color: $reno-color-white;
+		background-color: $reno-color-primary;
+		font-weight: bold;
+	}
+}
+
+@media (max-width: 480px) {
+	reno-table-view[labels] {
+
+		/* layout */
+
+		display: block;
+
+		.thead, .thead .tr { display: block; }
+		.thead .td { display: inline-block; }
+		.thead { display: block; }
+		.tfoot { display: none; }
+		.tbody .tr { display: table; }
+		.tbody .tr .td {
+			display: table-row;
+			.label, .value { display: table-cell; }
+		}
+
+		/* visuals */
+
+		.td {
+			padding: auto;
+			border: none;
+		}
+		.thead {
+			color: inherit;
+			background-color: inherit;
+			.td {
+				margin-bottom: 0.5em;
+				padding: 0.5em 1em;
+				margin-right: 0.5em;
+			}
+			.td:last-child {
+				margin-right: 0;
+			}
+		}
+		.thead .td, .tbody .tr .td .label {
+			color: $reno-color-white;
+			background-color: $reno-color-primary;
+		}
+		.tbody .tr {
+			margin-bottom: 0.25em;
+			&:last-child { margin-bottom: 0; }
+			.td {
+				.label { padding: 0.5em 0.5em 0.5em 1em; }
+				.value { padding: 0.5em 1em 0.5em 0.5em; }
+			}
+		}
+	}
+}
+
+/* demo of custom styles */
+// reno-table-view .tbody .td.field-diameter { text-align: right; }
+// @media (max-width: 480px) {
+// 	reno-table-view[labels] .tbody .td.field-diameter { text-align: inherit; }
+// }
+
+
+/* reno-table-pager */
+
+reno-table-pager {
+	display: flex;
+	flex-direction: row;
+
+	> div {
+		flex: 0 0 auto;
+		color: $reno-color-white;
+		background-color: $reno-color-primary;
+		border: 1px solid $reno-color-primary;
+		padding: 0.25em 0.5em;
+		cursor: pointer;
+		user-select: none;
+
+		&.ignore {
+			color: $reno-color-medium-dark-gray;
+			background-color: $reno-color-super-light-gray;
+			border: 1px solid $reno-color-super-light-gray;
+		}
+		&.current {
+			border: 1px solid black;
+		}
+	}
+	.go-first {
+		margin-right: 0.5em;
+	}
+	.go-prev {
+		margin-right: 0.25em;
+	}
+	.go-last {
+		margin-left: 0.5em;
+	}
+	.go-next {
+		margin-left: 0.25em;
+	}
+	.go-page {
+		margin-right: 0.125em;
+		margin-left:  0.125em;
+	}
+	.go-first::after {
+		content: "<<";
+	}
+	.go-prev::after {
+		content: "<";
+	}
+	.go-last::after {
+		content: ">>";
+	}
+	.go-next::after {
+		content: ">";
+	}
+}
