@@ -8,8 +8,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot --inline",
-    "start:dev": "webpack-dev-server --config ./webpack.dev.config.js  --progress --colors",
+    "start": "webpack-dev-server --config ./webpack.dev.config.js  --progress --colors",
     "build:dev": "webpack --config ./webpack.dev.config.js --progress --colors",
     "build": "webpack -p --config ./webpack.prod.config.js --progress --colors",
     "dist-components": "BABEL_ENV=components babel src/components/ -d dist/components/",
