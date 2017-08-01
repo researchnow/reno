@@ -13,7 +13,6 @@ reno-search {
 	border: 1px solid $reno-color-light-gray;
 	border-radius: 2px;
 	background-color: $reno-color-white;
-	// box-sizing: border-box;
 	width: 171px;
 	font-size: 14px;
 	font-weight: 300;
@@ -29,7 +28,7 @@ reno-search {
 	}
 
 	span {
-		width: 39px;
+		width: 20px;
 	}
 
 	span:after {
@@ -54,8 +53,7 @@ reno-search {
 		border: none;
 		outline: none;
 		color: $reno-color-dark-gray;
-		width: calc(100% - 39px);
-		padding-right: 28px;
+		width: calc(100% - 20px);
 	}
 
 	input[type="text"]::placeholder {
@@ -68,7 +66,6 @@ reno-search {
 		background-color: transparent;
 		border: none;
 		color: $reno-color-dark-gray;
-		padding-right: 28px;
 
 		&:focus, &:active {
 			border: none;
