@@ -5,6 +5,7 @@
 	<title>Reno: form controls</title>
 	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
 	<link rel="stylesheet" href="../styles.css">
+	<script src="../node_modules/custom-elements-polyfill/index.js"></script>
 </head>
 <body>
 <h1>Reno: forms</h1>
@@ -45,7 +46,7 @@
 		<div class="reno-text-groups">
 			<div class="reno-text-group">
 				<div class="reno-caption-bold">Field Label</div>
-				<div class="reno-search"><input type="text" name="s1" value="" placeholder="Placeholder"></div>
+				<div><reno-search name="s1" value="" placeholder="Placeholder"></reno-search></div>
 			</div>
 			<div class="reno-text-group">
 				<div class="reno-caption-bold">Field Label</div>
@@ -73,8 +74,8 @@
 			</div>
 		</div>
 
-		<div class="reno-caption-bold">Single checkbox/radio button</div>
 		<div class="reno-check-groups-stacked">
+			<div class="reno-caption-bold">Single checkbox/radio button</div>
 			<label><input type="checkbox" name="c1" value="c1">Field Label</label>
 		</div>
 	</form>
