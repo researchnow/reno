@@ -57,39 +57,7 @@
 	}
 
 	// simple event processors
-	document.documentElement.addEventListener('data-updated', e => {
-		const pager = document.querySelector('reno-table-pager');
-		if (pager) {
-			pager.setAttribute('total',  e.detail.total);
-			pager.setAttribute('offset', e.detail.offset);
-			pager.setAttribute('limit',  e.detail.limit);
-		}
-		const counter = document.querySelector('reno-table-counter');
-		if (counter) {
-			counter.setAttribute('total',  e.detail.total);
-			counter.setAttribute('offset', e.detail.offset);
-			counter.setAttribute('limit',  e.detail.shown);
-		}
-	});
-	document.documentElement.addEventListener('sort-requested', e => {
-		const table = document.querySelector('reno-table-view');
-		switch (e.detail.currentState) {
-			case -1:
-				table.setAttribute('sort', '-' + e.detail.field);
-				break;
-			case 0:
-				table.setAttribute('sort', e.detail.field);
-				break;
-			default:
-				table.removeAttribute('sort');
-				break;
-		}
-	});
 	document.documentElement.addEventListener('item-selected', e => {
 		alert('Selected: ' + e.detail.item.name);
-	});
-	document.documentElement.addEventListener('page-selected', e => {
-		const table = document.querySelector('reno-table-view');
-		table.setAttribute('offset', e.detail.offset);
 	});
 })();

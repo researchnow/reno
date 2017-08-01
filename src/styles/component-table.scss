@@ -149,3 +149,19 @@ reno-table-counter {
 	display: inline;
 	font-weight: bold;
 }
+
+/* reno-table */
+
+reno-table {
+	display: block;
+
+	> * {
+		width: 100%;
+	}
+
+	> div {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}

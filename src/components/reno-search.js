@@ -65,12 +65,6 @@
 		set disabled (x) {
 			this[x ? 'setAttribute' : 'removeAttribute']('disabled', '');
 		}
-		get placeholder () {
-			return (this.firstChild || null) && this.firstChild.getAttribute('placeholder');
-		}
-		set placeholder (x) {
-			this[x === null ? 'removeAttribute' : 'setAttribute']('placeholder', x);
-		}
 		// event handlers
 		onClick (e) {
 			if (this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {

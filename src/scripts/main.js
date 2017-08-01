@@ -5,3 +5,4 @@ import '../components/reno-search';
 import '../components/reno-table-view';
 import '../components/reno-table-pager';
 import '../components/reno-table-counter';
+import '../components/reno-table';
