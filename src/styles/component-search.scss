@@ -1,0 +1,79 @@
+@import "./colors";
+@font-face {
+	font-family: "reno";
+	src: 	url('../fonts/reno-font.woff2') format('woff2'),
+				url('../fonts/reno-font.woff') format('woff')
+}
+
+// generate classes: search
+
+reno-search {
+	display: inline-block;
+	position: relative;
+	border: 1px solid $reno-color-light-gray;
+	border-radius: 2px;
+	background-color: $reno-color-white;
+	// box-sizing: border-box;
+	width: 171px;
+	font-size: 14px;
+	font-weight: 300;
+
+	&[disabled] {
+		border-color: $reno-color-super-light-gray;
+		background-color: $reno-color-super-light-gray;
+	}
+
+	&.focused {
+		border-color: $reno-color-secondary;
+		box-shadow: 0 0 2px 0 $reno-color-secondary;
+	}
+
+	span {
+		width: 39px;
+	}
+
+	span:after {
+		content: "\e91c";
+		font-family: "reno" !important;
+		color: $reno-color-medium-light-gray;
+		font-size: 13px;
+		position: absolute;
+		top: 6px;
+		right: 7px;
+	}
+
+	span.has-value:after {
+		content: "\e929";
+		color: $reno-color-medium-light-gray;
+		font-size: 10px;
+	}
+
+	input[type="text"] {
+		display: inline-block;
+		background-color: transparent;
+		border: none;
+		outline: none;
+		color: $reno-color-dark-gray;
+		width: calc(100% - 39px);
+		padding-right: 28px;
+	}
+
+	input[type="text"]::placeholder {
+		color: $reno-color-medium-dark-gray;
+	}
+}
+
+.reno, .reno-dark {
+	reno-search input[type="text"] {
+		background-color: transparent;
+		border: none;
+		color: $reno-color-dark-gray;
+		padding-right: 28px;
+
+		&:focus, &:active {
+			border: none;
+			box-shadow: none;
+			order: none;
+		}
+	}
+}
