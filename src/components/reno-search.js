@@ -8,17 +8,17 @@ class RenoSearch extends HTMLElement {
 	}
 	// life-cycle callbacks
 	connectedCallback () {
+		const name = this.getAttribute('name'), value = this.getAttribute('value'),
+			disabled = this.getAttribute('disabled'), placeholder = this.getAttribute('placeholder');
 		const input = this.ownerDocument.createElement('input');
 		input.type = 'text';
-		const value = this.getAttribute('value'), disabled = this.getAttribute('disabled'), placeholder = this.getAttribute('placeholder');
+		if (name !== null) input.setAttribute('name', name);
 		if (value !== null) input.value = value;
 		input.disabled = disabled !== null;
 		if (placeholder !== null) input.setAttribute('placeholder', placeholder);
 		const span = this.ownerDocument.createElement('span');
 		span.innerHTML = '&nbsp;';
-		if (value) {
-			this.classList.add('has-value');
-		}
+		value && span.classList.add('has-value');
 		this.appendChild(input);
 		this.appendChild(span);
 		this.lastChild.addEventListener('click', this.onClick);
@@ -35,7 +35,7 @@ class RenoSearch extends HTMLElement {
 		this.firstChild.removeEventListener('blur', this.onBlur);
 		while (this.firstChild) this.removeChild(this.firstChild);
 	}
-	static get observedAttributes () { return ['value', 'disabled', 'placeholder']; }
+	static get observedAttributes () { return ['name', 'value', 'disabled', 'placeholder']; }
 	attributeChangedCallback (attrName, oldVal, newVal) {
 		if (!this.firstChild) return;
 		if (attrName === 'value') {
@@ -47,6 +47,8 @@ class RenoSearch extends HTMLElement {
 			this.firstChild.disabled = newVal !== null;
 		} else if (attrName === 'placeholder') {
 			this.firstChild[newVal === null ? 'removeAttribute' : 'setAttribute']('placeholder', newVal);
+		} else if (attrName === 'name') {
+			this.firstChild[newVal === null ? 'removeAttribute' : 'setAttribute']('name', newVal);
 		}
 	}
 	// custom methods
