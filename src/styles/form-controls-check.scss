@@ -6,6 +6,10 @@
 
 .reno-form, .reno, .reno-dark {
 
+	label {
+		line-height: 20px;
+	}
+
 	input[type="checkbox"], input[type="radio"] {
 		margin-right: $reno-spacing-small;
 	}

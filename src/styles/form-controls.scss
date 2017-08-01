@@ -17,11 +17,11 @@
 	}
 
 	.reno-check-groups-stacked {
-		>:first-child {
-			margin-top: $reno-spacing-small;
+		>.reno-caption-bold {
+			margin-bottom: 12px;
 		}
 		> label {
-			margin: 12px 0;
+			margin-bottom: $reno-spacing-default;
 		}
 		> * {
 			display: block;
@@ -29,7 +29,8 @@
 	}
 
 	.reno-check-groups-inline {
-		margin: 12px 0;
+		margin-bottom: $reno-spacing-default;
+		line-height: 20px;
 
 		> label {
 			margin-right: 43px;
@@ -44,6 +45,7 @@
 	}
 
 	.reno-text-group {
-		margin: 25px 0;
+		height: 54px;
+		margin-bottom: 26px;
 	}
 }
