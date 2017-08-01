@@ -1,8 +1,12 @@
 class RenoTablePager extends HTMLElement {
-	constructor (self) {
-		self = super(self);
-		self.onClick = self.onClick.bind(self);
-		return self;
+	// constructor (self) {
+	// 	self = super(self);
+	// 	self.onClick = self.onClick.bind(self);
+	// 	return self;
+	// }
+	constructor () {
+		super();
+		this.onClick = this.onClick.bind(this);
 	}
 	// life-cycle methods
 	connectedCallback () {

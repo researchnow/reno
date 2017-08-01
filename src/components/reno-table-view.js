@@ -1,15 +1,15 @@
 class RenoTableView extends HTMLElement {
-	constructor (self) {
-		self = super(self);
-		self.page = {data: []};
-		self.onClick = self.onClick.bind(self);
-		return self;
-	}
-	// constructor () {
-	// 	super();
-	// 	this.page = {data: []};
-	// 	this.onClick = this.onClick.bind(this);
+	// constructor (self) {
+	// 	self = super(self);
+	// 	self.page = {data: []};
+	// 	self.onClick = self.onClick.bind(self);
+	// 	return self;
 	// }
+	constructor () {
+		super();
+		this.page = {data: []};
+		this.onClick = this.onClick.bind(this);
+	}
 	// life-cycle callbacks
 	connectedCallback () {
 		this.addEventListener('click', this.onClick);
