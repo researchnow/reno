@@ -34,8 +34,11 @@
 			this.removeEventListener('reno-table-sort-requested', this.onSortRequested);
 			this.removeEventListener('reno-table-page-selected',  this.onPageSelected);
 		}
-		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels']; }
+		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels', 'around']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
+			if (attrName === 'around') {
+				return propagateTo(this.pager, attrName, newVal);
+			}
 			propagateTo(this.view, attrName, newVal);
 			if (attrName !== 'labels' && attrName !== 'fields') {
 				this.view && this.view.setAttribute('offset', '0');
