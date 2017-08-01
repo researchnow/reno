@@ -59,9 +59,17 @@
 	// simple event processors
 	document.documentElement.addEventListener('data-updated', e => {
 		const pager = document.querySelector('reno-table-pager');
-		pager.setAttribute('total',  e.detail.total);
-		pager.setAttribute('offset', e.detail.offset);
-		pager.setAttribute('limit',  e.detail.limit);
+		if (pager) {
+			pager.setAttribute('total',  e.detail.total);
+			pager.setAttribute('offset', e.detail.offset);
+			pager.setAttribute('limit',  e.detail.limit);
+		}
+		const counter = document.querySelector('reno-table-counter');
+		if (counter) {
+			counter.setAttribute('total',  e.detail.total);
+			counter.setAttribute('offset', e.detail.offset);
+			counter.setAttribute('limit',  e.detail.shown);
+		}
 	});
 	document.documentElement.addEventListener('sort-requested', e => {
 		const table = document.querySelector('reno-table-view');
