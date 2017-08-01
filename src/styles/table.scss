@@ -20,8 +20,8 @@ reno-table-view {
 	}
 
 	.thead {
-		.ascending::after  { content: " \2193"; }
-		.descending::after { content: " \2191"; }
+		.ascending::after  { content: "\00a0\2193"; }
+		.descending::after { content: "\00a0\2191"; }
 	}
 
 	/* visuals */
@@ -46,7 +46,6 @@ reno-table-view {
 
 		.thead, .thead .tr { display: block; }
 		.thead .td { display: inline-block; }
-		.thead { display: block; }
 		.tfoot { display: none; }
 		.tbody .tr { display: table; }
 		.tbody .tr .td {
@@ -86,13 +85,6 @@ reno-table-view {
 		}
 	}
 }
-
-/* demo of custom styles */
-// reno-table-view .tbody .td.field-diameter { text-align: right; }
-// @media (max-width: 480px) {
-// 	reno-table-view[labels] .tbody .td.field-diameter { text-align: inherit; }
-// }
-
 
 /* reno-table-pager */
 
