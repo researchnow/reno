@@ -25,9 +25,9 @@
 			div1.appendChild(div2);
 			div2.appendChild(this.counter);
 			// attach events
-			this.addEventListener('data-updated', this.onDataUpdated);
+			this.addEventListener('data-updated',   this.onDataUpdated);
 			this.addEventListener('sort-requested', this.onSortRequested);
-			this.addEventListener('page-selected', this.onPageSelected);
+			this.addEventListener('page-selected',  this.onPageSelected);
 		}
 		disconnectedCallback () {
 			this.removeEventListener('data-updated',   this.onDataUpdated);
@@ -37,6 +37,9 @@
 		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
 			propagateTo(this.view, attrName, newVal);
+			if (attrName !== 'labels' && attrName !== 'fields') {
+				this.view && this.view.setAttribute('offset', '0');
+			}
 		}
 		// event handlers
 		onDataUpdated (e) {
@@ -53,6 +56,7 @@
 		}
 		onSortRequested (e) {
 			if (this.view) {
+				this.view.setAttribute('offset', '0');
 				switch (e.detail.currentState) {
 					case -1:
 						this.view.setAttribute('sort', '-' + e.detail.field);
