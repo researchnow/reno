@@ -19,7 +19,7 @@
 
 	&:after {
 		font-family: "reno";
-		content: "\e91c";
+		content: "\e003";
 		color: $reno-color-medium-light-gray;
 		font-size: 13px;
 		position: absolute;
@@ -39,7 +39,7 @@
 	&.reno-search-has-value {
 		&:after {
 			font-family: "reno" !important;
-			content: "\e929";
+			content: "\e004";
 			color: $reno-color-medium-light-gray;
 			font-size: 10px;
 			position: absolute;
