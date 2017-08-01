@@ -57,7 +57,7 @@
 	}
 
 	// simple event processors
-	document.documentElement.addEventListener('item-selected', e => {
+	document.documentElement.addEventListener('reno-table-item-selected', e => {
 		alert('Selected: ' + e.detail.item.name);
 	});
 })();

@@ -102,7 +102,7 @@
 				this.realOffset = this.page.offset;
 				this.realLimit  = this.page.data.length;
 				this.show();
-				this.dispatchEvent(new CustomEvent('data-updated', {bubbles: true, detail: {limit, total: this.total, offset: this.realOffset, shown: this.realLimit}}));
+				this.dispatchEvent(new CustomEvent('reno-table-data-updated', {bubbles: true, detail: {limit, total: this.total, offset: this.realOffset, shown: this.realLimit}}));
 			});
 		}
 		// event handlers
@@ -113,7 +113,7 @@
 				const field = node.getAttribute('field');
 				if (field) { // process sorting events
 					const currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
-					this.dispatchEvent(new CustomEvent('sort-requested', {bubbles: true, detail: {field, currentState}}));
+					this.dispatchEvent(new CustomEvent('reno-table-sort-requested', {bubbles: true, detail: {field, currentState}}));
 					return;
 				}
 				if (node.classList.contains('tr')) {
@@ -121,7 +121,7 @@
 					if (parent.classList.contains('tbody')) { // process selection events
 						for (let i = 0; i < parent.childNodes.length; ++i) {
 							if (parent.childNodes[i] === node) {
-								this.dispatchEvent(new CustomEvent('item-selected', {bubbles: true, detail: {item: this.page.data[i]}}));
+								this.dispatchEvent(new CustomEvent('reno-table-item-selected', {bubbles: true, detail: {item: this.page.data[i]}}));
 								return;
 							}
 						}

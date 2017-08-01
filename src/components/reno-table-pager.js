@@ -104,7 +104,7 @@
 				if (reason) {
 					const offset = node.getAttribute('offset');
 					if (offset && !node.classList.contains('ignore') && (this.getAttribute('current') !== 'ignore' || offset !== this.getAttribute('offset'))) {
-						this.dispatchEvent(new CustomEvent('page-selected', {bubbles: true, detail: {reason, offset}}));
+						this.dispatchEvent(new CustomEvent('reno-table-page-selected', {bubbles: true, detail: {reason, offset}}));
 						return;
 					}
 				}

@@ -25,14 +25,14 @@
 			div1.appendChild(div2);
 			div2.appendChild(this.counter);
 			// attach events
-			this.addEventListener('data-updated',   this.onDataUpdated);
-			this.addEventListener('sort-requested', this.onSortRequested);
-			this.addEventListener('page-selected',  this.onPageSelected);
+			this.addEventListener('reno-table-data-updated',   this.onDataUpdated);
+			this.addEventListener('reno-table-sort-requested', this.onSortRequested);
+			this.addEventListener('reno-table-page-selected',  this.onPageSelected);
 		}
 		disconnectedCallback () {
-			this.removeEventListener('data-updated',   this.onDataUpdated);
-			this.removeEventListener('sort-requested', this.onSortRequested);
-			this.removeEventListener('page-selected',  this.onPageSelected);
+			this.removeEventListener('reno-table-data-updated',   this.onDataUpdated);
+			this.removeEventListener('reno-table-sort-requested', this.onSortRequested);
+			this.removeEventListener('reno-table-page-selected',  this.onPageSelected);
 		}
 		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
