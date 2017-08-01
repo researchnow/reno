@@ -1,4 +1,16 @@
 (function () {
+	const debounce = (f, ms) => {
+		let handle;
+		return () => {
+			if (!handle) {
+				handle = setTimeout(() => {
+					clearTimeout(handle);
+					handle = null;
+					f();
+				}, ms);
+			}
+		};
+	};
 	class RenoTableView extends HTMLElement {
 		// constructor (self) {
 		// 	self = super(self);
@@ -10,6 +22,7 @@
 			super();
 			this.page = {data: []};
 			this.onClick = this.onClick.bind(this);
+			this.io = debounce(this.io.bind(this), 20);
 		}
 		// life-cycle callbacks
 		connectedCallback () {
