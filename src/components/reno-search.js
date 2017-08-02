@@ -65,16 +65,21 @@
 		set disabled (x) {
 			this[x ? 'setAttribute' : 'removeAttribute']('disabled', '');
 		}
+		notifyAboutChange () {
+			this.dispatchEvent(new CustomEvent('reno-change', {bubbles: true, detail: {value: this.firstChild.value}}));
+		}
 		// event handlers
 		onClick (e) {
 			if (this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
 				this.firstChild.value = '';
 				this.lastChild.classList.remove('has-value');
+				this.notifyAboutChange();
 			}
 		}
 		onChange (e) {
 			if (this.firstChild) {
 				this.lastChild.classList[this.firstChild.value ? 'add' : 'remove']('has-value');
+				this.notifyAboutChange();
 			}
 		}
 		onFocus (e) {
