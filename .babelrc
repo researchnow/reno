@@ -11,6 +11,10 @@
 		"react": {
 			"presets": ["latest", "react", "stage-2"],
 			"plugins": ["transform-export-extensions"]
+		},
+		"utils": {
+			"presets": ["es2015"],
+			"plugins": ["transform-export-extensions", "transform-es2015-modules-umd"]
 		}
 	}
 }

@@ -6,3 +6,15 @@ import '../components/reno-table-view';
 import '../components/reno-table-pager';
 import '../components/reno-table-counter';
 import '../components/reno-table';
+
+import debounce  from '../utils/debounce';
+import pumpValue from '../utils/pumpValue';
+
+// patch up
+
+if (window) {
+	if (!window.Reno) window.Reno = {utils: {}};
+	if (!Reno.utils) Reno.utils = {};
+	Reno.utils.debounce = debounce;
+	Reno.utils.pumpValue = pumpValue;
+}
