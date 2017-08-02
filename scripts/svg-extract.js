@@ -18,7 +18,7 @@ const svgson = require('svgson');
 const attrs = a => {
 	const keys = Object.keys(a);
 	if (!keys.length) return '';
-	return keys.map(name => ' ' + name + '="' + a[name] + '"');
+	return keys.map(name => ' ' + name + '="' + a[name] + '"').join(' ');
 }
 
 const json2svg = o => {
@@ -40,7 +40,7 @@ fs.readFile(process.argv[2], 'utf-8', (err, data) => {
 					const name = path.join(process.argv[3], symbol.attrs.id.substr(10) + '.svg');
 					const content = {
 						name:   svg.name,
-						attrs:  svg.attrs,
+						attrs:  Object.assign({}, svg.attrs, {width: "20px", height: "20px"}),
 						childs: symbol.childs
 					};
 					console.log('writing', name);

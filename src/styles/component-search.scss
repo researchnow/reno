@@ -1,9 +1,5 @@
+@import "./font";
 @import "./colors";
-@font-face {
-	font-family: "reno";
-	src: 	url('../fonts/reno-font.woff2') format('woff2'),
-				url('../fonts/reno-font.woff') format('woff')
-}
 
 // generate classes: search
 
@@ -32,19 +28,20 @@ reno-search {
 	}
 
 	span:after {
-		content: "\e91c";
+		content: $reno-icon-magnify;
 		font-family: "reno" !important;
 		color: $reno-color-medium-light-gray;
-		font-size: 13px;
+		font-size: 14px;
 		position: absolute;
 		top: 6px;
 		right: 7px;
 	}
 
 	span.has-value:after {
-		content: "\e929";
+		content: $reno-icon-window-close;
 		color: $reno-color-medium-light-gray;
-		font-size: 10px;
+		top: 8px;
+		right: 6px;
 	}
 
 	input[type="text"] {

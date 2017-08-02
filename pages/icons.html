@@ -6,390 +6,288 @@
 			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
 	    <link rel="stylesheet" href="../styles.css">
 	</head>
-	<body>
+	<body class="reno">
 		<h1>Reno: icons</h1>
 
-		<section class="reno">
+		<h2>Tips for adding new icons</h2>
 
-			<h2>Tips for adding new icons</h2>
-			<ol>
-				<li>Please use <a href="https://github.com/svg/svgo">svgo</a> to clean up your svg file first.</li>
-				<li>Put your svg file in <code>reno-icons.svg</code> wrapped by <code>&lt;symbol&gt;</code></li>
-			</ol>
-			<h2>Usage example</h2>
-			<code>&lt;svg class=&quot;reno-icon&quot;&gt;&lt;use href=&quot;/src/images/materialIcons.svg#reno-icon-alert&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code>
+		<ol>
+			<li>Please use <a href="https://github.com/svg/svgo">svgo</a> to clean up your svg file first.</li>
+			<li>Put your svg file in <code>reno-icons.svg</code> wrapped by <code>&lt;symbol&gt;</code></li>
+			<li>Named a symbol appropriately. Its name will be used as an icon name.</li>
+			<li>Symbols are used to generate a special icon font.</li>
+		</ol>
 
-			<h2>Editable Font</h2>
+		<h2>Naming</h2>
 
-			<h3>Pointers</h3>
-			<table>
-				<thead>
-					<tr><th>Icon name</th><th>Icon Example</th></tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<code>#reno-icon-menu-right</code>
-						</td>
-						<td>
-							<svg class="reno-icon"><use href="/src/images/reno-icons.svg#reno-icon-menu-right"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-menu-down</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-menu-down"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-menu-up</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-menu-up"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-chevron-right</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-right"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-chevron-down</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-down"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-chevron-up</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-up"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-chevron-left</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-left"></use></svg>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<code>#reno-icon-subdirectory-arrow-right</code>
-						</td>
-						<td>
-							<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-subdirectory-arrow-right"></use></svg>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<p>All icons are named like <code>reno-icon-abc</code>, which means that:</p>
+		<ul>
+			<li><code>#reno-icon-abc</code> &mdash; a symbol name.</li>
+			<li><code>.reno-icon-abc</code> &mdash; a CSS class name.</li>
+			<li><code>$reno-icon-abc</code> &mdash; a SCSS variable name (used mostly in <code>content</code>, while writing custom SCSS).</li>
+		</ul>
 
-			<h3>Dots</h3>
-			<table>
-				<tr><th>Icon name</th><th>Icon Example</th></tr>
-				<tbody>
-				<tr>
-					<td>
-						<code>#reno-icon-dots-vertical</code>
-					</td>
-					<td>
-						<svg class="reno-icon"><use href="/src/images/reno-icons.svg#reno-icon-dots-vertical"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-drag-vertical</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-drag-vertical"></use></svg>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+		<h2>Usage example</h2>
 
-			<h3>Square-ish</h3>
-			<table>
-				<tr><th>Icon name</th><th>Icon Example</th></tr>
-				<tbody>
-				<tr>
-					<td>
-						<code>#reno-icon-file-document</code>
-					</td>
-					<td>
-						<svg class="reno-icon"><use href="/src/images/reno-icons.svg#reno-icon-file-document"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-file-document-box</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-file-document-box"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-book-open-page-variant</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-book-open-page-variant"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-calendar</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-calendar"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-table</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-table"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-table-large</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-table-large"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-content-duplicate</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-content-duplicate"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-logout</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-logout"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-group</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-group"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-comment-processing-outline</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-comment-processing-outline"></use></svg>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+		<p>
+			<code>&lt;svg class=&quot;reno-icon&quot;&gt;&lt;use href=&quot;/src/images/materialIcons.svg#reno-icon-alert&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code><br>
+			<code>&lt;span class=&quot;reno-icon reno-icon-alert&quot;&gt;&lt;/span&gt;</code>
+		</p>
 
-			<h3>Round-ish</h3>
-			<table>
-				<thead>
-				<tr><th>Icon name</th><th>Icon Example</th></tr>
-				</thead>
-				<tbody>
-				<tr>
-					<td>
-						<code>#reno-icon-close-circle-outline</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-close-circle-outline"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-close-circle</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-close-circle"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-information-outline</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-information-outline"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-settings</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-settings"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-eye-off</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-eye-off"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-eye</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-eye"></use></svg>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+		<h2>Editable Font</h2>
 
-			<h3>Misc</h3>
-			<table>
-				<tr><th>Icon name</th><th>Icon Example</th></tr>
-				<tbody>
+		<h3>Pointers</h3>
+		<table>
+			<thead>
+				<tr><th>Icon name</th><th>SVG example</th><th>Font example</th></tr>
+			</thead>
+			<tbody>
 				<tr>
-					<td>
-						<code>#reno-icon-priority-low</code>
-					</td>
-					<td>
-						<svg class="reno-icon"><use href="/src/images/reno-icons.svg#reno-icon-priority-low"></use></svg>
-					</td>
+					<td><code>reno-icon-menu-right</code></td>
+					<td><svg class="reno-icon"><use href="/src/images/reno-icons.svg#reno-icon-menu-right"></use></svg></td>
+					<td><span class="reno-icon reno-icon-menu-right">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-upload</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-upload"></use></svg>
-					</td>
+					<td><code>reno-icon-menu-down</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-menu-down"></use></svg></td>
+					<td><span class="reno-icon reno-icon-menu-down">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-download</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-download"></use></svg>
-					</td>
+					<td><code>reno-icon-menu-up</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-menu-up"></use></svg></td>
+					<td><span class="reno-icon reno-icon-menu-up">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-check</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-check"></use></svg>
-					</td>
+					<td><code>reno-icon-chevron-right</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-right"></use></svg></td>
+					<td><span class="reno-icon reno-icon-chevron-right">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-window-close</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-window-close"></use></svg>
-					</td>
+					<td><code>reno-icon-chevron-down</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-down"></use></svg></td>
+					<td><span class="reno-icon reno-icon-chevron-down">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-pencil</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-pencil"></use></svg>
-					</td>
+					<td><code>reno-icon-chevron-up</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-up"></use></svg></td>
+					<td><span class="reno-icon reno-icon-chevron-up">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-magnify</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-magnify"></use></svg>
-					</td>
+					<td><code>reno-icon-chevron-left</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chevron-left"></use></svg></td>
+					<td><span class="reno-icon reno-icon-chevron-left">&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td>
-						<code>#reno-icon-contrast</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-contrast"></use></svg>
-					</td>
+					<td><code>reno-icon-subdirectory-arrow-right</code></td>
+					<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-subdirectory-arrow-right"></use></svg></td>
+					<td><span class="reno-icon reno-icon-subdirectory-arrow-right">&nbsp;</span></td>
 				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-alert</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-alert"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-star</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-star"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-star-outline</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-star-outline"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-chart-bar</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chart-bar"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-chart-gantt</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chart-gantt"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-home</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-home"></use></svg>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<code>#reno-icon-percent</code>
-					</td>
-					<td>
-						<svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-percent"></use></svg>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+			</tbody>
+		</table>
 
-			<h2>Custom</h2>
-			<h4>Not available in font</h4>
+		<h3>Dots</h3>
+		<table>
+			<thead>
+				<tr><th>Icon name</th><th>SVG example</th><th>Font example</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>reno-icon-dots-vertical</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-dots-vertical"></use></svg></td>
+				<td><span class="reno-icon reno-icon-dots-vertical">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-drag-vertical</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-drag-vertical"></use></svg></td>
+				<td><span class="reno-icon reno-icon-drag-vertical">&nbsp;</span></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<h3>Square-ish</h3>
+		<table>
+			<thead>
+				<tr><th>Icon name</th><th>SVG example</th><th>Font example</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>reno-icon-file-document</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-file-document"></use></svg></td>
+				<td><span class="reno-icon reno-icon-file-document">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-file-document-box</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-file-document-box"></use></svg></td>
+				<td><span class="reno-icon reno-icon-file-document-box">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-book-open-page-variant</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-book-open-page-variant"></use></svg></td>
+				<td><span class="reno-icon reno-icon-book-open-page-variant">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-calendar</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-calendar"></use></svg></td>
+				<td><span class="reno-icon reno-icon-calendar">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-table</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-table"></use></svg></td>
+				<td><span class="reno-icon reno-icon-table">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-table-large</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-table-large"></use></svg></td>
+				<td><span class="reno-icon reno-icon-table-large">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-content-duplicate</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-content-duplicate"></use></svg></td>
+				<td><span class="reno-icon reno-icon-content-duplicate">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-logout</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-logout"></use></svg></td>
+				<td><span class="reno-icon reno-icon-logout">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-group</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-group"></use></svg></td>
+				<td><span class="reno-icon reno-icon-group">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-comment-processing-outline</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-comment-processing-outline"></use></svg></td>
+				<td><span class="reno-icon reno-icon-comment-processing-outline">&nbsp;</span></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<h3>Round-ish</h3>
+		<table>
+			<thead>
+				<tr><th>Icon name</th><th>SVG example</th><th>Font example</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>reno-icon-close-circle-outline</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-close-circle-outline"></use></svg></td>
+				<td><span class="reno-icon reno-icon-close-circle-outline">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-close-circle</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-close-circle"></use></svg></td>
+				<td><span class="reno-icon reno-icon-close-circle">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-information-outline</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-information-outline"></use></svg></td>
+				<td><span class="reno-icon reno-icon-information-outline">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-settings</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-settings"></use></svg></td>
+				<td><span class="reno-icon reno-icon-settings">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-eye-off</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-eye-off"></use></svg></td>
+				<td><span class="reno-icon reno-icon-eye-off">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-eye</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-eye"></use></svg></td>
+				<td><span class="reno-icon reno-icon-eye">&nbsp;</span></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<h3>Misc</h3>
+		<table>
+			<thead>
+				<tr><th>Icon name</th><th>SVG example</th><th>Font example</th></tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>reno-icon-priority-low</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-priority-low"></use></svg></td>
+				<td><span class="reno-icon reno-icon-priority-low">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-upload</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-upload"></use></svg></td>
+				<td><span class="reno-icon reno-icon-upload">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-download</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-download"></use></svg></td>
+				<td><span class="reno-icon reno-icon-download">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-check</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-check"></use></svg></td>
+				<td><span class="reno-icon reno-icon-check">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-window-close</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-window-close"></use></svg></td>
+				<td><span class="reno-icon reno-icon-window-close">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-pencil</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-pencil"></use></svg></td>
+				<td><span class="reno-icon reno-icon-pencil">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-magnify</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-magnify"></use></svg></td>
+				<td><span class="reno-icon reno-icon-magnify">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-contrast</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-contrast"></use></svg></td>
+				<td><span class="reno-icon reno-icon-contrast">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-alert</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-alert"></use></svg></td>
+				<td><span class="reno-icon reno-icon-alert">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-star</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-star"></use></svg></td>
+				<td><span class="reno-icon reno-icon-star">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-outline</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-outline"></use></svg></td>
+				<td><span class="reno-icon reno-icon-outline">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-chart-bar</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chart-bar"></use></svg></td>
+				<td><span class="reno-icon reno-icon-chart-bar">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-chart-gantt</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-chart-gantt"></use></svg></td>
+				<td><span class="reno-icon reno-icon-chart-gantt">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-home</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-home"></use></svg></td>
+				<td><span class="reno-icon reno-icon-home">&nbsp;</span></td>
+			</tr>
+			<tr>
+				<td><code>reno-icon-percent</code></td>
+				<td><svg class="reno-icon" ><use href="/src/images/reno-icons.svg#reno-icon-percent"></use></svg></td>
+				<td><span class="reno-icon reno-icon-percent">&nbsp;</span></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<h2>Custom</h2>
+		<p>Not available in font</p>
 
 		<script src="../main.js"></script>
 	</body>
