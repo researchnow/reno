@@ -18,16 +18,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (function () {
-	var debounce = function debounce(f, ms) {
-		var handle = void 0;
+	var debounce = function debounce(f) {
+		var flag = void 0;
 		return function () {
-			if (!handle) {
-				handle = setTimeout(function () {
-					clearTimeout(handle);
-					handle = null;
-					f();
-				}, ms);
-			}
+			!flag && window.requestAnimationFrame(function () {
+				flag = true;f();
+			});
 		};
 	};
 
@@ -47,7 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 			_this.page = { data: [] };
 			_this.onClick = _this.onClick.bind(_this);
-			_this.io = debounce(_this.io.bind(_this), 20);
+			_this.io = debounce(_this.io.bind(_this));
 			return _this;
 		}
 		// life-cycle callbacks
