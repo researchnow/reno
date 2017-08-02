@@ -21,11 +21,21 @@
 				@media (max-width: 480px) {
 					reno-table-view[labels] .tbody .td.field-diameter { text-align: inherit; }
 				}
+				header {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					width: 100%;
+				}
 			</style>
 			<script src="scripts/table.js"></script>
 	</head>
 	<body class="reno">
-		<h1>Reno: table</h1>
+
+		<header>
+			<h1>Reno: table</h1>
+			<div><reno-search></reno-search></div>
+		</header>
 
 		<reno-table url="/planets" fields="name,diameter,climate" limit="10" labels></reno-table>
 

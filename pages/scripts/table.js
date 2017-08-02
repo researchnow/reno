@@ -5,7 +5,6 @@
 	mock(['/planets', '/planets/', '/planets?*', '/planets/?*'], (options, prep) => {
 		const params = getParams(prep.url);
 		return heya.io.get('data/data.json').then(data => {
-			const total = data.length;
 			data = data.slice(0);
 			if (params.filter) {
 				const criteria = new RegExp(params.filter, 'i');
@@ -29,7 +28,7 @@
 			}
 			if (params.hasOwnProperty('limit') || params.hasOwnProperty('offset')) {
 				const limit = parseInt(params.limit, 10) || 10, offset = parseInt(params.offset, 10) || 0;
-				return {total, offset, data: data.slice(offset, offset + limit)};
+				return {offset, total: data.length, data: data.slice(offset, offset + limit)};
 			}
 			return data;
 		});
@@ -57,7 +56,16 @@
 	}
 
 	// simple event processors
+
 	document.documentElement.addEventListener('reno-table-item-selected', e => {
 		alert('Selected: ' + e.detail.item.name);
+	});
+
+	let changePump;
+	document.documentElement.addEventListener('reno-change', e => {
+		if (!changePump) {
+			changePump = Reno.utils.pumpValue(document.querySelector('reno-search'), document.querySelector('reno-table'), 'filter');
+		}
+		changePump(e);
 	});
 })();
