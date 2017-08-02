@@ -21,9 +21,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 	var debounce = function debounce(f) {
 		var flag = void 0;
 		return function () {
-			!flag && window.requestAnimationFrame(function () {
-				flag = true;f();
-			});
+			if (!flag) {
+				flag = true;
+				window.requestAnimationFrame(function () {
+					flag = false;f();
+				});
+			}
 		};
 	};
 

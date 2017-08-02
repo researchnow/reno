@@ -82,13 +82,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			// custom methods
 
 		}, {
-			key: 'onClick',
-
+			key: 'notifyAboutChange',
+			value: function notifyAboutChange() {
+				this.dispatchEvent(new CustomEvent('reno-change', { bubbles: true, detail: { value: this.firstChild.value } }));
+			}
 			// event handlers
+
+		}, {
+			key: 'onClick',
 			value: function onClick(e) {
 				if (this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
 					this.firstChild.value = '';
 					this.lastChild.classList.remove('has-value');
+					this.notifyAboutChange();
 				}
 			}
 		}, {
@@ -96,6 +102,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function onChange(e) {
 				if (this.firstChild) {
 					this.lastChild.classList[this.firstChild.value ? 'add' : 'remove']('has-value');
+					this.notifyAboutChange();
 				}
 			}
 		}, {
