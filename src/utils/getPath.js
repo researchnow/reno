@@ -1,3 +1,5 @@
+// getPath
+
 const dereferable = {object: 1, function: 1};
 
 export default (obj, path, delimiter='.') => {

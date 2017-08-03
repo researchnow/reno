@@ -23,6 +23,8 @@
 		return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
 
+	// getPath
+
 	var dereferable = { object: 1, function: 1 };
 
 	exports.default = function (obj, path) {
