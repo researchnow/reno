@@ -8,8 +8,9 @@ import '../components/reno-table-counter';
 import '../components/reno-table';
 
 import debounce  from '../utils/debounce';
+import getPath   from '../utils/getPath';
 import pumpValue from '../utils/pumpValue';
-import pumpDetailValue from '../utils/pumpDetailValue';
+import pumpEvent from '../utils/pumpEvent';
 
 // patch up
 
@@ -17,6 +18,7 @@ if (window) {
 	if (!window.Reno) window.Reno = {utils: {}};
 	if (!Reno.utils) Reno.utils = {};
 	Reno.utils.debounce = debounce;
+	Reno.utils.getPath  = getPath;
 	Reno.utils.pumpValue = pumpValue;
-	Reno.utils.pumpDetailValue = pumpDetailValue;
+	Reno.utils.pumpEvent = pumpEvent;
 }

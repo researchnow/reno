@@ -64,7 +64,7 @@
 	let searchPump = e => {
 		const renoTable = document.querySelector('reno-table');
 		if (renoTable) {
-			searchPump = Reno.utils.pumpDetailValue(renoTable, 'filter');
+			searchPump = Reno.utils.pumpEvent(renoTable, 'filter', 'detail.value');
 			searchPump(e);
 		}
 	};
