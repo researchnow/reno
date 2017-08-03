@@ -61,12 +61,12 @@
 		alert('Selected: ' + e.detail.item.name);
 	});
 
-	let renoTable;
-	const updateFilter = Reno.utils.debounce(value => {
-		renoTable = renoTable || document.querySelector('reno-table');
-		renoTable && renoTable.setAttribute('filter', value);
-	}, 500);
-	document.documentElement.addEventListener('reno-change', e => {
-		updateFilter(e.detail.value);
-	});
+	let searchPump = e => {
+		const renoTable = document.querySelector('reno-table');
+		if (renoTable) {
+			searchPump = Reno.utils.pumpDetailValue(renoTable, 'filter');
+			searchPump(e);
+		}
+	};
+	document.documentElement.addEventListener('reno-change', e => { searchPump(e); });
 })();

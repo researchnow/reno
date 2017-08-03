@@ -9,6 +9,7 @@ import '../components/reno-table';
 
 import debounce  from '../utils/debounce';
 import pumpValue from '../utils/pumpValue';
+import pumpDetailValue from '../utils/pumpDetailValue';
 
 // patch up
 
@@ -17,4 +18,5 @@ if (window) {
 	if (!Reno.utils) Reno.utils = {};
 	Reno.utils.debounce = debounce;
 	Reno.utils.pumpValue = pumpValue;
+	Reno.utils.pumpDetailValue = pumpDetailValue;
 }
