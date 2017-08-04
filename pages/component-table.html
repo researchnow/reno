@@ -5,16 +5,7 @@
 	    <title>Reno: table</title>
 			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
 	    <link rel="stylesheet" href="../styles.css">
-			<!-- dependencies -->
-			<script src="../node_modules/custom-elements-polyfill/index.js"></script>
-			<script src="../node_modules/heya-io/dist/io.js"></script>
-			<script src="../node_modules/heya-io/dist/FauxXHR.js"></script>
-			<script src="../node_modules/heya-io/dist/scaffold.js"></script>
-			<script src="../node_modules/heya-io/dist/mock.js"></script>
-			<script src="../node_modules/hyperhtml/hyperhtml.js"></script>
-			<!-- component files -->
-			<!-- <script src="../dist/components/reno-table-view.js"></script>
-			<script src="../dist/components/reno-table-pager.js"></script> -->
+			<script src="../main.js"></script>
 			<!-- application-specific styles and scripts -->
 			<style>
 				reno-table-view .tbody .td.field-diameter { text-align: right; }
@@ -28,6 +19,7 @@
 					width: 100%;
 				}
 			</style>
+			<script src="scripts/table.js"></script>
 	</head>
 	<body class="reno">
 
@@ -38,7 +30,5 @@
 
 		<reno-table url="/planets" fields="name,diameter,climate" limit="10" labels></reno-table>
 
-		<script src="../main.js"></script>
-		<script src="scripts/table.js"></script>
 	</body>
 </html>
