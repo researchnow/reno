@@ -30,9 +30,9 @@
 		disconnectedCallback () {
 			this.removeEventListener('click', this.onClick);
 		}
-		static get observedAttributes () { return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels']; }
+		static get observedAttributes () { return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
-			if (attrName === 'labels') {
+			if (attrName === 'labels' || attrName === 'nocolgroup') {
 				return this.show();
 			}
 			if (attrName === 'fields') {
@@ -53,9 +53,19 @@
 			const offset = Math.max(0, parseInt(this.getAttribute('offset') ||  '0',  10));
 			const limit  = Math.max(1, parseInt(this.getAttribute('limit')  || '10',  10));
 			const labels = this.getAttribute('labels') !== null;
+			const noColGroup = this.getAttribute('nocolgroup') !== null;
 
 			const sortList = {};
 			(this.getAttribute('sort') || '').split(',').forEach(field => field.charAt(0) === '-' ? (sortList[field.substr(1)] = 'descending') : (sortList[field] = 'ascending'));
+
+			// prepare the colgroup
+			let cols;
+			if (!noColGroup) {
+				cols = this.fieldList.map(field => {
+					const cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
+					return hyperHTML.wire()`<col class="${cssClasses}"></col>`;
+				});
+			}
 
 			// prepare the header
 			const headRowCells = this.fieldList.map(field => {
@@ -76,7 +86,11 @@
 			const footer = ''; // no footer for now
 
 			// assemble everything together
-			this.render`${header}<div class="tbody">${bodyRows}</div>${footer}`;
+			if (cols) {
+				this.render`<colgroup>${cols}</colgroup>${header}<div class="tbody">${bodyRows}</div>${footer}`;
+			} else {
+				this.render`${header}<div class="tbody">${bodyRows}</div>${footer}`;
+			}
 		}
 		io () {
 			// prepare parameters
