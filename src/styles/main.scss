@@ -1,11 +1,17 @@
-@import "./font";
+@import "./fonts";
 @import "./spacing";
 @import "./colors";
 @import "./typography";
 @import "./buttons";
 @import "./links";
-@import "./form-controls";
 @import "./page-elements";
+
+@import "./form-controls-label";
+@import "./form-controls-check";
+@import "./form-controls-text";
+@import "./form-controls-select";
+@import "./form-controls-number";
+@import "./form-controls";
 
 @import "./component-search";
 @import "./component-table";
