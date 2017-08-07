@@ -27,7 +27,6 @@ $reno-box-shadows: (
 }
 
 @mixin reno-box-border($border-color) {
-	box-sizing: border-box;
 	border: 1px solid $border-color;
 }
 

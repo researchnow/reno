@@ -8,6 +8,7 @@ reno-table-view {
 
 	display: table;
 	cursor: pointer;
+	border-collapse: collapse;
 
 	.thead { display: table-header-group; user-select: none; }
 	.tfoot { display: table-footer-group; }
@@ -26,13 +27,20 @@ reno-table-view {
 
 	/* visuals */
 
+	@extend .reno-box-dirty-white-with-border;
+
 	.td {
 		padding: 0.5em 1em;
-		border: 1px solid $reno-color-light-gray;
+	}
+	.tr {
+		border-bottom: 1px solid $reno-color-light-gray;
+	}
+	.tr:last-child {
+		border-bottom: none;
 	}
 	.thead {
-		color: $reno-color-white;
-		background-color: $reno-color-primary;
+		color: $reno-color-black;
+		background-color: $reno-color-light-gray;
 		font-weight: bold;
 	}
 }
@@ -91,23 +99,21 @@ reno-table-view {
 reno-table-pager {
 	display: flex;
 	flex-direction: row;
+	font-size: 12px; // like .reno-caption
 
 	> div {
 		flex: 0 0 auto;
-		color: $reno-color-white;
-		background-color: $reno-color-primary;
-		border: 1px solid $reno-color-primary;
 		padding: 0.25em 0.5em;
 		cursor: pointer;
 		user-select: none;
+		font-weight: 500;
 
 		&.ignore {
 			color: $reno-color-medium-dark-gray;
-			background-color: $reno-color-super-light-gray;
-			border: 1px solid $reno-color-super-light-gray;
 		}
 		&.current {
-			border: 2px solid $reno-color-black;
+			color: $reno-color-white;
+			background-color: $reno-color-primary;
 		}
 	}
 	.go-first {
@@ -147,7 +153,11 @@ reno-table-pager {
 
 reno-table-counter {
 	display: inline;
-	font-weight: bold;
+	font-size: 12px; // like .reno-caption
+
+	.items, .total {
+		font-weight: 500;
+	}
 }
 
 /* reno-table */

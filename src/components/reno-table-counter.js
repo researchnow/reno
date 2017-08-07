@@ -20,7 +20,7 @@
 			limit  = Math.max(1, parseInt(limit,  10));
 			total  = Math.max(0, parseInt(total,  10));
 
-			this.innerHTML = `${offset + 1}-${offset + limit} of ${total}`;
+			this.innerHTML = `<span class="items">${offset + 1}-${offset + limit}</span> of <span class="total">${total}</span>`;
 		}
 	}
 	customElements.define('reno-table-counter', RenoTableCounter);
