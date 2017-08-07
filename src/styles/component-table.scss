@@ -21,8 +21,29 @@ reno-table-view {
 	}
 
 	.thead {
-		.ascending::after  { content: "\00a0\2193"; }
-		.descending::after { content: "\00a0\2191"; }
+		.ascending, .descending {
+			& > span {
+				display: inline-block;
+				position: relative;
+				padding-right: 2em;
+				&::after {
+					display: inline-block;
+					position: absolute;
+					top: 0;
+					right: 0;
+					font-family: reno;
+					font-size: 20px;
+				}
+			}
+		}
+		.ascending > span::after  {
+			content: $reno-icon-menu-down;
+			top: 10px;
+		}
+		.descending > span::after {
+			content: $reno-icon-menu-up;
+			top: 6px;
+		}
 	}
 
 	/* visuals */

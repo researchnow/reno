@@ -60,7 +60,7 @@
 			// prepare the header
 			const headRowCells = this.fieldList.map(field => {
 				const cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}">${this.fieldMap[field]}</div>`;
+				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${this.fieldMap[field]}</span></div>`;
 			});
 			const header = hyperHTML.wire()`<div class="thead"><div class="tr">${headRowCells}</div></div>`;
 
