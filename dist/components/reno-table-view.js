@@ -2,12 +2,14 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['<div class="', '" field="', '">', '</div>'], ['<div class="', '" field="', '">', '</div>']),
-    _templateObject2 = _taggedTemplateLiteral(['<div class="thead"><div class="tr">', '</div></div>'], ['<div class="thead"><div class="tr">', '</div></div>']),
-    _templateObject3 = _taggedTemplateLiteral(['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>'], ['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>']),
-    _templateObject4 = _taggedTemplateLiteral(['<div class="', '">', '</div>'], ['<div class="', '">', '</div>']),
-    _templateObject5 = _taggedTemplateLiteral(['<div class="tr">', '</div>'], ['<div class="tr">', '</div>']),
-    _templateObject6 = _taggedTemplateLiteral(['', '<div class="tbody">', '</div>', ''], ['', '<div class="tbody">', '</div>', '']);
+var _templateObject = _taggedTemplateLiteral(['<col class="', '"></col>'], ['<col class="', '"></col>']),
+    _templateObject2 = _taggedTemplateLiteral(['<div class="', '" field="', '"><span>', '</span></div>'], ['<div class="', '" field="', '"><span>', '</span></div>']),
+    _templateObject3 = _taggedTemplateLiteral(['<div class="thead"><div class="tr">', '</div></div>'], ['<div class="thead"><div class="tr">', '</div></div>']),
+    _templateObject4 = _taggedTemplateLiteral(['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>'], ['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>']),
+    _templateObject5 = _taggedTemplateLiteral(['<div class="', '">', '</div>'], ['<div class="', '">', '</div>']),
+    _templateObject6 = _taggedTemplateLiteral(['<div class="tr">', '</div>'], ['<div class="tr">', '</div>']),
+    _templateObject7 = _taggedTemplateLiteral(['<colgroup>', '</colgroup>', '<div class="tbody">', '</div>', ''], ['<colgroup>', '</colgroup>', '<div class="tbody">', '</div>', '']),
+    _templateObject8 = _taggedTemplateLiteral(['', '<div class="tbody">', '</div>', ''], ['', '<div class="tbody">', '</div>', '']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -69,7 +71,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function attributeChangedCallback(attrName, oldVal, newVal) {
 				var _this2 = this;
 
-				if (attrName === 'labels') {
+				if (attrName === 'labels' || attrName === 'nocolgroup') {
 					return this.show();
 				}
 				if (attrName === 'fields') {
@@ -97,34 +99,48 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
 				var limit = Math.max(1, parseInt(this.getAttribute('limit') || '10', 10));
 				var labels = this.getAttribute('labels') !== null;
+				var noColGroup = this.getAttribute('nocolgroup') !== null;
 
 				var sortList = {};
 				(this.getAttribute('sort') || '').split(',').forEach(function (field) {
 					return field.charAt(0) === '-' ? sortList[field.substr(1)] = 'descending' : sortList[field] = 'ascending';
 				});
 
+				// prepare the colgroup
+				var cols = void 0;
+				if (!noColGroup) {
+					cols = this.fieldList.map(function (field) {
+						var cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
+						return hyperHTML.wire()(_templateObject, cssClasses);
+					});
+				}
+
 				// prepare the header
 				var headRowCells = this.fieldList.map(function (field) {
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-					return hyperHTML.wire()(_templateObject, cssClasses, field, _this3.fieldMap[field]);
+					return hyperHTML.wire()(_templateObject2, cssClasses, field, _this3.fieldMap[field]);
 				});
-				var header = hyperHTML.wire()(_templateObject2, headRowCells);
+				var header = hyperHTML.wire()(_templateObject3, headRowCells);
 
 				// prepare the body
 				var bodyRows = this.page.data.map(function (o) {
 					var bodyRowCells = _this3.fieldList.map(labels ? function (field) {
-						return hyperHTML.wire()(_templateObject3, 'td field-' + field, _this3.fieldMap[field], _this3.formatFieldValue(o, field));
+						return hyperHTML.wire()(_templateObject4, 'td field-' + field, _this3.fieldMap[field], _this3.formatFieldValue(o, field));
 					} : function (field) {
-						return hyperHTML.wire()(_templateObject4, 'td field-' + field, _this3.formatFieldValue(o, field));
+						return hyperHTML.wire()(_templateObject5, 'td field-' + field, _this3.formatFieldValue(o, field));
 					});
-					return hyperHTML.wire(o)(_templateObject5, bodyRowCells);
+					return hyperHTML.wire(o)(_templateObject6, bodyRowCells);
 				});
 
 				// prepare the footer
 				var footer = ''; // no footer for now
 
 				// assemble everything together
-				this.render(_templateObject6, header, bodyRows, footer);
+				if (cols) {
+					this.render(_templateObject7, cols, header, bodyRows, footer);
+				} else {
+					this.render(_templateObject8, header, bodyRows, footer);
+				}
 			}
 		}, {
 			key: 'io',
@@ -206,7 +222,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}], [{
 			key: 'observedAttributes',
 			get: function get() {
-				return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels'];
+				return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup'];
 			}
 		}]);
 
