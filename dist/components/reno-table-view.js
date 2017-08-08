@@ -167,7 +167,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				if (sort) {
 					request.sort = sort;
 				}
-				heya.io.get(url, this.sanitizeRequest(request)).then(function (page) {
+				heya.io(this.sanitizeRequest({ url: url, method: 'GET', query: request })).then(function (page) {
 					page = _this4.sanitizeResponse(page);
 					_this4.page = page instanceof Array ? { data: page } : page;
 					_this4.total = _this4.page.total;

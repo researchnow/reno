@@ -107,7 +107,7 @@
 			const request = {limit, offset, fields};
 			if (filter) { request.filter = filter; }
 			if (sort) { request.sort = sort; }
-			heya.io.get(url, this.sanitizeRequest(request)).then(page => {
+			heya.io(this.sanitizeRequest({url: url, method: 'GET', query: request})).then(page => {
 				page = this.sanitizeResponse(page);
 				this.page  = page instanceof Array ? {data: page} : page;
 				this.total = this.page.total;
