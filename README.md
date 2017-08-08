@@ -12,4 +12,4 @@ The biggest little UI in the world.
 
 * To run a development server:
 
-      npm run start:dev
+      npm run start
