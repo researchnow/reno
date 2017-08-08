@@ -168,6 +168,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					request.sort = sort;
 				}
 				heya.io.get(url, this.sanitizeRequest(request)).then(function (page) {
+					page = _this4.sanitizeResponse(page);
 					_this4.page = page instanceof Array ? { data: page } : page;
 					_this4.total = _this4.page.total;
 					_this4.realOffset = _this4.page.offset;
@@ -212,12 +213,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'formatFieldValue',
 			value: function formatFieldValue(o, field) {
-				return field.charAt(0) === '-' ? '<em>TBD</em>' : o[field];
+				return field.charAt(0) === '-' ? '<em>&mdash;</em>' : o[field];
 			}
 		}, {
 			key: 'sanitizeRequest',
 			value: function sanitizeRequest(request) {
 				return request;
+			}
+		}, {
+			key: 'sanitizeResponse',
+			value: function sanitizeResponse(response) {
+				return response;
 			}
 		}], [{
 			key: 'observedAttributes',

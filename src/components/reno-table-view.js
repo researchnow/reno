@@ -108,6 +108,7 @@
 			if (filter) { request.filter = filter; }
 			if (sort) { request.sort = sort; }
 			heya.io.get(url, this.sanitizeRequest(request)).then(page => {
+				page = this.sanitizeResponse(page);
 				this.page  = page instanceof Array ? {data: page} : page;
 				this.total = this.page.total;
 				this.realOffset = this.page.offset;
@@ -141,8 +142,9 @@
 			}
 		}
 		// user-supplied callbacks
-		formatFieldValue (o, field) { return field.charAt(0) === '-' ? '<em>TBD</em>' : o[field]; }
+		formatFieldValue (o, field) { return field.charAt(0) === '-' ? '<em>&mdash;</em>' : o[field]; }
 		sanitizeRequest (request) { return request; }
+		sanitizeResponse (response) { return response; }
 	}
 	customElements.define('reno-table-view', RenoTableView);
 })();
