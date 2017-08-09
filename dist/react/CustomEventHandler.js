@@ -114,7 +114,7 @@ var CustomEventHandler = function (_React$Component) {
         'div',
         { ref: function ref(elem) {
             _this5.parent = elem;
-          }, className: '{this.props.className || \'\'}' },
+          }, className: this.props.className || '' },
         this.props.children
       );
     }

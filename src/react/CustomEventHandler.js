@@ -60,7 +60,7 @@ class CustomEventHandler extends React.Component {
 
   // render component
 
-  render () { return <div ref={elem => { this.parent = elem; }} className="{this.props.className || ''}">{this.props.children}</div>; }
+  render () { return <div ref={elem => { this.parent = elem; }} className={this.props.className || ''}>{this.props.children}</div>; }
 }
 
 export default CustomEventHandler;
