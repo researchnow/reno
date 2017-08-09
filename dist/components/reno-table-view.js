@@ -78,10 +78,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					this.fieldList = (newVal || 'name').split(',').map(function (field) {
 						return field.trim();
 					});
-					this.fieldMap = {};
+					this.fieldMap = this.fieldMap || {};
 					this.fieldList.forEach(function (field) {
-						var start = field.charAt(0) === '-' ? 1 : 0;
-						_this2.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
+						if (!Object.prototype.hasOwnProperty.call(_this2.fieldMap, field)) {
+							var start = field.charAt(0) === '-' ? 1 : 0;
+							_this2.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
+						}
 					});
 				}
 				this.io();
@@ -118,15 +120,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				// prepare the header
 				var headRowCells = this.fieldList.map(function (field) {
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-					return hyperHTML.wire()(_templateObject2, cssClasses, field, _this3.fieldMap[field]);
+					var fieldName = _this3.fieldMap[field];
+					if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
+					return hyperHTML.wire()(_templateObject2, cssClasses, field, fieldName);
 				});
 				var header = hyperHTML.wire()(_templateObject3, headRowCells);
 
 				// prepare the body
 				var bodyRows = this.page.data.map(function (o) {
-					var bodyRowCells = _this3.fieldList.map(labels ? function (field) {
-						return hyperHTML.wire()(_templateObject4, 'td field-' + field, _this3.fieldMap[field], _this3.formatFieldValue(o, field));
-					} : function (field) {
+					var bodyRowCells = _this3.fieldList.map(function (field) {
+						if (labels) {
+							var fieldName = _this3.fieldMap[field];
+							if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
+							return hyperHTML.wire()(_templateObject4, 'td field-' + field, fieldName, _this3.formatFieldValue(o, field));
+						}
 						return hyperHTML.wire()(_templateObject5, 'td field-' + field, _this3.formatFieldValue(o, field));
 					});
 					return hyperHTML.wire(o)(_templateObject6, bodyRowCells);

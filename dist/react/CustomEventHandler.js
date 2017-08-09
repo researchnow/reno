@@ -114,7 +114,7 @@ var CustomEventHandler = function (_React$Component) {
         'div',
         { ref: function ref(elem) {
             _this5.parent = elem;
-          } },
+          }, className: '{this.props.className || \'\'}' },
         this.props.children
       );
     }
@@ -124,6 +124,6 @@ var CustomEventHandler = function (_React$Component) {
 }(_react2.default.Component);
 
 CustomEventHandler.propTypes = {
-  tag: _propTypes2.default.string
+  className: _propTypes2.default.string
 };
 exports.default = CustomEventHandler;
