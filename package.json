@@ -1,6 +1,6 @@
 {
   "name": "reno",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The biggest little UI in the world.",
   "engines": {
     "node": ">=8"
