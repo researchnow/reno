@@ -8,6 +8,9 @@
 			}
 		}
 	}
+
+	const activeElements = {button: 1, input: 1, textarea: 1, a: 1, label: 1};
+
 	class RenoTableView extends HTMLElement {
 		// constructor (self) {
 		// 	self = super(self);
@@ -131,6 +134,7 @@
 			let node = e.target;
 			while (node && node.nodeType != 1) { node = node.parentNode; } // need ELEMENT node
 			for (; node && node !== this; node = node.parentNode) {
+				if (node.classList.contains('ignore-click') || activeElements[node.tagName.toLowerCase()] === 1 && !node.classList.contains('include-click')) break;
 				const field = node.getAttribute('field');
 				if (field) { // process sorting events
 					const currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
