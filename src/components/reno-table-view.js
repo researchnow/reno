@@ -37,10 +37,12 @@
 			}
 			if (attrName === 'fields') {
 				this.fieldList = (newVal || 'name').split(',').map(field => field.trim());
-				this.fieldMap = {};
+				this.fieldMap = this.fieldMap || {};
 				this.fieldList.forEach(field => {
-					const start = field.charAt(0) === '-' ? 1 : 0;
-					this.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
+					if (!Object.prototype.hasOwnProperty.call(this.fieldMap, field)) {
+						const start = field.charAt(0) === '-' ? 1 : 0;
+						this.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
+					}
 				});
 			}
 			this.io();
@@ -70,15 +72,22 @@
 			// prepare the header
 			const headRowCells = this.fieldList.map(field => {
 				const cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${this.fieldMap[field]}</span></div>`;
+				let fieldName = this.fieldMap[field];
+				if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
+				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${fieldName}</span></div>`;
 			});
 			const header = hyperHTML.wire()`<div class="thead"><div class="tr">${headRowCells}</div></div>`;
 
 			// prepare the body
 			const bodyRows = this.page.data.map(o => {
-				const bodyRowCells = this.fieldList.map(labels
-					? field => hyperHTML.wire()`<div class="${'td field-' + field}"><div class="label">${this.fieldMap[field]}</div><div class="value">${this.formatFieldValue(o, field)}</div></div>`
-					: field => hyperHTML.wire()`<div class="${'td field-' + field}">${this.formatFieldValue(o, field)}</div>`);
+				const bodyRowCells = this.fieldList.map(field => {
+					if (labels) {
+						let fieldName = this.fieldMap[field];
+						if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
+						return hyperHTML.wire()`<div class="${'td field-' + field}"><div class="label">${fieldName}</div><div class="value">${this.formatFieldValue(o, field)}</div></div>`;
+					}
+					return hyperHTML.wire()`<div class="${'td field-' + field}">${this.formatFieldValue(o, field)}</div>`;
+				});
 				return hyperHTML.wire(o)`<div class="tr">${bodyRowCells}</div>`;
 			});
 
