@@ -72,6 +72,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					this.view && this.view.setAttribute('offset', '0');
 				}
 			}
+			// custom methods
+
+		}, {
+			key: 'refresh',
+			value: function refresh() {
+				this.view && this.view.io();
+			}
 			// event handlers
 
 		}, {

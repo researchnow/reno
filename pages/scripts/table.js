@@ -69,4 +69,11 @@
 		}
 	};
 	document.documentElement.addEventListener('reno-change', e => { searchPump(e); });
+
+	document.documentElement.addEventListener('click', e => {
+		if (e.target.tagName && e.target.tagName.toLowerCase() == 'button') {
+			const renoTable = document.querySelector('reno-table');
+			renoTable && renoTable.refresh();
+		}
+	});
 })();

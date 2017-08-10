@@ -44,6 +44,10 @@
 				this.view && this.view.setAttribute('offset', '0');
 			}
 		}
+		// custom methods
+		refresh () {
+			this.view && this.view.io();
+		}
 		// event handlers
 		onDataUpdated (e) {
 			if (this.pager) {
