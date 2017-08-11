@@ -47,7 +47,8 @@
 
 			// around page offsets
 			const pages = [];
-			let currentPage, firstPage, lastPage, pageOffset = Math.max(0, offset - around * limit);
+			let currentPage, firstPage, lastPage,
+				pageOffset = Math.max(0, Math.min(offset - around * limit, lastPageOffset - 2 * around * limit));
 			for (let i = 2 * around + 1; i > 0; --i, pageOffset += limit) {
 				if (pageOffset > offset && pageOffset < offset + limit) {
 					pageOffset = offset;
@@ -79,10 +80,8 @@
 			});
 
 			const firstPageClasses = ['go-first'], lastPageClasses = ['go-last'], prevPageClasses = ['go-prev'], nextPageClasses = ['go-next'];
-			if (!isNaN(firstPage)) { firstPageClasses.push('ignore'); }
-			if (!isNaN(lastPage))  { lastPageClasses.push('ignore'); }
-			if (currentPage === 0)               { prevPageClasses.push('ignore'); }
-			if (currentPage == pages.length - 1) { nextPageClasses.push('ignore'); }
+			if (currentPage === 0)               { prevPageClasses.push('ignore'); firstPageClasses.push('ignore'); }
+			if (currentPage == pages.length - 1) { nextPageClasses.push('ignore'); lastPageClasses.push('ignore'); }
 
 			const prevPageOffset = currentPage === 0 ? 0 : pages[currentPage - 1];
 			const nextPageOffset = currentPage === pages.length - 1 ? Math.max(0, total - limit) : pages[currentPage + 1];

@@ -81,7 +81,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var currentPage = void 0,
 				    firstPage = void 0,
 				    lastPage = void 0,
-				    pageOffset = Math.max(0, offset - around * limit);
+				    pageOffset = Math.max(0, Math.min(offset - around * limit, lastPageOffset - 2 * around * limit));
 				for (var i = 2 * around + 1; i > 0; --i, pageOffset += limit) {
 					if (pageOffset > offset && pageOffset < offset + limit) {
 						pageOffset = offset;
@@ -122,17 +122,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				    lastPageClasses = ['go-last'],
 				    prevPageClasses = ['go-prev'],
 				    nextPageClasses = ['go-next'];
-				if (!isNaN(firstPage)) {
-					firstPageClasses.push('ignore');
-				}
-				if (!isNaN(lastPage)) {
-					lastPageClasses.push('ignore');
-				}
 				if (currentPage === 0) {
-					prevPageClasses.push('ignore');
+					prevPageClasses.push('ignore');firstPageClasses.push('ignore');
 				}
 				if (currentPage == pages.length - 1) {
-					nextPageClasses.push('ignore');
+					nextPageClasses.push('ignore');lastPageClasses.push('ignore');
 				}
 
 				var prevPageOffset = currentPage === 0 ? 0 : pages[currentPage - 1];
