@@ -1,5 +1,5 @@
 {
-  "name": "reno",
+  "name": "@researchnow/reno",
   "version": "1.0.10",
   "description": "The biggest little UI in the world.",
   "engines": {
