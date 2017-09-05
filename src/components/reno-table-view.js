@@ -64,32 +64,36 @@
 			(this.getAttribute('sort') || '').split(',').forEach(field => field.charAt(0) === '-' ? (sortList[field.substr(1)] = 'descending') : (sortList[field] = 'ascending'));
 
 			// prepare the colgroup
-			let cols;
+			let cols = [];
 			if (!noColGroup) {
 				cols = this.fieldList.map(field => {
 					const cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 					return hyperHTML.wire()`<col class="${cssClasses}"></col>`;
 				});
+				cols = hyperHTML.wire()`<colgroup>${cols}</colgroup>`;
 			}
 
 			// prepare the header
-			const headRowCells = this.fieldList.map(field => {
+			const headRowCells = this.fieldList.filter(field => this.fieldMap[field] !== null).map(field => {
 				const cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 				let fieldName = this.fieldMap[field];
 				if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
-				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${fieldName}</span></div>`;
+				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${typeof fieldName == 'object' ? fieldName : {html: fieldName}}</span></div>`;
 			});
 			const header = hyperHTML.wire()`<div class="thead"><div class="tr">${headRowCells}</div></div>`;
 
 			// prepare the body
 			const bodyRows = this.page.data.map(o => {
-				const bodyRowCells = this.fieldList.map(field => {
+				const bodyRowCells = this.fieldList.filter(field => this.fieldMap[field] !== null).map(field => {
+					const value = this.formatFieldValue(o, field);
 					if (labels) {
 						let fieldName = this.fieldMap[field];
 						if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
-						return hyperHTML.wire()`<div class="${'td field-' + field}"><div class="label">${fieldName}</div><div class="value">${this.formatFieldValue(o, field)}</div></div>`;
+						return hyperHTML.wire()`<div class="${'td field-' + field}">
+							<div class="label">${typeof fieldName == 'object' ? fieldName : {html: fieldName}}</div>
+							<div class="value">${typeof value == 'object' ? value : {html: value}}</div></div>`;
 					}
-					return hyperHTML.wire()`<div class="${'td field-' + field}">${this.formatFieldValue(o, field)}</div>`;
+					return hyperHTML.wire()`<div class="${'td field-' + field}">${typeof value == 'object' ? value : {html: value}}</div>`;
 				});
 				return hyperHTML.wire(o)`<div class="tr">${bodyRowCells}</div>`;
 			});
@@ -98,11 +102,7 @@
 			const footer = ''; // no footer for now
 
 			// assemble everything together
-			if (cols) {
-				this.html`<colgroup>${cols}</colgroup>${header}<div class="tbody">${bodyRows}</div>${footer}`;
-			} else {
-				this.html`${header}<div class="tbody">${bodyRows}</div>${footer}`;
-			}
+			this.html`${cols}${header}<div class="tbody">${bodyRows}</div>${footer}`;
 		}
 		io () {
 			// prepare parameters
@@ -155,6 +155,7 @@
 			}
 		}
 		// user-supplied callbacks
+		// fieldMap is a map of names to form the header
 		formatFieldValue (o, field) { return field.charAt(0) === '-' ? '<em>&mdash;</em>' : o[field]; }
 		sanitizeRequest (request) { return request; }
 		sanitizeResponse (response) { return response; }
