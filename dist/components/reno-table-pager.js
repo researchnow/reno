@@ -37,8 +37,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'connectedCallback',
 			value: function connectedCallback() {
 				this.addEventListener('click', this.onClick);
-				this.render = hyperHTML.bind(this);
-				this.show();
+				this.html = hyperHTML.bind(this);
+				this.render();
 			}
 		}, {
 			key: 'disconnectedCallback',
@@ -48,14 +48,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'attributeChangedCallback',
 			value: function attributeChangedCallback() {
-				this.show();
+				this.render();
 			}
 			// custom methods
 
 		}, {
-			key: 'show',
-			value: function show() {
-				if (!this.render) return;
+			key: 'render',
+			value: function render() {
+				if (!this.html) return;
 
 				// prepare parameters
 				var offset = this.getAttribute('offset');
@@ -132,7 +132,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var prevPageOffset = currentPage === 0 ? 0 : pages[currentPage - 1];
 				var nextPageOffset = currentPage === pages.length - 1 ? Math.max(0, total - limit) : pages[currentPage + 1];
 
-				this.render(_templateObject2, firstPageClasses.join(' '), firstPageOffset, prevPageClasses.join(' '), prevPageOffset, pageList, nextPageClasses.join(' '), nextPageOffset, lastPageClasses.join(' '), lastPageOffset);
+				this.html(_templateObject2, firstPageClasses.join(' '), firstPageOffset, prevPageClasses.join(' '), prevPageOffset, pageList, nextPageClasses.join(' '), nextPageOffset, lastPageClasses.join(' '), lastPageOffset);
 			}
 			// event handlers
 

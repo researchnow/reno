@@ -1,15 +1,17 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['<col class="', '"></col>'], ['<col class="', '"></col>']),
-    _templateObject2 = _taggedTemplateLiteral(['<div class="', '" field="', '"><span>', '</span></div>'], ['<div class="', '" field="', '"><span>', '</span></div>']),
-    _templateObject3 = _taggedTemplateLiteral(['<div class="thead"><div class="tr">', '</div></div>'], ['<div class="thead"><div class="tr">', '</div></div>']),
-    _templateObject4 = _taggedTemplateLiteral(['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>'], ['<div class="', '"><div class="label">', '</div><div class="value">', '</div></div>']),
-    _templateObject5 = _taggedTemplateLiteral(['<div class="', '">', '</div>'], ['<div class="', '">', '</div>']),
-    _templateObject6 = _taggedTemplateLiteral(['<div class="tr">', '</div>'], ['<div class="tr">', '</div>']),
-    _templateObject7 = _taggedTemplateLiteral(['<colgroup>', '</colgroup>', '<div class="tbody">', '</div>', ''], ['<colgroup>', '</colgroup>', '<div class="tbody">', '</div>', '']),
-    _templateObject8 = _taggedTemplateLiteral(['', '<div class="tbody">', '</div>', ''], ['', '<div class="tbody">', '</div>', '']);
+    _templateObject2 = _taggedTemplateLiteral(['<colgroup>', '</colgroup>'], ['<colgroup>', '</colgroup>']),
+    _templateObject3 = _taggedTemplateLiteral(['<div class="', '" field="', '"><span>', '</span></div>'], ['<div class="', '" field="', '"><span>', '</span></div>']),
+    _templateObject4 = _taggedTemplateLiteral(['<div class="thead"><div class="tr">', '</div></div>'], ['<div class="thead"><div class="tr">', '</div></div>']),
+    _templateObject5 = _taggedTemplateLiteral(['<div class="', '">\n\t\t\t\t\t\t\t<div class="label">', '</div>\n\t\t\t\t\t\t\t<div class="value">', '</div></div>'], ['<div class="', '">\n\t\t\t\t\t\t\t<div class="label">', '</div>\n\t\t\t\t\t\t\t<div class="value">', '</div></div>']),
+    _templateObject6 = _taggedTemplateLiteral(['<div class="', '">', '</div>'], ['<div class="', '">', '</div>']),
+    _templateObject7 = _taggedTemplateLiteral(['<div class="tr">', '</div>'], ['<div class="tr">', '</div>']),
+    _templateObject8 = _taggedTemplateLiteral(['', '', '<div class="tbody">', '</div>', ''], ['', '', '<div class="tbody">', '</div>', '']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -60,7 +62,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'connectedCallback',
 			value: function connectedCallback() {
 				this.addEventListener('click', this.onClick);
-				this.render = hyperHTML.bind(this);
+				this.html = hyperHTML.bind(this);
 				this.io();
 			}
 		}, {
@@ -74,7 +76,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var _this2 = this;
 
 				if (attrName === 'labels' || attrName === 'nocolgroup') {
-					return this.show();
+					return this.render();
 				}
 				if (attrName === 'fields') {
 					this.fieldList = (newVal || 'name').split(',').map(function (field) {
@@ -93,11 +95,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			// custom methods
 
 		}, {
-			key: 'show',
-			value: function show() {
+			key: 'render',
+			value: function render() {
 				var _this3 = this;
 
-				if (!this.render) return;
+				if (!this.html) return;
 
 				// prepare parameters
 				var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
@@ -111,45 +113,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				});
 
 				// prepare the colgroup
-				var cols = void 0;
+				var cols = [];
 				if (!noColGroup) {
 					cols = this.fieldList.map(function (field) {
 						var cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 						return hyperHTML.wire()(_templateObject, cssClasses);
 					});
+					cols = hyperHTML.wire()(_templateObject2, cols);
 				}
 
 				// prepare the header
-				var headRowCells = this.fieldList.map(function (field) {
+				var headRowCells = this.fieldList.filter(function (field) {
+					return _this3.fieldMap[field] !== null;
+				}).map(function (field) {
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 					var fieldName = _this3.fieldMap[field];
 					if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-					return hyperHTML.wire()(_templateObject2, cssClasses, field, fieldName);
+					return hyperHTML.wire()(_templateObject3, cssClasses, field, (typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)) == 'object' ? fieldName : { html: fieldName });
 				});
-				var header = hyperHTML.wire()(_templateObject3, headRowCells);
+				var header = hyperHTML.wire()(_templateObject4, headRowCells);
 
 				// prepare the body
 				var bodyRows = this.page.data.map(function (o) {
-					var bodyRowCells = _this3.fieldList.map(function (field) {
+					var bodyRowCells = _this3.fieldList.filter(function (field) {
+						return _this3.fieldMap[field] !== null;
+					}).map(function (field) {
+						var value = _this3.formatFieldValue(o, field);
 						if (labels) {
 							var fieldName = _this3.fieldMap[field];
 							if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-							return hyperHTML.wire()(_templateObject4, 'td field-' + field, fieldName, _this3.formatFieldValue(o, field));
+							return hyperHTML.wire()(_templateObject5, 'td field-' + field, (typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)) == 'object' ? fieldName : { html: fieldName }, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
 						}
-						return hyperHTML.wire()(_templateObject5, 'td field-' + field, _this3.formatFieldValue(o, field));
+						return hyperHTML.wire()(_templateObject6, 'td field-' + field, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
 					});
-					return hyperHTML.wire(o)(_templateObject6, bodyRowCells);
+					return hyperHTML.wire(o)(_templateObject7, bodyRowCells);
 				});
 
 				// prepare the footer
 				var footer = ''; // no footer for now
 
 				// assemble everything together
-				if (cols) {
-					this.render(_templateObject7, cols, header, bodyRows, footer);
-				} else {
-					this.render(_templateObject8, header, bodyRows, footer);
-				}
+				this.html(_templateObject8, cols, header, bodyRows, footer);
 			}
 		}, {
 			key: 'io',
@@ -182,7 +186,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					_this4.total = _this4.page.total;
 					_this4.realOffset = _this4.page.offset;
 					_this4.realLimit = _this4.page.data.length;
-					_this4.show();
+					_this4.render();
 					_this4.dispatchEvent(new CustomEvent('reno-table-data-updated', { bubbles: true, detail: { limit: limit, total: _this4.total, offset: _this4.realOffset, shown: _this4.realLimit } }));
 				});
 			}
@@ -219,6 +223,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				}
 			}
 			// user-supplied callbacks
+			// fieldMap is a map of names to form the header
 
 		}, {
 			key: 'formatFieldValue',

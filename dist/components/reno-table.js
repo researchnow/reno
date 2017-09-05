@@ -13,24 +13,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		node && node[value === null ? 'removeAttribute' : 'setAttribute'](name, value);
 	};
 
+	var supportedEvents = { 'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected' };
+
 	var RenoTable = function (_HTMLElement) {
 		_inherits(RenoTable, _HTMLElement);
 
 		function RenoTable() {
 			_classCallCheck(this, RenoTable);
 
-			var _this = _possibleConstructorReturn(this, (RenoTable.__proto__ || Object.getPrototypeOf(RenoTable)).call(this));
-
-			_this.onDataUpdated = _this.onDataUpdated.bind(_this);
-			_this.onSortRequested = _this.onSortRequested.bind(_this);
-			_this.onPageSelected = _this.onPageSelected.bind(_this);
-			return _this;
+			return _possibleConstructorReturn(this, (RenoTable.__proto__ || Object.getPrototypeOf(RenoTable)).apply(this, arguments));
 		}
-		// life-cycle callbacks
-
 
 		_createClass(RenoTable, [{
 			key: 'connectedCallback',
+
+			// life-cycle callbacks
 			value: function connectedCallback() {
 				var _this2 = this;
 
@@ -50,16 +47,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				div1.appendChild(div2);
 				div2.appendChild(this.counter);
 				// attach events
-				this.addEventListener('reno-table-data-updated', this.onDataUpdated);
-				this.addEventListener('reno-table-sort-requested', this.onSortRequested);
-				this.addEventListener('reno-table-page-selected', this.onPageSelected);
+				Object.keys(supportedEvents).forEach(function (eventName) {
+					return _this2.addEventListener(eventName, _this2);
+				});
 			}
 		}, {
 			key: 'disconnectedCallback',
 			value: function disconnectedCallback() {
-				this.removeEventListener('reno-table-data-updated', this.onDataUpdated);
-				this.removeEventListener('reno-table-sort-requested', this.onSortRequested);
-				this.removeEventListener('reno-table-page-selected', this.onPageSelected);
+				var _this3 = this;
+
+				Object.keys(supportedEvents).forEach(function (eventName) {
+					return _this3.removeEventListener(eventName, _this3);
+				});
 			}
 		}, {
 			key: 'attributeChangedCallback',
@@ -81,6 +80,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			}
 			// event handlers
 
+		}, {
+			key: 'handleEvent',
+			value: function handleEvent(e) {
+				this[supportedEvents[e.type]](e);
+			}
 		}, {
 			key: 'onDataUpdated',
 			value: function onDataUpdated(e) {

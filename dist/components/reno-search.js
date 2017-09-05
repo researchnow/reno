@@ -9,26 +9,27 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (function () {
+	'use strict';
+
+	var supportedEvents = { click: 0, change: 0, focus: 0, blur: 0, keyup: 'onChange' },
+	    firstChildEvents = ['change', 'keyup', 'focus', 'blur'];
+
 	var RenoSearch = function (_HTMLElement) {
 		_inherits(RenoSearch, _HTMLElement);
 
 		function RenoSearch() {
 			_classCallCheck(this, RenoSearch);
 
-			var _this = _possibleConstructorReturn(this, (RenoSearch.__proto__ || Object.getPrototypeOf(RenoSearch)).call(this));
-
-			_this.onClick = _this.onClick.bind(_this);
-			_this.onChange = _this.onChange.bind(_this);
-			_this.onFocus = _this.onFocus.bind(_this);
-			_this.onBlur = _this.onBlur.bind(_this);
-			return _this;
+			return _possibleConstructorReturn(this, (RenoSearch.__proto__ || Object.getPrototypeOf(RenoSearch)).apply(this, arguments));
 		}
-		// life-cycle callbacks
-
 
 		_createClass(RenoSearch, [{
 			key: 'connectedCallback',
+
+			// life-cycle callbacks
 			value: function connectedCallback() {
+				var _this2 = this;
+
 				var name = this.getAttribute('name'),
 				    value = this.getAttribute('value'),
 				    disabled = this.getAttribute('disabled'),
@@ -44,20 +45,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				value && span.classList.add('has-value');
 				this.appendChild(input);
 				this.appendChild(span);
-				this.lastChild.addEventListener('click', this.onClick);
-				this.firstChild.addEventListener('change', this.onChange);
-				this.firstChild.addEventListener('keyup', this.onChange);
-				this.firstChild.addEventListener('focus', this.onFocus);
-				this.firstChild.addEventListener('blur', this.onBlur);
+				this.lastChild.addEventListener('click', this);
+				firstChildEvents.forEach(function (eventName) {
+					return _this2.firstChild.addEventListener(eventName, _this2);
+				});
 			}
 		}, {
 			key: 'disconnectedCallback',
 			value: function disconnectedCallback() {
-				this.lastChild.removeEventListener('click', this.onClick);
-				this.firstChild.removeEventListener('change', this.onChange);
-				this.firstChild.removeEventListener('keyup', this.onChange);
-				this.firstChild.removeEventListener('focus', this.onFocus);
-				this.firstChild.removeEventListener('blur', this.onBlur);
+				var _this3 = this;
+
+				this.lastChild.removeEventListener('click', this);
+				firstChildEvents.forEach(function (eventName) {
+					return _this3.firstChild.removeEventListener(eventName, _this3);
+				});
 				while (this.firstChild) {
 					this.removeChild(this.firstChild);
 				}
@@ -89,9 +90,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			// event handlers
 
 		}, {
+			key: 'handleEvent',
+			value: function handleEvent(e) {
+				var name = supportedEvents[e.type];
+				if (name === 0) {
+					name = 'on' + e.type.charAt(0).toUpperCase() + e.type.substr(1).toLowerCase();
+				}
+				if (typeof name == 'string' && typeof this[name] == 'function') {
+					this[name](e);
+				}
+			}
+		}, {
 			key: 'onClick',
 			value: function onClick(e) {
-				if (this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
+				if (e.target == this.lastChild && this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
 					this.firstChild.value = '';
 					this.lastChild.classList.remove('has-value');
 					this.notifyAboutChange();
