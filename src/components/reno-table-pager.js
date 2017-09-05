@@ -12,19 +12,19 @@
 		// life-cycle methods
 		connectedCallback () {
 			this.addEventListener('click', this.onClick);
-			this.render = hyperHTML.bind(this);
-			this.show();
+			this.html = hyperHTML.bind(this);
+			this.render();
 		}
 		disconnectedCallback () {
 			this.removeEventListener('click', this.onClick);
 		}
 		static get observedAttributes () { return ['offset', 'limit', 'total', 'around']; }
 		attributeChangedCallback () {
-			this.show();
+			this.render();
 		}
 		// custom methods
-		show () {
-			if (!this.render) return;
+		render () {
+			if (!this.html) return;
 
 			// prepare parameters
 			let offset = this.getAttribute('offset');
@@ -86,7 +86,7 @@
 			const prevPageOffset = currentPage === 0 ? 0 : pages[currentPage - 1];
 			const nextPageOffset = currentPage === pages.length - 1 ? Math.max(0, total - limit) : pages[currentPage + 1];
 
-			this.render`
+			this.html`
 				<div  class="${firstPageClasses.join(' ')}" offset="${firstPageOffset}" reason="first"></div>
 				<div  class="${prevPageClasses.join(' ')}"  offset="${prevPageOffset}"  reason="previous"></div>${
 					pageList
