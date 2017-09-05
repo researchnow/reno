@@ -7,6 +7,7 @@
 	class RenoSearch extends HTMLElement {
 		// life-cycle callbacks
 		connectedCallback () {
+			// render representation
 			const name = this.getAttribute('name'), value = this.getAttribute('value'),
 				disabled = this.getAttribute('disabled'), placeholder = this.getAttribute('placeholder');
 			const input = this.ownerDocument.createElement('input');
@@ -20,12 +21,15 @@
 			value && span.classList.add('has-value');
 			this.appendChild(input);
 			this.appendChild(span);
+			// attach events
 			this.lastChild.addEventListener('click', this);
 			firstChildEvents.forEach(eventName => this.firstChild.addEventListener(eventName, this));
 		}
 		disconnectedCallback () {
+			// detach events
 			this.lastChild.removeEventListener('click', this);
 			firstChildEvents.forEach(eventName => this.firstChild.removeEventListener(eventName, this));
+			// destroy representation
 			while (this.firstChild) this.removeChild(this.firstChild);
 		}
 		static get observedAttributes () { return ['name', 'value', 'disabled', 'placeholder']; }
@@ -45,18 +49,10 @@
 			}
 		}
 		// custom methods
-		get value () {
-			return this.firstChild && this.firstChild.value || '';
-		}
-		set value (x) {
-			this.setAttribute('value', x);
-		}
-		get disabled () {
-			return this.firstChild && this.firstChild.disabled || false;
-		}
-		set disabled (x) {
-			this[x ? 'setAttribute' : 'removeAttribute']('disabled', '');
-		}
+		get value ()     { return this.firstChild && this.firstChild.value || ''; }
+		set value (x)    { this.setAttribute('value', x); }
+		get disabled ()  { return this.firstChild && this.firstChild.disabled || false; }
+		set disabled (x) { this[x ? 'setAttribute' : 'removeAttribute']('disabled', ''); }
 		notifyAboutChange () {
 			this.dispatchEvent(new CustomEvent('reno-change', {bubbles: true, detail: {value: this.firstChild.value}}));
 		}
@@ -83,12 +79,8 @@
 				this.notifyAboutChange();
 			}
 		}
-		onFocus (e) {
-			this.classList.add('focused');
-		}
-		onBlur (e) {
-			this.classList.remove('focused');
-		}
+		onFocus (e) { this.classList.add('focused'); }
+		onBlur (e)  { this.classList.remove('focused'); }
 	}
 	customElements.define('reno-search', RenoSearch);
 })();

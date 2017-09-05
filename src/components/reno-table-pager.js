@@ -11,8 +11,8 @@
 		}
 		// life-cycle methods
 		connectedCallback () {
+			if (!this.html) this.html = hyperHTML.bind(this);
 			this.addEventListener('click', this.onClick);
-			this.html = hyperHTML.bind(this);
 			this.render();
 		}
 		disconnectedCallback () {
