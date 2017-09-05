@@ -27,7 +27,7 @@
 		// life-cycle callbacks
 		connectedCallback () {
 			this.addEventListener('click', this.onClick);
-			this.render = hyperHTML.bind(this);
+			this.html = hyperHTML.bind(this);
 			this.io();
 		}
 		disconnectedCallback () {
@@ -36,7 +36,7 @@
 		static get observedAttributes () { return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
 			if (attrName === 'labels' || attrName === 'nocolgroup') {
-				return this.show();
+				return this.render();
 			}
 			if (attrName === 'fields') {
 				this.fieldList = (newVal || 'name').split(',').map(field => field.trim());
@@ -51,8 +51,8 @@
 			this.io();
 		}
 		// custom methods
-		show () {
-			if (!this.render) return;
+		render () {
+			if (!this.html) return;
 
 			// prepare parameters
 			const offset = Math.max(0, parseInt(this.getAttribute('offset') ||  '0',  10));
@@ -99,9 +99,9 @@
 
 			// assemble everything together
 			if (cols) {
-				this.render`<colgroup>${cols}</colgroup>${header}<div class="tbody">${bodyRows}</div>${footer}`;
+				this.html`<colgroup>${cols}</colgroup>${header}<div class="tbody">${bodyRows}</div>${footer}`;
 			} else {
-				this.render`${header}<div class="tbody">${bodyRows}</div>${footer}`;
+				this.html`${header}<div class="tbody">${bodyRows}</div>${footer}`;
 			}
 		}
 		io () {
@@ -125,7 +125,7 @@
 				this.total = this.page.total;
 				this.realOffset = this.page.offset;
 				this.realLimit  = this.page.data.length;
-				this.show();
+				this.render();
 				this.dispatchEvent(new CustomEvent('reno-table-data-updated', {bubbles: true, detail: {limit, total: this.total, offset: this.realOffset, shown: this.realLimit}}));
 			});
 		}
