@@ -3,13 +3,9 @@
 		node && node[value === null ? 'removeAttribute' : 'setAttribute'](name, value);
 	};
 
+	const supportedEvents = {'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected'};
+
 	class RenoTable extends HTMLElement {
-		constructor () {
-			super();
-			this.onDataUpdated   = this.onDataUpdated.bind(this);
-			this.onSortRequested = this.onSortRequested.bind(this);
-			this.onPageSelected  = this.onPageSelected.bind(this);
-		}
 		// life-cycle callbacks
 		connectedCallback () {
 			// construct a tree
@@ -25,14 +21,10 @@
 			div1.appendChild(div2);
 			div2.appendChild(this.counter);
 			// attach events
-			this.addEventListener('reno-table-data-updated',   this.onDataUpdated);
-			this.addEventListener('reno-table-sort-requested', this.onSortRequested);
-			this.addEventListener('reno-table-page-selected',  this.onPageSelected);
+			Object.keys(supportedEvents).forEach(eventName => this.addEventListener(eventName, this));
 		}
 		disconnectedCallback () {
-			this.removeEventListener('reno-table-data-updated',   this.onDataUpdated);
-			this.removeEventListener('reno-table-sort-requested', this.onSortRequested);
-			this.removeEventListener('reno-table-page-selected',  this.onPageSelected);
+			Object.keys(supportedEvents).forEach(eventName => this.removeEventListener(eventName, this));
 		}
 		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
@@ -49,6 +41,9 @@
 			this.view && this.view.io();
 		}
 		// event handlers
+		handleEvent (e) {
+			this[supportedEvents[e.type]](e);
+		}
 		onDataUpdated (e) {
 			if (this.pager) {
 				this.pager.setAttribute('total',  e.detail.total);
