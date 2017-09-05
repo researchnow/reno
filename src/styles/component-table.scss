@@ -1,4 +1,5 @@
 // @import "./colors";
+// @import "./spacing";
 
 /* reno-table-view */
 
@@ -186,14 +187,103 @@ reno-table-counter {
 reno-table {
 	display: block;
 
-	> * {
-		width: 100%;
+	div.normal, div.loading, div.empty, div.error {
+		display: none;
 	}
 
-	> div {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 1em;
+	&.normal div.normal {
+		display: block;
+
+		> * {
+			width: 100%;
+		}
+
+		> div {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 1em;
+		}
+	}
+
+	&.loading div.loading {
+		display: block;
+
+	  font-size: $reno-spacing;
+	  margin: $reno-spacing-xxx-large auto;
+	  text-indent: -9999em;
+	  width: 3em;
+	  height: 3em;
+	  border-radius: 50%;
+	  // background: $reno-color-black;
+		// background: linear-gradient(to right, $reno-color-black 10%, rgba($reno-color-black, 0) 42%);
+		background: linear-gradient(to right, rgba($reno-color-black, 0) 50%, $reno-color-black 75%);
+	  position: relative;
+	  animation: reno-loader 1s infinite linear;
+	  transform: translateZ(0);
+
+		&:before {
+		  width: 100%;
+		  height: 50%;
+		  background: $reno-color-dirty-white;
+		  // border-radius: 100% 0 0 0;
+		  position: absolute;
+		  top: 50%;
+		  left: 0;
+		  content: '';
+		}
+
+		&:after {
+			background: $reno-color-dirty-white;
+		  width: 75%;
+		  height: 75%;
+		  border-radius: 50%;
+		  content: '';
+		  margin: auto;
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  bottom: 0;
+		  right: 0;
+		}
+
+		@-webkit-keyframes reno-loader {
+		  0% {
+		    transform: rotate(0deg);
+		  }
+		  100% {
+		    transform: rotate(360deg);
+		  }
+		}
+		@keyframes reno-loader {
+		  0% {
+		    transform: rotate(0deg);
+		  }
+		  100% {
+		    transform: rotate(360deg);
+		  }
+		}
+	}
+
+	&.empty div.empty, &.error div.error {
+		display: block;
+
+		@extend .reno-box-dirty-white-with-border;
+		background-color: white;
+
+		.line1 {
+			font-size: 12px;
+			font-weight: 500;
+			text-align: center;
+
+			margin: $reno-spacing-x-large auto $reno-spacing auto;
+		}
+
+		.line2 {
+			font-size: 12px;
+			text-align: center;
+
+			margin: $reno-spacing auto $reno-spacing-x-large auto;
+		}
 	}
 }

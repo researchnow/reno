@@ -9,19 +9,8 @@
 	class RenoTable extends HTMLElement {
 		// life-cycle callbacks
 		connectedCallback () {
-			// construct a tree
-			this.view = this.ownerDocument.createElement('reno-table-view');
-			RenoTable.observedAttributes.forEach(name => propagateTo(this.view, name, this.getAttribute(name)));
-			this.view.setAttribute('offset', '0');
-			this.appendChild(this.view);
-			this.pager   = this.ownerDocument.createElement('reno-table-pager');
-			this.counter = this.ownerDocument.createElement('reno-table-counter');
-			const div1 = this.ownerDocument.createElement('div'), div2 = this.ownerDocument.createElement('div');
-			this.appendChild(div1);
-			div1.appendChild(this.pager);
-			div1.appendChild(div2);
-			div2.appendChild(this.counter);
-			// attach events
+			if (!this.html) this.html = hyperHTML.bind(this);
+			this.render();
 			Object.keys(supportedEvents).forEach(eventName => this.addEventListener(eventName, this));
 		}
 		disconnectedCallback () {
@@ -41,11 +30,41 @@
 		refresh () {
 			this.view && this.view.io();
 		}
+		render () {
+			const filter = this.getAttribute('filter');
+			this.html`
+				<div class="normal">
+					<reno-table-view></reno-table-view>
+					<div>
+						<reno-table-pager></reno-table-pager>
+						<div><reno-table-counter></reno-table-counter></div>
+					</div>
+				</div>
+				<div class="empty">
+					<div class="line1">${filter ? 'There are no items that match the search term(s).' : 'This table is empty.'}</div>
+					<div class="line2">${filter ? 'Try refining your serch term(s) or broaden your search.' : 'Try to populate it first.'}</div>
+				</div>
+				<div class="error">
+					<div class="line1">I/O error. Please try again later.</div>
+					<div class="line2">The support team is automatically notified.</div>
+				</div>
+				<div class="loading">Loading...</div>
+			`;
+			if (!this.view) {
+				this.view    = this.querySelector('reno-table-view');
+				this.pager   = this.querySelector('reno-table-pager');
+				this.counter = this.querySelector('reno-table-counter');
+				RenoTable.observedAttributes.forEach(name => propagateTo(this.view, name, this.getAttribute(name)));
+				this.view.setAttribute('offset', '0');
+			}
+		}
 		// event handlers
 		handleEvent (e) {
 			this[supportedEvents[e.type]](e);
 		}
 		onDataUpdated (e) {
+			this.classList.remove('loading');
+			this.classList.add(e.detail.total ? 'normal' : 'empty');
 			if (this.pager) {
 				this.pager.setAttribute('total',  e.detail.total);
 				this.pager.setAttribute('offset', e.detail.offset);
@@ -75,6 +94,18 @@
 		}
 		onPageSelected (e) {
 			this.view && this.view.setAttribute('offset', e.detail.offset);
+		}
+		onIoStart () {
+			this.classList.remove('normal');
+			this.classList.remove('empty');
+			this.classList.remove('error');
+			this.classList.add('loading');
+			this.render();
+		}
+		onIoDone (e) {
+			this.classList.remove('loading');
+			e.detail.error && this.classList.add('error');
+			this.render();
 		}
 	}
 	customElements.define('reno-table', RenoTable);
