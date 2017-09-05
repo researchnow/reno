@@ -5,9 +5,6 @@
 		firstChildEvents = ['change', 'keyup', 'focus', 'blur'];
 
 	class RenoSearch extends HTMLElement {
-		constructor () {
-			super();
-		}
 		// life-cycle callbacks
 		connectedCallback () {
 			const name = this.getAttribute('name'), value = this.getAttribute('value'),
