@@ -1,11 +1,12 @@
 (function () {
+	'use strict';
+
+	const supportedEvents = {click: 0, change: 0, focus: 0, blur: 0, keyup: 'onChange'},
+		firstChildEvents = ['change', 'keyup', 'focus', 'blur'];
+
 	class RenoSearch extends HTMLElement {
 		constructor () {
 			super();
-			this.onClick  = this.onClick.bind(this);
-			this.onChange = this.onChange.bind(this);
-			this.onFocus  = this.onFocus.bind(this);
-			this.onBlur   = this.onBlur.bind(this);
 		}
 		// life-cycle callbacks
 		connectedCallback () {
@@ -22,18 +23,12 @@
 			value && span.classList.add('has-value');
 			this.appendChild(input);
 			this.appendChild(span);
-			this.lastChild.addEventListener('click', this.onClick);
-			this.firstChild.addEventListener('change', this.onChange);
-			this.firstChild.addEventListener('keyup', this.onChange);
-			this.firstChild.addEventListener('focus', this.onFocus);
-			this.firstChild.addEventListener('blur', this.onBlur);
+			this.lastChild.addEventListener('click', this);
+			firstChildEvents.forEach(eventName => this.firstChild.addEventListener(eventName, this));
 		}
 		disconnectedCallback () {
-			this.lastChild.removeEventListener('click', this.onClick);
-			this.firstChild.removeEventListener('change', this.onChange);
-			this.firstChild.removeEventListener('keyup', this.onChange);
-			this.firstChild.removeEventListener('focus', this.onFocus);
-			this.firstChild.removeEventListener('blur', this.onBlur);
+			this.lastChild.removeEventListener('click', this);
+			firstChildEvents.forEach(eventName => this.firstChild.removeEventListener(eventName, this));
 			while (this.firstChild) this.removeChild(this.firstChild);
 		}
 		static get observedAttributes () { return ['name', 'value', 'disabled', 'placeholder']; }
@@ -69,8 +64,17 @@
 			this.dispatchEvent(new CustomEvent('reno-change', {bubbles: true, detail: {value: this.firstChild.value}}));
 		}
 		// event handlers
+		handleEvent (e) {
+			let name = supportedEvents[e.type];
+			if (name === 0) {
+				name = 'on' + e.type.charAt(0).toUpperCase() + e.type.substr(1).toLowerCase();
+			}
+			if (typeof name == 'string' && typeof this[name] == 'function') {
+				this[name](e);
+			}
+		}
 		onClick (e) {
-			if (this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
+			if (e.target == this.lastChild && this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
 				this.firstChild.value = '';
 				this.lastChild.classList.remove('has-value');
 				this.notifyAboutChange();
