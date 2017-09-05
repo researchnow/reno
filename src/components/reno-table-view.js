@@ -119,6 +119,7 @@
 			const request = {limit, offset, fields};
 			if (filter) { request.filter = filter; }
 			if (sort) { request.sort = sort; }
+			this.dispatchEvent(new CustomEvent('reno-table-io-start', {bubbles: true, detail: {}}));
 			heya.io(this.sanitizeRequest({url: url, method: 'GET', query: request})).then(page => {
 				page = this.sanitizeResponse(page);
 				this.page  = page instanceof Array ? {data: page} : page;
@@ -127,6 +128,9 @@
 				this.realLimit  = this.page.data.length;
 				this.render();
 				this.dispatchEvent(new CustomEvent('reno-table-data-updated', {bubbles: true, detail: {limit, total: this.total, offset: this.realOffset, shown: this.realLimit}}));
+				this.dispatchEvent(new CustomEvent('reno-table-io-done', {bubbles: true, detail: {error: null}}));
+			}).catch(e => {
+				this.dispatchEvent(new CustomEvent('reno-table-io-done', {bubbles: true, detail: {error: e}}));
 			});
 		}
 		// event handlers

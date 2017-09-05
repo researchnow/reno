@@ -3,7 +3,8 @@
 		node && node[value === null ? 'removeAttribute' : 'setAttribute'](name, value);
 	};
 
-	const supportedEvents = {'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected'};
+	const supportedEvents = {'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected',
+		'reno-table-io-start': 'onIoStart', 'reno-table-io-done': 'onIoDone'};
 
 	class RenoTable extends HTMLElement {
 		// life-cycle callbacks
