@@ -48,7 +48,7 @@
 					<div class="line1">I/O error. Please try again later.</div>
 					<div class="line2">The support team is automatically notified.</div>
 				</div>
-				<div class="loading">Loading...</div>
+				<div class="reno-spinner">Loading...</div>
 			`;
 			if (!this.view) {
 				this.view    = this.querySelector('reno-table-view');
