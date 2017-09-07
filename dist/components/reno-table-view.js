@@ -38,6 +38,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 	var activeElements = { button: 1, input: 1, textarea: 1, a: 1, label: 1 };
 
+	var primitives = { string: 1, number: 1, boolean: 1 };
+
 	var RenoTableView = function (_HTMLElement) {
 		_inherits(RenoTableView, _HTMLElement);
 
@@ -131,7 +133,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 					var fieldName = _this3.fieldMap[field];
 					if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-					return hyperHTML.wire()(_templateObject3, cssClasses, field, (typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)) == 'object' ? fieldName : { html: fieldName });
+					return hyperHTML.wire()(_templateObject3, cssClasses, field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName);
 				});
 				var header = hyperHTML.wire()(_templateObject4, headRowCells);
 
@@ -144,7 +146,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 						if (labels) {
 							var fieldName = _this3.fieldMap[field];
 							if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-							return hyperHTML.wire()(_templateObject5, 'td field-' + field, (typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)) == 'object' ? fieldName : { html: fieldName }, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
+							return hyperHTML.wire()(_templateObject5, 'td field-' + field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName, primitives[typeof value === 'undefined' ? 'undefined' : _typeof(value)] ? { html: value } : value);
 						}
 						return hyperHTML.wire()(_templateObject6, 'td field-' + field, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
 					});
