@@ -13,6 +13,8 @@
 
 	const activeElements = {button: 1, input: 1, textarea: 1, a: 1, label: 1};
 
+	const primitives = {string: 1, number: 1, boolean: 1};
+
 	class RenoTableView extends HTMLElement {
 		// constructor (self) {
 		// 	self = super(self);
@@ -80,7 +82,7 @@
 				const cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 				let fieldName = this.fieldMap[field];
 				if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
-				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${typeof fieldName == 'object' ? fieldName : {html: fieldName}}</span></div>`;
+				return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${primitives[typeof fieldName] ? {html: fieldName} : fieldName}</span></div>`;
 			});
 			const header = hyperHTML.wire()`<div class="thead"><div class="tr">${headRowCells}</div></div>`;
 
@@ -92,8 +94,8 @@
 						let fieldName = this.fieldMap[field];
 						if (fieldName === undefined) fieldName ='<em>' + field + '</em>';
 						return hyperHTML.wire()`<div class="${'td field-' + field}">
-							<div class="label">${typeof fieldName == 'object' ? fieldName : {html: fieldName}}</div>
-							<div class="value">${typeof value == 'object' ? value : {html: value}}</div></div>`;
+							<div class="label">${primitives[typeof fieldName] ? {html: fieldName} : fieldName}</div>
+							<div class="value">${primitives[typeof value] ? {html: value} : value}</div></div>`;
 					}
 					return hyperHTML.wire()`<div class="${'td field-' + field}">${typeof value == 'object' ? value : {html: value}}</div>`;
 				});
