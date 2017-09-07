@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	const propagateTo = (node, name, value) => {
 		node && node[value === null ? 'removeAttribute' : 'setAttribute'](name, value);
 	};

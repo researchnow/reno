@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	const debounce = f => {
 		let flag;
 		return () => {

@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	class RenoTableCounter extends HTMLElement {
 		// life-cycle methods
 		connectedCallback () {

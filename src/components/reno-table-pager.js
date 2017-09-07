@@ -1,4 +1,6 @@
 (function () {
+	'use strict';
+
 	class RenoTablePager extends HTMLElement {
 		// constructor (self) {
 		// 	self = super(self);
