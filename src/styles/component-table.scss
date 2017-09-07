@@ -187,13 +187,7 @@ reno-table-counter {
 reno-table {
 	display: block;
 
-	div.normal, div.empty, div.error, div.reno-spinner {
-		display: none;
-	}
-
-	&.normal div.normal {
-		display: block;
-
+	div.normal {
 		> * {
 			width: 100%;
 		}
@@ -206,13 +200,7 @@ reno-table {
 		}
 	}
 
-	&.loading div.reno-spinner {
-		display: block;
-	}
-
-	&.empty div.empty, &.error div.error {
-		display: block;
-
+	div.empty, div.overfiltered, div.error {
 		@extend .reno-box-dirty-white-with-border;
 		background-color: white;
 

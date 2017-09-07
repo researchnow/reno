@@ -35,22 +35,28 @@
 		render () {
 			const filter = this.getAttribute('filter');
 			this.html`
-				<div class="normal">
-					<reno-table-view></reno-table-view>
-					<div>
-						<reno-table-pager></reno-table-pager>
-						<div><reno-table-counter></reno-table-counter></div>
+				<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">
+					<div class="normal">
+						<reno-table-view></reno-table-view>
+						<div>
+							<reno-table-pager></reno-table-pager>
+							<div><reno-table-counter></reno-table-counter></div>
+						</div>
 					</div>
-				</div>
-				<div class="empty">
-					<div class="line1">${filter ? 'There are no items that match the search term(s).' : 'This table is empty.'}</div>
-					<div class="line2">${filter ? 'Try refining your serch term(s) or broaden your search.' : 'Try to populate it first.'}</div>
-				</div>
-				<div class="error">
-					<div class="line1">I/O error. Please try again later.</div>
-					<div class="line2">The support team is automatically notified.</div>
-				</div>
-				<div class="reno-spinner">Loading...</div>
+					<div class="page empty">
+						<div class="line1">This table is empty.</div>
+						<div class="line2">Try to populate it first.</div>
+					</div>
+					<div class="page overfiltered">
+						<div class="line1">There are no items that match the search terms.</div>
+						<div class="line2">Try refining your serch terms or broaden your search.</div>
+					</div>
+					<div class="page error">
+						<div class="line1">I/O error. Please try again later.</div>
+						<div class="line2">The support team is automatically notified.</div>
+					</div>
+					<div class="page spinner"><div class="reno-spinner">Loading...</div></div>
+				</reno-content-switcher>
 			`;
 			if (!this.view) {
 				this.view    = this.querySelector('reno-table-view');
@@ -65,8 +71,6 @@
 			this[supportedEvents[e.type]](e);
 		}
 		onDataUpdated (e) {
-			this.classList.remove('loading');
-			this.classList.add(e.detail.total ? 'normal' : 'empty');
 			if (this.pager) {
 				this.pager.setAttribute('total',  e.detail.total);
 				this.pager.setAttribute('offset', e.detail.offset);
@@ -77,6 +81,8 @@
 				this.counter.setAttribute('offset', e.detail.offset);
 				this.counter.setAttribute('limit',  e.detail.shown);
 			}
+			const contentSwitcher = this.querySelector('reno-content-switcher');
+			contentSwitcher && contentSwitcher.reveal(e.detail.total ? '.normal' : this.getAttribute('filter') ? '.overfiltered' : '.empty');
 		}
 		onSortRequested (e) {
 			if (this.view) {
@@ -98,16 +104,14 @@
 			this.view && this.view.setAttribute('offset', e.detail.offset);
 		}
 		onIoStart () {
-			this.classList.remove('normal');
-			this.classList.remove('empty');
-			this.classList.remove('error');
-			this.classList.add('loading');
-			this.render();
+			const contentSwitcher = this.querySelector('reno-content-switcher');
+			contentSwitcher && contentSwitcher.obscure(0.9);
 		}
 		onIoDone (e) {
-			this.classList.remove('loading');
-			e.detail.error && this.classList.add('error');
-			this.render();
+			if (e.detail.error) {
+				const contentSwitcher = this.querySelector('reno-content-switcher');
+				contentSwitcher && contentSwitcher.reveal('.error');
+			}
 		}
 	}
 	customElements.define('reno-table', RenoTable);

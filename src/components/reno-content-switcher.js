@@ -21,8 +21,11 @@
 				revealClass  = this.getAttribute('revealClass');
 
 			curtain.style.display = display;
-			const boxTo = curtain.getBoundingClientRect();
-			this.style.height = boxTo.height + 'px';
+
+			if (this.notFirstRun) {
+				const boxTo = curtain.getBoundingClientRect();
+				this.style.height = boxTo.height + 'px';
+			}
 
 			if (revealClass)  curtain.classList.remove(revealClass);
 			if (obscureClass) curtain.classList.add(obscureClass);
@@ -39,20 +42,32 @@
 
 			selected.style.display = 'block';
 			this.hideOthers(selected);
-			const boxTo = selected.getBoundingClientRect();
-			this.style.height = boxTo.height + 'px';
+
+			if (this.notFirstRun) {
+				const boxTo = selected.getBoundingClientRect();
+				this.style.height = boxTo.height + 'px';
+			} else {
+				this.notFirstRun = true;
+			}
 
 			const curtain = this.lastElementChild,
 				obscureClass = this.getAttribute('obscureClass'),
 				revealClass  = this.getAttribute('revealClass');
 			if (obscureClass) curtain.classList.remove(obscureClass);
 			if (revealClass)  curtain.classList.add(revealClass);
-			curtain.style.opacity = 0;
 
-			if (this.state === 'obscuring') {
-				curtain.addEventListener('transitionend', this);
+			const oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity');
+			if (oldOpacity !== "0") {
+				curtain.style.opacity = 0;
+				if (this.state === 'obscuring') {
+					curtain.addEventListener('transitionend', this);
+				}
+				this.state = 'revealing';
+			} else {
+				curtain.style.opacity = 0;
+				curtain.style.display = 'none';
+				this.state = '';
 			}
-			this.state = 'revealing';
 		}
 		selectPages (selector) {
 			let selected;
