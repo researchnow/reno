@@ -30,6 +30,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function connectedCallback() {
 				var _this2 = this;
 
+				// render representation
 				var name = this.getAttribute('name'),
 				    value = this.getAttribute('value'),
 				    disabled = this.getAttribute('disabled'),
@@ -45,6 +46,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				value && span.classList.add('has-value');
 				this.appendChild(input);
 				this.appendChild(span);
+				// attach events
 				this.lastChild.addEventListener('click', this);
 				firstChildEvents.forEach(function (eventName) {
 					return _this2.firstChild.addEventListener(eventName, _this2);
@@ -55,10 +57,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function disconnectedCallback() {
 				var _this3 = this;
 
+				// detach events
 				this.lastChild.removeEventListener('click', this);
 				firstChildEvents.forEach(function (eventName) {
 					return _this3.firstChild.removeEventListener(eventName, _this3);
 				});
+				// destroy representation
 				while (this.firstChild) {
 					this.removeChild(this.firstChild);
 				}

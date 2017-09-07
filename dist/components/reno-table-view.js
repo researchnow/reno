@@ -22,6 +22,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (function () {
+	'use strict';
+
 	var debounce = function debounce(f) {
 		var flag = void 0;
 		return function () {
@@ -61,8 +63,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		_createClass(RenoTableView, [{
 			key: 'connectedCallback',
 			value: function connectedCallback() {
+				if (!this.html) this.html = hyperHTML.bind(this);
 				this.addEventListener('click', this.onClick);
-				this.html = hyperHTML.bind(this);
 				this.io();
 			}
 		}, {
@@ -180,6 +182,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				if (sort) {
 					request.sort = sort;
 				}
+				this.dispatchEvent(new CustomEvent('reno-table-io-start', { bubbles: true, detail: {} }));
 				heya.io(this.sanitizeRequest({ url: url, method: 'GET', query: request })).then(function (page) {
 					page = _this4.sanitizeResponse(page);
 					_this4.page = page instanceof Array ? { data: page } : page;
@@ -188,6 +191,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					_this4.realLimit = _this4.page.data.length;
 					_this4.render();
 					_this4.dispatchEvent(new CustomEvent('reno-table-data-updated', { bubbles: true, detail: { limit: limit, total: _this4.total, offset: _this4.realOffset, shown: _this4.realLimit } }));
+					_this4.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: null } }));
+				}).catch(function (e) {
+					_this4.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: e } }));
 				});
 			}
 			// event handlers

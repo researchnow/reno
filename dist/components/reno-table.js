@@ -2,6 +2,10 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _templateObject = _taggedTemplateLiteral(['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<reno-table-view></reno-table-view>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="line1">This table is empty.</div>\n\t\t\t\t\t\t<div class="line2">Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="line1">There are no items that match the search terms.</div>\n\t\t\t\t\t\t<div class="line2">Try refining your serch terms or broaden your search.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="line1">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div class="line2">The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t'], ['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<reno-table-view></reno-table-view>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="line1">This table is empty.</div>\n\t\t\t\t\t\t<div class="line2">Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="line1">There are no items that match the search terms.</div>\n\t\t\t\t\t\t<div class="line2">Try refining your serch terms or broaden your search.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="line1">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div class="line2">The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -9,11 +13,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (function () {
+	'use strict';
+
 	var propagateTo = function propagateTo(node, name, value) {
 		node && node[value === null ? 'removeAttribute' : 'setAttribute'](name, value);
 	};
 
-	var supportedEvents = { 'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected' };
+	var supportedEvents = { 'reno-table-data-updated': 'onDataUpdated', 'reno-table-sort-requested': 'onSortRequested', 'reno-table-page-selected': 'onPageSelected',
+		'reno-table-io-start': 'onIoStart', 'reno-table-io-done': 'onIoDone' };
 
 	var RenoTable = function (_HTMLElement) {
 		_inherits(RenoTable, _HTMLElement);
@@ -31,22 +38,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function connectedCallback() {
 				var _this2 = this;
 
-				// construct a tree
-				this.view = this.ownerDocument.createElement('reno-table-view');
-				RenoTable.observedAttributes.forEach(function (name) {
-					return propagateTo(_this2.view, name, _this2.getAttribute(name));
-				});
-				this.view.setAttribute('offset', '0');
-				this.appendChild(this.view);
-				this.pager = this.ownerDocument.createElement('reno-table-pager');
-				this.counter = this.ownerDocument.createElement('reno-table-counter');
-				var div1 = this.ownerDocument.createElement('div'),
-				    div2 = this.ownerDocument.createElement('div');
-				this.appendChild(div1);
-				div1.appendChild(this.pager);
-				div1.appendChild(div2);
-				div2.appendChild(this.counter);
-				// attach events
+				if (!this.html) this.html = hyperHTML.bind(this);
+				this.render();
 				Object.keys(supportedEvents).forEach(function (eventName) {
 					return _this2.addEventListener(eventName, _this2);
 				});
@@ -78,6 +71,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function refresh() {
 				this.view && this.view.io();
 			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this4 = this;
+
+				var filter = this.getAttribute('filter');
+				this.html(_templateObject);
+				if (!this.view) {
+					this.view = this.querySelector('reno-table-view');
+					this.pager = this.querySelector('reno-table-pager');
+					this.counter = this.querySelector('reno-table-counter');
+					RenoTable.observedAttributes.forEach(function (name) {
+						return propagateTo(_this4.view, name, _this4.getAttribute(name));
+					});
+					this.view.setAttribute('offset', '0');
+				}
+			}
 			// event handlers
 
 		}, {
@@ -98,6 +108,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					this.counter.setAttribute('offset', e.detail.offset);
 					this.counter.setAttribute('limit', e.detail.shown);
 				}
+				var contentSwitcher = this.querySelector('reno-content-switcher');
+				contentSwitcher && contentSwitcher.reveal(e.detail.total ? '.normal' : this.getAttribute('filter') ? '.overfiltered' : '.empty');
 			}
 		}, {
 			key: 'onSortRequested',
@@ -121,6 +133,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'onPageSelected',
 			value: function onPageSelected(e) {
 				this.view && this.view.setAttribute('offset', e.detail.offset);
+			}
+		}, {
+			key: 'onIoStart',
+			value: function onIoStart() {
+				var contentSwitcher = this.querySelector('reno-content-switcher');
+				contentSwitcher && contentSwitcher.obscure(0.9);
+			}
+		}, {
+			key: 'onIoDone',
+			value: function onIoDone(e) {
+				if (e.detail.error) {
+					var contentSwitcher = this.querySelector('reno-content-switcher');
+					contentSwitcher && contentSwitcher.reveal('.error');
+				}
 			}
 		}], [{
 			key: 'observedAttributes',
