@@ -19,6 +19,8 @@
 			const curtain = this.lastElementChild,
 				obscureClass = this.getAttribute('obscureClass'),
 				revealClass  = this.getAttribute('revealClass');
+			if (revealClass)  curtain.classList.remove(revealClass);
+			if (obscureClass) curtain.classList.add(obscureClass);
 
 			curtain.style.display = display;
 
@@ -27,8 +29,7 @@
 				this.style.height = boxTo.height + 'px';
 			}
 
-			if (revealClass)  curtain.classList.remove(revealClass);
-			if (obscureClass) curtain.classList.add(obscureClass);
+			const oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // need to sync?
 			curtain.style.opacity = opacity;
 
 			if (this.state === 'revealing') {
