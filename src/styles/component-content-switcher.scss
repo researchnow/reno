@@ -1,0 +1,42 @@
+/* reno-ontent-switcher */
+
+reno-content-switcher {
+	display: block;
+	overflow-y: hidden;
+	position: relative;
+	transition: height 0.5s ease-in;
+
+	// application-specific
+	// background-color: #def;
+	// width: 40em;
+
+	.page {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.spinner {
+		bottom: 0;
+		opacity: 0;
+
+		// display: flex;
+		align-items: center;
+		align-self: center;
+		justify-content: center;
+
+		// application-specific
+		// background-color: #fafafa;
+	}
+}
+
+// sample classes tuned for I/O
+
+.reno-obscuring {
+	transition: opacity 1s ease-in-out 1s;
+}
+.reno-revealing {
+	transition: opacity 0.5s ease-out;
+}
