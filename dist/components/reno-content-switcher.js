@@ -50,8 +50,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				curtain.style.display = display;
 
 				if (this.notFirstRun) {
-					var boxTo = curtain.getBoundingClientRect();
-					this.style.height = boxTo.height + 'px';
+					if (this.offsetParent) {
+						var boxTo = curtain.getBoundingClientRect();
+						this.style.height = boxTo.height + 'px';
+					} else {
+						this.style.height = 'auto';
+					}
 				}
 
 				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // need to sync?
@@ -72,8 +76,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				this.hideOthers(selected);
 
 				if (this.notFirstRun) {
-					var boxTo = selected.getBoundingClientRect();
-					this.style.height = boxTo.height + 'px';
+					if (this.offsetParent) {
+						var boxTo = selected.getBoundingClientRect();
+						this.style.height = boxTo.height + 'px';
+					} else {
+						this.style.height = 'auto';
+					}
 				} else {
 					this.notFirstRun = true;
 				}
@@ -84,18 +92,28 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				if (obscureClass) curtain.classList.remove(obscureClass);
 				if (revealClass) curtain.classList.add(revealClass);
 
-				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity');
-				if (oldOpacity !== "0") {
-					curtain.style.opacity = 0;
-					if (this.state === 'obscuring') {
-						curtain.addEventListener('transitionend', this);
-					}
-					this.state = 'revealing';
-				} else {
-					curtain.style.opacity = 0;
-					curtain.style.display = 'none';
-					this.state = '';
+				if (!this.offsetParent) {
+					return this.revealNow();
 				}
+
+				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity');
+				if (oldOpacity === "0") {
+					return this.revealNow();
+				}
+
+				curtain.style.opacity = 0;
+				if (this.state === 'obscuring') {
+					curtain.addEventListener('transitionend', this);
+				}
+				this.state = 'revealing';
+			}
+		}, {
+			key: 'revealNow',
+			value: function revealNow() {
+				var curtain = this.lastElementChild;
+				curtain.style.opacity = 0;
+				curtain.style.display = 'none';
+				this.state = '';
 			}
 		}, {
 			key: 'selectPages',

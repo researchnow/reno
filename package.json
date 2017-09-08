@@ -1,6 +1,6 @@
 {
   "name": "@researchnow/reno",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "The biggest little UI in the world.",
   "engines": {
     "node": ">=8"
