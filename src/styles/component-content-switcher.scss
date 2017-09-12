@@ -14,14 +14,15 @@ reno-content-switcher {
 
 	.page {
 		display: none;
+	}
+
+	.spinner {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
-	}
-
-	.spinner {
 		bottom: 0;
+
 		opacity: 0;
 		background-color: $reno-color-dirty-white; // to blend with spinner
 
