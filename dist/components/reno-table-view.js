@@ -212,8 +212,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					var field = node.getAttribute('field');
 					if (field) {
 						// process sorting events
-						var currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
-						this.dispatchEvent(new CustomEvent('reno-table-sort-requested', { bubbles: true, detail: { field: field, currentState: currentState } }));
+						if (field.charAt(0) !== '-') {
+							// ignore technical fields
+							var currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
+							this.dispatchEvent(new CustomEvent('reno-table-sort-requested', { bubbles: true, detail: { field: field, currentState: currentState } }));
+						}
 						return;
 					}
 					if (node.classList.contains('tr')) {
