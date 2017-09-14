@@ -45,6 +45,9 @@ reno-table-view {
 			content: $reno-icon-menu-up;
 			top: 6px;
 		}
+		[field^="-"] {
+			cursor: default;
+		}
 	}
 
 	/* visuals */

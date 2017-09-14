@@ -145,8 +145,10 @@
 				if (node.classList.contains('ignore-click') || activeElements[node.tagName.toLowerCase()] === 1 && !node.classList.contains('include-click')) break;
 				const field = node.getAttribute('field');
 				if (field) { // process sorting events
-					const currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
-					this.dispatchEvent(new CustomEvent('reno-table-sort-requested', {bubbles: true, detail: {field, currentState}}));
+					if (field.charAt(0) !== '-') { // ignore technical fields
+						const currentState = node.classList.contains('ascending') ? -1 : node.classList.contains('descending') ? 1 : 0;
+						this.dispatchEvent(new CustomEvent('reno-table-sort-requested', {bubbles: true, detail: {field, currentState}}));
+					}
 					return;
 				}
 				if (node.classList.contains('tr')) {
