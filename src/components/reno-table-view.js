@@ -25,6 +25,7 @@
 		constructor () {
 			super();
 			this.page = {data: []};
+			this.blacklistedAttributes = {};
 			this.onClick = this.onClick.bind(this);
 			this.io = debounce(this.io.bind(this));
 		}
@@ -39,6 +40,11 @@
 		}
 		static get observedAttributes () { return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
+			if (this.blacklistedAttributes[attrName] == 1) {
+				// skip an attribute
+				this.blacklistedAttributes[attrName] = 0;
+				return;
+			}
 			if (attrName === 'labels' || attrName === 'nocolgroup') {
 				return this.render();
 			}
@@ -55,6 +61,10 @@
 			this.io();
 		}
 		// custom methods
+		setAttributeSilently (attrName, value) {
+			this.blacklistedAttributes[attrName] = 1;
+			this.setAttribute(attrName, value);
+		}
 		render () {
 			if (!this.html) return;
 
@@ -125,11 +135,15 @@
 			if (sort) { request.sort = sort; }
 			this.dispatchEvent(new CustomEvent('reno-table-io-start', {bubbles: true, detail: {}}));
 			heya.io(this.sanitizeRequest({url: url, method: 'GET', query: request})).then(page => {
+				const self = this;
 				page = this.sanitizeResponse(page);
 				this.page  = page instanceof Array ? {data: page} : page;
 				this.total = this.page.total;
 				this.realOffset = this.page.offset;
 				this.realLimit  = this.page.data.length;
+				if (typeof this.realOffset == 'number' && offset != this.realOffset) {
+					this.setAttributeSilently('offset', this.realOffset);
+				}
 				this.render();
 				this.dispatchEvent(new CustomEvent('reno-table-data-updated', {bubbles: true, detail: {limit, total: this.total, offset: this.realOffset, shown: this.realLimit}}));
 				this.dispatchEvent(new CustomEvent('reno-table-io-done', {bubbles: true, detail: {error: null}}));
