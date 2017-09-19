@@ -18,7 +18,7 @@
 		disconnectedCallback () {
 			Object.keys(supportedEvents).forEach(eventName => this.removeEventListener(eventName, this));
 		}
-		static get observedAttributes () { return ['limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around']; }
+		static get observedAttributes () { return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around']; }
 		attributeChangedCallback (attrName, oldVal, newVal) {
 			if (attrName === 'around') {
 				return propagateTo(this.pager, attrName, newVal);
