@@ -9,14 +9,14 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.dev.config.js  --progress --colors --open --inline --hot",
     "build:dev": "webpack --config ./webpack.dev.config.js --progress --colors",
+    "build:font": "rm -rf ./tmpfont && node ./scripts/svg-extract.js src/images/reno-icons.svg ./tmpfont && webfont \"./tmpfont/*.svg\" -d src/fonts/ -t scss -f reno -c reno-icon -p ../fonts/ && rm -fr ./tmpfont",
     "build": "webpack -p --config ./webpack.prod.config.js --progress --colors",
     "dist-components": "BABEL_ENV=components babel src/components/ -d dist/components/",
     "dist-react": "BABEL_ENV=react babel src/react/ -d dist/react/",
     "dist-utils": "BABEL_ENV=utils babel src/utils/ -d dist/utils/",
     "clean": "rm -fr dist/",
     "dist": "npm run clean && npm run dist-components && npm run dist-react && npm run dist-utils",
-    "prepare": "npm run dist",
-    "build-font": "rm -rf ./tmpfont && node ./scripts/svg-extract.js src/images/reno-icons.svg ./tmpfont && webfont \"./tmpfont/*.svg\" -d src/fonts/ -t scss -f reno -c reno-icon -p ../fonts/ && rm -fr ./tmpfont"
+    "prepublishOnly": "npm run dist"
   },
   "dependencies": {
     "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill#v0.8.2",
