@@ -2401,9 +2401,9 @@ he@1.1.x:
   version "1.1.1"
   resolved "http://npm-dev.researchnow.com:4873/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-heya-io@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/heya-io/-/heya-io-1.1.5.tgz#8100c548970a0a860e430c4873949ea54ee276fd"
+heya-io@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/heya-io/-/heya-io-1.1.6.tgz#aded149e89c5c78e867ebbe2c304457e3c73e1bc"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
