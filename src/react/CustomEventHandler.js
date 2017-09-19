@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const eventHandler  = /^on(?:[A-Z][a-z0-9]*)+$/;
 const eventSplitter = /[A-Z]/g;
 
@@ -17,45 +18,52 @@ class CustomEventHandler extends React.Component {
   // life cycle methods
 
   componentDidMount () {
-    Object.keys(this.props).
-      filter(name => eventHandler.test(name)).
-      forEach(name => { this.setProp(name, this.props[name]); });
+		this.updateEventHandlers(this.props);
   }
 
   componentWillUnmount () {
-    Object.keys(this.customEventListeners).
-      filter(name => this.customEventListeners.hasOwnProperty(name)).
-      forEach(name => { this.parent.removeEventListener(name, this.customEventListeners[name]); });
+    Object.getOwnPropertyNames(this.customEventListeners).
+      forEach(name => { this.parent.removeEventListener(name, this); });
     this.customEventListeners = {};
   }
 
-  componentWillReceiveProps (nextProps) {
+	componentWillReceiveProps (nextProps) {
+		this.updateEventHandlers(nextProps);
+	}
+
+  updateEventHandlers (props) {
     // set changed attributes
-    Object.keys(nextProps).
+    Object.getOwnPropertyNames(props).
       filter(name => eventHandler.test(name)).
-      forEach(name => {
-        const value = nextProps[name];
-        if (!(name in this.props) || value !== this.props[name]) { this.setProp(name, value); }
-      });
-    // remove unused attributes
-    Object.keys(this.props).
-      filter(name => eventHandler.test(name) && !(name in nextProps)).
-      forEach(name => { this.setProp(name, null); });
+      forEach(name => { this.setProp(name, props[name]); });
+		if (props !== this.props) {
+			// remove unused attributes
+	    Object.getOwnPropertyNames(this.props).
+	      filter(name => eventHandler.test(name) && !(name in props)).
+	      forEach(name => { this.setProp(name, null); });
+		}
   }
 
   // own methods
 
+	handleEvent (e) {
+		const handler = this.customEventListeners[e.type];
+		handler && handler(e);
+	}
+
   setProp (name, value) {
     const eventName = name.replace(eventSplitter, $0 => '-' + $0.toLowerCase()).substr(3);
-    if (this.customEventListeners.hasOwnProperty(eventName)) {
-      this.parent.removeEventListener(eventName, this.customEventListeners[eventName]);
-    }
-    if (value) {
-      this.customEventListeners[eventName] = value;
-      this.parent.addEventListener(eventName, value);
-    } else {
-      delete this.customEventListeners[eventName];
-    }
+		if (value) {
+			if (!this.customEventListeners.hasOwnProperty(eventName)) {
+				this.parent.addEventListener(eventName, this);
+			}
+			this.customEventListeners[eventName] = value;
+		} else {
+			if (this.customEventListeners.hasOwnProperty(eventName)) {
+				this.parent.removeEventListener(eventName, this);
+				delete this.customEventListeners[eventName];
+			}
+		}
   }
 
   // render component
