@@ -42,64 +42,68 @@ var CustomEventHandler = function (_React$Component) {
   _createClass(CustomEventHandler, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
-      Object.keys(this.props).filter(function (name) {
-        return eventHandler.test(name);
-      }).forEach(function (name) {
-        _this2.setProp(name, _this2.props[name]);
-      });
+      this.updateEventHandlers(this.props);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      var _this3 = this;
+      var _this2 = this;
 
-      Object.keys(this.customEventListeners).filter(function (name) {
-        return _this3.customEventListeners.hasOwnProperty(name);
-      }).forEach(function (name) {
-        _this3.parent.removeEventListener(name, _this3.customEventListeners[name]);
+      Object.getOwnPropertyNames(this.customEventListeners).forEach(function (name) {
+        _this2.parent.removeEventListener(name, _this2);
       });
       this.customEventListeners = {};
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      var _this4 = this;
+      this.updateEventHandlers(nextProps);
+    }
+  }, {
+    key: 'updateEventHandlers',
+    value: function updateEventHandlers(props) {
+      var _this3 = this;
 
       // set changed attributes
-      Object.keys(nextProps).filter(function (name) {
+      Object.getOwnPropertyNames(props).filter(function (name) {
         return eventHandler.test(name);
       }).forEach(function (name) {
-        var value = nextProps[name];
-        if (!(name in _this4.props) || value !== _this4.props[name]) {
-          _this4.setProp(name, value);
-        }
+        _this3.setProp(name, props[name]);
       });
-      // remove unused attributes
-      Object.keys(this.props).filter(function (name) {
-        return eventHandler.test(name) && !(name in nextProps);
-      }).forEach(function (name) {
-        _this4.setProp(name, null);
-      });
+      if (props !== this.props) {
+        // remove unused attributes
+        Object.getOwnPropertyNames(this.props).filter(function (name) {
+          return eventHandler.test(name) && !(name in props);
+        }).forEach(function (name) {
+          _this3.setProp(name, null);
+        });
+      }
     }
 
     // own methods
 
+  }, {
+    key: 'handleEvent',
+    value: function handleEvent(e) {
+      var handler = this.customEventListeners[e.type];
+      handler && handler(e);
+    }
   }, {
     key: 'setProp',
     value: function setProp(name, value) {
       var eventName = name.replace(eventSplitter, function ($0) {
         return '-' + $0.toLowerCase();
       }).substr(3);
-      if (this.customEventListeners.hasOwnProperty(eventName)) {
-        this.parent.removeEventListener(eventName, this.customEventListeners[eventName]);
-      }
       if (value) {
+        if (!this.customEventListeners.hasOwnProperty(eventName)) {
+          this.parent.addEventListener(eventName, this);
+        }
         this.customEventListeners[eventName] = value;
-        this.parent.addEventListener(eventName, value);
       } else {
-        delete this.customEventListeners[eventName];
+        if (this.customEventListeners.hasOwnProperty(eventName)) {
+          this.parent.removeEventListener(eventName, this);
+          delete this.customEventListeners[eventName];
+        }
       }
     }
 
@@ -108,12 +112,12 @@ var CustomEventHandler = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
         { ref: function ref(elem) {
-            _this5.parent = elem;
+            _this4.parent = elem;
           }, className: this.props.className || '' },
         this.props.children
       );
