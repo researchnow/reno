@@ -151,7 +151,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}], [{
 			key: 'observedAttributes',
 			get: function get() {
-				return ['limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around'];
+				return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around'];
 			}
 		}]);
 

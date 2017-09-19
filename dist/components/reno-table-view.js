@@ -55,6 +55,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			var _this = _possibleConstructorReturn(this, (RenoTableView.__proto__ || Object.getPrototypeOf(RenoTableView)).call(this));
 
 			_this.page = { data: [] };
+			_this.blacklistedAttributes = {};
 			_this.onClick = _this.onClick.bind(_this);
 			_this.io = debounce(_this.io.bind(_this));
 			return _this;
@@ -79,6 +80,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function attributeChangedCallback(attrName, oldVal, newVal) {
 				var _this2 = this;
 
+				if (this.blacklistedAttributes[attrName] == 1) {
+					// skip an attribute
+					this.blacklistedAttributes[attrName] = 0;
+					return;
+				}
 				if (attrName === 'labels' || attrName === 'nocolgroup') {
 					return this.render();
 				}
@@ -98,6 +104,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			}
 			// custom methods
 
+		}, {
+			key: 'setAttributeSilently',
+			value: function setAttributeSilently(attrName, value) {
+				this.blacklistedAttributes[attrName] = 1;
+				this.setAttribute(attrName, value);
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -186,11 +198,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				}
 				this.dispatchEvent(new CustomEvent('reno-table-io-start', { bubbles: true, detail: {} }));
 				heya.io(this.sanitizeRequest({ url: url, method: 'GET', query: request })).then(function (page) {
+					var self = _this4;
 					page = _this4.sanitizeResponse(page);
 					_this4.page = page instanceof Array ? { data: page } : page;
 					_this4.total = _this4.page.total;
 					_this4.realOffset = _this4.page.offset;
 					_this4.realLimit = _this4.page.data.length;
+					if (typeof _this4.realOffset == 'number' && offset != _this4.realOffset) {
+						_this4.setAttributeSilently('offset', _this4.realOffset);
+					}
 					_this4.render();
 					_this4.dispatchEvent(new CustomEvent('reno-table-data-updated', { bubbles: true, detail: { limit: limit, total: _this4.total, offset: _this4.realOffset, shown: _this4.realLimit } }));
 					_this4.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: null } }));
