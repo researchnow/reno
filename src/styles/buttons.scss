@@ -22,11 +22,13 @@ $reno-button-outline-color: $reno-color-secondary;
 	padding: $v-pad $h-pad;
 }
 
-@mixin reno-button-style($text-color, $bg-color, $border-color,$box-shadow) {
+@mixin reno-button-style($text-color, $bg-color, $border-color, $box-shadow, $text-decoration) {
 	color: $text-color;
 	background-color: $bg-color;
 	border: 1px solid $border-color;
 	box-shadow: #{$box-shadow};
+	text-decoration: $text-decoration;
+	cursor: pointer;
 }
 
 @function reno-button-name($name, $size, $state) {
@@ -52,40 +54,40 @@ $reno-button-outline-color: $reno-color-secondary;
 
 @each $size, $size-parameters in $reno-button-sizes {
 	#{reno-button-name("", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("", $size, "")}         { @include reno-button-style($reno-color-white, $reno-color-primary, transparent, none); }
-	#{reno-button-name("", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-primary, 0.8), transparent, "0 3px 3px 0 #{$reno-gray-medium-dark}, 0 4px 9px 1px #{$reno-color-medium-light-gray}"); }
+	#{reno-button-name("", $size, "")}         { @include reno-button-style($reno-color-white, $reno-color-primary, transparent, none, none); }
+	#{reno-button-name("", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-primary, 0.8), transparent, "0 3px 3px 0 #{$reno-gray-medium-dark}, 0 4px 9px 1px #{$reno-color-medium-light-gray}", none); }
 	#{reno-button-name("", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), rgba($reno-color-primary, 0.5), transparent, none); }
+	#{reno-button-name("", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), rgba($reno-color-primary, 0.5), transparent, none, none); }
 
 	#{reno-button-name("secondary", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("secondary", $size, "")}         { @include reno-button-style($reno-color-primary, $reno-color-white, $reno-color-primary, none); }
-	#{reno-button-name("secondary", $size, "special")}  { @include reno-button-style($reno-color-primary, $reno-gray-super-light, $reno-color-primary, "0 3px 3px 0 #{$reno-gray-medium-light}, 0 4px 9px 1px #{$reno-color-medium-light-gray}"); }
+	#{reno-button-name("secondary", $size, "")}         { @include reno-button-style($reno-color-primary, $reno-color-white, $reno-color-primary, none, none); }
+	#{reno-button-name("secondary", $size, "special")}  { @include reno-button-style($reno-color-primary, $reno-gray-super-light, $reno-color-primary, "0 3px 3px 0 #{$reno-gray-medium-light}, 0 4px 9px 1px #{$reno-color-medium-light-gray}", none); }
 	#{reno-button-name("secondary", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("secondary", $size, "disabled")} { @include reno-button-style(rgba($reno-color-primary, 0.5), $reno-color-white, rgba($reno-color-primary, 0.5), none); }
+	#{reno-button-name("secondary", $size, "disabled")} { @include reno-button-style(rgba($reno-color-primary, 0.5), $reno-color-white, rgba($reno-color-primary, 0.5), none, none); }
 
 	#{reno-button-name("tertiary", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("tertiary", $size, "")}         { @include reno-button-style($reno-color-primary, transparent, transparent, none); }
-	#{reno-button-name("tertiary", $size, "special")}  { @include reno-button-style($reno-color-primary, $reno-gray-super-light, transparent, "0 3px 3px 0 #{$reno-gray-medium-light}, 0 4px 9px 1px #{$reno-color-medium-light-gray}"); }
+	#{reno-button-name("tertiary", $size, "")}         { @include reno-button-style($reno-color-primary, transparent, transparent, none, none); }
+	#{reno-button-name("tertiary", $size, "special")}  { @include reno-button-style($reno-color-primary, transparent, transparent, none, underline); }
 	#{reno-button-name("tertiary", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("tertiary", $size, "disabled")} { @include reno-button-style(rgba($reno-color-primary, 0.5), transparent, transparent, none); }
+	#{reno-button-name("tertiary", $size, "disabled")} { @include reno-button-style(rgba($reno-color-primary, 0.5), transparent, transparent, none, none); }
 
 	#{reno-button-name("caution", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("caution", $size, "")}         { @include reno-button-style($reno-color-white, $reno-color-error, transparent, none); }
-	#{reno-button-name("caution", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-error, 0.8), transparent, "0 3px 3px 0 #{$reno-color-medium-dark-gray}, 0 4px 9px 1px #{$reno-color-medium-light-gray}"); }
+	#{reno-button-name("caution", $size, "")}         { @include reno-button-style($reno-color-white, $reno-color-error, transparent, none, none); }
+	#{reno-button-name("caution", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-error, 0.8), transparent, "0 3px 3px 0 #{$reno-color-medium-dark-gray}, 0 4px 9px 1px #{$reno-color-medium-light-gray}", none); }
 	#{reno-button-name("caution", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("caution", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), rgba($reno-color-error, 0.5), transparent, none); }
+	#{reno-button-name("caution", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), rgba($reno-color-error, 0.5), transparent, none, none); }
 
 	#{reno-button-name("reverse", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("reverse", $size, "")}         { @include reno-button-style($reno-color-black, $reno-color-white, transparent, none); }
-	#{reno-button-name("reverse", $size, "special")}  { @include reno-button-style($reno-color-black, rgba($reno-color-white, 0.8), transparent, "0 3px 6px 0 #{$reno-gray-medium-dark}, 0 4px 9px 0 #{$reno-color-dark-gray}"); }
+	#{reno-button-name("reverse", $size, "")}         { @include reno-button-style($reno-color-black, $reno-color-white, transparent, none, none); }
+	#{reno-button-name("reverse", $size, "special")}  { @include reno-button-style($reno-color-black, rgba($reno-color-white, 0.8), transparent, "0 3px 6px 0 #{$reno-gray-medium-dark}, 0 4px 9px 0 #{$reno-color-dark-gray}", none); }
 	#{reno-button-name("reverse", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("reverse", $size, "disabled")} { @include reno-button-style(rgba($reno-color-black, 0.7), rgba($reno-color-white, 0.5), transparent, none); }
+	#{reno-button-name("reverse", $size, "disabled")} { @include reno-button-style(rgba($reno-color-black, 0.7), rgba($reno-color-white, 0.5), transparent, none, none); }
 
 	#{reno-button-name("secondary-reverse", $size, "")}         { @include reno-button-size($size-parameters...); }
-	#{reno-button-name("secondary-reverse", $size, "")}         { @include reno-button-style($reno-color-white, transparent, $reno-color-white, none); }
-	#{reno-button-name("secondary-reverse", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-white, 0.15), $reno-color-white, "0 3px 6px 0 #{$reno-gray-medium-dark}, 0 4px 9px 0 #{$reno-color-dark-gray}"); }
+	#{reno-button-name("secondary-reverse", $size, "")}         { @include reno-button-style($reno-color-white, transparent, $reno-color-white, none, none); }
+	#{reno-button-name("secondary-reverse", $size, "special")}  { @include reno-button-style($reno-color-white, rgba($reno-color-white, 0.15), $reno-color-white, "0 3px 6px 0 #{$reno-gray-medium-dark}, 0 4px 9px 0 #{$reno-color-dark-gray}", none); }
 	#{reno-button-name("secondary-reverse", $size, "focus")}    { outline-color: $reno-color-secondary; }
-	#{reno-button-name("secondary-reverse", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), transparent, rgba($reno-color-white, 0.3), none); }
+	#{reno-button-name("secondary-reverse", $size, "disabled")} { @include reno-button-style(rgba($reno-color-white, 0.5), transparent, rgba($reno-color-white, 0.3), none, none); }
 }
 
 
