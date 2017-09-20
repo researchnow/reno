@@ -27,6 +27,7 @@ $reno-button-outline-color: $reno-color-secondary;
 	background-color: $bg-color;
 	border: 1px solid $border-color;
 	box-shadow: #{$box-shadow};
+	cursor: pointer;
 }
 
 @function reno-button-name($name, $size, $state) {
