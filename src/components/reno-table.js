@@ -49,7 +49,6 @@
 					</div>
 					<div class="page overfiltered">
 						<div class="line1">There are no items that match the search terms.</div>
-						<div class="line2">Try refining your serch terms or broaden your search.</div>
 					</div>
 					<div class="page error">
 						<div class="line1">I/O error. Please try again later.</div>
