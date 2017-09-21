@@ -207,19 +207,21 @@ reno-table {
 		@extend .reno-box-dirty-white-with-border;
 		background-color: white;
 
-		.line1 {
+		div {
 			font-size: 12px;
-			font-weight: 500;
 			text-align: center;
-
-			margin: $reno-spacing-x-large auto $reno-spacing auto;
 		}
 
-		.line2 {
-			font-size: 12px;
-			text-align: center;
+		div:first-child {
+			margin-top: $reno-spacing-x-large;
+		}
 
-			margin: $reno-spacing auto $reno-spacing-x-large auto;
+		div:last-child {
+			margin-bottom: $reno-spacing-x-large;
+		}
+
+		.strong {
+			font-weight: 500;
 		}
 	}
 }

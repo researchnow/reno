@@ -44,15 +44,15 @@
 						</div>
 					</div>
 					<div class="page empty">
-						<div class="line1">This table is empty.</div>
-						<div class="line2">Try to populate it first.</div>
+						<div class="strong">This table is empty.</div>
+						<div>Try to populate it first.</div>
 					</div>
 					<div class="page overfiltered">
-						<div class="line1">There are no items that match the search terms.</div>
+						<div class="strong">There are no items that match the search terms.</div>
 					</div>
 					<div class="page error">
-						<div class="line1">I/O error. Please try again later.</div>
-						<div class="line2">The support team is automatically notified.</div>
+						<div class="strong">I/O error. Please try again later.</div>
+						<div>The support team is automatically notified.</div>
 					</div>
 					<div class="page spinner"><div class="reno-spinner">Loading...</div></div>
 				</reno-content-switcher>
