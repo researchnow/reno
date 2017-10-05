@@ -71,6 +71,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function refresh() {
 				this.view && this.view.io();
 			}
+			// TODO: add re-render
+
 		}, {
 			key: 'render',
 			value: function render() {

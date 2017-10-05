@@ -34,9 +34,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}
 
 		_createClass(RenoContentSwitcher, [{
-			key: 'obscure',
-
+			key: 'connectedCallback',
+			value: function connectedCallback() {
+				this.addEventListener('transitionend', this);
+				this.lastElementChild && this.lastElementChild.addEventListener('transitionend', this);
+			}
+		}, {
+			key: 'disconnectedCallback',
+			value: function disconnectedCallback() {
+				this.removeEventListener('transitionend', this);
+				this.lastElementChild && this.lastElementChild.removeEventListener('transitionend', this);
+			}
 			// custom methods
+
+		}, {
+			key: 'obscure',
 			value: function obscure() {
 				var opacity = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 				var display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'flex';
@@ -60,10 +72,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // need to sync?
 				curtain.style.opacity = opacity;
-
-				if (this.state === 'revealing') {
-					curtain.removeEventListener('transitionend', this);
-				}
 				this.state = 'obscuring';
 			}
 		}, {
@@ -98,13 +106,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity');
 				if (oldOpacity === "0") {
-					return this.revealNow();
+					curtain.style.display = 'none';
 				}
-
 				curtain.style.opacity = 0;
-				if (this.state === 'obscuring') {
-					curtain.addEventListener('transitionend', this);
-				}
+
 				this.state = 'revealing';
 			}
 		}, {
@@ -113,6 +118,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var curtain = this.lastElementChild;
 				curtain.style.opacity = 0;
 				curtain.style.display = 'none';
+				this.style.height = 'auto';
 				this.state = '';
 			}
 		}, {
@@ -142,12 +148,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'handleEvent',
 			value: function handleEvent(e) {
-				if (e.type === 'transitionend' && this.state === 'revealing') {
-					var curtain = this.lastElementChild;
-					curtain.style.display = 'none';
-					this.state = '';
+				if (e.type === 'transitionend') {
+					if (e.target === this) {
+						this.style.height = 'auto';
+					} else {
+						if (this.state === 'revealing') {
+							var curtain = this.lastElementChild;
+							curtain.style.display = 'none';
+							this.state = '';
+						}
+					}
 				}
-				this.removeEventListener('transitionend', this);
 			}
 		}]);
 
