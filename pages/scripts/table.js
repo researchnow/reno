@@ -31,7 +31,7 @@
 				return {offset, total: data.length, data: data.slice(offset, offset + limit)};
 			}
 			return data;
-		});
+		}); //.then(delay(2000));
 	});
 
 	// utilities
@@ -53,6 +53,10 @@
 		} else {
 			heya.io.mock(url, fn);
 		}
+	}
+
+	function delay (ms=2000) {
+		return value => new Promise(resolve => setTimeout(() => resolve(value), ms));
 	}
 
 	// simple event processors

@@ -32,6 +32,7 @@
 		refresh () {
 			this.view && this.view.io();
 		}
+		// TODO: add re-render
 		render () {
 			const filter = this.getAttribute('filter');
 			this.html`
