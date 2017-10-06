@@ -98,6 +98,7 @@
 		}
 		// event handlers
 		onClick (e) {
+			if (this.getAttribute('disabled') !== null) return;
 			let node = e.target;
 			while (node && node.nodeType != 1) { node = node.parentNode; } // need ELEMENT node
 			for (; node && node !== this; node = node.parentNode) {

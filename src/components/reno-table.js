@@ -38,11 +38,7 @@
 			this.html`
 				<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">
 					<div class="normal">
-						<reno-table-view></reno-table-view>
-						<div>
-							<reno-table-pager></reno-table-pager>
-							<div><reno-table-counter></reno-table-counter></div>
-						</div>
+						<div class="border-wrap"><reno-table-view></reno-table-view></div>
 					</div>
 					<div class="page empty">
 						<div class="strong">This table is empty.</div>
@@ -57,6 +53,10 @@
 					</div>
 					<div class="page spinner"><div class="reno-spinner">Loading...</div></div>
 				</reno-content-switcher>
+				<div class="control-bar">
+					<reno-table-pager></reno-table-pager>
+					<div><reno-table-counter></reno-table-counter></div>
+				</div>
 			`;
 			if (!this.view) {
 				this.view    = this.querySelector('reno-table-view');
@@ -105,12 +105,19 @@
 		}
 		onIoStart () {
 			const contentSwitcher = this.querySelector('reno-content-switcher');
-			contentSwitcher && contentSwitcher.obscure(0.9);
+			if (contentSwitcher) {
+				contentSwitcher.obscure(0.9);
+				this.pager && this.pager.setAttribute('disabled', true);
+				this.counter && this.counter.setAttribute('disabled', true);
+			}
 		}
 		onIoDone (e) {
 			if (e.detail.error) {
 				const contentSwitcher = this.querySelector('reno-content-switcher');
 				contentSwitcher && contentSwitcher.reveal('.error');
+			} else {
+				this.pager && this.pager.removeAttribute('disabled');
+				this.counter && this.counter.removeAttribute('disabled');
 			}
 		}
 	}
