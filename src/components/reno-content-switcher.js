@@ -52,8 +52,10 @@
 
 			if (this.notFirstRun) {
 				if (this.offsetParent) {
-					const boxTo = selected.getBoundingClientRect();
-					this.style.height = boxTo.height + 'px';
+					const boxTo = selected.getBoundingClientRect(), boxFrom = this.getBoundingClientRect();
+					if (boxTo.height !== boxFrom.height) {
+						this.style.height = boxTo.height + 'px';
+					}
 				} else {
 					this.style.height = 'auto';
 				}
@@ -72,13 +74,18 @@
 			}
 
 			const oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // needed to sync
+			if (oldOpacity === '0') {
+				curtain.style.display = 'none';
+				this.state = '';
+			}
+
 			curtain.style.opacity = 0;
 			this.state = 'revealing';
 		}
 		revealNow () {
 			const curtain = this.lastElementChild;
-			curtain.style.opacity = 0;
 			curtain.style.display = 'none';
+			curtain.style.opacity = 0;
 			this.style.height = 'auto';
 			this.state = '';
 		}
