@@ -141,6 +141,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'onClick',
 			value: function onClick(e) {
+				if (this.getAttribute('disabled') !== null) return;
 				var node = e.target;
 				while (node && node.nodeType != 1) {
 					node = node.parentNode;

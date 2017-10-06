@@ -37,13 +37,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'connectedCallback',
 			value: function connectedCallback() {
 				this.addEventListener('transitionend', this);
-				this.lastElementChild && this.lastElementChild.addEventListener('transitionend', this);
 			}
 		}, {
 			key: 'disconnectedCallback',
 			value: function disconnectedCallback() {
 				this.removeEventListener('transitionend', this);
-				this.lastElementChild && this.lastElementChild.removeEventListener('transitionend', this);
 			}
 			// custom methods
 
@@ -70,7 +68,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					}
 				}
 
-				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // need to sync?
+				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // needed to sync
 				curtain.style.opacity = opacity;
 				this.state = 'obscuring';
 			}
@@ -85,8 +83,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				if (this.notFirstRun) {
 					if (this.offsetParent) {
-						var boxTo = selected.getBoundingClientRect();
-						this.style.height = boxTo.height + 'px';
+						var boxTo = selected.getBoundingClientRect(),
+						    boxFrom = this.getBoundingClientRect();
+						if (boxTo.height !== boxFrom.height) {
+							this.style.height = boxTo.height + 'px';
+						}
 					} else {
 						this.style.height = 'auto';
 					}
@@ -104,20 +105,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					return this.revealNow();
 				}
 
-				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity');
-				if (oldOpacity === "0") {
+				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // needed to sync
+				if (oldOpacity === '0') {
 					curtain.style.display = 'none';
+					this.state = '';
 				}
-				curtain.style.opacity = 0;
 
+				curtain.style.opacity = 0;
 				this.state = 'revealing';
 			}
 		}, {
 			key: 'revealNow',
 			value: function revealNow() {
 				var curtain = this.lastElementChild;
-				curtain.style.opacity = 0;
 				curtain.style.display = 'none';
+				curtain.style.opacity = 0;
 				this.style.height = 'auto';
 				this.state = '';
 			}
@@ -151,7 +153,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				if (e.type === 'transitionend') {
 					if (e.target === this) {
 						this.style.height = 'auto';
-					} else {
+					} else if (e.target === this.lastElementChild) {
 						if (this.state === 'revealing') {
 							var curtain = this.lastElementChild;
 							curtain.style.display = 'none';
@@ -159,6 +161,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 						}
 					}
 				}
+				//
+				// if (e.type !== 'transitionend') return;
+				// if (e.target === this) {
+				// 	this.style.height = 'auto';
+				// 	return;
+				// }
+				// if (e.target === this.lastElementChild && this.state === 'revealing') {
+				// 	const curtain = this.lastElementChild;
+				// 	curtain.style.display = 'none';
+				// 	this.state = '';
+				// }
+				//
 			}
 		}]);
 

@@ -2,7 +2,7 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<reno-table-view></reno-table-view>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="strong">This table is empty.</div>\n\t\t\t\t\t\t<div>Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="strong">There are no items that match the search terms.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="strong">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div>The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t'], ['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<reno-table-view></reno-table-view>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="strong">This table is empty.</div>\n\t\t\t\t\t\t<div>Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="strong">There are no items that match the search terms.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="strong">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div>The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t']);
+var _templateObject = _taggedTemplateLiteral(['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<div class="border-wrap"><reno-table-view></reno-table-view></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="strong">This table is empty.</div>\n\t\t\t\t\t\t<div>Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="strong">There are no items that match the search terms.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="strong">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div>The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t\t<div class="control-bar">\n\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t</div>\n\t\t\t'], ['\n\t\t\t\t<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">\n\t\t\t\t\t<div class="normal">\n\t\t\t\t\t\t<div class="border-wrap"><reno-table-view></reno-table-view></div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page empty">\n\t\t\t\t\t\t<div class="strong">This table is empty.</div>\n\t\t\t\t\t\t<div>Try to populate it first.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page overfiltered">\n\t\t\t\t\t\t<div class="strong">There are no items that match the search terms.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page error">\n\t\t\t\t\t\t<div class="strong">I/O error. Please try again later.</div>\n\t\t\t\t\t\t<div>The support team is automatically notified.</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class="page spinner"><div class="reno-spinner">Loading...</div></div>\n\t\t\t\t</reno-content-switcher>\n\t\t\t\t<div class="control-bar">\n\t\t\t\t\t<reno-table-pager></reno-table-pager>\n\t\t\t\t\t<div><reno-table-counter></reno-table-counter></div>\n\t\t\t\t</div>\n\t\t\t']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -140,7 +140,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'onIoStart',
 			value: function onIoStart() {
 				var contentSwitcher = this.querySelector('reno-content-switcher');
-				contentSwitcher && contentSwitcher.obscure(0.9);
+				if (contentSwitcher) {
+					contentSwitcher.obscure(0.9);
+					this.pager && this.pager.setAttribute('disabled', true);
+					this.counter && this.counter.setAttribute('disabled', true);
+				}
 			}
 		}, {
 			key: 'onIoDone',
@@ -148,6 +152,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				if (e.detail.error) {
 					var contentSwitcher = this.querySelector('reno-content-switcher');
 					contentSwitcher && contentSwitcher.reveal('.error');
+				} else {
+					this.pager && this.pager.removeAttribute('disabled');
+					this.counter && this.counter.removeAttribute('disabled');
 				}
 			}
 		}], [{
