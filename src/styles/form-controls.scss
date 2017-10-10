@@ -16,7 +16,7 @@
 	}
 
 	.reno-check-groups-stacked {
-		>.reno-caption-bold {
+		> .reno-caption-bold {
 			margin-bottom: 12px;
 		}
 		> label {
@@ -33,6 +33,20 @@
 
 		> label {
 			margin-right: 43px;
+		}
+	}
+
+	.reno-text-groups-stacked {
+		> label {
+			margin-bottom: $reno-spacing-default;
+
+			> span {
+				@extend .reno-caption-bold;
+				display: block;
+			}
+		}
+		> * {
+			display: block;
 		}
 	}
 }
