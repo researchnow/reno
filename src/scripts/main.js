@@ -19,6 +19,7 @@ import '../components/reno-table-pager';
 import '../components/reno-table-counter';
 import '../components/reno-table';
 import '../components/reno-content-switcher';
+import '../components/reno-form';
 
 // utilities
 import debounce  from '../utils/debounce';
