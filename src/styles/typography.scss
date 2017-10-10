@@ -36,7 +36,7 @@ $reno-header-state: (
 	color: $reno-color-dark-gray;
 }
 
-.reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse,
+.reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse, .reno legend, .reno-dark legend,
 .reno caption, .reno caption b, .reno caption strong, .reno-dark caption, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption, .reno figcaption b, .reno figcaption strong, .reno-dark figcaption, .reno-dark figcaption b, .reno-dark figcaption strong {
 	font-family: gotham a, gotham b,sans-serif;
@@ -46,15 +46,14 @@ $reno-header-state: (
 	color: $reno-color-dark-gray;
 }
 
-.reno-body-reverse, .reno-body-bold-reverse, .reno-dark,
-.reno-caption-reverse, .reno-caption-bold-reverse,
-.reno-dark caption, .reno-dark caption b, .reno-dark caption strong,
+.reno-body-reverse, .reno-body-bold-reverse, .reno-dark, .reno-caption-reverse, .reno-caption-bold-reverse,
+.reno-dark caption, .reno-dark caption b, .reno-dark caption strong, .reno-dark legend,
 .reno-dark figcaption, .reno-dark figcaption b, .reno-dark figcaption strong {
 	color: $reno-color-light-gray;
 }
 
 .reno-body-bold, .reno-body-bold-reverse, .reno b, .reno strong, .reno-dark b, .reno-dark strong,
-.reno-caption-bold, .reno-caption-bold-reverse,
+.reno-caption-bold, .reno-caption-bold-reverse, .reno legend, .reno-dark legend,
 .reno caption b, .reno caption strong, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption b, .reno figcaption strong, .reno-dark figcaption b, .reno-dark figcaption strong {
 	font-family: gotham a, gotham b, sans-serif;
