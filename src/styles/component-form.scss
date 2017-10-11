@@ -1,3 +1,29 @@
+// @import "./colors";
+
+/* reno-form */
+
 reno-form {
 	display: block;
+
+	.reno-text-groups-stacked {
+		label .error, label .error-heneric {
+			display: none;
+			color: $reno-color-error;
+		}
+
+		label [name]:invalid + .error-generic {
+			display: block;
+		}
+
+		.validity-customError > .error-customError,
+		.validity-patternMismatch > .error-patternMismatch,
+		.validity-rangeOverflow > .error-rangeOverflow,
+		.validity-rangeUnderflow > .error-rangeUnderflow,
+		.validity-stepMismatch > .error-stepMismatch,
+		.validity-tooLong > .error-tooLong,
+		.validity-typeMismatch > .error-typeMismatch,
+		.validity-valueMissing > .error-valueMissing {
+			display: block;
+		}
+	}
 }
