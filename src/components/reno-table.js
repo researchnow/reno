@@ -81,8 +81,16 @@
 				this.counter.setAttribute('offset', e.detail.offset);
 				this.counter.setAttribute('limit',  e.detail.shown);
 			}
-			const contentSwitcher = this.querySelector('reno-content-switcher');
+			const contentSwitcher = this.querySelector('reno-content-switcher'),
+				controlBar = this.querySelector('.control-bar');
 			contentSwitcher && contentSwitcher.reveal(e.detail.total ? '.normal' : this.getAttribute('filter') ? '.overfiltered' : '.empty');
+			if (e.detail.total) {
+				controlBar.classList.remove('hidden');
+				contentSwitcher && contentSwitcher.reveal('.normal');
+			} else {
+				controlBar.classList.add('hidden');
+				contentSwitcher && contentSwitcher.reveal(this.getAttribute('filter') ? '.overfiltered' : '.empty');
+			}
 		}
 		onSortRequested (e) {
 			if (this.view) {

@@ -237,5 +237,11 @@ reno-table {
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 1em;
+		opacity: 1;
+		transition: opacity 0.25s linear;
+	}
+
+	div.control-bar.hidden {
+		opacity: 0;
 	}
 }
