@@ -110,8 +110,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					this.counter.setAttribute('offset', e.detail.offset);
 					this.counter.setAttribute('limit', e.detail.shown);
 				}
-				var contentSwitcher = this.querySelector('reno-content-switcher');
+				var contentSwitcher = this.querySelector('reno-content-switcher'),
+				    controlBar = this.querySelector('.control-bar');
 				contentSwitcher && contentSwitcher.reveal(e.detail.total ? '.normal' : this.getAttribute('filter') ? '.overfiltered' : '.empty');
+				if (e.detail.total) {
+					controlBar.classList.remove('hidden');
+					contentSwitcher && contentSwitcher.reveal('.normal');
+				} else {
+					controlBar.classList.add('hidden');
+					contentSwitcher && contentSwitcher.reveal(this.getAttribute('filter') ? '.overfiltered' : '.empty');
+				}
 			}
 		}, {
 			key: 'onSortRequested',
