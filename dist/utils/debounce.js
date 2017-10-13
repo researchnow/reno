@@ -29,8 +29,16 @@
 		}
 	}
 
+	function _newArrowCheck(innerThis, boundThis) {
+		if (innerThis !== boundThis) {
+			throw new TypeError("Cannot instantiate an arrow function");
+		}
+	}
+
 	exports.default = function (f) {
 		var ms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
+
+		_newArrowCheck(undefined, undefined);
 
 		var handle = void 0,
 		    savedArgs = void 0;
@@ -39,13 +47,17 @@
 				args[_key] = arguments[_key];
 			}
 
+			_newArrowCheck(undefined, undefined);
+
 			savedArgs = args;
 			if (!handle) {
 				handle = setTimeout(function () {
+					_newArrowCheck(undefined, undefined);
+
 					handle = null;
 					f.apply(undefined, _toConsumableArray(savedArgs));
-				}, ms);
+				}.bind(undefined), ms);
 			}
-		};
-	};
+		}.bind(undefined);
+	}.bind(undefined);
 });

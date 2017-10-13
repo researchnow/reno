@@ -1,3 +1,5 @@
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6,11 +8,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 (function () {
 	'use strict';
 
+	var _this = this;
+
 	var matches = void 0;
 	['matches', 'matchesSelector', 'webkit', 'moz', 'ms', 'o'].some(function (name) {
+		_newArrowCheck(this, _this);
+
 		if (name.length < 7) {
 			// prefix
 			name += 'MatchesSelector';
@@ -20,7 +28,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			return true;
 		}
 		return false;
-	});
+	}.bind(this));
 
 	var supportedEvents = { click: 'onClick', input: 'onInput', submit: 'onSubmit' };
 
@@ -40,27 +48,33 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 			// life-cycle callbacks
 			value: function connectedCallback() {
-				var _this2 = this;
+				var _this3 = this;
 
 				Object.keys(supportedEvents).forEach(function (eventName) {
-					return _this2.addEventListener(eventName, _this2);
-				});
+					_newArrowCheck(this, _this3);
+
+					return this.addEventListener(eventName, this);
+				}.bind(this));
 				if (this.getAttribute('showmessages') !== null) {
 					this.deferredFunction = this.showMessages;
 					window.requestAnimationFrame(function () {
-						_this2.deferredFunction && _this2.deferredFunction.call(_this2);
-						_this2.deferredFunction = null;
-					});
+						_newArrowCheck(this, _this3);
+
+						this.deferredFunction && this.deferredFunction.call(this);
+						this.deferredFunction = null;
+					}.bind(this));
 				}
 			}
 		}, {
 			key: 'disconnectedCallback',
 			value: function disconnectedCallback() {
-				var _this3 = this;
+				var _this4 = this;
 
 				Object.keys(supportedEvents).forEach(function (eventName) {
-					return _this3.removeEventListener(eventName, _this3);
-				});
+					_newArrowCheck(this, _this4);
+
+					return this.removeEventListener(eventName, this);
+				}.bind(this));
 				this.deferredFunction = null;
 			}
 		}, {
@@ -117,6 +131,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'showElementMessages',
 			value: function showElementMessages(node, rootSelector, errorSelector) {
+				var _this5 = this;
+
 				var element = node;
 				if (rootSelector) {
 					while (element && element[matches] && !element[matches](rootSelector)) {
@@ -124,8 +140,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					}element = element && element[matches] ? element : node;
 				}
 				validityFlags.forEach(function (flag) {
+					_newArrowCheck(this, _this5);
+
 					element.classList[node.validity[flag] ? 'add' : 'remove']('validity-' + flag);
-				});
+				}.bind(this));
 				if (rootSelector && errorSelector) {
 					var errorNode = element.querySelector(errorSelector);
 					if (errorNode) {

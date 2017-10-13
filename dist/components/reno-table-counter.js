@@ -1,3 +1,5 @@
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -45,7 +47,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				limit = Math.max(1, parseInt(limit, 10));
 				total = Math.max(0, parseInt(total, 10));
 
-				this.innerHTML = '<span class="items">' + (offset + 1) + '-' + (offset + limit) + '</span> of <span class="total">' + total + '</span>';
+				this.innerHTML = '<span class="items">' + String(offset + 1) + '-' + String(offset + limit) + '</span> of <span class="total">' + String(total) + '</span>';
 			}
 		}], [{
 			key: 'observedAttributes',

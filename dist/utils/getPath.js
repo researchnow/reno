@@ -23,12 +23,20 @@
 		return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 	};
 
+	function _newArrowCheck(innerThis, boundThis) {
+		if (innerThis !== boundThis) {
+			throw new TypeError("Cannot instantiate an arrow function");
+		}
+	}
+
 	// getPath
 
 	var dereferable = { object: 1, function: 1 };
 
 	exports.default = function (obj, path) {
 		var delimiter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '.';
+
+		_newArrowCheck(undefined, undefined);
 
 		if (typeof path == 'string') {
 			path = path ? path.split(delimiter) : [];
@@ -38,5 +46,5 @@
 			obj = obj[path[i]];
 		}
 		return obj;
-	};
+	}.bind(undefined);
 });

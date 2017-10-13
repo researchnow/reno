@@ -25,11 +25,22 @@
     };
   }
 
+  function _newArrowCheck(innerThis, boundThis) {
+    if (innerThis !== boundThis) {
+      throw new TypeError("Cannot instantiate an arrow function");
+    }
+  }
+
   exports.default = function (source, target, attrName) {
     var ms = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 500;
     var wrap = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _delay2.default;
+
+    _newArrowCheck(undefined, undefined);
+
     return wrap(function (e) {
+      _newArrowCheck(undefined, undefined);
+
       target.setAttribute(attrName, (source || e.target).value);
-    }, ms);
-  };
+    }.bind(undefined), ms);
+  }.bind(undefined);
 });

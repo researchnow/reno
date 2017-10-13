@@ -1,3 +1,5 @@
+'use strict';
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -19,20 +21,30 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 (function () {
 	'use strict';
 
-	var debounce = function debounce(f) {
+	var _this = this;
+
+	var debounce = function (f) {
+		_newArrowCheck(this, _this);
+
 		var flag = void 0;
 		return function () {
+			_newArrowCheck(this, _this);
+
 			if (!flag) {
 				flag = true;
 				window.requestAnimationFrame(function () {
+					_newArrowCheck(this, _this);
+
 					flag = false;f();
-				});
+				}.bind(this));
 			}
-		};
-	};
+		}.bind(this);
+	}.bind(this);
 
 	var activeElements = { button: 1, input: 1, textarea: 1, a: 1, label: 1 };
 
@@ -50,13 +62,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		function RenoTableView() {
 			_classCallCheck(this, RenoTableView);
 
-			var _this = _possibleConstructorReturn(this, (RenoTableView.__proto__ || Object.getPrototypeOf(RenoTableView)).call(this));
+			var _this2 = _possibleConstructorReturn(this, (RenoTableView.__proto__ || Object.getPrototypeOf(RenoTableView)).call(this));
 
-			_this.page = { data: [] };
-			_this.blacklistedAttributes = {};
-			_this.onClick = _this.onClick.bind(_this);
-			_this.io = debounce(_this.io.bind(_this));
-			return _this;
+			_this2.page = { data: [] };
+			_this2.blacklistedAttributes = {};
+			_this2.onClick = _this2.onClick.bind(_this2);
+			_this2.io = debounce(_this2.io.bind(_this2));
+			return _this2;
 		}
 		// life-cycle callbacks
 
@@ -76,7 +88,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'attributeChangedCallback',
 			value: function attributeChangedCallback(attrName, oldVal, newVal) {
-				var _this2 = this;
+				var _this3 = this;
 
 				if (this.blacklistedAttributes[attrName] == 1) {
 					// skip an attribute
@@ -88,15 +100,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				}
 				if (attrName === 'fields') {
 					this.fieldList = (newVal || 'name').split(',').map(function (field) {
+						_newArrowCheck(this, _this3);
+
 						return field.trim();
-					});
+					}.bind(this));
 					this.fieldMap = this.fieldMap || {};
 					this.fieldList.forEach(function (field) {
-						if (!Object.prototype.hasOwnProperty.call(_this2.fieldMap, field)) {
+						_newArrowCheck(this, _this3);
+
+						if (!Object.prototype.hasOwnProperty.call(this.fieldMap, field)) {
 							var start = field.charAt(0) === '-' ? 1 : 0;
-							_this2.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
+							this.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
 						}
-					});
+					}.bind(this));
 				}
 				this.io();
 			}
@@ -111,7 +127,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this4 = this;
 
 				if (!this.html) return;
 
@@ -123,45 +139,59 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				var sortList = {};
 				(this.getAttribute('sort') || '').split(',').forEach(function (field) {
+					_newArrowCheck(this, _this4);
+
 					return field.charAt(0) === '-' ? sortList[field.substr(1)] = 'descending' : sortList[field] = 'ascending';
-				});
+				}.bind(this));
 
 				// prepare the colgroup
 				var cols = [];
 				if (!noColGroup) {
 					cols = this.fieldList.map(function (field) {
+						_newArrowCheck(this, _this4);
+
 						var cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 						return hyperHTML.wire()(_templateObject, cssClasses);
-					});
+					}.bind(this));
 					cols = hyperHTML.wire()(_templateObject2, cols);
 				}
 
 				// prepare the header
 				var headRowCells = this.fieldList.filter(function (field) {
-					return _this3.fieldMap[field] !== null;
-				}).map(function (field) {
+					_newArrowCheck(this, _this4);
+
+					return this.fieldMap[field] !== null;
+				}.bind(this)).map(function (field) {
+					_newArrowCheck(this, _this4);
+
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-					var fieldName = _this3.fieldMap[field];
+					var fieldName = this.fieldMap[field];
 					if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
 					return hyperHTML.wire()(_templateObject3, cssClasses, field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName);
-				});
+				}.bind(this));
 				var header = hyperHTML.wire()(_templateObject4, headRowCells);
 
 				// prepare the body
 				var bodyRows = this.page.data.map(function (o) {
-					var bodyRowCells = _this3.fieldList.filter(function (field) {
-						return _this3.fieldMap[field] !== null;
-					}).map(function (field) {
-						var value = _this3.formatFieldValue(o, field);
+					_newArrowCheck(this, _this4);
+
+					var bodyRowCells = this.fieldList.filter(function (field) {
+						_newArrowCheck(this, _this4);
+
+						return this.fieldMap[field] !== null;
+					}.bind(this)).map(function (field) {
+						_newArrowCheck(this, _this4);
+
+						var value = this.formatFieldValue(o, field);
 						if (labels) {
-							var fieldName = _this3.fieldMap[field];
+							var fieldName = this.fieldMap[field];
 							if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
 							return hyperHTML.wire()(_templateObject5, 'td field-' + field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName, primitives[typeof value === 'undefined' ? 'undefined' : _typeof(value)] ? { html: value } : value);
 						}
 						return hyperHTML.wire()(_templateObject6, 'td field-' + field, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
-					});
+					}.bind(this));
 					return hyperHTML.wire(o)(_templateObject7, bodyRowCells);
-				});
+				}.bind(this));
 
 				// prepare the footer
 				var footer = ''; // no footer for now
@@ -172,7 +202,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'io',
 			value: function io() {
-				var _this4 = this;
+				var _this5 = this;
 
 				// prepare parameters
 				var url = this.getAttribute('url');
@@ -181,8 +211,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
 				var limit = Math.max(1, parseInt(this.getAttribute('limit') || '10', 10));
 				var fields = this.fieldList.filter(function (field) {
+					_newArrowCheck(this, _this5);
+
 					return field.charAt(0) !== '-';
-				}).join(',');
+				}.bind(this)).join(',');
 				var filter = this.getAttribute('filter');
 				var sort = this.getAttribute('sort');
 
@@ -196,21 +228,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				}
 				this.dispatchEvent(new CustomEvent('reno-table-io-start', { bubbles: true, detail: {} }));
 				heya.io(this.sanitizeRequest({ url: url, method: 'GET', query: request })).then(function (page) {
-					var self = _this4;
-					page = _this4.sanitizeResponse(page);
-					_this4.page = page instanceof Array ? { data: page } : page;
-					_this4.total = _this4.page.total;
-					_this4.realOffset = _this4.page.offset;
-					_this4.realLimit = _this4.page.data.length;
-					if (typeof _this4.realOffset == 'number' && offset != _this4.realOffset) {
-						_this4.setAttributeSilently('offset', _this4.realOffset);
+					_newArrowCheck(this, _this5);
+
+					var self = this;
+					page = this.sanitizeResponse(page);
+					this.page = page instanceof Array ? { data: page } : page;
+					this.total = this.page.total;
+					this.realOffset = this.page.offset;
+					this.realLimit = this.page.data.length;
+					if (typeof this.realOffset == 'number' && offset != this.realOffset) {
+						this.setAttributeSilently('offset', this.realOffset);
 					}
-					_this4.render();
-					_this4.dispatchEvent(new CustomEvent('reno-table-data-updated', { bubbles: true, detail: { limit: limit, total: _this4.total, offset: _this4.realOffset, shown: _this4.realLimit } }));
-					_this4.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: null } }));
-				}).catch(function (e) {
-					_this4.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: e } }));
-				});
+					this.render();
+					this.dispatchEvent(new CustomEvent('reno-table-data-updated', { bubbles: true, detail: { limit: limit, total: this.total, offset: this.realOffset, shown: this.realLimit } }));
+					this.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: null } }));
+				}.bind(this)).catch(function (e) {
+					_newArrowCheck(this, _this5);
+
+					this.dispatchEvent(new CustomEvent('reno-table-io-done', { bubbles: true, detail: { error: e } }));
+				}.bind(this));
 			}
 			// event handlers
 

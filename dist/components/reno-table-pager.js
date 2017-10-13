@@ -1,9 +1,13 @@
+'use strict';
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _templateObject = _taggedTemplateLiteral(['<div class="', '" offset="', '" reason="', '">', '</div>'], ['<div class="', '" offset="', '" reason="', '">', '</div>']),
     _templateObject2 = _taggedTemplateLiteral(['\n\t\t\t\t<div  class="', '" offset="', '" reason="first"></div>\n\t\t\t\t<div  class="', '"  offset="', '"  reason="previous"></div>', '<div class="', '"  offset="', '"  reason="next"></div>\n\t\t\t\t<div  class="', '"  offset="', '"  reason="last"></div>\n\t\t\t'], ['\n\t\t\t\t<div  class="', '" offset="', '" reason="first"></div>\n\t\t\t\t<div  class="', '"  offset="', '"  reason="previous"></div>', '<div class="', '"  offset="', '"  reason="next"></div>\n\t\t\t\t<div  class="', '"  offset="', '"  reason="last"></div>\n\t\t\t']);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -55,6 +59,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				if (!this.html) return;
 
 				// prepare parameters
@@ -104,6 +110,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var firstPageNumber = Math.floor(pages[0] / limit) + 1;
 
 				var pageList = pages.map(function (offset, index) {
+					_newArrowCheck(this, _this2);
+
 					var cssClasses = ['go-page'];
 					if (index === currentPage) {
 						cssClasses.push('current');
@@ -116,7 +124,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					}
 					var number = firstPageNumber + index;
 					return hyperHTML.wire()(_templateObject, cssClasses.join(' '), offset, number, number);
-				});
+				}.bind(this));
 
 				var firstPageClasses = ['go-first'],
 				    lastPageClasses = ['go-last'],

@@ -5,8 +5,6 @@
 				"targets": {
 					"browsers": ["last 2 versions"]
 				},
-				"modules": false,
-				"useBuiltIns": true,
 				"debug": true
 			}], "react", "stage-2"],
 		  "plugins": ["transform-export-extensions", "react-hot-loader/babel"]
@@ -16,9 +14,7 @@
 				"targets": {
 					"browsers": ["last 2 versions", "ie >= 10"]
 				},
-				"modules": false,
-				"useBuiltIns": true,
-				"debug": false
+				"spec": true
 			}]],
 			"plugins": []
 		},
@@ -26,10 +22,7 @@
 			"presets": [["env", {
 				"targets": {
 					"browsers": ["last 2 versions", "ie >= 10"]
-				},
-				"modules": false,
-				"useBuiltIns": true,
-				"debug": false
+				}
 			}], "react", "stage-2"],
 			"plugins": ["transform-export-extensions"]
 		},
@@ -38,9 +31,7 @@
 				"targets": {
 					"browsers": ["last 2 versions", "ie >= 10"]
 				},
-				"modules": false,
-				"useBuiltIns": true,
-				"debug": false
+				"spec": true
 			}]],
 			"plugins": ["transform-es2015-modules-umd"]
 		}
