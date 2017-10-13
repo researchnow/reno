@@ -2,15 +2,18 @@ import '../styles/main.scss';
 
 // dependencies
 import 'custom-elements-polyfill';
-import 'heya-io/dist/io.js';
-import 'heya-io/dist/FauxXHR.js';
-import 'heya-io/dist/scaffold.js';
-import 'heya-io/dist/mock.js';
+import 'heya-io/dist/io';
+import 'heya-io/dist/FauxXHR';
+import 'heya-io/dist/scaffold';
+import 'heya-io/dist/mock';
 const hyperHTML = require('hyperhtml');
 if (window && !window.hyperHTML) {
 	window.hyperHTML = hyperHTML;
 }
-
+const on = require('@clubajax/on');
+if (window && !window.on) {
+	window.on = on;
+}
 
 // components
 import '../components/reno-search';
