@@ -1,19 +1,47 @@
 {
 	"env": {
 		"development": {
-			"presets": [["latest", {"es2015": {"modules": false}}], "react", "stage-2"],
+			"presets": [["env", {
+				"targets": {
+					"browsers": ["last 2 versions"]
+				},
+				"modules": false,
+				"useBuiltIns": true,
+				"debug": true
+			}], "react", "stage-2"],
 		  "plugins": ["transform-export-extensions", "react-hot-loader/babel"]
 		},
 		"components": {
-			"presets": ["es2015"],
+			"presets": [["env", {
+				"targets": {
+					"browsers": ["last 2 versions", "ie >= 10"]
+				},
+				"modules": false,
+				"useBuiltIns": true,
+				"debug": false
+			}]],
 			"plugins": []
 		},
 		"react": {
-			"presets": ["latest", "react", "stage-2"],
+			"presets": [["env", {
+				"targets": {
+					"browsers": ["last 2 versions", "ie >= 10"]
+				},
+				"modules": false,
+				"useBuiltIns": true,
+				"debug": false
+			}], "react", "stage-2"],
 			"plugins": ["transform-export-extensions"]
 		},
 		"utils": {
-			"presets": ["es2015"],
+			"presets": [["env", {
+				"targets": {
+					"browsers": ["last 2 versions", "ie >= 10"]
+				},
+				"modules": false,
+				"useBuiltIns": true,
+				"debug": false
+			}]],
 			"plugins": ["transform-es2015-modules-umd"]
 		}
 	}

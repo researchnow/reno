@@ -113,6 +113,8 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
 
-        new ExtractTextPlugin({filename: 'styles.css', allChunks: true})
+        new ExtractTextPlugin({filename: 'styles.css', allChunks: true}),
+
+				new webpack.IgnorePlugin(/caniuse-lite\/data\/regions/)
     ]
 };

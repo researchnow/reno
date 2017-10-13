@@ -121,6 +121,7 @@ module.exports = {
 			      },
 			      sourceMap: true,
         }),
-        new ExtractTextPlugin({filename: 'styles.css', allChunks: true})
+        new ExtractTextPlugin({filename: 'styles.css', allChunks: true}),
+				new webpack.IgnorePlugin(/caniuse-lite\/data\/regions/)
     ]
 };
