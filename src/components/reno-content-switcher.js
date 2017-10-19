@@ -109,29 +109,16 @@
 		}
 		// event processing
 		handleEvent (e) {
-			if (e.type === 'transitionend') {
-				if (e.target === this) {
-					this.style.height = 'auto';
-				} else if (e.target === this.lastElementChild) {
-					if (this.state === 'revealing') {
-						const curtain = this.lastElementChild;
-						curtain.style.display = 'none';
-						this.state = '';
-					}
-				}
+			if (e.type !== 'transitionend') return;
+			if (e.target === this) {
+				this.style.height = 'auto';
+				return;
 			}
-			//
-			// if (e.type !== 'transitionend') return;
-			// if (e.target === this) {
-			// 	this.style.height = 'auto';
-			// 	return;
-			// }
-			// if (e.target === this.lastElementChild && this.state === 'revealing') {
-			// 	const curtain = this.lastElementChild;
-			// 	curtain.style.display = 'none';
-			// 	this.state = '';
-			// }
-			//
+			if (e.target === this.lastElementChild && this.state === 'revealing') {
+				const curtain = this.lastElementChild;
+				curtain.style.display = 'none';
+				this.state = '';
+			}
 		}
 	}
 	customElements.define('reno-content-switcher', RenoContentSwitcher);
