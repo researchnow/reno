@@ -25,6 +25,7 @@ import '../components/reno-content-switcher';
 import '../components/reno-form';
 
 // utilities
+import clone     from '../utils/clone';
 import debounce  from '../utils/debounce';
 import delay     from '../utils/delay';
 import getPath   from '../utils/getPath';
@@ -35,6 +36,7 @@ import pumpValue from '../utils/pumpValue';
 if (window) {
 	if (!window.Reno) window.Reno = {utils: {}};
 	if (!Reno.utils) Reno.utils = {};
+	Reno.utils.clone     = clone;
 	Reno.utils.debounce  = debounce;
 	Reno.utils.delay     = delay;
 	Reno.utils.getPath   = getPath;
