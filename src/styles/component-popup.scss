@@ -1,0 +1,19 @@
+#popup-container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+
+	&.open {
+		border: solid 1px black;
+		width: 150px;
+		background-color: $reno-color-white;
+	}
+}
+
+reno-popup {
+	display: inline-block;
+	.content {
+		display: none;
+	}
+}

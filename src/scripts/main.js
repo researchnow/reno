@@ -23,6 +23,7 @@ import '../components/reno-table-counter';
 import '../components/reno-table';
 import '../components/reno-content-switcher';
 import '../components/reno-form';
+import '../components/reno-popup';
 
 // utilities
 import clone     from '../utils/clone';
