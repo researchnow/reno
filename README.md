@@ -53,3 +53,7 @@ For local development, the simplest thing to do is linking instead of doing publ
   * Mark it up: `git tag 1.0.9`.
   * Push tags up: `git push --tags`.
 * Publish it: `npm publish`.
+
+## Designs
+
+You may find the designs here: https://projects.invisionapp.com/d/main#/projects/prototypes/10491947
