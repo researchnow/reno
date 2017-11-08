@@ -19,16 +19,18 @@
 <div id="popup-container" class="popup close"></div>
 
 <reno-popup>
-	<label class="label">Mouseover; Bottom</label>
-	<div class="content">Just some string content</div>
+	<label class="label">Default: Mouseover + Bottom</label>
+	<div class="content">1 It's a popopup yo1 It's a popopup yo1 It's a popopup yo1 It's a popopup yo1 It's a popopup yo1 It's a popopup yo</div>
 </reno-popup>
-
+</br>
 <reno-popup
-	label="<div>Click; Top</div>"
-	trigger="mouseover"
-	position="bottom"
-	content="Another popup!"
-></reno-popup>
+	trigger="click"
+	placement="bottom"
+>
+	<label class="label">Mouse click + Bottom</label>
+	<div class="loading">Custom loading if applicable...</div>
+	<div class="content" url="data/data.json"></div>
+</reno-popup>
 
 <div>Popup with some content</div>
 <div>Popup with list as content</div>

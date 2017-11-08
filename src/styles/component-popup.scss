@@ -1,19 +1,25 @@
 #popup-container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 1;
+	width: 0;
 
 	&.open {
-		border: solid 1px black;
-		width: 150px;
+		@extend .reno-box-with-border-shadow-z1;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+
 		background-color: $reno-color-white;
+		padding: $reno-spacing-default;
+		width: 250px;
+		max-height: 200px;
+		overflow-y: scroll;
 	}
 }
 
 reno-popup {
 	display: inline-block;
-	.content {
+	.content, .loading {
 		display: none;
 	}
 }
