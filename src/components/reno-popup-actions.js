@@ -68,4 +68,8 @@ function calculatePlacement (popupComponent, popupContainer) {
 	if (popupContainerDomRect.y + popupContainerDomRect.height > innerHeight ) {
 		popupContainer.style.top = pageYOffset + popupComponentDomRect.y - popupContainerDomRect.height + "px";
 	}
+	// // TODO: wip
+	// if (popupContainerDomRect.y + popupContainerDomRect.height > innerHeight ) {
+	// 	popupContainer.style.top = pageYOffset + popupComponentDomRect.y - popupContainerDomRect.height + "px";
+	// }
 }
