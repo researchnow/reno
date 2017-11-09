@@ -1,3 +1,5 @@
+const margin = 5;
+
 export function openPopup (popupComponent) {
 	const content = popupComponent.querySelector('.content').cloneNode(true);
 	const url = content.getAttribute('url');
@@ -55,13 +57,15 @@ function calculatePlacement (popupComponent, popupContainer) {
 		default:
 			popupContainer.style.top = popupComponentDomRect.y + popupComponentDomRect.height + pageYOffset + 'px';
 			popupContainer.style.left = popupComponentDomRect.x + (popupComponentDomRect.width - popupContainerDomRect.width) / 2+ pageXOffset + 'px';
-			// case bottom: don't care about bleeding on the right
-			if (parseInt(popupContainer.style.left)) {
-				popupContainer.style.left = "5px";
+			// only care about bleeding on left
+			if (parseInt(popupContainer.style.left) < margin) {
+				popupContainer.style.left = margin + "px";
 			}
-
 			break;
+	}
 
-
+	// all cases care about bleeding on top/bottom
+	if (popupContainerDomRect.y + popupContainerDomRect.height > innerHeight ) {
+		popupContainer.style.top = pageYOffset + popupComponentDomRect.y - popupContainerDomRect.height + "px";
 	}
 }
