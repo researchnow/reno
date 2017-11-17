@@ -33,14 +33,22 @@ import getPath   from '../utils/getPath';
 import pumpEvent from '../utils/pumpEvent';
 import pumpValue from '../utils/pumpValue';
 
+// utilities: dnd
+import start from '../utils/dnd/start';
+import { init, over, moving, movingX, movingY } from '../utils/dnd/common';
+import { dropX, dropY } from '../utils/dnd/rearrangeable';
+
 // patch up
 if (window) {
 	if (!window.Reno) window.Reno = {utils: {}};
 	if (!Reno.utils) Reno.utils = {};
+
 	Reno.utils.clone     = clone;
 	Reno.utils.debounce  = debounce;
 	Reno.utils.delay     = delay;
 	Reno.utils.getPath   = getPath;
 	Reno.utils.pumpEvent = pumpEvent;
 	Reno.utils.pumpValue = pumpValue;
+
+	Reno.utils.dnd = {start, init, over, moving, movingX, movingY, rearrangeable: {dropX, dropY}};
 }
