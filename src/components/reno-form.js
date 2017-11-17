@@ -56,6 +56,10 @@
 			}
 			return elements;
 		}
+		getFormData () {
+			const form = this.querySelector('form');
+			return form ? new FormData(form) : form;
+		}
 		checkValidity () {
 			const forms = this.querySelectorAll('form');
 			let allValid = true;
