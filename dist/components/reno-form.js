@@ -107,6 +107,12 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 				return elements;
 			}
 		}, {
+			key: 'getFormData',
+			value: function getFormData() {
+				var form = this.querySelector('form');
+				return form ? new FormData(form) : form;
+			}
+		}, {
 			key: 'checkValidity',
 			value: function checkValidity() {
 				var forms = this.querySelectorAll('form');
