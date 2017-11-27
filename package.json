@@ -22,7 +22,7 @@
     "@clubajax/on": "^2.1.6",
     "custom-elements-polyfill": "github:clubajax/custom-elements-polyfill#v0.8.2",
     "heya-io": "^1.1.6",
-    "hyperhtml": "^1.11.2"
+    "hyperhtml": "^2.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
