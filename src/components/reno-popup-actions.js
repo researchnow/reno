@@ -1,75 +1,134 @@
-const margin = 5;
-
 export function openPopup (popupComponent) {
-	const content = popupComponent.querySelector('.content').cloneNode(true);
-	const url = content.getAttribute('url');
+	const popupContent = popupComponent.querySelector('.content') || popupComponent;
+	if (!popupContent) return;
+
+	const data = popupContent.data;
+	const url  = popupContent.getAttribute('url');
 
 	// if there's no url or content, do nothing
-	if (!url && !content.childNodes.length) return;
+	if (!popupContent.childNodes.length && typeof data != 'function' && !url) return;
 
-	// else if there's url or content
-	// close other popups
+	const popupLoading = popupComponent.querySelector('.loading');
+
+	// if there's url or content => close other popups
 	closePopup();
+
+	// find/create a popup container
+	let popupContainer = popupComponent.ownerDocument.getElementById('reno-popup-container');
+	if (!popupContainer) {
+		popupContainer = popupComponent.ownerDocument.createElement('div');
+		popupContainer.id = 'reno-popup-container';
+		popupComponent.ownerDocument.body.appendChild(popupContainer);
+	}
+
 	// popup styles
-	const popupContainer = document.querySelector('#popup-container');
 	popupContainer.classList.remove('close');
 	popupContainer.classList.add('open');
-	// if there's url
-	if (url) {
-		// display loading
-		const loadingNode = popupComponent.querySelector('.loading');
-		// TODO: remove the flashing / too fast loading
-		if (loadingNode) content.innerHTML = loadingNode.cloneNode(true).innerHTML;
-		else content.innerHTML = '<div class="loading">Loading...</div>';
-		heya.io.get(url).then(data => {
-			// format url response
-			content.innerHTML = data.map((item) => (('<div>' + item.name + '</div>'))).join('');
-			// set content
-			popupContainer.appendChild(content);
-			// calculate position
-			calculatePlacement(popupComponent, popupContainer);
-		});
+
+	// form content
+	const placeholder = popupLoading ? popupLoading.cloneNode(true) : hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`;
+	let content;
+	if (data || url) {
+		if (data) {
+			content = data();
+		} else {
+			content = heya.io.get(url).
+				then(data => data.map(value => hyperHTML.wire()`<div>${value.name}</div>`));
+		}
+		content = content.
+			then(data => {
+				window.requestAnimationFrame(() => calculatePlacement(popupComponent, popupContainer));
+				return data;
+			});
+	} else {
+		content = popupContent.cloneNode(true);
 	}
-	// if there's content
-	// set content
-	popupContainer.appendChild(content);
-	// calculate position
-	calculatePlacement(popupComponent, popupContainer);
+	hyperHTML.bind(popupContainer)`${{any: content, placeholder: placeholder}}`;
+	return new Promise(resolve => {
+		window.requestAnimationFrame(() => {
+			calculatePlacement(popupComponent, popupContainer);
+			resolve(true);
+		});
+	});
 }
 
 export function closePopup () {
-	const popupContainer = document.querySelector('#popup-container');
-	while (popupContainer.firstChild) {
-		popupContainer.removeChild(popupContainer.firstChild);
-	}
+	const popupContainer = document.getElementById('reno-popup-container');
+	if (!popupContainer) return;
 	popupContainer.classList.remove('open');
 	popupContainer.classList.add('close');
+	hyperHTML.bind(popupContainer)``;
+	return Promise.resolve(true);
 }
 
 function calculatePlacement (popupComponent, popupContainer) {
 	const placement = popupComponent.getAttribute('placement');
+	let alignment = popupComponent.getAttribute('alignment');
+
+	if (!alignment) {
+		switch (placement) {
+			case 'left':
+			case 'right':
+				alignment = 'top';
+				break;
+			default:
+			// case 'top':
+			// case 'bottom':
+				alignment = 'left';
+				break;
+		}
+	}
+
+	popupContainer.style.top = '0';
+	popupContainer.style.left = '0';
+
 	const popupComponentDomRect = popupComponent.getBoundingClientRect();
 	const popupContainerDomRect = popupContainer.getBoundingClientRect();
 
-	// TODO: if out of the screen...
-	switch (placement) {
-		case 'bottom':
+	const anchor = popupComponentDomRect[alignment];
+	switch (alignment) {
+		case 'left':
+		case 'right':
+			popupContainer.style.left = (anchor + window.pageXOffset) + 'px';
+			break;
 		default:
-			popupContainer.style.top = popupComponentDomRect.y + popupComponentDomRect.height + pageYOffset + 'px';
-			popupContainer.style.left = popupComponentDomRect.x + (popupComponentDomRect.width - popupContainerDomRect.width) / 2+ pageXOffset + 'px';
-			// only care about bleeding on left
-			if (parseInt(popupContainer.style.left) < margin) {
-				popupContainer.style.left = margin + "px";
+		// case 'top':
+		// case 'bottom':
+			popupContainer.style.top = (anchor + window.pageYOffset) + 'px';
+			break;
+	}
+
+	switch (placement) {
+		case 'left':
+			if (popupComponentDomRect.left - popupContainerDomRect.width < 0) {
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
+			} else {
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset) + 'px';
+			}
+			break;
+		case 'right':
+			if (popupComponentDomRect.right + popupContainerDomRect.width > window.innerWidth) {
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset) + 'px';
+			} else {
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
+			}
+			break;
+		case 'top':
+			if (popupComponentDomRect.top - popupContainerDomRect.height < 0) {
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
+			} else {
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset) + 'px';
+			}
+			break;
+		default:
+		// case 'bottom':
+			if (popupComponentDomRect.bottom + popupContainerDomRect.height > window.innerHeight) {
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset) + 'px';
+			} else {
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
 			}
 			break;
 	}
 
-	// all cases care about bleeding on top/bottom
-	if (popupContainerDomRect.y + popupContainerDomRect.height > innerHeight ) {
-		popupContainer.style.top = pageYOffset + popupComponentDomRect.y - popupContainerDomRect.height + "px";
-	}
-	// // TODO: wip
-	// if (popupContainerDomRect.y + popupContainerDomRect.height > innerHeight ) {
-	// 	popupContainer.style.top = pageYOffset + popupComponentDomRect.y - popupContainerDomRect.height + "px";
-	// }
+	// TODO: we can cover cases when a popup is completely invisible forcing it to the visible part of a screen
 }

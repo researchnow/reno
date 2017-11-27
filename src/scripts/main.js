@@ -6,7 +6,7 @@ import 'heya-io/dist/io';
 import 'heya-io/dist/FauxXHR';
 import 'heya-io/dist/scaffold';
 import 'heya-io/dist/mock';
-const hyperHTML = require('hyperhtml');
+const hyperHTML = require('hyperhtml/cjs/main');
 if (window && !window.hyperHTML) {
 	window.hyperHTML = hyperHTML;
 }

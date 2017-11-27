@@ -1,20 +1,20 @@
-#popup-container {
-	width: 0;
+#reno-popup-container {
+	display: none;
+}
 
-	&.open {
-		@extend .reno-box-with-border-shadow-z1;
+#reno-popup-container.open {
+	@extend .reno-box-with-border-shadow-z1;
 
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 1;
+	display: block;
 
-		background-color: $reno-color-white;
-		padding: $reno-spacing-default;
-		width: 250px;
-		max-height: 200px;
-		overflow-y: scroll;
-	}
+	position: absolute;
+	z-index: 1;
+
+	background-color: $reno-color-white;
+	padding: $reno-spacing-default;
+	width: 250px;
+	max-height: 200px;
+	overflow-y: scroll;
 }
 
 reno-popup {

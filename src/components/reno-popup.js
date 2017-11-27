@@ -2,7 +2,6 @@ import { openPopup, closePopup } from "./reno-popup-actions";
 
 (function() {
 	class RenoPopup extends HTMLElement {
-
 		connectedCallback () {
 			// listen to events on the entire component
 			switch(this.getAttribute('trigger')) {
@@ -14,27 +13,23 @@ import { openPopup, closePopup } from "./reno-popup-actions";
 					this.addEventListener('focus', this);
 					// TODO
 					break;
-				case 'mouseover':
 				default:
+				// case 'mouseover':
 					this.addEventListener('mouseover', this);
 					this.addEventListener('mouseout', this);
 			}
 		}
-		disconnectedCallback () {
-
-		}
-		attributeChangedCallback (attrName, oldVal, newVal) {
-
-		}
 		handleEvent (e) {
-			const isOpen = document.querySelector('#popup-container').classList.contains('open');
+			const isOpen = document.querySelector('#reno-popup-container').classList.contains('open');
 
 			// handle events
 			const trigger = this.getAttribute('trigger') || 'mouseover';
+			if (trigger !== e.type && (trigger !== 'mouseover' || e.type !== 'mouseout')) return;
+
 			switch (e.type) {
 				case 'click':
 					// clicking anywhere except the popup container will close
-					isOpen && !e.target.closest('#popup-container') && closePopup();
+					isOpen && !e.target.closest('#reno-popup-container') && closePopup();
 					// clicking only the popup component will open
 					!isOpen && e.target.closest('reno-popup') && openPopup(this);
 					break;
@@ -45,12 +40,13 @@ import { openPopup, closePopup } from "./reno-popup-actions";
 					openPopup(this);
 					break;
 				case 'mouseout':
-					closePopup();
+					if (!e.relatedTarget || !e.relatedTarget.closest('#reno-popup-container')) {
+						closePopup();
+					}
 					break;
 			}
 		}
 
 	}
 	customElements.define('reno-popup', RenoPopup);
-
 })();
