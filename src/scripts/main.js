@@ -6,7 +6,7 @@ import 'heya-io/dist/io';
 import 'heya-io/dist/FauxXHR';
 import 'heya-io/dist/scaffold';
 import 'heya-io/dist/mock';
-const hyperHTML = require('hyperhtml/cjs/main');
+const hyperHTML = require('hyperhtml/cjs');
 if (window && !window.hyperHTML) {
 	window.hyperHTML = hyperHTML;
 }
@@ -14,16 +14,6 @@ const on = require('@clubajax/on');
 if (window && !window.on) {
 	window.on = on;
 }
-
-// components
-import '../components/reno-search';
-import '../components/reno-table-view';
-import '../components/reno-table-pager';
-import '../components/reno-table-counter';
-import '../components/reno-table';
-import '../components/reno-content-switcher';
-import '../components/reno-form';
-import '../components/reno-popup';
 
 // utilities
 import clone     from '../utils/clone';
@@ -52,3 +42,13 @@ if (window) {
 
 	Reno.utils.dnd = {start, init, over, moving, movingX, movingY, rearrangeable: {dropX, dropY}};
 }
+
+// components
+import '../components/reno-search';
+import '../components/reno-table-view';
+import '../components/reno-table-pager';
+import '../components/reno-table-counter';
+import '../components/reno-table';
+import '../components/reno-content-switcher';
+import '../components/reno-form';
+import '../components/reno-popup';
