@@ -2,33 +2,16 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 (function () {
 	'use strict';
-
-	var _this = this;
-
-	var matches = void 0;
-	['matches', 'matchesSelector', 'webkit', 'moz', 'ms', 'o'].some(function (name) {
-		_newArrowCheck(this, _this);
-
-		if (name.length < 7) {
-			// prefix
-			name += 'MatchesSelector';
-		}
-		if (Element.prototype[name]) {
-			matches = name;
-			return true;
-		}
-		return false;
-	}.bind(this));
 
 	var supportedEvents = { click: 'onClick', input: 'onInput', submit: 'onSubmit' };
 
@@ -48,17 +31,17 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 
 			// life-cycle callbacks
 			value: function connectedCallback() {
-				var _this3 = this;
+				var _this2 = this;
 
-				Object.keys(supportedEvents).forEach(function (eventName) {
-					_newArrowCheck(this, _this3);
+				this.handle = on.makeMultiHandle(Object.keys(supportedEvents).map(function (eventName) {
+					_newArrowCheck(this, _this2);
 
-					return this.addEventListener(eventName, this);
-				}.bind(this));
+					return on(this, eventName, this);
+				}.bind(this)));
 				if (this.getAttribute('showmessages') !== null) {
 					this.deferredFunction = this.showMessages;
 					window.requestAnimationFrame(function () {
-						_newArrowCheck(this, _this3);
+						_newArrowCheck(this, _this2);
 
 						this.deferredFunction && this.deferredFunction.call(this);
 						this.deferredFunction = null;
@@ -68,13 +51,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 		}, {
 			key: 'disconnectedCallback',
 			value: function disconnectedCallback() {
-				var _this4 = this;
-
-				Object.keys(supportedEvents).forEach(function (eventName) {
-					_newArrowCheck(this, _this4);
-
-					return this.removeEventListener(eventName, this);
-				}.bind(this));
+				this.handle.remove();
 				this.deferredFunction = null;
 			}
 		}, {
@@ -137,16 +114,16 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 		}, {
 			key: 'showElementMessages',
 			value: function showElementMessages(node, rootSelector, errorSelector) {
-				var _this5 = this;
+				var _this3 = this;
 
 				var element = node;
 				if (rootSelector) {
-					while (element && element[matches] && !element[matches](rootSelector)) {
+					while (element && element[on.matches] && !element[on.matches](rootSelector)) {
 						element = element.parentNode;
-					}element = element && element[matches] ? element : node;
+					}element = element && element[on.matches] ? element : node;
 				}
 				validityFlags.forEach(function (flag) {
-					_newArrowCheck(this, _this5);
+					_newArrowCheck(this, _this3);
 
 					element.classList[node.validity[flag] ? 'add' : 'remove']('validity-' + flag);
 				}.bind(this));
@@ -188,7 +165,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 		}, {
 			key: 'onClick',
 			value: function onClick(e) {
-				if (e.target[matches]('input[type="checkbox"], input[type="radio"]')) {
+				if (e.target[on.matches]('input[type="checkbox"], input[type="radio"]')) {
 					this.dispatchEvent(new CustomEvent('reno-form-click', { bubbles: true, detail: { changed: e } }));
 				}
 			}
@@ -201,7 +178,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 		}, {
 			key: 'onSubmit',
 			value: function onSubmit(e) {
-				if (e.target[matches]('form')) {
+				if (e.target[on.matches]('form')) {
 					e.preventDefault();
 					this.showFormMessages(e.target, this.getAttribute('rootselector'), this.getAttribute('errorselector'));
 					this.dispatchEvent(new CustomEvent('reno-form-submit', { bubbles: true, detail: { form: e, validity: e.target.reportValidity() } }));

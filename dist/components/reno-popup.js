@@ -26,18 +26,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				// listen to events on the entire component
 				switch (this.getAttribute('trigger')) {
 					case 'click':
-						document.addEventListener('click', this);
-						// TODO
+						this.handle = on(document, 'click', this);
 						break;
-					case 'focus':
-						this.addEventListener('focus', this);
-						// TODO
-						break;
+					// case 'focus':
+					// 	this.handle = on(this, 'focus', this);
+					// 	break;
 					default:
 						// case 'mouseover':
-						this.addEventListener('mouseover', this);
-						this.addEventListener('mouseout', this);
+						this.handle = on.makeMultiHandle([on(this, 'mouseover', this), on(this, 'mouseout', this)]);
 				}
+			}
+		}, {
+			key: 'disconnectedCallback',
+			value: function disconnectedCallback() {
+				this.handle.remove();
 			}
 		}, {
 			key: 'handleEvent',
@@ -51,9 +53,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				switch (e.type) {
 					case 'click':
 						// clicking anywhere except the popup container will close
-						isOpen && !e.target.closest('#reno-popup-container') && (0, _renoPopupActions.closePopup)();
+						isOpen && !on.closest(e.target, '#reno-popup-container') && (0, _renoPopupActions.closePopup)();
 						// clicking only the popup component will open
-						!isOpen && e.target.closest('reno-popup') && (0, _renoPopupActions.openPopup)(this);
+						!isOpen && on.closest(e.target, 'reno-popup') && (0, _renoPopupActions.openPopup)(this);
 						break;
 					case 'focus':
 						// TODO
@@ -62,7 +64,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 						(0, _renoPopupActions.openPopup)(this);
 						break;
 					case 'mouseout':
-						if (!e.relatedTarget || !e.relatedTarget.closest('#reno-popup-container')) {
+						if (!e.relatedTarget || !on.closest(e.relatedTarget, '#reno-popup-container')) {
 							(0, _renoPopupActions.closePopup)();
 						}
 						break;
