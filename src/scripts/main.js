@@ -1,7 +1,7 @@
 import '../styles/main.scss';
 
 // dependencies
-import 'custom-elements-polyfill';
+import '@clubajax/custom-elements-polyfill';
 import 'heya-io/dist/io';
 import 'heya-io/dist/FauxXHR';
 import 'heya-io/dist/scaffold';
