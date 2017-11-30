@@ -1,6 +1,5 @@
 const {resolve, relative} = require('path');
 const webpack = require('webpack');
-const DefinePlugin = webpack.DefinePlugin;
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -55,7 +54,7 @@ module.exports = {
 				test: /\.scss$/,
 				use: ExtractTextPlugin.extract({
 					use: [
-						'css-loader', 'sass-loader'
+						'css-loader', 'fast-sass-loader'
 					],
 					// use style-loader in development
 					fallback: 'style-loader'
@@ -79,7 +78,7 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new DefinePlugin({
+		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production')
 			}
