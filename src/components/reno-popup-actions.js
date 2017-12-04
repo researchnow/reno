@@ -1,3 +1,5 @@
+const PopupLabelGap = 12;
+
 export function openPopup (popupComponent) {
 	const popupContent = popupComponent.querySelector('.content') || popupComponent;
 	if (!popupContent) return;
@@ -101,10 +103,11 @@ function calculatePlacement (popupComponent, popupContainer) {
 	switch (placement) {
 		case 'left':
 			if (popupComponentDomRect.left - popupContainerDomRect.width < 0) {
-				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset + PopupLabelGap) + 'px';
 			} else {
-				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
 			}
+			popupContainer.style.top = (popupComponentDomRect.top - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
 			break;
 		case 'right':
 			if (popupComponentDomRect.right + popupContainerDomRect.width > window.innerWidth) {

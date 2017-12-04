@@ -4,16 +4,17 @@
 
 #reno-popup-container.open {
 	@extend .reno-box-with-border-shadow-z1;
+	@extend .reno-caption;
 
 	display: block;
-
 	position: absolute;
 	z-index: 1;
-
-	background-color: $reno-color-white;
-	padding: $reno-spacing-default;
-	width: 250px;
+	color: $reno-color-white;
+	background-color: $reno-color-dark-gray;
+	border: none;
+	padding: 4px 12px;
 	max-height: 200px;
+	max-width: 250px;
 	overflow-y: scroll;
 }
 
