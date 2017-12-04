@@ -107,7 +107,7 @@ function calculatePlacement (popupComponent, popupContainer) {
 			} else {
 				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
 			}
-			popupContainer.style.top = (popupComponentDomRect.top - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
+			popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
 			break;
 		case 'right':
 			if (popupComponentDomRect.right + popupContainerDomRect.width > window.innerWidth) {
