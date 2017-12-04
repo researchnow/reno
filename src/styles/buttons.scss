@@ -17,8 +17,10 @@ $reno-button-outline-color: $reno-color-secondary;
 @mixin reno-button-size($font-size, $h-pad, $v-pad) {
 	font-family: gotham a, gotham b, sans-serif;
 	font-weight: 500;
-	font-size: $font-size;
 	line-height: 1em;
+	cursor: pointer;
+	border-radius: 0;
+	font-size: $font-size;
 	padding: $v-pad $h-pad;
 }
 
@@ -28,7 +30,6 @@ $reno-button-outline-color: $reno-color-secondary;
 	border: 1px solid $border-color;
 	box-shadow: #{$box-shadow};
 	text-decoration: $text-decoration;
-	cursor: pointer;
 }
 
 @function reno-button-name($name, $size, $state) {

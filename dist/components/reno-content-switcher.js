@@ -8,27 +8,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 (function () {
 	'use strict';
-
-	var _this = this;
-
-	var matches = void 0;
-	['matches', 'matchesSelector', 'webkit', 'moz', 'ms', 'o'].some(function (name) {
-		_newArrowCheck(this, _this);
-
-		if (name.length < 7) {
-			// prefix
-			name += 'MatchesSelector';
-		}
-		if (Element.prototype[name]) {
-			matches = name;
-			return true;
-		}
-		return false;
-	}.bind(this));
 
 	var RenoContentSwitcher = function (_HTMLElement) {
 		_inherits(RenoContentSwitcher, _HTMLElement);
@@ -134,7 +115,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 			value: function selectPages(selector) {
 				var selected = void 0;
 				for (var page = this.firstElementChild; page; page = page.nextElementSibling) {
-					if (page[matches](selector)) {
+					if (page[on.matches](selector)) {
 						selected = page;
 						break;
 					}

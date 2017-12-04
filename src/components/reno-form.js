@@ -1,18 +1,6 @@
 (function () {
 	'use strict';
 
-	let matches;
-	['matches', 'matchesSelector', 'webkit', 'moz', 'ms', 'o'].some(name => {
-		if (name.length < 7) { // prefix
-			name += 'MatchesSelector';
-		}
-		if (Element.prototype[name]) {
-			matches = name;
-			return true;
-		}
-		return false;
-	});
-
 	const supportedEvents = {click: 'onClick', input: 'onInput', submit: 'onSubmit'};
 
 	const validityFlags = ['customError', 'patternMismatch', 'rangeOverflow', 'rangeUnderFlow', 'stepMismatch', 'tooLong', 'typeMismatch', 'valid', 'valueMissing'];
@@ -20,7 +8,7 @@
 	class RenoForm extends HTMLElement {
 		// life-cycle callbacks
 		connectedCallback () {
-			Object.keys(supportedEvents).forEach(eventName => this.addEventListener(eventName, this));
+			this.handle = on.makeMultiHandle(Object.keys(supportedEvents).map(eventName => on(this, eventName, this)));
 			if (this.getAttribute('showmessages') !== null) {
 				this.deferredFunction = this.showMessages;
 				window.requestAnimationFrame(() => {
@@ -30,7 +18,7 @@
 			}
 		}
 		disconnectedCallback () {
-			Object.keys(supportedEvents).forEach(eventName => this.removeEventListener(eventName, this));
+			this.handle.remove();
 			this.deferredFunction = null;
 		}
 		static get observedAttributes () { return ['disabled']; }
@@ -56,6 +44,10 @@
 			}
 			return elements;
 		}
+		getFormData () {
+			const form = this.querySelector('form');
+			return form ? new FormData(form) : form;
+		}
 		checkValidity () {
 			const forms = this.querySelectorAll('form');
 			let allValid = true;
@@ -77,8 +69,8 @@
 		showElementMessages (node, rootSelector, errorSelector) {
 			let element = node;
 			if (rootSelector) {
-				while (element && element[matches] && !element[matches](rootSelector)) element = element.parentNode;
-				element = element && element[matches] ? element : node;
+				while (element && element[on.matches] && !element[on.matches](rootSelector)) element = element.parentNode;
+				element = element && element[on.matches] ? element : node;
 			}
 			validityFlags.forEach(flag => {
 				element.classList[node.validity[flag] ? 'add' : 'remove']('validity-' + flag);
@@ -110,7 +102,7 @@
 			this[supportedEvents[e.type]](e);
 		}
 		onClick (e) {
-			if (e.target[matches]('input[type="checkbox"], input[type="radio"]')) {
+			if (e.target[on.matches]('input[type="checkbox"], input[type="radio"]')) {
 				this.dispatchEvent(new CustomEvent('reno-form-click', {bubbles: true, detail: {changed: e}}));
 			}
 		}
@@ -119,7 +111,7 @@
 			this.dispatchEvent(new CustomEvent('reno-form-input', {bubbles: true, detail: {changed: e}}));
 		}
 		onSubmit (e) {
-			if (e.target[matches]('form')) {
+			if (e.target[on.matches]('form')) {
 				e.preventDefault();
 				this.showFormMessages(e.target, this.getAttribute('rootselector'), this.getAttribute('errorselector'));
 				this.dispatchEvent(new CustomEvent('reno-form-submit', {bubbles: true, detail: {form: e, validity: e.target.reportValidity()}}));

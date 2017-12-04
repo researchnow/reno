@@ -1,18 +1,6 @@
 (function () {
 	'use strict';
 
-	let matches;
-	['matches', 'matchesSelector', 'webkit', 'moz', 'ms', 'o'].some(name => {
-		if (name.length < 7) { // prefix
-			name += 'MatchesSelector';
-		}
-		if (Element.prototype[name]) {
-			matches = name;
-			return true;
-		}
-		return false;
-	});
-
 	class RenoContentSwitcher extends HTMLElement {
 		connectedCallback () {
 			this.addEventListener('transitionend', this);
@@ -92,7 +80,7 @@
 		selectPages (selector) {
 			let selected;
 			for (let page = this.firstElementChild; page; page = page.nextElementSibling) {
-				if (page[matches](selector)) {
+				if (page[on.matches](selector)) {
 					selected = page;
 					break;
 				}

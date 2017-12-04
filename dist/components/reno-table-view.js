@@ -1,8 +1,8 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _templateObject = _taggedTemplateLiteral(['<col class="', '"></col>'], ['<col class="', '"></col>']),
     _templateObject2 = _taggedTemplateLiteral(['<colgroup>', '</colgroup>'], ['<colgroup>', '</colgroup>']),
@@ -49,6 +49,12 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 	var activeElements = { button: 1, input: 1, textarea: 1, a: 1, label: 1 };
 
 	var primitives = { string: 1, number: 1, boolean: 1 };
+
+	var renderValue = function (value) {
+		_newArrowCheck(this, _this);
+
+		return primitives[typeof value === 'undefined' ? 'undefined' : _typeof(value)] ? { html: value } : typeof value == 'function' ? value() : value;
+	}.bind(this);
 
 	var RenoTableView = function (_HTMLElement) {
 		_inherits(RenoTableView, _HTMLElement);
@@ -167,7 +173,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 					var cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
 					var fieldName = this.fieldMap[field];
 					if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-					return hyperHTML.wire()(_templateObject3, cssClasses, field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName);
+					return hyperHTML.wire()(_templateObject3, cssClasses, field, renderValue(fieldName));
 				}.bind(this));
 				var header = hyperHTML.wire()(_templateObject4, headRowCells);
 
@@ -186,7 +192,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 						if (labels) {
 							var fieldName = this.fieldMap[field];
 							if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-							return hyperHTML.wire()(_templateObject5, 'td field-' + field, primitives[typeof fieldName === 'undefined' ? 'undefined' : _typeof(fieldName)] ? { html: fieldName } : fieldName, primitives[typeof value === 'undefined' ? 'undefined' : _typeof(value)] ? { html: value } : value);
+							return hyperHTML.wire()(_templateObject5, 'td field-' + field, renderValue(fieldName), renderValue(value));
 						}
 						return hyperHTML.wire()(_templateObject6, 'td field-' + field, (typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' ? value : { html: value });
 					}.bind(this));

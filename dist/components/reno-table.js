@@ -81,8 +81,11 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 			value: function refresh() {
 				this.view && this.view.io();
 			}
-			// TODO: add re-render
-
+		}, {
+			key: 'redraw',
+			value: function redraw() {
+				this.view && this.view.render();
+			}
 		}, {
 			key: 'render',
 			value: function render() {
