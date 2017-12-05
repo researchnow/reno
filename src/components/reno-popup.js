@@ -4,22 +4,20 @@ let handleClick = null;
 
 const hidePopup = e => {
 	const popup = document.getElementById('reno-popup-container');
-	if (popup) {
-		if (!popup.contains(e.target)) {
-			closePopup();
-		}
+	if (popup && !popup.contains(e.target)) {
+		closePopup();
 	}
 };
 
 class RenoPopup extends HTMLElement {
 	connectedCallback () {
+		if (!handleClick) {
+			handleClick = on(document, 'click', hidePopup);
+		}
 		// listen to events on the entire component
 		switch(this.getAttribute('trigger')) {
 			case 'click':
 				this.handle = on(this, 'click', this);
-				if (!handleClick) {
-					handleClick = on(document, 'click', hidePopup);
-				}
 				break;
 			// case 'focus':
 			// 	this.handle = on(this, 'focus', this);
