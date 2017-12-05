@@ -1,5 +1,3 @@
-const PopupLabelGap = 12;
-
 export function openPopup (popupComponent) {
 	const popupContent = popupComponent.querySelector('.content') || popupComponent;
 	if (!popupContent) return;
@@ -72,41 +70,42 @@ function calculatePlacement (popupComponent, popupContainer) {
 
 	const popupComponentDomRect = popupComponent.getBoundingClientRect();
 	const popupContainerDomRect = popupContainer.getBoundingClientRect();
+	const computedMargin = getComputedStyle(popupContainer).margin;
+	const popupContainerMargin = /px\b/.test(computedMargin) ? parseInt(computedMargin) : 0;
 
 	switch (placement) {
 		case 'left':
-			if (popupComponentDomRect.left - popupContainerDomRect.width < 0) {
-				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset + PopupLabelGap) + 'px';
+			if (popupComponentDomRect.left - popupContainerDomRect.width - popupContainerMargin < 0) {
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
 			} else {
-				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - 2*popupContainerMargin) + 'px';
 			}
-			// TODO: handle out of screen
 			break;
 		case 'right':
-			if (popupComponentDomRect.right + popupContainerDomRect.width > window.innerWidth) {
-				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
+			if (popupComponentDomRect.right + popupContainerDomRect.width + popupContainerMargin > window.innerWidth) {
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - 2*popupContainerMargin) + 'px';
 			} else {
-				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset + PopupLabelGap) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
 			}
 			break;
 		case 'top':
-			if (popupComponentDomRect.top - popupContainerDomRect.height < 0) {
-				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset + PopupLabelGap) + 'px';
+			if (popupComponentDomRect.top - popupContainerDomRect.height - popupContainerMargin < 0) {
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
 			} else {
-				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - PopupLabelGap) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2*popupContainerMargin) + 'px';
 			}
 			break;
 		default:
 		// case 'bottom':
-			if (popupComponentDomRect.bottom + popupContainerDomRect.height > window.innerHeight) {
-				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - PopupLabelGap) + 'px';
+			if (popupComponentDomRect.bottom + popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2*popupContainerMargin) + 'px';
 			} else {
-				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset + PopupLabelGap) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
 			}
 			break;
 	}
 
-	const anchor = popupComponentDomRect[alignment];
+	const anchor = popupComponentDomRect[alignment]  - popupContainerMargin;
 	switch (alignment) {
 		case 'left':
 			popupContainer.style.left = (anchor + window.pageXOffset) + 'px';
@@ -121,20 +120,16 @@ function calculatePlacement (popupComponent, popupContainer) {
 			popupContainer.style.top = (anchor + window.pageYOffset - popupContainerDomRect.height) + 'px';
 			break;
 		default:
-			// if no alignment is specified, by default align to center
+			// case 'center':
 			switch (placement) {
 				case 'left':
-					popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
-					break;
 				case 'right':
-					popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
+					popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - popupContainerMargin - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
 					break;
 				case 'top':
-					popupContainer.style.left = (popupComponentDomRect.left + window.pageXOffset - (popupContainerDomRect.width - popupComponentDomRect.width)/2) + 'px';
-					break;
 				default:
 					// case 'bottom':
-					popupContainer.style.left = (popupComponentDomRect.left + window.pageXOffset - (popupContainerDomRect.width - popupComponentDomRect.width)/2) + 'px';
+					popupContainer.style.left = (popupComponentDomRect.left + window.pageXOffset - popupContainerMargin - (popupContainerDomRect.width - popupComponentDomRect.width)/2) + 'px';
 					break;
 			}
 			break;
