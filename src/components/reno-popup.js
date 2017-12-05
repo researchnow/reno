@@ -34,7 +34,7 @@ import { openPopup, closePopup } from "./reno-popup-actions";
 					// clicking anywhere except the popup container will close
 					isOpen && !on.closest(e.target, '#reno-popup-container') && closePopup();
 					// clicking only the popup component will open
-					!isOpen && on.closest(e.target, 'reno-popup') && openPopup(this);
+					!isOpen && this.contains(e.target) && openPopup(this);
 					break;
 				case 'focus':
 					// TODO
@@ -48,6 +48,9 @@ import { openPopup, closePopup } from "./reno-popup-actions";
 					}
 					break;
 			}
+			e.stopPropagation();
+			e.stopImmediatePropagation();
+			// e.preventDefault();
 		}
 	}
 	customElements.define('reno-popup', RenoPopup);

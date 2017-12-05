@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<title>Reno: table</title>
+	<title>Reno: popup</title>
 	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
 	<link rel="stylesheet" href="../styles.css">
 	<script src="../main.js"></script>
@@ -25,7 +25,7 @@
 <h2>Placement & alignment</h2>
 <div class="popups-container">
 	<reno-popup placement="left">
-		<label class="label">p: left</label>
+		<label class="label">p: left (a: center)</label>
 		<div class="content">
 			<div>popup content</div>
 			<div>popup content</div>
@@ -33,74 +33,100 @@
 	</reno-popup>
 
 	<reno-popup placement="top">
-		<label class="label">p: top</label>
-		<div class="content">popup content</div>
+		<label class="label">p: top (a: center)</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<reno-popup placement="bottom">
-		<label class="label">p: bottom</label>
-		<div class="content">popup content</div>
+		<label class="label">p: bottom (a: center)</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<reno-popup placement="right">
-		<label class="label">p: right</label>
-		<div class="content">popup content</div>
+		<label class="label">p: right (a: center)</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<br/>
 
 	<reno-popup placement="left" alignment="bottom">
 		<label class="label">p: left, a: bottom</label>
-		<div class="content">popup content</div>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<reno-popup placement="left" alignment="top">
 		<label class="label">p: left, a: top</label>
-		<div class="content">popup content</div>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<reno-popup placement="right" alignment="bottom">
 		<label class="label">p: right, a: bottom</label>
-		<div class="content">popup content</div>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<reno-popup placement="right" alignment="top">
 		<label class="label">p: right: a: top</label>
-		<div class="content">popup content</div>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 	<br/>
 
-	<reno-popup placement="top" alignment="bottom">
-		<label class="label">p: top, a: bottom</label>
-		<div class="content">popup content</div>
+	<reno-popup placement="top" alignment="left">
+		<label class="label">p: top, a: left</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
-	<reno-popup placement="top" alignment="top">
-		<label class="label">p: top, a: top</label>
-		<div class="content">popup content</div>
+	<reno-popup placement="top" alignment="right">
+		<label class="label">p: top, a: right</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
-	<reno-popup placement="bottom" alignment="bottom">
-		<label class="label">p: bottom, a: bottom</label>
-		<div class="content">popup content</div>
+	<reno-popup placement="bottom" alignment="left">
+		<label class="label">p: bottom, a: left</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
-	<reno-popup placement="bottom" alignment="top">
-		<label class="label">p: bottom: a: top</label>
-		<div class="content">popup content</div>
+	<reno-popup placement="bottom" alignment="right" trigger="click">
+		<label class="label">p: bottom: a: right</label>
+		<div class="content">
+			<div>popup content</div>
+			<div>popup content</div>
+		</div>
 	</reno-popup>
 
 </div>
 
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
-<span class="grey-text">Some very long text before popup to test the alignment:</span>
-<reno-popup placement="bottom" alignment="right">
-	<label class="label">Placement: bottom, alignment: right</label>
-	<div class="content">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-</reno-popup>
-
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
