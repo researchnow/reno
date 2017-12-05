@@ -1,3 +1,5 @@
+const PopupLabelGap = 12;
+
 export function openPopup (popupComponent) {
 	const popupContent = popupComponent.querySelector('.content') || popupComponent;
 	if (!popupContent) return;
@@ -65,67 +67,75 @@ function calculatePlacement (popupComponent, popupContainer) {
 	const placement = popupComponent.getAttribute('placement');
 	let alignment = popupComponent.getAttribute('alignment');
 
-	if (!alignment) {
-		switch (placement) {
-			case 'left':
-			case 'right':
-				alignment = 'top';
-				break;
-			default:
-			// case 'top':
-			// case 'bottom':
-				alignment = 'left';
-				break;
-		}
-	}
-
 	popupContainer.style.top = '0';
 	popupContainer.style.left = '0';
 
 	const popupComponentDomRect = popupComponent.getBoundingClientRect();
 	const popupContainerDomRect = popupContainer.getBoundingClientRect();
 
-	const anchor = popupComponentDomRect[alignment];
-	switch (alignment) {
-		case 'left':
-		case 'right':
-			popupContainer.style.left = (anchor + window.pageXOffset) + 'px';
-			break;
-		default:
-		// case 'top':
-		// case 'bottom':
-			popupContainer.style.top = (anchor + window.pageYOffset) + 'px';
-			break;
-	}
-
 	switch (placement) {
 		case 'left':
 			if (popupComponentDomRect.left - popupContainerDomRect.width < 0) {
-				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset + PopupLabelGap) + 'px';
 			} else {
-				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
 			}
+			// TODO: handle out of screen
 			break;
 		case 'right':
 			if (popupComponentDomRect.right + popupContainerDomRect.width > window.innerWidth) {
-				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - PopupLabelGap) + 'px';
 			} else {
-				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset) + 'px';
+				popupContainer.style.left = (popupComponentDomRect.right + window.pageXOffset + PopupLabelGap) + 'px';
 			}
 			break;
 		case 'top':
 			if (popupComponentDomRect.top - popupContainerDomRect.height < 0) {
-				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset + PopupLabelGap) + 'px';
 			} else {
-				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - PopupLabelGap) + 'px';
 			}
 			break;
 		default:
 		// case 'bottom':
 			if (popupComponentDomRect.bottom + popupContainerDomRect.height > window.innerHeight) {
-				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - PopupLabelGap) + 'px';
 			} else {
-				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset) + 'px';
+				popupContainer.style.top = (popupComponentDomRect.bottom + window.pageYOffset + PopupLabelGap) + 'px';
+			}
+			break;
+	}
+
+	const anchor = popupComponentDomRect[alignment];
+	switch (alignment) {
+		case 'left':
+			popupContainer.style.left = (anchor + window.pageXOffset) + 'px';
+			break;
+		case 'right':
+			popupContainer.style.left = (anchor + window.pageXOffset - popupContainerDomRect.width) + 'px';
+			break;
+		case 'top':
+			popupContainer.style.top = (anchor + window.pageYOffset) + 'px';
+			break;
+		case 'bottom':
+			popupContainer.style.top = (anchor + window.pageYOffset - popupContainerDomRect.height) + 'px';
+			break;
+		default:
+			// if no alignment is specified, by default align to center
+			switch (placement) {
+				case 'left':
+					popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
+					break;
+				case 'right':
+					popupContainer.style.top = (popupComponentDomRect.top + window.pageYOffset - (popupContainerDomRect.height - popupComponentDomRect.height)/2) + 'px';
+					break;
+				case 'top':
+					popupContainer.style.left = (popupComponentDomRect.left + window.pageXOffset - (popupContainerDomRect.width - popupComponentDomRect.width)/2) + 'px';
+					break;
+				default:
+					// case 'bottom':
+					popupContainer.style.left = (popupComponentDomRect.left + window.pageXOffset - (popupContainerDomRect.width - popupComponentDomRect.width)/2) + 'px';
+					break;
 			}
 			break;
 	}

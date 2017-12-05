@@ -93,3 +93,15 @@ section {
 .grey-text {
 	color: $reno-color-light-gray;
 }
+
+.popups-container {
+	width: 800px;
+	margin: 0 auto;
+}
+
+reno-popup {
+	margin: 5px 10px;
+	background-color: $reno-color-light-gray;
+	padding: 3px 8px;
+}
+
