@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Reno: progress indicators</title>
+	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	<link rel="stylesheet" href="../styles.css">
+	<script src="../main.js"></script>
+</head>
+<body class="reno">
+<h1>Reno: progress indicators</h1>
+
+<h3>Indeterminate: .reno-progress .indeterminate</h3>
+<div class="reno-progress indeterminate"></div>
+
+<h3>Determinate: .reno-progress .determinate</h3>
+<div class="reno-progress determinate"></div>
+
+<script>
+//	setInterval(() => {
+//		document.querySelector(".reno-progress").classList.remove("loading");
+//		setTimeout(() => {
+//		  document.querySelector(".reno-progress").classList.add("loading");
+//		}, 2000);
+//	}, 8000);
+	setInterval(() => {
+		document.querySelector(".reno-progress").classList.remove("loading");
+		setTimeout(() => {
+			document.querySelector(".reno-progress").classList.add("loading");
+		}, 2000);
+	}, 8000);
+</script>
+
+</body>
+</html>

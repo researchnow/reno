@@ -1,0 +1,28 @@
+.reno-progress {
+	background-color: transparent;
+	width: 350px;
+	height: 8px;
+	border: 1px solid $reno-color-light-gray;
+	border-radius: 50px;
+	position: relative;
+
+	&.indeterminate:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: $reno-color-primary;
+		width: 0;
+		height: 8px;
+		animation: reno-indeterminate 2s cubic-bezier(.2,.47,.51,.91) infinite;
+	}
+
+
+}
+
+@keyframes reno-indeterminate {
+	0% { margin-left: 0; width: 0; border-radius: 50px 0 0 50px; }
+	10% { border-radius: 0 0 0 0; }
+	70% { margin-left: 150px; width: 200px; border-radius: 0 0 0 0; }
+	100% { margin-left: 350px; width: 0; border-radius: 0 50px 50px 0; }
+}
