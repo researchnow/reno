@@ -14,15 +14,16 @@
 <div class="reno-progress indeterminate"></div>
 
 <h3>Determinate: .reno-progress .determinate</h3>
-<div class="reno-progress determinate progress-70"></div>
+<div class="reno-progress determinate progress-0"></div>
 
 <script>
-//	setInterval(() => {
-//		document.querySelector(".reno-progress").classList.remove("loading");
-//		setTimeout(() => {
-//		  document.querySelector(".reno-progress").classList.add("loading");
-//		}, 2000);
-//	}, 8000);
+	let progress = 0;
+	setInterval(() => {
+		document.querySelector(".reno-progress.determinate").classList.remove("progress-"+progress);
+		if (progress >= 100) progress = 0;
+		else progress += 10;
+		document.querySelector(".reno-progress.determinate").classList.add("progress-"+progress);
+	}, 1000);
 //	let progress = 0;
 //	while (progress<100) {
 //		setTimeout(() => {

@@ -24,7 +24,9 @@
 		left: 0;
 		background-color: $reno-color-primary;
 		height: 8px;
-		width: inherit;
+		border-radius: 50px 0 0 50px;
+		width: 0;
+		transition: width .5s cubic-bezier(.2,.47,.51,.91);
 	}
 }
 
@@ -35,14 +37,19 @@
 	100% { margin-left: 350px; width: 0; border-radius: 0 50px 50px 0; }
 }
 
-$reno-progress-percentages: (
-	10%, 30%, 50%, 70%
-);
+// how many classes can we support?
+@for $p from 0 through 10 {
+	.progress-#{$p*10} {
+		&.determinate:before {
+			width: #{$p*10+"%"};
 
-@mixin progress($progress) {
-	width: $progress;
+			@if $p*10 == 100 {
+				border-radius: 50px;
+			}
+			@else {
+				border-radius: 50px 0 0 50px;
+			}
+		}
+	}
 }
 
-@each $progress-percentage in $reno-progress-percentages {
- ".progress-#{$progress-percentage}" { @include progress($progress-percentage);}
-}
