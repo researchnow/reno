@@ -24,7 +24,7 @@
 		left: 0;
 		background-color: $reno-color-primary;
 		height: 8px;
-		width: 80%;
+		width: inherit;
 	}
 }
 
@@ -36,7 +36,7 @@
 }
 
 $reno-progress-percentages: (
-	10%, 30%, 50%, 80%
+	10%, 30%, 50%, 70%
 );
 
 @mixin progress($progress) {
@@ -44,5 +44,5 @@ $reno-progress-percentages: (
 }
 
 @each $progress-percentage in $reno-progress-percentages {
-	#{".progress-"+$progress-percentage} { @include progress($progress-percentage)}
+ ".progress-#{$progress-percentage}" { @include progress($progress-percentage);}
 }
