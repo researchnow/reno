@@ -14,7 +14,7 @@
 <div class="reno-progress indeterminate"></div>
 
 <h3>Determinate: .reno-progress .determinate</h3>
-<div class="reno-progress determinate"></div>
+<div class="reno-progress determinate progress-70" width="70%"></div>
 
 <script>
 //	setInterval(() => {
@@ -23,12 +23,14 @@
 //		  document.querySelector(".reno-progress").classList.add("loading");
 //		}, 2000);
 //	}, 8000);
-	setInterval(() => {
-		document.querySelector(".reno-progress").classList.remove("loading");
-		setTimeout(() => {
-			document.querySelector(".reno-progress").classList.add("loading");
-		}, 2000);
-	}, 8000);
+//	let progress = 0;
+//	while (progress<100) {
+//		setTimeout(() => {
+//			progress += 20;
+//			console.log(progress);
+//			console.log(document.querySelector(".reno-progress.determinate").style);
+//		}, 2000);
+//	}
 </script>
 
 </body>

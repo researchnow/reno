@@ -17,7 +17,15 @@
 		animation: reno-indeterminate 2s cubic-bezier(.2,.47,.51,.91) infinite;
 	}
 
-
+	&.determinate:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: $reno-color-primary;
+		height: 8px;
+		width: 80%;
+	}
 }
 
 @keyframes reno-indeterminate {
@@ -25,4 +33,16 @@
 	10% { border-radius: 0 0 0 0; }
 	70% { margin-left: 150px; width: 200px; border-radius: 0 0 0 0; }
 	100% { margin-left: 350px; width: 0; border-radius: 0 50px 50px 0; }
+}
+
+$reno-progress-percentages: (
+	10%, 30%, 50%, 80%
+);
+
+@mixin progress($progress) {
+	width: $progress;
+}
+
+@each $progress-percentage in $reno-progress-percentages {
+	#{".progress-"+$progress-percentage} { @include progress($progress-percentage)}
 }
