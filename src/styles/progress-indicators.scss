@@ -1,3 +1,4 @@
+/** determinate **/
 .reno-progress {
 	background-color: transparent;
 	width: 350px;
@@ -6,50 +7,57 @@
 	border-radius: 50px;
 	position: relative;
 
-	&.indeterminate:before {
+	&:before {
 		content: '';
 		position: absolute;
 		top: 0;
 		left: 0;
 		background-color: $reno-color-primary;
 		width: 0;
-		height: 8px;
-		animation: reno-indeterminate 2s cubic-bezier(.2,.47,.51,.91) infinite;
-	}
-
-	&.determinate:before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		background-color: $reno-color-primary;
 		height: 8px;
 		border-radius: 50px 0 0 50px;
-		width: 0;
 		transition: width 1s cubic-bezier(.2,.47,.51,.91);
 	}
 }
+// how many is too many?
+@for $p from 0 through 10 {
+	.progress-#{$p}:before {
+		width: #{$p*10+"%"};
 
-@keyframes reno-indeterminate {
+		@if $p*10 == 100 {
+			border-radius: 50px;
+		}
+		@else {
+			border-radius: 50px 0 0 50px;
+		}
+	}
+}
+
+/** indeterminate **/
+.reno-progress.pending {
+	&:before {
+		animation: reno-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
+	}
+}
+
+@keyframes reno-pending {
 	0% { margin-left: 0; width: 0; border-radius: 50px 0 0 50px; }
 	10% { border-radius: 0 0 0 0; }
 	70% { margin-left: 150px; width: 200px; border-radius: 0 0 0 0; }
 	100% { margin-left: 350px; width: 0; border-radius: 0 50px 50px 0; }
 }
 
-// how many classes can we support?
-@for $p from 0 through 10 {
-	.progress-#{$p*10} {
-		&.determinate:before {
-			width: #{$p*10+"%"};
-
-			@if $p*10 == 100 {
-				border-radius: 50px;
-			}
-			@else {
-				border-radius: 50px 0 0 50px;
-			}
-		}
+/** reverse indeterminate **/
+.reno-progress.reverse-pending {
+	&:before {
+		animation: reno-reverse-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 	}
+}
+
+@keyframes reno-reverse-pending {
+	0% { margin-left: 350px; width: 0; border-radius: 0 50px 50px 0; }
+	10% { border-radius: 0 0 0 0; }
+	70% { margin-left: 0; width: 200px; border-radius: 0 0 0 0; }
+	100% { margin-left: 0; width: 0; border-radius: 50px 0 0 50px; }
 }
 
