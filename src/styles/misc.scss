@@ -71,3 +71,60 @@ $reno-box-shadows: (
 	background-color: $reno-color-light-gray;
 	border: 1px solid $reno-color-white;
 }
+
+.reno-pill-off {
+	@extend .reno-pill;
+	background-color: $reno-color-white;
+
+	&:before {
+		background-color: $reno-color-medium-light-gray;
+		left: 2px;
+	}
+
+	&:after {
+		content: 'OFF';
+		color: $reno-color-medium-dark-gray;
+		left: 19px;
+	}
+}
+
+.reno-pill-on {
+	@extend .reno-pill;
+	background-color: $reno-color-primary;
+
+	&:before {
+		background-color: $reno-color-white;
+		left: 28px;
+	}
+
+	&:after {
+		content: 'ON';
+		color: $reno-color-white;
+		left: 8px;
+	}
+}
+
+.reno-pill {
+	width: 44px;
+	height: 18px;
+	border: 1px solid $reno-color-light-gray;
+	border-radius: 10px;
+	cursor: pointer;
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 2px;
+		height: 14px;
+		width: 14px;
+		border-radius: 7px;
+	}
+
+	&:after {
+		position: absolute;
+		top: -3px;
+		font-size: 9px;
+		font-weight: 500;
+	}
+}

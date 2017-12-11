@@ -15,8 +15,10 @@
 		width: 0;
 		height: 8px;
 		border-radius: 50px 0 0 50px;
+		-webkit-transition: width 1s cubic-bezier(.2,.47,.51,.91);
+		-o-transition: width 1s cubic-bezier(.2,.47,.51,.91);
 		transition: width 1s cubic-bezier(.2,.47,.51,.91);
-
+ 
 		&.round {
 			border-radius: 50px;
 		}
@@ -25,6 +27,7 @@
 
 /** indeterminate **/
 .reno-progress-bar.pending {
+	-webkit-animation: reno-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 	animation: reno-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 }
 
@@ -37,6 +40,7 @@
 
 /** reverse indeterminate **/
 .reno-progress-bar.reverse-pending {
+	-webkit-animation: reno-reverse-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 	animation: reno-reverse-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 }
 
