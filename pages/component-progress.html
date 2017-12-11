@@ -10,18 +10,19 @@
 <body class="reno">
 <h1>Reno: progress indicators</h1>
 
-<h3>Indeterminate:</h3> 
-<div>.reno-progress .pending</div>
-<reno-progress progress="pending"></reno-progress>
+<h3>Indeterminate: (default)</h3> 
+<div>&lt;reno-progress /&gt;</div>
+<reno-progress />
 
-<h3>Determinate: (default)</h3>
-<div>.reno-progress</div>
+<h3>Determinate:</h3>
+<div>&lt;reno-progress progress="percentage_number_here" /&gt;</div>
 <!-- <div id="test2" class="reno-progress progress-0"></div> -->
-<reno-progress id="test2"></reno-progress>
+<reno-progress id="test2" progress="0" />
 
 <h3>Query indeterminate and determinate:</h3>
-<div>.reno-progress .reverse-pending</div>
-<!-- <div id="test2" class="reno-progress reverse-pending"></div> -->
+<div>&lt;reno-progress progress="reverse-pending" /&gt; (then change progress to any number to indicate a determinate progress)</div>
+<reno-progress id="test3" progress="reverse-pending" />
+
 
 <script>
 	// mock up progress
@@ -30,18 +31,16 @@
 		if (p1 >= 100) clearInterval(int1);
 		else p1 += 10;
 		document.querySelector('#test2').setAttribute('progress', p1);
-	}, 100);
+	}, 1000);
 
-	// let p2 = 0;
-	// setTimeout(() => {
-	// 	document.querySelector('#test2').classList.remove('reverse-pending');
-	// 	const int2 = setInterval(() => {
-	// 		document.querySelector('#test2').classList.remove('progress-'+p2);
-	// 		if (p2 >= 10) clearInterval(int2);
-	// 		else p2 += 2;
-	// 		document.querySelector('#test2').classList.add('progress-'+p2);
-	// 	}, 1000);
-	// }, 4000);
+	let p2 = 0;
+	setTimeout(() => {
+		const int2 = setInterval(() => {
+			if (p2 >= 100) clearInterval(int2);
+			else p2 += 10;
+			document.querySelector('#test3').setAttribute('progress', p2);
+		}, 1000);
+	}, 3000);
 	
 </script>
 
