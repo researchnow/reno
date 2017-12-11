@@ -7,8 +7,7 @@
 	border-radius: 50px;
 	position: relative;
 
-	&:before {
-		content: '';
+	.reno-progress-bar {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -19,25 +18,10 @@
 		transition: width 1s cubic-bezier(.2,.47,.51,.91);
 	}
 }
-// how many is too many?
-@for $p from 0 through 10 {
-	.progress-#{$p}:before {
-		width: #{$p*10+"%"};
-
-		@if $p*10 == 100 {
-			border-radius: 50px;
-		}
-		@else {
-			border-radius: 50px 0 0 50px;
-		}
-	}
-}
 
 /** indeterminate **/
-.reno-progress.pending {
-	&:before {
-		animation: reno-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
-	}
+.reno-progress-bar.pending {
+	animation: reno-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 }
 
 @keyframes reno-pending {
@@ -48,10 +32,8 @@
 }
 
 /** reverse indeterminate **/
-.reno-progress.reverse-pending {
-	&:before {
-		animation: reno-reverse-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
-	}
+.reno-progress-bar.reverse-pending {
+	animation: reno-reverse-pending 1.5s cubic-bezier(.2,.47,.51,.91) infinite;
 }
 
 @keyframes reno-reverse-pending {

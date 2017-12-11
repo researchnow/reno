@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Reno: progress indicators</title>
+	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	<link rel="stylesheet" href="../styles.css">
+	<script src="../main.js"></script>
+</head>
+<body class="reno">
+<h1>Reno: progress indicators</h1>
+
+<h3>Indeterminate:</h3> 
+<div>.reno-progress .pending</div>
+<reno-progress progress="pending"></reno-progress>
+
+<h3>Determinate: (default)</h3>
+<div>.reno-progress</div>
+<!-- <div id="test2" class="reno-progress progress-0"></div> -->
+<reno-progress id="test2"></reno-progress>
+
+<h3>Query indeterminate and determinate:</h3>
+<div>.reno-progress .reverse-pending</div>
+<!-- <div id="test2" class="reno-progress reverse-pending"></div> -->
+
+<script>
+	// mock up progress
+	let p1 = 0;
+	const int1 = setInterval(() => {
+		if (p1 >= 100) clearInterval(int1);
+		else p1 += 10;
+		document.querySelector('#test2').setAttribute('progress', p1);
+	}, 100);
+
+	// let p2 = 0;
+	// setTimeout(() => {
+	// 	document.querySelector('#test2').classList.remove('reverse-pending');
+	// 	const int2 = setInterval(() => {
+	// 		document.querySelector('#test2').classList.remove('progress-'+p2);
+	// 		if (p2 >= 10) clearInterval(int2);
+	// 		else p2 += 2;
+	// 		document.querySelector('#test2').classList.add('progress-'+p2);
+	// 	}, 1000);
+	// }, 4000);
+	
+</script>
+
+</body>
+</html>
