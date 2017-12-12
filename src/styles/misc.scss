@@ -72,7 +72,7 @@ $reno-box-shadows: (
 	border: 1px solid $reno-color-white;
 }
 
-.reno-pill-off {
+reno-toggle, reno-toggle[status="off"] {
 	@extend .reno-pill;
 	background-color: $reno-color-white;
 
@@ -88,7 +88,7 @@ $reno-box-shadows: (
 	}
 }
 
-.reno-pill-on {
+reno-toggle[status="on"] {
 	@extend .reno-pill;
 	background-color: $reno-color-primary;
 
@@ -105,12 +105,14 @@ $reno-box-shadows: (
 }
 
 .reno-pill {
+	display: inline-block;
 	width: 44px;
 	height: 18px;
 	border: 1px solid $reno-color-light-gray;
 	border-radius: 10px;
 	cursor: pointer;
 	position: relative;
+	transition: all .3s ease-in;
 
 	&:before {
 		content: '';
@@ -119,6 +121,7 @@ $reno-box-shadows: (
 		height: 14px;
 		width: 14px;
 		border-radius: 7px;
+		transition: all .3s ease-in;
 	}
 
 	&:after {
