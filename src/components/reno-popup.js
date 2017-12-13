@@ -1,11 +1,9 @@
-import { openPopup, closePopup } from "./reno-popup-actions";
-
 let handleClick = null;
 
 const hidePopup = e => {
 	const popup = document.getElementById('reno-popup-container');
 	if (popup && !popup.contains(e.target)) {
-		closePopup();
+		Reno.utils.popup.close();
 	}
 };
 
@@ -38,18 +36,18 @@ class RenoPopup extends HTMLElement {
 
 		switch (e.type) {
 			case 'click':
-				openPopup(this);
+				Reno.utils.popup.isOpen() ? Reno.utils.popup.close() : Reno.utils.popup.open(this);
+				break;
+			case 'mouseover':
+				Reno.utils.popup.open(this);
 				break;
 			// case 'focus':
 			// 	// TODO
 			// 	break;
-			case 'mouseover':
-				openPopup(this);
-				break;
 			case 'mouseout':
 				const popup = document.getElementById('reno-popup-container');
 				if (!e.relatedTarget || popup && !popup.contains(e.relatedTarget)) {
-					closePopup();
+					Reno.utils.popup.close();
 				}
 				break;
 		}

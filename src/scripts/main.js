@@ -16,12 +16,13 @@ if (window && !window.on) {
 }
 
 // utilities
-import clone     from '../utils/clone';
-import debounce  from '../utils/debounce';
-import delay     from '../utils/delay';
-import getPath   from '../utils/getPath';
-import pumpEvent from '../utils/pumpEvent';
-import pumpValue from '../utils/pumpValue';
+import clone      from '../utils/clone';
+import debounce   from '../utils/debounce';
+import delay      from '../utils/delay';
+import getPath    from '../utils/getPath';
+import pumpEvent  from '../utils/pumpEvent';
+import pumpValue  from '../utils/pumpValue';
+import * as popup from '../utils/popup';
 
 // utilities: dnd
 import start from '../utils/dnd/start';
@@ -39,6 +40,7 @@ if (window) {
 	Reno.utils.getPath   = getPath;
 	Reno.utils.pumpEvent = pumpEvent;
 	Reno.utils.pumpValue = pumpValue;
+	Reno.utils.popup     = popup;
 
 	Reno.utils.dnd = {start, init, over, moving, movingX, movingY, rearrangeable: {dropX, dropY}};
 }
