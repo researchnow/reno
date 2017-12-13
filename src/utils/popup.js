@@ -34,7 +34,8 @@ export function open (popupComponent, options) {
 			content = data();
 		} else {
 			content = heya.io.get(url).
-				then(data => data.map(value => hyperHTML.wire()`<div>${value.name}</div>`));
+				then(data => data.map(value => hyperHTML.wire()`<div>${value.name}</div>`)).
+				then(data => hyperHTML.wire()`<div class="content">${data}</div>`);
 		}
 		if (typeof content.then == 'function') {
 			content = content.then(data => {

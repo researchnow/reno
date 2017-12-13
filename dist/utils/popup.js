@@ -28,8 +28,9 @@
 
 	var _templateObject = _taggedTemplateLiteral(['<div class="loading">Loading&hellip;</div>'], ['<div class="loading">Loading&hellip;</div>']),
 	    _templateObject2 = _taggedTemplateLiteral(['<div>', '</div>'], ['<div>', '</div>']),
-	    _templateObject3 = _taggedTemplateLiteral(['', ''], ['', '']),
-	    _templateObject4 = _taggedTemplateLiteral([''], ['']);
+	    _templateObject3 = _taggedTemplateLiteral(['<div class="content">', '</div>'], ['<div class="content">', '</div>']),
+	    _templateObject4 = _taggedTemplateLiteral(['', ''], ['', '']),
+	    _templateObject5 = _taggedTemplateLiteral([''], ['']);
 
 	function _taggedTemplateLiteral(strings, raw) {
 		return Object.freeze(Object.defineProperties(strings, {
@@ -84,6 +85,10 @@
 
 						return hyperHTML.wire()(_templateObject2, value.name);
 					}.bind(this));
+				}.bind(this)).then(function (data) {
+					_newArrowCheck(this, _this);
+
+					return hyperHTML.wire()(_templateObject3, data);
 				}.bind(this));
 			}
 			if (typeof content.then == 'function') {
@@ -101,7 +106,7 @@
 		} else {
 			content = popupContent.cloneNode(true);
 		}
-		hyperHTML.bind(popupContainer)(_templateObject3, { any: content, placeholder: placeholder });
+		hyperHTML.bind(popupContainer)(_templateObject4, { any: content, placeholder: placeholder });
 		return new Promise(function (resolve) {
 			_newArrowCheck(this, _this);
 
@@ -119,7 +124,7 @@
 		if (!popupContainer) return;
 		popupContainer.classList.remove('open');
 		popupContainer.classList.add('close');
-		hyperHTML.bind(popupContainer)(_templateObject4);
+		hyperHTML.bind(popupContainer)(_templateObject5);
 		return Promise.resolve(true);
 	}
 
