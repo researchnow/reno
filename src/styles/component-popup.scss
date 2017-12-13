@@ -3,17 +3,21 @@
 }
 
 #reno-popup-container.open {
-	@extend .reno-box-with-border-shadow-z1;
-	@extend .reno-caption;
-
 	display: block;
 	position: absolute;
 	z-index: 1;
-	color: $reno-color-white;
-	background-color: $reno-color-dark-gray;
 	border: none;
+	background: none;
 	padding: 0;
 	margin: 0;
+
+	.content {
+		@extend .reno-box-with-border-shadow-z1;
+		@extend .reno-caption;
+		margin: 4px;
+		color: $reno-color-white;
+		background-color: $reno-color-dark-gray;
+	}
 }
 
 reno-popup {
