@@ -10,14 +10,18 @@
 	background: none;
 	padding: 0;
 	margin: 0;
+}
 
-	.content {
-		@extend .reno-box-with-border-shadow-z1;
-		@extend .reno-caption;
-		margin: 4px;
-		color: $reno-color-white;
-		background-color: $reno-color-dark-gray;
-	}
+#reno-popup-container .content {
+	@extend .reno-box-with-border-shadow-z1;
+	background-color: $reno-color-white;
+}
+
+#reno-popup-container .content.tooltip {
+	@extend .reno-caption;
+	margin: 0px;
+	color: $reno-color-white;
+	background-color: $reno-color-dark-gray;
 }
 
 reno-popup {

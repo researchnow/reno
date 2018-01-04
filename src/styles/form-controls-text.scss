@@ -9,7 +9,6 @@
 		color: $reno-color-dark-gray;
 		padding: 7px 11px;
 		border: 1px solid $reno-color-light-gray;
-		border-radius: 2px;
 		background-color: $reno-color-white;
 		box-sizing: border-box;
 	}
@@ -32,6 +31,15 @@
 		border-color: $reno-color-super-light-gray;
 		background-color: $reno-color-super-light-gray;
 		box-shadow: none;
+	}
+
+	input[type="text"]:invalid {
+		border-color: $reno-color-error;
+	}
+
+	input[type="text"]:invalid:focus {
+		border-color: $reno-color-error;
+		box-shadow: 0 0 2px 0 $reno-color-error;
 	}
 }
 

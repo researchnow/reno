@@ -142,6 +142,26 @@
 								</select>
 							</td>
 						</tr>
+						<tr>
+							<td>Value + invalid</td>
+							<td><input type="text" name="t5" value="Value" placeholder="Placeholder" pattern="value"></td>
+							<td><div class="reno-number"><input type="number" name="n5" value="42" placeholder="Placeholder" max="41"></div></td>
+							<td>
+								<select required name="s5" placeholder="Placeholder">
+									<option value="" hidden>Placeholder</option>
+									<optgroup label="Fruit">
+										<option value="apple" selected>Apple</option>
+										<option value="banana">Banana</option>
+										<option value="orange">Orange</option>
+									</optgroup>
+									<optgroup label="Numbers">
+										<option value="one">One</option>
+										<option value="two">Two</option>
+										<option value="three">Three</option>
+									</optgroup>
+								</select>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</form>

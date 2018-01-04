@@ -18,9 +18,6 @@
 <body class="reno">
 <h1>Reno: popup</h1>
 
-<section class="reno">
-</section>
-
 <div id="reno-popup-container" class="popup close"></div>
 
 <h2>Asynchronous data</h2>
@@ -33,11 +30,21 @@
 
 <br/>
 
+<h2>Search + popup</h2>
+
+<reno-popup alignment="left" trigger="click">
+	<label><reno-search name="f1" placeholder="Placeholder"></reno-search> regular search control</label>
+	<div class="loading">Custom loading if applicable...</div>
+	<div class="content" url="data/data.json"></div>
+</reno-popup>
+
+<br/>
+
 <h2>Placement & alignment</h2>
 <div class="popups-container">
 	<reno-popup placement="left">
 		<label class="label">p: left (a: center)</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -45,15 +52,15 @@
 
 	<reno-popup placement="top">
 		<label class="label">p: top (a: center)</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
 	</reno-popup>
 
 	<reno-popup>
-		<label class="label">(p: bottom, a: center)</label>
-		<div class="content">
+		<label class="label">Default (p: bottom, a: center)</label>
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -61,7 +68,7 @@
 
 	<reno-popup placement="right">
 		<label class="label">p: right (a: center)</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -71,7 +78,7 @@
 
 	<reno-popup placement="left" alignment="bottom">
 		<label class="label">p: left, a: bottom</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -79,7 +86,7 @@
 
 	<reno-popup placement="left" alignment="top">
 		<label class="label">p: left, a: top</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -87,7 +94,7 @@
 
 	<reno-popup placement="right" alignment="bottom">
 		<label class="label">p: right, a: bottom</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -95,7 +102,7 @@
 
 	<reno-popup placement="right" alignment="top">
 		<label class="label">p: right: a: top</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -105,7 +112,7 @@
 
 	<reno-popup placement="top" alignment="left">
 		<label class="label">p: top, a: left</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -113,7 +120,7 @@
 
 	<reno-popup placement="top" alignment="right">
 		<label class="label">p: top, a: right</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -121,7 +128,7 @@
 
 	<reno-popup placement="bottom" alignment="left">
 		<label class="label">(p: bottom) a: left</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -129,7 +136,7 @@
 
 	<reno-popup placement="bottom" alignment="right">
 		<label class="label">(p: bottom) a: right</label>
-		<div class="content">
+		<div class="content tooltip">
 			<div>popup content</div>
 			<div>popup content</div>
 		</div>
@@ -143,7 +150,7 @@
 
 <reno-popup trigger="click">
 	<label class="label">(p: bottom, a: center) - out of screen</label>
-	<div class="content">Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy Lorem Ipsum is simply dummy text textLorem Ipsum is simply dummy text</div>
+	<div class="content tooltip">Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy Lorem Ipsum is simply dummy text textLorem Ipsum is simply dummy text</div>
 </reno-popup>
 
 
