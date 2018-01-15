@@ -17,9 +17,9 @@ class RenoPopup extends HTMLElement {
 			case 'click':
 				this.handle = on(this, 'click', this);
 				break;
-			// case 'focus':
-			// 	this.handle = on(this, 'focus', this);
-			// 	break;
+			case 'reno-change':
+				this.handle = on(this, 'reno-change', this);
+				break;
 			default:
 			// case 'mouseover':
 				this.handle = on(this, 'mouseover,mouseout', this);
@@ -41,15 +41,15 @@ class RenoPopup extends HTMLElement {
 			case 'mouseover':
 				Reno.utils.popup.open(this);
 				break;
-			// case 'focus':
-			// 	// TODO
-			// 	break;
 			case 'mouseout':
 				const popup = document.getElementById('reno-popup-container');
 				if (!e.relatedTarget || popup && !popup.contains(e.relatedTarget)) {
 					Reno.utils.popup.close();
 				}
 				break;
+			case 'reno-change':	
+				// Reno.utils.popup.isOpen() ? 
+				break;				
 		}
 		e.stopPropagation();
 	}

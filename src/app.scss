@@ -102,6 +102,9 @@ section {
 reno-popup {
 	margin: 5px 10px;
 	background-color: $reno-color-light-gray;
-	padding: 3px 8px;
+}
+
+reno-popup[trigger="search"] {
+	background-color: transparent;
 }
 

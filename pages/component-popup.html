@@ -21,7 +21,6 @@
 <div id="reno-popup-container" class="popup close"></div>
 
 <h2>Asynchronous data</h2>
-
 <reno-popup alignment="left" trigger="click">
 	<label class="label">Async data</label>
 	<div class="loading">Custom loading if applicable...</div>
@@ -32,8 +31,8 @@
 
 <h2>Search + popup</h2>
 
-<reno-popup alignment="left" trigger="click">
-	<label><reno-search name="f1" placeholder="Placeholder"></reno-search> regular search control</label>
+<reno-popup alignment="left" trigger="reno-change">
+	<reno-search placeholder="Placeholder"></reno-search>
 	<div class="loading">Custom loading if applicable...</div>
 	<div class="content" url="data/data.json"></div>
 </reno-popup>
