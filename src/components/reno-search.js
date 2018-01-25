@@ -40,10 +40,10 @@
 			if (attrName === 'value') {
 				if (newVal) {
 					this.firstChild.value = this._previousValue = newVal;
-					this.classList[newVal ? 'add' : 'remove']('has-value');
+					this.lastChild.classList[newVal ? 'add' : 'remove']('has-value');
 				} else {
 					this.firstChild.value = this._previousValue = '';
-					this.classList.remove('has-value');
+					this.lastChild.classList.remove('has-value');
 				}
 			} else if (attrName === 'disabled') {
 				this.firstChild.disabled = newVal !== null;

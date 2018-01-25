@@ -70,26 +70,25 @@ export function isOpen () {
 	return popupContainer && popupContainer.classList.contains('open');
 }
 
-export function enhanceListContent (dataPromise, clickCallback) {
-	return dataPromise
-		.then(data => 
-			hyperHTML.wire()`<div class="content list">${data.length ? data.map(value => hyperHTML.wire()`<div dataid="${value.id}">${value.name}</div>`) : hyperHTML.wire()`<div>${"No results found."}</div>`}</div>`
-		)
-		.then(promise => {
+const defaultRender = data => 
+	hyperHTML.wire()`<div class="content list">${
+		data.length ? data.map(value => hyperHTML.wire()`<div dataid="${value.id}">${value.name}</div>`) :
+			hyperHTML.wire()`<div>No results found.</div>`
+	}</div>`;
+
+export function enhanceListContent (data, clickCallback, render=defaultRender, selector='[dataid]') {
+	return Promise.resolve(data)
+		.then(render)
+		.then(node => {
 			// TODO: attribute name setting
 			const handle = on(document, 'click', e => {
-				let node;
 				const popup = document.getElementById('reno-popup-container');
-				if (popup && popup.contains(e.target)) {
-					node = e.target.nodeType === 1 ? e.target : e.target.parentNode;
-					while (node && node[on.matches] && !node[on.matches](`[dataid]`)) node = node.parentNode;
-				}
+				const node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
 				handle.remove();
 				Reno.utils.popup.close();
-				if (!node || !node[on.matches]) return;
-				clickCallback(node);
+				node && clickCallback(node);
 			});
-			return promise;
+			return node;
 		})
 }
 
