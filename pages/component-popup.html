@@ -32,7 +32,7 @@
 
 <h2>Search + popup</h2>
 
-<reno-popup alignment="left" trigger="reno-change">
+<reno-popup id="search-popup" alignment="left" trigger="reno-change">
 	<reno-search placeholder="Placeholder"></reno-search>
 	<div class="content" url="data/data.json"></div>
 </reno-popup>
@@ -152,6 +152,25 @@
 	<div class="content tooltip">Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy Lorem Ipsum is simply dummy text textLorem Ipsum is simply dummy text</div>
 </reno-popup>
 
-
 </body>
+<script>
+	// test search + popup list feature
+	(function() {
+		const popupComponent = document.querySelector('#search-popup');
+		popupComponent.addEventListener('reno-change', function(e) {
+			// customize these
+			const data = heya.io.get("data/data.json").
+				then(data => data.filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase())).map(item => ((item.id = item.name), item)));
+			const clickCallback = node => {
+				on.closest(e.target, 'reno-search').setAttribute('value', '');
+				alert(node.getAttribute('dataid'))
+			};
+
+			Reno.utils.popup.open(popupComponent, {
+				data: () => Reno.utils.popup.enhanceListContent(data, clickCallback)
+			});
+			Reno.utils.popup.isOpen() && e.detail.value == "" && Reno.utils.popup.close();
+		})
+	})();
+	</script>
 </html>

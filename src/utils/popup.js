@@ -80,7 +80,6 @@ export function enhanceListContent (data, clickCallback, render=defaultRender, s
 	return Promise.resolve(data)
 		.then(render)
 		.then(node => {
-			// TODO: attribute name setting
 			const handle = on(document, 'click', e => {
 				const popup = document.getElementById('reno-popup-container');
 				const node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
