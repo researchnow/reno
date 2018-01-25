@@ -202,7 +202,7 @@
 							<span class="error error-valueMissing">Value missing</span>
 						</label>
 						<label>
-							<span>Regex field</span>
+							<span>Regex field with valid message</span>
 							<input type="text" name="t03" value="" placeholder="Amount (1.00, 2, 123.45)" pattern="^\d+(?:\.\d{2})?$">
 							<span class="error error-customError">Custom error</span>
 							<span class="error error-patternMismatch">Pattern mismatch</span>
@@ -212,6 +212,7 @@
 							<span class="error error-tooLong">Too long</span>
 							<span class="error error-typeMismatch">Type mismatch</span>
 							<span class="error error-valueMissing">Value missing</span>
+							<span class="error no-error">Value looks good</span>
 						</label>
 						<label>
 							<span>Reno Search field</span>
@@ -232,7 +233,7 @@
 						</label>
 						<label>
 							<span>Required select field</span>
-							<select required name="t06" placeholder="Placeholder" required>
+							<select name="t06" placeholder="Placeholder" required>
 								<option value="" hidden>Placeholder</option>
 								<optgroup label="Fruit">
 									<option value="apple">Apple</option>
