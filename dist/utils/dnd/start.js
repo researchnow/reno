@@ -82,8 +82,8 @@
 		avatar.style.left = mover.x + 'px';
 		avatar.style.top = mover.y + 'px';
 
-		avatar.classList.remove('dnd-dragged');
-		avatar.classList.add(mover.options.avatarClass || 'dnd-avatar');
+		avatar.classList.remove('reno-dnd-dragged');
+		avatar.classList.add(mover.options.avatarClass || 'reno-dnd-avatar');
 
 		node.ownerDocument.body.appendChild(avatar);
 
@@ -99,9 +99,9 @@
 			this.node = node;
 
 			// handle the state
-			this.container.classList.add('dnd-dragged-container');
-			this.node.ownerDocument.documentElement.classList.add('dnd-in-flight');
-			this.node.classList.add('dnd-dragged');
+			this.container.classList.add('reno-dnd-dragged-container');
+			this.node.ownerDocument.documentElement.classList.add('reno-dnd-in-flight');
+			this.node.classList.add('reno-dnd-dragged');
 
 			this.mouseX = e.pageX;
 			this.mouseY = e.pageY;
@@ -128,11 +128,11 @@
 				this.handles = [];
 
 				// handle the state
-				this.container.classList.remove('dnd-dragged-container');
-				this.node.ownerDocument.documentElement.classList.remove('dnd-in-flight');
-				this.node.classList.remove('dnd-dragged');
+				this.container.classList.remove('reno-dnd-dragged-container');
+				this.node.ownerDocument.documentElement.classList.remove('reno-dnd-in-flight');
+				this.node.classList.remove('reno-dnd-dragged');
 				if (this.previousOverItem) {
-					this.previousOverItem.classList.remove('dnd-over');
+					this.previousOverItem.classList.remove('reno-dnd-over');
 				}
 
 				(this.options.destroy || noop)(this);
@@ -172,7 +172,7 @@
 			_newArrowCheck(undefined, undefined);
 
 			node = node || e.target;
-			if (!e.button && formNode[node.tagName.toLowerCase()] !== 1 && !node.classList.contains('dnd-ignore')) {
+			if (!e.button && formNode[node.tagName.toLowerCase()] !== 1 && !node.classList.contains('reno-dnd-ignore')) {
 				new Move(container, options, node, e);
 				stopEvent(e);
 			}
@@ -184,7 +184,7 @@
 
 		options = options || {};
 		var callback = process(container, options),
-		    filter = options.filter || '.dnd-item';
+		    filter = options.filter || '.reno-dnd-item';
 		return on(container, 'mousedown', filter, callback);
 	}.bind(undefined);
 

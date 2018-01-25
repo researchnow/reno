@@ -42,7 +42,7 @@
 		box.bottom -= parseFloat(style.marginTop) + parseFloat(style.borderTopWidth) + parseFloat(style.height) + parseFloat(style.borderBottomWidth);
 		mover.containerBox = box;
 		// draggable items
-		var items = mover.container.querySelectorAll(mover.options.target || '.dnd-item'),
+		var items = mover.container.querySelectorAll(mover.options.target || '.reno-dnd-item'),
 		    itemBoxes = [];
 		for (var i = 0; i < items.length; ++i) {
 			rect = items[i].getBoundingClientRect();
@@ -66,16 +66,16 @@
 
 			if (item.left <= mover.mouseX && mover.mouseX < item.right && item.top <= mover.mouseY && mover.mouseY < item.bottom) {
 				if (item.node !== mover.previousOverItem) {
-					mover.previousOverItem && mover.previousOverItem.classList.remove('dnd-over');
+					mover.previousOverItem && mover.previousOverItem.classList.remove('reno-dnd-over');
 					mover.previousOverItem = item.node;
-					mover.previousOverItem.classList.add('dnd-over');
+					mover.previousOverItem.classList.add('reno-dnd-over');
 				}
 				return true;
 			}
 			return false;
 		}.bind(undefined));
 		if (!done) {
-			mover.previousOverItem && mover.previousOverItem.classList.remove('dnd-over');
+			mover.previousOverItem && mover.previousOverItem.classList.remove('reno-dnd-over');
 			mover.previousOverItem = null;
 		}
 	}.bind(undefined);

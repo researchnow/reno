@@ -19,6 +19,7 @@
 	exports.open = open;
 	exports.close = close;
 	exports.isOpen = isOpen;
+	exports.enhanceListContent = enhanceListContent;
 
 	function _newArrowCheck(innerThis, boundThis) {
 		if (innerThis !== boundThis) {
@@ -30,7 +31,10 @@
 	    _templateObject2 = _taggedTemplateLiteral(['<div>', '</div>'], ['<div>', '</div>']),
 	    _templateObject3 = _taggedTemplateLiteral(['<div class="content">', '</div>'], ['<div class="content">', '</div>']),
 	    _templateObject4 = _taggedTemplateLiteral(['', ''], ['', '']),
-	    _templateObject5 = _taggedTemplateLiteral([''], ['']);
+	    _templateObject5 = _taggedTemplateLiteral([''], ['']),
+	    _templateObject6 = _taggedTemplateLiteral(['<div class="content list">', '</div>'], ['<div class="content list">', '</div>']),
+	    _templateObject7 = _taggedTemplateLiteral(['<div dataid="', '">', '</div>'], ['<div dataid="', '">', '</div>']),
+	    _templateObject8 = _taggedTemplateLiteral(['<div>No results found.</div>'], ['<div>No results found.</div>']);
 
 	function _taggedTemplateLiteral(strings, raw) {
 		return Object.freeze(Object.defineProperties(strings, {
@@ -107,6 +111,7 @@
 			content = popupContent.cloneNode(true);
 		}
 		hyperHTML.bind(popupContainer)(_templateObject4, { any: content, placeholder: placeholder });
+
 		return new Promise(function (resolve) {
 			_newArrowCheck(this, _this);
 
@@ -131,6 +136,39 @@
 	function isOpen() {
 		var popupContainer = document.getElementById('reno-popup-container');
 		return popupContainer && popupContainer.classList.contains('open');
+	}
+
+	var defaultRender = function (data) {
+		_newArrowCheck(undefined, undefined);
+
+		return hyperHTML.wire()(_templateObject6, data.length ? data.map(function (value) {
+			_newArrowCheck(undefined, undefined);
+
+			return hyperHTML.wire()(_templateObject7, value.id, value.name);
+		}.bind(undefined)) : hyperHTML.wire()(_templateObject8));
+	}.bind(undefined);
+
+	function enhanceListContent(data, clickCallback) {
+		var _this2 = this;
+
+		var render = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultRender;
+		var selector = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '[dataid]';
+
+		return Promise.resolve(data).then(render).then(function (node) {
+			_newArrowCheck(this, _this2);
+
+			// TODO: attribute name setting
+			var handle = on(document, 'click', function (e) {
+				_newArrowCheck(this, _this2);
+
+				var popup = document.getElementById('reno-popup-container');
+				var node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
+				handle.remove();
+				Reno.utils.popup.close();
+				node && clickCallback(node);
+			}.bind(this));
+			return node;
+		}.bind(this));
 	}
 
 	function calculatePlacement(popupComponent, popupContainer) {

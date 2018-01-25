@@ -48,6 +48,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				value && span.classList.add('has-value');
 				this.appendChild(input);
 				this.appendChild(span);
+				// initialize the internal state
+				this._previousValue = value || '';
 				// attach events
 				this.lastChild.addEventListener('click', this);
 				firstChildEvents.forEach(function (eventName) {
@@ -78,9 +80,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			value: function attributeChangedCallback(attrName, oldVal, newVal) {
 				if (!this.firstChild) return;
 				if (attrName === 'value') {
-					if (newVal !== null) {
-						this.firstChild.value = newVal;
-						this.classList[newVal ? 'add' : 'remove']('has-value');
+					if (newVal) {
+						this.firstChild.value = this._previousValue = newVal;
+						this.lastChild.classList[newVal ? 'add' : 'remove']('has-value');
+					} else {
+						this.firstChild.value = this._previousValue = '';
+						this.lastChild.classList.remove('has-value');
 					}
 				} else if (attrName === 'disabled') {
 					this.firstChild.disabled = newVal !== null;
@@ -114,7 +119,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'onClick',
 			value: function onClick(e) {
 				if (e.target == this.lastChild && this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
-					this.firstChild.value = '';
+					this.firstChild.value = this._previousValue = '';
 					this.lastChild.classList.remove('has-value');
 					this.notifyAboutChange();
 				}
@@ -123,6 +128,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'onChange',
 			value: function onChange(e) {
 				if (this.firstChild) {
+					if (this._previousValue === this.firstChild.value) return;
+					this._previousValue = this.firstChild.value;
 					this.lastChild.classList[this.firstChild.value ? 'add' : 'remove']('has-value');
 					this.notifyAboutChange();
 				}
@@ -143,7 +150,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				return this.firstChild && this.firstChild.value || '';
 			},
 			set: function set(x) {
-				this.setAttribute('value', x);
+				this.setAttribute('value', x || '');
 			}
 		}, {
 			key: 'disabled',

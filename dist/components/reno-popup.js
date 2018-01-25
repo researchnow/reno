@@ -41,9 +41,9 @@ var RenoPopup = function (_HTMLElement) {
 				case 'click':
 					this.handle = on(this, 'click', this);
 					break;
-				// case 'focus':
-				// 	this.handle = on(this, 'focus', this);
-				// 	break;
+				case 'reno-change':
+					this.handle = on(this, 'reno-change', this);
+					break;
 				default:
 					// case 'mouseover':
 					this.handle = on(this, 'mouseover,mouseout', this);
@@ -58,6 +58,8 @@ var RenoPopup = function (_HTMLElement) {
 	}, {
 		key: 'handleEvent',
 		value: function handleEvent(e) {
+			var _this2 = this;
+
 			// handle events
 			var trigger = this.getAttribute('trigger') || 'mouseover';
 			if (trigger !== e.type && (trigger !== 'mouseover' || e.type !== 'mouseout')) return;
@@ -69,14 +71,42 @@ var RenoPopup = function (_HTMLElement) {
 				case 'mouseover':
 					Reno.utils.popup.open(this);
 					break;
-				// case 'focus':
-				// 	// TODO
-				// 	break;
 				case 'mouseout':
 					var popup = document.getElementById('reno-popup-container');
 					if (!e.relatedTarget || popup && !popup.contains(e.relatedTarget)) {
 						Reno.utils.popup.close();
 					}
+					break;
+				case 'reno-change':
+					// customizable stuff
+					var dataPromise = heya.io.get("data/data.json").then(function (data) {
+						_newArrowCheck(this, _this2);
+
+						return data.filter(function (item) {
+							_newArrowCheck(this, _this2);
+
+							return item.name.toLowerCase().includes(e.detail.value.toLowerCase());
+						}.bind(this)).map(function (item) {
+							_newArrowCheck(this, _this2);
+
+							return item.id = item.name, item;
+						}.bind(this));
+					}.bind(this));
+					var clickCallback = function (node) {
+						_newArrowCheck(this, _this2);
+
+						on.closest(e.target, 'reno-search').setAttribute('value', '');
+						console.log(node.getAttribute('dataid'));
+					}.bind(this);
+
+					Reno.utils.popup.open(this, {
+						data: function data() {
+							_newArrowCheck(this, _this2);
+
+							return Reno.utils.popup.enhanceListContent(dataPromise, clickCallback);
+						}.bind(this)
+					});
+					Reno.utils.popup.isOpen() && e.detail.value == "" && Reno.utils.popup.close();
 					break;
 			}
 			e.stopPropagation();
