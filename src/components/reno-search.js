@@ -38,9 +38,12 @@
 		attributeChangedCallback (attrName, oldVal, newVal) {
 			if (!this.firstChild) return;
 			if (attrName === 'value') {
-				if (newVal !== null) {
-					this.firstChild.value = newVal;
+				if (newVal) {
+					this.firstChild.value = this._previousValue = newVal;
 					this.classList[newVal ? 'add' : 'remove']('has-value');
+				} else {
+					this.firstChild.value = this._previousValue = '';
+					this.classList.remove('has-value');
 				}
 			} else if (attrName === 'disabled') {
 				this.firstChild.disabled = newVal !== null;
@@ -52,7 +55,7 @@
 		}
 		// custom methods
 		get value ()     { return this.firstChild && this.firstChild.value || ''; }
-		set value (x)    { this.setAttribute('value', x); }
+		set value (x)    { this.setAttribute('value', x || ''); }
 		get disabled ()  { return this.firstChild && this.firstChild.disabled || false; }
 		set disabled (x) { this[x ? 'setAttribute' : 'removeAttribute']('disabled', ''); }
 		notifyAboutChange () {
@@ -70,7 +73,7 @@
 		}
 		onClick (e) {
 			if (e.target == this.lastChild && this.firstChild && this.firstChild.value && this.getAttribute('disabled') === null) {
-				this.firstChild.value = '';
+				this.firstChild.value = this._previousValue = '';
 				this.lastChild.classList.remove('has-value');
 				this.notifyAboutChange();
 			}
