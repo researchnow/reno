@@ -157,7 +157,6 @@
 		return Promise.resolve(data).then(render).then(function (node) {
 			_newArrowCheck(this, _this2);
 
-			// TODO: attribute name setting
 			var handle = on(document, 'click', function (e) {
 				_newArrowCheck(this, _this2);
 
