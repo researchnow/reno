@@ -3,8 +3,8 @@ export function open (popupComponent, options) {
 	const popupContent = options.content || popupComponent.querySelector('.content') || popupComponent;
 	if (!popupContent) return;
 
-	const data = options.data || popupContent.data;
-	const url  = options.url  || popupContent.getAttribute('url');
+	const data	= options.data || popupContent.data;
+	const url		= options.url  || popupContent.getAttribute('url');
 
 	// if there's no url or content, do nothing
 	if (!popupContent.childNodes.length && typeof data != 'function' && !url) return;
@@ -47,6 +47,7 @@ export function open (popupComponent, options) {
 		content = popupContent.cloneNode(true);
 	}
 	hyperHTML.bind(popupContainer)`${{any: content, placeholder: placeholder}}`;
+
 	return new Promise(resolve => {
 		window.requestAnimationFrame(() => {
 			calculatePlacement(popupComponent, popupContainer);
@@ -67,6 +68,29 @@ export function close () {
 export function isOpen () {
 	const popupContainer = document.getElementById('reno-popup-container');
 	return popupContainer && popupContainer.classList.contains('open');
+}
+
+export function enhanceListContent (dataPromise, clickCallback) {
+	return dataPromise
+		.then(data => 
+			hyperHTML.wire()`<div class="content list">${data.length ? data.map(value => hyperHTML.wire()`<div dataid="${value.id}">${value.name}</div>`) : hyperHTML.wire()`<div>${"No results found."}</div>`}</div>`
+		)
+		.then(promise => {
+			// TODO: attribute name setting
+			const handle = on(document, 'click', e => {
+				let node;
+				const popup = document.getElementById('reno-popup-container');
+				if (popup && popup.contains(e.target)) {
+					node = e.target.nodeType === 1 ? e.target : e.target.parentNode;
+					while (node && node[on.matches] && !node[on.matches](`[dataid]`)) node = node.parentNode;
+				}
+				handle.remove();
+				Reno.utils.popup.close();
+				if (!node || !node[on.matches]) return;
+				clickCallback(node);
+			});
+			return promise;
+		})
 }
 
 function calculatePlacement (popupComponent, popupContainer) {

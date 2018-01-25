@@ -10,11 +10,17 @@
 	background: none;
 	padding: 0;
 	margin: 0;
+	min-width: inherit;
 }
 
-#reno-popup-container .content {
+#reno-popup-container .content, #reno-popup-container .loading {
 	@extend .reno-box-with-border-shadow-z1;
 	background-color: $reno-color-white;
+	overflow-y: scroll;
+}
+
+#reno-popup-container .loading {
+	padding: 4px 12px;
 }
 
 #reno-popup-container .content.tooltip {
@@ -22,6 +28,19 @@
 	margin: 0px;
 	color: $reno-color-white;
 	background-color: $reno-color-dark-gray;
+	padding: 4px 12px;
+}
+
+#reno-popup-container .content.list {
+
+	&>div {
+		padding: 4px 12px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: $reno-color-light-gray;
+		}
+	}
 }
 
 reno-popup {

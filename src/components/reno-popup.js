@@ -48,7 +48,19 @@ class RenoPopup extends HTMLElement {
 				}
 				break;
 			case 'reno-change':	
-				// Reno.utils.popup.isOpen() ? 
+				// user can customize these
+				const dataPromise = heya.io.get("data/data.json")
+					.then(data => data.filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase())).map(item => ({...item, id: item.name})));
+				const clickCallback = node => {
+					e.target.value = '';	//todo
+					console.log(node.getAttribute('dataid'))
+				};
+
+				// !Reno.utils.popup.isOpen() && 
+				Reno.utils.popup.open(this, { 
+					data: () => Reno.utils.popup.enhanceListContent(dataPromise, clickCallback)
+				});
+				Reno.utils.popup.isOpen() && e.detail.value == "" && Reno.utils.popup.close();
 				break;				
 		}
 		e.stopPropagation();
