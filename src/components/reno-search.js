@@ -21,6 +21,8 @@
 			value && span.classList.add('has-value');
 			this.appendChild(input);
 			this.appendChild(span);
+			// initialize the internal state
+			this._previousValue = value || '';
 			// attach events
 			this.lastChild.addEventListener('click', this);
 			firstChildEvents.forEach(eventName => this.firstChild.addEventListener(eventName, this));
@@ -75,6 +77,8 @@
 		}
 		onChange (e) {
 			if (this.firstChild) {
+				if (this._previousValue === this.firstChild.value) return;
+				this._previousValue = this.firstChild.value;
 				this.lastChild.classList[this.firstChild.value ? 'add' : 'remove']('has-value');
 				this.notifyAboutChange();
 			}
