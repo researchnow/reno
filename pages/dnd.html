@@ -38,57 +38,57 @@
 				.item::selection {
 					background-color: transparent;
 				}
-				.dnd-dragged-container {
+				.reno-dnd-dragged-container {
 					background-color: white;
 				}
-				.dnd-avatar {
+				.reno-dnd-avatar {
 					background-color: #fcc;
 					opacity: 0.5;
 				}
-				.dnd-dragged {
+				.reno-dnd-dragged {
 					background-color: #cfc;
 					opacity: 0.5;
 				}
 				body {
 					transition: background-color 0.5s;
 				}
-				.dnd-in-flight body {
+				.reno-dnd-in-flight body {
 					background-color: #eee;
 				}
-				.dnd-over {
+				.reno-dnd-over {
 					background-color: #ffe;
 				}
-				.dnd-target {
+				.reno-dnd-target {
 					margin: 0.5em;
 				}
-				.dnd-target .dnd-item {
+				.reno-dnd-target .reno-dnd-item {
 					margin: 0;
 				}
 			</style>
 			<script>
 				function init (mover) {
 					Reno.utils.dnd.init(mover);
-					mover.avatar.classList.remove('dnd-target');
+					mover.avatar.classList.remove('reno-dnd-target');
 				}
 
 				function drop (mover) {
 					if (mover.previousOverItem) {
 						if (mover.previousOverItem !== mover.node) {
 							let target = mover.previousOverItem;
-							if (target.classList.contains('dnd-item')) {
+							if (target.classList.contains('reno-dnd-item')) {
 								target = target.ownerDocument.createElement('div');
-								target.classList.add('dnd-target');
-								mover.previousOverItem.classList.remove('dnd-target');
+								target.classList.add('reno-dnd-target');
+								mover.previousOverItem.classList.remove('reno-dnd-target');
 								mover.previousOverItem.parentNode.replaceChild(target, mover.previousOverItem);
 								target.appendChild(mover.previousOverItem);
 							}
-							mover.node.classList.remove('dnd-target');
+							mover.node.classList.remove('reno-dnd-target');
 							target.appendChild(mover.node);
 						}
 					} else {
 						const parent = mover.node.parentNode;
 						mover.container.appendChild(mover.node);
-						mover.node.classList.add('dnd-target');
+						mover.node.classList.add('reno-dnd-target');
 						if (!parent.firstElementChild) {
 							parent.parentNode.removeChild(parent);
 						}
@@ -109,7 +109,7 @@
 						moving: Reno.utils.dnd.movingX
 					});
 					Reno.utils.dnd.start(document.getElementById('g'), {
-						target: '.dnd-target',
+						target: '.reno-dnd-target',
 						init: init,
 						over: Reno.utils.dnd.over,
 						drop: drop
@@ -123,31 +123,31 @@
 		<h2>Rearrange vertically</h2>
 
 		<div id="v" class="container vertical">
-			<div class="item dnd-item">One</div>
-			<div class="item dnd-item">Two</div>
-			<div class="item dnd-item">Three</div>
-			<div class="item dnd-item">Four</div>
-			<div class="item dnd-item">Five</div>
+			<div class="item reno-dnd-item">One</div>
+			<div class="item reno-dnd-item">Two</div>
+			<div class="item reno-dnd-item">Three</div>
+			<div class="item reno-dnd-item">Four</div>
+			<div class="item reno-dnd-item">Five</div>
 		</div>
 
 		<h2>Rearrange horizontally</h2>
 
 		<div id="h" class="container horizontal">
-			<div class="item dnd-item">One</div>
-			<div class="item dnd-item">Two</div>
-			<div class="item dnd-item">Three</div>
-			<div class="item dnd-item">Four</div>
-			<div class="item dnd-item">Five</div>
+			<div class="item reno-dnd-item">One</div>
+			<div class="item reno-dnd-item">Two</div>
+			<div class="item reno-dnd-item">Three</div>
+			<div class="item reno-dnd-item">Four</div>
+			<div class="item reno-dnd-item">Five</div>
 		</div>
 
 		<h2>Group</h2>
 
 		<div id="g" class="container vertical">
-			<div class="item dnd-item dnd-target">One</div>
-			<div class="item dnd-item dnd-target">Two</div>
-			<div class="item dnd-item dnd-target">Three</div>
-			<div class="item dnd-item dnd-target">Four</div>
-			<div class="item dnd-item dnd-target">Five</div>
+			<div class="item reno-dnd-item reno-dnd-target">One</div>
+			<div class="item reno-dnd-item reno-dnd-target">Two</div>
+			<div class="item reno-dnd-item reno-dnd-target">Three</div>
+			<div class="item reno-dnd-item reno-dnd-target">Four</div>
+			<div class="item reno-dnd-item reno-dnd-target">Five</div>
 		</div>
 
 		<h2>Filler</h2>
