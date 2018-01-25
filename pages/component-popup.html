@@ -158,8 +158,13 @@
 	(function() {
 		const popupComponent = document.querySelector('#search-popup');
 		popupComponent.addEventListener('reno-change', function(e) {
+
+			const popupContent = popupComponent.querySelector('.content') || popupComponent;
+			if (!popupContent) return;
+			const url = popupContent.getAttribute('url');
+
 			// customize these
-			const data = heya.io.get("data/data.json").
+			const data = heya.io.get(url).
 				then(data => data.filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase())).map(item => ((item.id = item.name), item)));
 			const clickCallback = node => {
 				on.closest(e.target, 'reno-search').setAttribute('value', '');
