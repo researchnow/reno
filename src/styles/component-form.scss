@@ -25,5 +25,10 @@ reno-form {
 		.validity-valueMissing > .error-valueMissing {
 			display: block;
 		}
+
+		.validity-valid > .no-error {
+			display: block;
+			color: $reno-color-success;
+		}
 	}
 }
