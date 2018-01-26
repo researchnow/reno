@@ -3,15 +3,14 @@ export function open (popupComponent, options) {
 	const popupContent = options.content || popupComponent.querySelector('.content') || popupComponent;
 	if (!popupContent) return;
 
-	const data	= options.data || popupContent.data;
-	const url		= options.url  || popupContent.getAttribute('url');
+	const data = options.data || popupContent.data;
 
-	// if there's no url or content, do nothing
-	if (!popupContent.childNodes.length && typeof data != 'function' && !url) return;
+	// if there's no content, do nothing
+	if (!popupContent.childNodes.length && typeof data != 'function') return;
 
 	const popupLoading = options.loading || popupComponent.querySelector('.loading');
 
-	// if there's url or content => close other popups
+	// if there's content => close other popups
 	close();
 
 	// find/create a popup container
@@ -29,17 +28,11 @@ export function open (popupComponent, options) {
 	// form content
 	const placeholder = popupLoading ? popupLoading.cloneNode(true) : hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`;
 	let content;
-	if (data || url) {
-		if (data) {
-			content = data();
-		} else {
-			content = heya.io.get(url).
-				then(data => data.map(value => hyperHTML.wire()`<div>${value.name}</div>`)).
-				then(data => hyperHTML.wire()`<div class="content">${data}</div>`);
-		}
+	if (data) {
+		content = data();
 		if (typeof content.then == 'function') {
 			content = content.then(data => {
-				window.requestAnimationFrame(() => calculatePlacement(popupComponent, popupContainer));
+				window.requestAnimationFrame(() => calculatePlacement(popupComponent, popupContainer, options));
 				return data;
 			});
 		}
@@ -50,7 +43,7 @@ export function open (popupComponent, options) {
 
 	return new Promise(resolve => {
 		window.requestAnimationFrame(() => {
-			calculatePlacement(popupComponent, popupContainer);
+			calculatePlacement(popupComponent, popupContainer, options);
 			resolve(true);
 		});
 	});
@@ -70,30 +63,29 @@ export function isOpen () {
 	return popupContainer && popupContainer.classList.contains('open');
 }
 
-const defaultRender = data => 
+const defaultRender = data =>
 	hyperHTML.wire()`<div class="content list">${
-		data.length ? data.map(value => hyperHTML.wire()`<div dataid="${value.id}">${value.name}</div>`) :
+		data.length ? data.map((value, index) => hyperHTML.wire()`<div renoindex="${index}">${value.name}</div>`) :
 			hyperHTML.wire()`<div>No results found.</div>`
 	}</div>`;
 
-export function enhanceListContent (data, clickCallback, render=defaultRender, selector='[dataid]') {
-	return Promise.resolve(data)
-		.then(render)
-		.then(node => {
-			const handle = on(document, 'click', e => {
-				const popup = document.getElementById('reno-popup-container');
-				const node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
-				handle.remove();
-				Reno.utils.popup.close();
-				node && clickCallback(node);
-			});
-			return node;
-		})
+export function enhanceListContent (data, clickCallback, render=defaultRender, selector='[renoindex]') {
+	return Promise.resolve(data).then(data => [data, render(data)]).then(array => {
+			const data = array[0], handle = on(document, 'click', e => {
+					const popup = document.getElementById('reno-popup-container');
+					const node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
+					handle.remove();
+					Reno.utils.popup.close();
+					const prop = node && /^\[(\w+)\]$/.exec(selector);
+					node && clickCallback(node, prop ? data[node.getAttribute(prop[1])] : null);
+				});
+			return array[1];
+		});
 }
 
-function calculatePlacement (popupComponent, popupContainer) {
-	const placement = popupComponent.getAttribute('placement');
-	let alignment = popupComponent.getAttribute('alignment');
+function calculatePlacement (popupComponent, popupContainer, options) {
+	const placement = options.placement || popupComponent.getAttribute('placement');
+	let alignment = options.alignment || popupComponent.getAttribute('alignment');
 
 	popupContainer.style.top = '0';
 	popupContainer.style.left = '0';

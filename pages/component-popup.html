@@ -19,23 +19,16 @@
 <body class="reno">
 <h1>Reno: popup</h1>
 
-<div id="reno-popup-container" class="popup close"></div>
-
-<h2>Asynchronous data</h2>
-<reno-popup alignment="left" trigger="click">
-	<label class="label">Async data</label>
-	<div class="loading">Custom loading if applicable...</div>
-	<div class="content" url="data/data.json"></div>
-</reno-popup>
-
-<br/>
-
 <h2>Search + popup</h2>
 
 <reno-popup id="search-popup" alignment="left" trigger="reno-change">
 	<reno-search placeholder="Placeholder"></reno-search>
 	<div class="content" url="data/data.json"></div>
 </reno-popup>
+
+<!-- <div id="search-popup">
+	<reno-search placeholder="Placeholder"></reno-search>
+</div> -->
 
 <br/>
 
@@ -156,23 +149,23 @@
 <script>
 	// test search + popup list feature
 	(function() {
-		const popupComponent = document.querySelector('#search-popup');
+		const popupComponent = document.getElementById('search-popup');
 		popupComponent.addEventListener('reno-change', function(e) {
 
 			const popupContent = popupComponent.querySelector('.content') || popupComponent;
-			if (!popupContent) return;
-			const url = popupContent.getAttribute('url');
+			const url = popupContent && popupContent.getAttribute('url') || 'data/data.json';
 
 			// customize these
 			const data = heya.io.get(url).
 				then(data => data.filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase())).map(item => ((item.id = item.name), item)));
-			const clickCallback = node => {
+			const clickCallback = (node, item) => {
 				on.closest(e.target, 'reno-search').setAttribute('value', '');
-				alert(node.getAttribute('dataid'))
+				alert(JSON.stringify(item, null, '  '));
 			};
 
-			Reno.utils.popup.open(popupComponent, {
-				data: () => Reno.utils.popup.enhanceListContent(data, clickCallback)
+			Reno.utils.popup.open(popupComponent.querySelector('reno-search'), {
+				data: () => Reno.utils.popup.enhanceListContent(data, clickCallback),
+				alignment: 'left'
 			});
 			Reno.utils.popup.isOpen() && e.detail.value == "" && Reno.utils.popup.close();
 		})
