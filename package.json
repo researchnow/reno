@@ -1,6 +1,6 @@
 {
   "name": "@researchnow/reno",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "The biggest little UI in the world.",
   "publishConfig": {
     "registry": "http://npm-dev.researchnow.com:4873/"

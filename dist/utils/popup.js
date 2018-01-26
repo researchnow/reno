@@ -28,13 +28,11 @@
 	}
 
 	var _templateObject = _taggedTemplateLiteral(['<div class="loading">Loading&hellip;</div>'], ['<div class="loading">Loading&hellip;</div>']),
-	    _templateObject2 = _taggedTemplateLiteral(['<div>', '</div>'], ['<div>', '</div>']),
-	    _templateObject3 = _taggedTemplateLiteral(['<div class="content">', '</div>'], ['<div class="content">', '</div>']),
-	    _templateObject4 = _taggedTemplateLiteral(['', ''], ['', '']),
-	    _templateObject5 = _taggedTemplateLiteral([''], ['']),
-	    _templateObject6 = _taggedTemplateLiteral(['<div class="content list">', '</div>'], ['<div class="content list">', '</div>']),
-	    _templateObject7 = _taggedTemplateLiteral(['<div dataid="', '">', '</div>'], ['<div dataid="', '">', '</div>']),
-	    _templateObject8 = _taggedTemplateLiteral(['<div>No results found.</div>'], ['<div>No results found.</div>']);
+	    _templateObject2 = _taggedTemplateLiteral(['', ''], ['', '']),
+	    _templateObject3 = _taggedTemplateLiteral([''], ['']),
+	    _templateObject4 = _taggedTemplateLiteral(['<div class="content list">', '</div>'], ['<div class="content list">', '</div>']),
+	    _templateObject5 = _taggedTemplateLiteral(['<div renoindex="', '">', '</div>'], ['<div renoindex="', '">', '</div>']),
+	    _templateObject6 = _taggedTemplateLiteral(['<div>No results found.</div>'], ['<div>No results found.</div>']);
 
 	function _taggedTemplateLiteral(strings, raw) {
 		return Object.freeze(Object.defineProperties(strings, {
@@ -52,14 +50,13 @@
 		if (!popupContent) return;
 
 		var data = options.data || popupContent.data;
-		var url = options.url || popupContent.getAttribute('url');
 
-		// if there's no url or content, do nothing
-		if (!popupContent.childNodes.length && typeof data != 'function' && !url) return;
+		// if there's no content, do nothing
+		if (!popupContent.childNodes.length && typeof data != 'function') return;
 
 		var popupLoading = options.loading || popupComponent.querySelector('.loading');
 
-		// if there's url or content => close other popups
+		// if there's content => close other popups
 		close();
 
 		// find/create a popup container
@@ -77,24 +74,8 @@
 		// form content
 		var placeholder = popupLoading ? popupLoading.cloneNode(true) : hyperHTML.wire()(_templateObject);
 		var content = void 0;
-		if (data || url) {
-			if (data) {
-				content = data();
-			} else {
-				content = heya.io.get(url).then(function (data) {
-					_newArrowCheck(this, _this);
-
-					return data.map(function (value) {
-						_newArrowCheck(this, _this);
-
-						return hyperHTML.wire()(_templateObject2, value.name);
-					}.bind(this));
-				}.bind(this)).then(function (data) {
-					_newArrowCheck(this, _this);
-
-					return hyperHTML.wire()(_templateObject3, data);
-				}.bind(this));
-			}
+		if (data) {
+			content = data();
 			if (typeof content.then == 'function') {
 				content = content.then(function (data) {
 					_newArrowCheck(this, _this);
@@ -102,7 +83,7 @@
 					window.requestAnimationFrame(function () {
 						_newArrowCheck(this, _this);
 
-						return calculatePlacement(popupComponent, popupContainer);
+						return calculatePlacement(popupComponent, popupContainer, options);
 					}.bind(this));
 					return data;
 				}.bind(this));
@@ -110,7 +91,7 @@
 		} else {
 			content = popupContent.cloneNode(true);
 		}
-		hyperHTML.bind(popupContainer)(_templateObject4, { any: content, placeholder: placeholder });
+		hyperHTML.bind(popupContainer)(_templateObject2, { any: content, placeholder: placeholder });
 
 		return new Promise(function (resolve) {
 			_newArrowCheck(this, _this);
@@ -118,7 +99,7 @@
 			window.requestAnimationFrame(function () {
 				_newArrowCheck(this, _this);
 
-				calculatePlacement(popupComponent, popupContainer);
+				calculatePlacement(popupComponent, popupContainer, options);
 				resolve(true);
 			}.bind(this));
 		}.bind(this));
@@ -129,7 +110,7 @@
 		if (!popupContainer) return;
 		popupContainer.classList.remove('open');
 		popupContainer.classList.add('close');
-		hyperHTML.bind(popupContainer)(_templateObject5);
+		hyperHTML.bind(popupContainer)(_templateObject3);
 		return Promise.resolve(true);
 	}
 
@@ -141,38 +122,44 @@
 	var defaultRender = function (data) {
 		_newArrowCheck(undefined, undefined);
 
-		return hyperHTML.wire()(_templateObject6, data.length ? data.map(function (value) {
+		return hyperHTML.wire()(_templateObject4, data.length ? data.map(function (value, index) {
 			_newArrowCheck(undefined, undefined);
 
-			return hyperHTML.wire()(_templateObject7, value.id, value.name);
-		}.bind(undefined)) : hyperHTML.wire()(_templateObject8));
+			return hyperHTML.wire()(_templateObject5, index, value.name);
+		}.bind(undefined)) : hyperHTML.wire()(_templateObject6));
 	}.bind(undefined);
 
 	function enhanceListContent(data, clickCallback) {
 		var _this2 = this;
 
 		var render = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : defaultRender;
-		var selector = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '[dataid]';
+		var selector = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '[renoindex]';
 
-		return Promise.resolve(data).then(render).then(function (node) {
+		return Promise.resolve(data).then(function (data) {
 			_newArrowCheck(this, _this2);
 
-			var handle = on(document, 'click', function (e) {
+			return [data, render(data)];
+		}.bind(this)).then(function (array) {
+			_newArrowCheck(this, _this2);
+
+			var data = array[0],
+			    handle = on(document, 'click', function (e) {
 				_newArrowCheck(this, _this2);
 
 				var popup = document.getElementById('reno-popup-container');
 				var node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
 				handle.remove();
 				Reno.utils.popup.close();
-				node && clickCallback(node);
+				var prop = node && /^\[(\w+)\]$/.exec(selector);
+				node && clickCallback(node, prop ? data[node.getAttribute(prop[1])] : null);
 			}.bind(this));
-			return node;
+			return array[1];
 		}.bind(this));
 	}
 
-	function calculatePlacement(popupComponent, popupContainer) {
-		var placement = popupComponent.getAttribute('placement');
-		var alignment = popupComponent.getAttribute('alignment');
+	function calculatePlacement(popupComponent, popupContainer, options) {
+		var placement = options.placement || popupComponent.getAttribute('placement');
+		var alignment = options.alignment || popupComponent.getAttribute('alignment');
 
 		popupContainer.style.top = '0';
 		popupContainer.style.left = '0';
