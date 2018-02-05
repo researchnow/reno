@@ -16,6 +16,7 @@ if (window && !window.on) {
 }
 
 // utilities
+import bsearch    from '../utils/bsearch';
 import clone      from '../utils/clone';
 import debounce   from '../utils/debounce';
 import delay      from '../utils/delay';
@@ -35,6 +36,7 @@ if (window) {
 	if (!window.Reno) window.Reno = {utils: {}};
 	if (!Reno.utils) Reno.utils = {};
 
+	Reno.utils.bsearch   = bsearch;
 	Reno.utils.clone     = clone;
 	Reno.utils.debounce  = debounce;
 	Reno.utils.delay     = delay;
