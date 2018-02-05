@@ -23,6 +23,7 @@ import getPath    from '../utils/getPath';
 import pumpEvent  from '../utils/pumpEvent';
 import pumpValue  from '../utils/pumpValue';
 import * as popup from '../utils/popup';
+import throttle   from '../utils/throttle';
 
 // utilities: dnd
 import start from '../utils/dnd/start';
@@ -41,6 +42,7 @@ if (window) {
 	Reno.utils.pumpEvent = pumpEvent;
 	Reno.utils.pumpValue = pumpValue;
 	Reno.utils.popup     = popup;
+	Reno.utils.throttle  = throttle;
 
 	Reno.utils.dnd = {start, init, over, moving, movingX, movingY, rearrangeable: {dropX, dropY}};
 }
