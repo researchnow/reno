@@ -8,6 +8,7 @@ export default (f, ms=50) => {
 			handle = setTimeout(() => {
 				handle = null;
 				f(...savedArgs);
+				savedArgs = null;
 			}, ms);
 		}
 	};
