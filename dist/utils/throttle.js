@@ -8,7 +8,7 @@
 			exports: {}
 		};
 		factory(mod.exports);
-		global.debounce = mod.exports;
+		global.throttle = mod.exports;
 	}
 })(this, function (exports) {
 	"use strict";
@@ -41,7 +41,8 @@
 		_newArrowCheck(undefined, undefined);
 
 		var handle = void 0,
-		    savedArgs = void 0;
+		    savedArgs = void 0,
+		    last = +new Date();
 		return function () {
 			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 				args[_key] = arguments[_key];
@@ -51,13 +52,22 @@
 
 			savedArgs = args;
 			if (!handle) {
-				handle = setTimeout(function () {
-					_newArrowCheck(undefined, undefined);
-
-					handle = null;
+				var now = +new Date(),
+				    left = last + ms - now;
+				if (left <= 0) {
+					last = now;
 					f.apply(undefined, _toConsumableArray(savedArgs));
 					savedArgs = null;
-				}.bind(undefined), ms);
+				} else {
+					handle = setTimeout(function () {
+						_newArrowCheck(undefined, undefined);
+
+						handle = null;
+						last = now;
+						f.apply(undefined, _toConsumableArray(savedArgs));
+						savedArgs = null;
+					}.bind(undefined), left);
+				}
 			}
 		}.bind(undefined);
 	}.bind(undefined);
