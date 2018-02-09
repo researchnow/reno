@@ -23,15 +23,29 @@
 		}
 	}
 
-	exports.default = function (sortedArray, x) {
-		var less = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function (a, b) {
-			_newArrowCheck(undefined, undefined);
+	// binary search with a less() function as a parameter
 
-			return a < b;
-		}.bind(undefined);
-
+	var bsearchDefault = function (sortedArray, x) {
 		_newArrowCheck(undefined, undefined);
 
+		var l = 0,
+		    r = sortedArray.length;
+		while (l < r) {
+			var m = (r - l >> 1) + l,
+			    p = sortedArray[m];
+			if (p < x) {
+				l = m + 1;
+			} else {
+				r = m;
+			}
+		}
+		return l;
+	}.bind(undefined);
+
+	exports.default = function (sortedArray, x, less) {
+		_newArrowCheck(undefined, undefined);
+
+		if (less === undefined) return bsearchDefault(sortedArray, x);
 		var l = 0,
 		    r = sortedArray.length;
 		while (l < r) {
