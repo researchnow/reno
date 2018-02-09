@@ -58,6 +58,11 @@ reno-search {
 	}
 }
 
+fieldset:disabled reno-search {
+	border-color: $reno-color-super-light-gray;
+	background-color: $reno-color-super-light-gray;
+}
+
 .reno, .reno-dark {
 	reno-search input[type="text"] {
 		background-color: transparent;
