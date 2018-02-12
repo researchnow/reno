@@ -75,6 +75,9 @@ $reno-box-shadows: (
 reno-toggle, reno-toggle[status="off"] {
 	@extend .reno-pill;
 	background-color: $reno-color-white;
+	input {
+		display: none;
+	}
 
 	&:before {
 		background-color: $reno-color-medium-light-gray;

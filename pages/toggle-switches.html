@@ -10,20 +10,38 @@
 <body class="reno">
 
 	<h1>Reno: toggle switches</h2>
+		
+	<form>
+		<table>
+			<thead>
+			<tr><th>CSS class name</th><th>Example</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>
+					<div>&lt;reno-toggle name="toggle1"&gt;&lt;/reno-toggle&gt;</div>
+				</td><td>
+						<reno-toggle name="toggle1"></reno-toggle>
+					</form>
+				</td></tr>
+				<tr><td>
+					&lt;reno-toggle status="on" name="toggle2"&gt;&lt;/reno-toggle&gt;
+				</td><td>
+					<reno-toggle name="toggle2" status="on"></reno-toggle>
+				</td></tr>
+			</tbody>
+		</table>
+	</form>
 
-	<table>
-		<thead>
-		<tr><th>CSS class name</th><th>Example</th></tr>
-		</thead>
-		<tbody>
-			<tr><td>&lt;reno-toggle /&gt; or &lt;reno-toggle status="off" /&gt; </td><td><reno-toggle /></td></tr>
-			<tr><td>&lt;reno-toggle status="on" /&gt;</td><td><reno-toggle status="on" /></td></tr>
-		</tbody>
-	</table>
-	
-	<div>
-		Get status by using <code>yourToggleElement.status</code>
-	</div>
-  
+	<button id="collect">collect form</button>
+
+	<script>
+		(function() {
+			document.querySelector("#collect").addEventListener('click', () => {
+				let formData = [];
+				new FormData(document.querySelector("form")).forEach((value, key) => formData.push({value,key}));
+				alert(JSON.stringify(formData, 0, 2))
+			})
+		})()
+	</script>
 </body>
 </html>
