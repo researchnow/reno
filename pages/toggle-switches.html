@@ -6,42 +6,45 @@
 	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
 	<link rel="stylesheet" href="../styles.css">
 	<script src="../main.js"></script>
+	<style>
+		/* SPECIAL CASE */
+		.reno label.reno-toggle.percent-count > span.toggle {
+			width: calc(16px + 2em);
+		}
+		.reno label.reno-toggle.percent-count > span.toggle:after {
+			content: 'N';
+			left: calc(16px + 0.5em);
+		}
+		.reno label.reno-toggle.percent-count > input[type="checkbox"]:checked ~ span.toggle:after {
+			content: '%';
+		}
+	</style>
 </head>
 <body class="reno">
 
-	<h1>Reno: toggle switches</h2>
-		
-	<form>
-		<table>
-			<thead>
-			<tr><th>CSS class name</th><th>Example</th></tr>
-			</thead>
-			<tbody>
-				<tr><td>
-					<div>&lt;reno-toggle name="toggle1"&gt;&lt;/reno-toggle&gt;</div>
-				</td><td>
-						<reno-toggle name="toggle1"></reno-toggle>
-					</form>
-				</td></tr>
-				<tr><td>
-					&lt;reno-toggle status="on" name="toggle2"&gt;&lt;/reno-toggle&gt;
-				</td><td>
-					<reno-toggle name="toggle2" status="on"></reno-toggle>
-				</td></tr>
-			</tbody>
-		</table>
-	</form>
+	<h1>Reno: toggle switches</h1>
 
-	<button id="collect">collect form</button>
+	<h2>Usage example</h2>
 
-	<script>
-		(function() {
-			document.querySelector("#collect").addEventListener('click', () => {
-				let formData = [];
-				new FormData(document.querySelector("form")).forEach((value, key) => formData.push({value,key}));
-				alert(JSON.stringify(formData, 0, 2))
-			})
-		})()
-	</script>
+<pre><code>&lt;label class=&quot;reno-toggle&quot;&gt;
+  &lt;input type=&quot;checkbox&quot; name=&quot;n1&quot; value=&quot;v1&quot;&gt;
+  &lt;span class=&quot;toggle&quot;&gt;&lt;/span&gt;
+  label
+&lt;/label&gt;</code></pre>
+
+	<h2>Generic on/off toggles</h2>
+
+	<p><label class="reno-toggle"><input type="checkbox" name="tgl1" value="toggle1"><span class="toggle"></span> toggle, default: "off"</label></p>
+	<p><label class="reno-toggle"><input type="checkbox" name="tgl2" value="toggle2" checked><span class="toggle"></span> toggle, default: "on"</label></p>
+	<p><label class="reno-toggle"><input type="checkbox" name="tgl3" value="toggle3" disabled><span class="toggle"></span> toggle, default: "off", disabled</label></p>
+	<p><label class="reno-toggle"><input type="checkbox" name="tgl4" value="toggle4" disabled checked><span class="toggle"></span> toggle, default: "on", disabled</label></p>
+
+	<h2>Toggles with a custom text</h2>
+
+	<p><label class="reno-toggle percent-count"><input type="checkbox" name="pc1" value="percent"><span class="toggle"></span> toggle %/N, default: "N"</label></p>
+	<p><label class="reno-toggle percent-count"><input type="checkbox" name="pc2" value="percent" checked><span class="toggle"></span> toggle %/N, default: "%"</label></p>
+	<p><label class="reno-toggle percent-count"><input type="checkbox" name="pc3" value="percent" disabled><span class="toggle"></span> toggle %/N, default: "N", disabled</label></p>
+	<p><label class="reno-toggle percent-count"><input type="checkbox" name="pc4" value="percent" disabled checked><span class="toggle"></span> toggle %/N, default: "%", disabled</label></p>
+
 </body>
 </html>
