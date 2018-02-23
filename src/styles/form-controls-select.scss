@@ -19,11 +19,18 @@
 	// assumes <select required> and the first option has value=""
 	select:invalid {
 		color: $reno-color-medium-dark-gray;
+		border-color: $reno-color-error;
 	}
 
 	select:active, select:focus {
 		border-color: $reno-color-secondary;
 		box-shadow: 0 0 2px 0 $reno-color-secondary;
+		outline: none;
+	}
+	
+	select:invalid:active, select:invalid:focus {
+		border-color: $reno-color-error;
+		box-shadow: 0 0 2px 0 $reno-color-error;
 		outline: none;
 	}
 
