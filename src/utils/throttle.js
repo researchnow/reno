@@ -7,15 +7,16 @@ export default (f, ms=50) => {
 		if (!handle) {
 			const now = +new Date(), left = last + ms - now;
 			if (left <= 0) {
-				last = now;
-				f(...savedArgs);
+				const args = savedArgs;
 				savedArgs = null;
+				last = now;
+				f(...args);
 			} else {
 				handle = setTimeout(() => {
-					handle = null;
+					const args = savedArgs;
+					handle = savedArgs = null;
 					last = now;
-					f(...savedArgs);
-					savedArgs = null;
+					f(...args);
 				}, left);
 			}
 		}

@@ -8,8 +8,9 @@ export default (f, ms=50) => {
 			clearTimeout(handle);
 		}
 		handle = setTimeout(() => {
-			handle = null;
-			f(...savedArgs);
+			const args = savedArgs;
+			handle = savedArgs = null;
+			f(...args);
 		}, ms);
 	};
 };

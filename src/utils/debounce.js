@@ -6,9 +6,9 @@ export default (f, ms=50) => {
 		savedArgs = args;
 		if (!handle) {
 			handle = setTimeout(() => {
-				handle = null;
-				f(...savedArgs);
-				savedArgs = null;
+				const args = savedArgs;
+				handle = savedArgs = null;
+				f(...args);
 			}, ms);
 		}
 	};
