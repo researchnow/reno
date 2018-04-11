@@ -56,8 +56,9 @@
 			handle = setTimeout(function () {
 				_newArrowCheck(undefined, undefined);
 
-				handle = null;
-				f.apply(undefined, _toConsumableArray(savedArgs));
+				var args = savedArgs;
+				handle = savedArgs = null;
+				f.apply(undefined, _toConsumableArray(args));
 			}.bind(undefined), ms);
 		}.bind(undefined);
 	}.bind(undefined);

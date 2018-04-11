@@ -55,17 +55,18 @@
 				var now = +new Date(),
 				    left = last + ms - now;
 				if (left <= 0) {
-					last = now;
-					f.apply(undefined, _toConsumableArray(savedArgs));
+					var _args = savedArgs;
 					savedArgs = null;
+					last = now;
+					f.apply(undefined, _toConsumableArray(_args));
 				} else {
 					handle = setTimeout(function () {
 						_newArrowCheck(undefined, undefined);
 
-						handle = null;
+						var args = savedArgs;
+						handle = savedArgs = null;
 						last = now;
-						f.apply(undefined, _toConsumableArray(savedArgs));
-						savedArgs = null;
+						f.apply(undefined, _toConsumableArray(args));
 					}.bind(undefined), left);
 				}
 			}
