@@ -2,14 +2,14 @@
  * Hamiltons method for reallocate numbers to match the total, and keep the original distribution as much as possible
  * See: http://www.ctl.ua.edu/math103/apportionment/appmeth.htm
  * @param total Number of seats
- * @param arr Population in each state
+ * @param array Proportional population in each state
  * @param quantum a quant of distribution (1, 10, 100, 1000, and so on)
  * @returns {*}
  */
 
-export default (total, arr, quantum=1) => {
+export default (total, array, quantum=1) => {
   let SD = 0; // standard divisor
-  let values = arr.map((value, index) => {
+  let values = array.map((value, index) => {
     SD += value;
     return {id: index, original: value};
   });

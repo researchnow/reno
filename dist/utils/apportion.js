@@ -23,13 +23,13 @@
     }
   }
 
-  exports.default = function (total, arr) {
+  exports.default = function (total, array) {
     var quantum = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
     _newArrowCheck(undefined, undefined);
 
     var SD = 0; // standard divisor
-    var values = arr.map(function (value, index) {
+    var values = array.map(function (value, index) {
       _newArrowCheck(undefined, undefined);
 
       SD += value;
