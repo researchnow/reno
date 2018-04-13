@@ -10,11 +10,7 @@ function clone (s) {
 	if (s instanceof RegExp) {
 		return new RegExp(s.source, (s.global ? 'g' : '') + (s.multiline ? 'm' : '') + (s.ignoreCase ? 'i' : ''));
 	}
-	if (s instanceof Array) {
-		return s.map(value => clone(value));
-	}
-	const t = {};
-	return Object.keys(s).reduce((acc, key) => (acc[key] = clone(s[key]), acc), {});
+	return Object.keys(s).reduce((acc, key) => (acc[key] = clone(s[key]), acc), s instanceof Array ? [] : {});
 }
 
 export default clone;

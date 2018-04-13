@@ -43,19 +43,11 @@
 		if (s instanceof RegExp) {
 			return new RegExp(s.source, (s.global ? 'g' : '') + (s.multiline ? 'm' : '') + (s.ignoreCase ? 'i' : ''));
 		}
-		if (s instanceof Array) {
-			return s.map(function (value) {
-				_newArrowCheck(this, _this);
-
-				return clone(value);
-			}.bind(this));
-		}
-		var t = {};
 		return Object.keys(s).reduce(function (acc, key) {
 			_newArrowCheck(this, _this);
 
 			return acc[key] = clone(s[key]), acc;
-		}.bind(this), {});
+		}.bind(this), s instanceof Array ? [] : {});
 	}
 
 	exports.default = clone;
