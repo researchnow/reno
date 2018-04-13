@@ -27,18 +27,20 @@
   var eps = 1;
   for (var next = eps; next + 1 > 1; eps = next, next = 0.5 * next) {}
 
-  var epsilon = exports.epsilon = eps;
-
   /**
    * Quick helper function to convert a number to x number of decimal places
    * @param number
    * @param decimalPlaces
    */
-  var toPrecision = exports.toPrecision = function (number, decimalPlaces) {
+  var toPrecision = function (number, decimalPlaces) {
     _newArrowCheck(undefined, undefined);
 
     number = number || 0;
     if (typeof number == "string") number = parseFloat(number);
-    return (number + number * epsilon).toFixed(decimalPlaces);
+    return parseFloat((number + number * toPrecision.epsilon).toFixed(decimalPlaces));
   }.bind(undefined);
+
+  toPrecision.epsilon = eps;
+
+  exports.default = toPrecision;
 });
