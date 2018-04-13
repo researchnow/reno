@@ -1,6 +1,6 @@
 // https://github.com/heya/async/blob/master/seq.js
 // to chain array of then
-export default seq = (array, Deferred) => {
+export default (array, Deferred) => {
   const when = (value, Deferred=Promise) => value && typeof value.then == "function" ? value : Deferred.resolve(value);
 
   if (!(array instanceof Array)) {

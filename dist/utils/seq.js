@@ -24,7 +24,7 @@
     }
   }
 
-  exports.default = seq = function (array, Deferred) {
+  exports.default = function (array, Deferred) {
     _newArrowCheck(undefined, undefined);
 
     var when = function (value) {
