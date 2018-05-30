@@ -44,9 +44,14 @@
 			}
 			return elements;
 		}
+		getElementsByName (clean) {
+			const dict = {};
+			this.getElements(clean).forEach(element => dict[element.name] = element);
+			return dict;
+		}
 		getFormData () {
 			const form = this.querySelector('form');
-			return form ? new FormData(form) : form;
+			return form && new FormData(form);
 		}
 		checkValidity () {
 			const forms = this.querySelectorAll('form');
