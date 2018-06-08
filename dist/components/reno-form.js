@@ -84,10 +84,23 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				return elements;
 			}
 		}, {
+			key: 'getElementsByName',
+			value: function getElementsByName(clean) {
+				var _this3 = this;
+
+				var dict = {};
+				this.getElements(clean).forEach(function (element) {
+					_newArrowCheck(this, _this3);
+
+					return dict[element.name] = element;
+				}.bind(this));
+				return dict;
+			}
+		}, {
 			key: 'getFormData',
 			value: function getFormData() {
 				var form = this.querySelector('form');
-				return form ? new FormData(form) : form;
+				return form && new FormData(form);
 			}
 		}, {
 			key: 'checkValidity',
@@ -114,7 +127,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 		}, {
 			key: 'showElementMessages',
 			value: function showElementMessages(node, rootSelector, errorSelector) {
-				var _this3 = this;
+				var _this4 = this;
 
 				var element = node;
 				if (rootSelector) {
@@ -123,7 +136,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 					}element = element && element[on.matches] ? element : node;
 				}
 				validityFlags.forEach(function (flag) {
-					_newArrowCheck(this, _this3);
+					_newArrowCheck(this, _this4);
 
 					element.classList[node.validity[flag] ? 'add' : 'remove']('validity-' + flag);
 				}.bind(this));
