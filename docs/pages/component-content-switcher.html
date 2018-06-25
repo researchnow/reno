@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Reno: content switcher</title>
+			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	    <link rel="stylesheet" href="../styles.css">
+			<script src="../main.js"></script>
+			<!-- application-specific styles and scripts -->
+			<style>
+				reno-content-switcher {
+					background-color: #def;
+					width: 40em;
+				}
+				reno-content-switcher .spinner {
+					background-color: #fafafa;
+				}
+			</style>
+	</head>
+	<body class="reno">
+
+		<h1>Reno: content switcher</h1>
+
+		<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">
+			<div class="initial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent iaculis sapien eu enim vulputate dignissim. Donec viverra elementum tellus vel placerat. Cras hendrerit nisi lacus, vel vehicula felis facilisis a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In ut ipsum venenatis, lobortis massa id, interdum turpis. Praesent dictum turpis nulla, nec aliquet nisi varius ut. Vestibulum eu gravida metus. Donec magna nibh, interdum vel sapien sed, iaculis cursus ex. In sodales cursus mollis. Donec faucibus, sapien commodo venenatis ultrices, leo nisi cursus tortor, varius laoreet quam sem ut purus. Nulla eget tortor vel orci faucibus egestas. Donec velit nulla, dictum eu nisl non, maximus tincidunt nibh. Pellentesque eu est arcu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean consectetur vel nisl id pharetra.</div>
+			<div class="page page1">Mauris in eros in orci imperdiet rhoncus nec in mauris. In convallis suscipit nunc id pretium. Quisque consequat augue sit amet pellentesque dapibus. Proin consequat tincidunt quam. Phasellus consequat risus nec felis rutrum, et rhoncus mi varius. Nullam sed varius mauris. Nulla ornare tellus dolor, in dapibus tellus sodales vitae. Phasellus condimentum condimentum magna tempus eleifend. Morbi ornare imperdiet suscipit. Nullam sed sapien velit. Aliquam vitae quam eget risus molestie iaculis vel ac urna. Quisque sodales gravida turpis, a porta sem maximus ut.</div>
+			<div class="page page2">Nullam scelerisque lectus mattis, scelerisque nisi et, blandit turpis. Nam pharetra nec nibh eget porta. Aliquam consectetur at augue vel ultrices. Morbi sit amet augue id metus porttitor tristique sit amet ac orci. Fusce id eros id nisl dignissim dapibus vitae quis odio. Vestibulum eleifend nunc porta dictum auctor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed vehicula elit vitae est tempus, sit amet aliquet nisi facilisis. Aenean imperdiet mauris at egestas viverra.</div>
+			<div class="page spinner"><div class="reno-spinner">Loading...</div></div>
+		</reno-content-switcher>
+
+		<p id="buttons">
+			<button cmd="o">Obscure</button> &nbsp;
+			<button cmd="ri">Reveal Initial</button> &nbsp;
+			<button cmd="rp1">Reveal Page1</button> &nbsp;
+			<button cmd="rp2">Reveal Page2</button>
+		</p>
+
+		<script>
+			(function () {
+				const buttons = document.getElementById('buttons');
+				buttons.addEventListener('click', function (e) {
+					if (e.target.tagName.toLowerCase() === 'button') {
+						const cmd = e.target.getAttribute('cmd');
+						const contentSwitcher = document.getElementsByTagName('reno-content-switcher')[0];
+						switch (cmd) {
+							case 'o':
+								contentSwitcher.obscure(0.9);
+								break;
+							case 'ri':
+								contentSwitcher.reveal('.initial');
+								break;
+							case 'rp1':
+								contentSwitcher.reveal('.page1');
+								break;
+							case 'rp2':
+								contentSwitcher.reveal('.page2');
+								break;
+						}
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

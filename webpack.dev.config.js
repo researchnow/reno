@@ -24,7 +24,7 @@ module.exports = {
 	],
 	output: {
 		filename: 'main.js',
-		path: resolve('build'),
+		path: resolve('docs'), // actually it is a demo
 		pathinfo: true,
 		chunkFilename: 'static/js/[name].chunk.js',
 		publicPath: '/',

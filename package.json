@@ -16,7 +16,7 @@
     "dist-utils": "BABEL_ENV=utils babel src/utils/ -d dist/utils/",
     "clean": "rm -fr dist/",
     "dist": "npm run clean && npm run dist-components && npm run dist-react && npm run dist-utils",
-    "prepublishOnly": "npm run dist"
+    "prepublishOnly": "npm run dist && npm run build"
   },
   "dependencies": {
     "@clubajax/custom-elements-polyfill": "^0.9.3",

@@ -17,7 +17,7 @@ module.exports = {
 	],
 	output: {
 		filename: 'main.js',
-		path: resolve('build'),
+		path: resolve('docs'), // actually it is a demo
 		chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
 		// Point sourcemap entries to original disk location
 		devtoolModuleFilenameTemplate: info => relative(resolve('src'), info.absoluteResourcePath)
