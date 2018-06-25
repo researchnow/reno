@@ -10,17 +10,17 @@
 <body class="reno">
 <h1>Reno: progress indicators</h1>
 
-<h3>Indeterminate: (default)</h3> 
-<div>&lt;reno-progress /&gt;</div>
+<h2>Indeterminate: (default)</h2>
+<div><code>&lt;reno-progress /&gt;</code></div>
 <reno-progress />
 
-<h3>Determinate:</h3>
-<div>&lt;reno-progress progress="percentage_number_here" /&gt;</div>
+<h2>Determinate:</h2>
+<div><code>&lt;reno-progress progress="percentage_number_here" /&gt;</code></div>
 <!-- <div id="test2" class="reno-progress progress-0"></div> -->
 <reno-progress id="test2" progress="0" />
 
-<h3>Query indeterminate and determinate:</h3>
-<div>&lt;reno-progress progress="reverse-pending" /&gt; (then change progress to any number to indicate a determinate progress)</div>
+<h2>Query indeterminate and determinate:</h2>
+<div><code>&lt;reno-progress progress="reverse-pending" /&gt;</code> (then change progress to any number to indicate a determinate progress)</div>
 <reno-progress id="test3" progress="reverse-pending" />
 
 
@@ -41,7 +41,6 @@
 			document.querySelector('#test3').setAttribute('progress', p2);
 		}, 1000);
 	}, 3000);
-	
 </script>
 
 </body>
