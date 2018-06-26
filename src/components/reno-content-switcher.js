@@ -30,6 +30,7 @@
 			const oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // needed to sync
 			curtain.style.opacity = opacity;
 			this.state = 'obscuring';
+			return this;
 		}
 		reveal (selector) {
 			const selected = this.selectPages(selector);
@@ -69,6 +70,7 @@
 
 			curtain.style.opacity = 0;
 			this.state = 'revealing';
+			return this;
 		}
 		revealNow () {
 			const curtain = this.lastElementChild;
@@ -76,6 +78,7 @@
 			curtain.style.opacity = 0;
 			this.style.height = 'auto';
 			this.state = '';
+			return this;
 		}
 		selectPages (selector) {
 			let selected;

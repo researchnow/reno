@@ -31,12 +31,13 @@
 		// custom methods
 		refresh () {
 			this.view && this.view.io();
+			return this;
 		}
 		redraw () {
 			this.view && this.view.render();
+			return this;
 		}
 		render () {
-			const filter = this.getAttribute('filter');
 			this.html`
 				<reno-content-switcher obscureClass="reno-obscuring" revealClass="reno-revealing">
 					<div class="normal">
@@ -67,6 +68,7 @@
 				RenoTable.observedAttributes.forEach(name => propagateTo(this.view, name, this.getAttribute(name)));
 				this.view.setAttribute('offset', '0');
 			}
+			return this;
 		}
 		// event handlers
 		handleEvent (e) {

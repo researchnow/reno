@@ -71,8 +71,6 @@
 			if (!this.html) return;
 
 			// prepare parameters
-			const offset = Math.max(0, parseInt(this.getAttribute('offset') ||  '0',  10));
-			const limit  = Math.max(1, parseInt(this.getAttribute('limit')  || '10',  10));
 			const labels = this.getAttribute('labels') !== null;
 			const noColGroup = this.getAttribute('nocolgroup') !== null;
 
@@ -125,8 +123,8 @@
 			const url = this.getAttribute('url');
 			if (!url || !this.fieldList) return;
 
-			const offset = Math.max(0, parseInt(this.getAttribute('offset') ||  '0',  10));
-			const limit  = Math.max(1, parseInt(this.getAttribute('limit')  || '10',  10));
+			const offset = Math.max(0, +(this.getAttribute('offset') ||  '0'));
+			const limit  = Math.max(1, +(this.getAttribute('limit')  || '10'));
 			const fields = this.fieldList.filter(field => field.charAt(0) !== '-').join(',');
 			const filter = this.getAttribute('filter');
 			const sort   = this.getAttribute('sort');
@@ -137,7 +135,6 @@
 			if (sort) { request.sort = sort; }
 			this.dispatchEvent(new CustomEvent('reno-table-io-start', {bubbles: true, detail: {}}));
 			heya.io(this.sanitizeRequest({url: url, method: 'GET', query: request})).then(page => {
-				const self = this;
 				page = this.sanitizeResponse(page);
 				this.page  = page instanceof Array ? {data: page} : page;
 				this.total = this.page.total;
