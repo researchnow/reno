@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8" />
-	<title>Reno: progress indicators</title>
-	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
-	<link rel="stylesheet" href="../styles.css">
-	<script src="../main.js"></script>
+  <meta charset="UTF-8" />
+  <title>Reno: progress indicators</title>
+  <link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../main.js"></script>
+  <style>
+    reno-progress {
+      width: 350px;
+    }
+  </style>
 </head>
+
 <body class="reno">
-<h1>Reno: progress indicators</h1>
+  <h1>Reno: progress indicators</h1>
 
-<h2>Indeterminate: (default)</h2>
-<div><code>&lt;reno-progress /&gt;</code></div>
-<reno-progress />
+  <h2>Indeterminate (default)</h2>
+  <p><code>&lt;reno-progress&gt;&lt;/reno-progress&gt;</code></p>
+  <reno-progress></reno-progress>
 
-<h2>Determinate:</h2>
-<div><code>&lt;reno-progress progress="percentage_number_here" /&gt;</code></div>
-<!-- <div id="test2" class="reno-progress progress-0"></div> -->
-<reno-progress id="test2" progress="0" />
+  <h2>Determinate</h2>
+  <p><code>&lt;reno-progress progress="percentage_number_here"&gt;&lt;/reno-progress&gt;</code></p>
+  <!-- <div id="test2" class="reno-progress progress-0"></div> -->
+  <reno-progress id="test2" progress="0"></reno-progress>
 
-<h2>Query indeterminate and determinate:</h2>
-<div><code>&lt;reno-progress progress="reverse-pending" /&gt;</code> (then change progress to any number to indicate a determinate progress)</div>
-<reno-progress id="test3" progress="reverse-pending" />
+  <h2>Query indeterminate and determinate</h2>
+  <p><code>&lt;reno-progress progress="reverse-pending"&gt;&lt;/reno-progress&gt;</code> (then change progress to any number to indicate a determinate progress)</p>
+  <reno-progress id="test3" progress="reverse-pending"></reno-progress>
 
 
-<script>
-	// mock up progress
-	let p1 = 0;
-	const int1 = setInterval(() => {
-		if (p1 >= 100) clearInterval(int1);
-		else p1 += 10;
-		document.querySelector('#test2').setAttribute('progress', p1);
-	}, 1000);
+  <script>
+    // mock up progress
+    let p1 = 0;
+    const int1 = setInterval(() => {
+      if (p1 >= 100) clearInterval(int1);
+      else p1 += 10;
+      document.querySelector('#test2').setAttribute('progress', p1);
+    }, 1000);
 
-	let p2 = 0;
-	setTimeout(() => {
-		const int2 = setInterval(() => {
-			if (p2 >= 100) clearInterval(int2);
-			else p2 += 10;
-			document.querySelector('#test3').setAttribute('progress', p2);
-		}, 1000);
-	}, 3000);
-</script>
+    let p2 = 0;
+    setTimeout(() => {
+      const int2 = setInterval(() => {
+        if (p2 >= 100) clearInterval(int2);
+        else p2 += 10;
+        document.querySelector('#test3').setAttribute('progress', p2);
+      }, 1000);
+    }, 3000);
+  </script>
 
 </body>
+
 </html>

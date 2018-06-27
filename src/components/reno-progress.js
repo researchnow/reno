@@ -1,46 +1,40 @@
 class RenoProgress extends HTMLElement {
-  connectedCallback() {
-    // create progress and bar elements
-    this.progressElement = this.ownerDocument.createElement('div');
-    this.progressElement.classList.add('reno-progress');
-    this.barElement = this.ownerDocument.createElement('div');
-    this.barElement.classList.add('reno-progress-bar');
-    this.progressElement.appendChild(this.barElement);
-    this.appendChild(this.progressElement);
+	connectedCallback() {
+		this.barElement = this.ownerDocument.createElement('div');
+		this.barElement.classList.add('bar');
+		this.appendChild(this.barElement);
+		this.updateProgress(this.getAttribute('progress'));
+	}
 
-    this.updateProgress(this.getAttribute('progress'));
-  }
+	static get observedAttributes() {
+		return ['progress'];
+	}
 
-  static get observedAttributes() { return ['progress']; }
+	attributeChangedCallback(attrName, oldVal, newVal) {
+		if (attrName === 'progress') this.updateProgress(newVal);
+	}
 
-  attributeChangedCallback(attrName, oldVal, newVal) {
-    if (attrName === 'progress') this.updateProgress(newVal);
-  }
-
-  updateProgress(progress) {
-    if (!(this.barElement && this.progressElement)) return;
-    switch(true) {
-      case progress === 'pending':
-      case progress === 'reverse-pending':
-        this.barElement.classList.add(progress);
-        break;
-      case !isNaN(parseFloat(progress)):
-        // clean up pending states
-        this.barElement.classList.remove('pending');
-        this.barElement.classList.remove('reverse-pending');
-        // set bar width
-        const progressWidth = parseFloat(getComputedStyle(this.progressElement).width);
-        const barWidth = progressWidth * parseFloat(progress) / 100;
-        this.barElement.style.width = barWidth + 'px';
-        // make the right end of the bar round
-        if (progressWidth - barWidth < 8) this.barElement.classList.add('round');
-        else this.barElement.classList.remove('round');
-        break;
-      default:
-        this.barElement.classList.add('pending');
-        break;
-    }
-  }
+	updateProgress(progress) {
+		if (!this.barElement) return;
+		if (progress === 'pending' || progress === 'reverse-pending') {
+			this.barElement.classList.add(progress);
+		} else {
+			const value = parseFloat(progress);
+			if (isNaN(value)) {
+				this.barElement.classList.add('pending');
+			} else {
+				// clean up pending states
+				this.barElement.classList.remove('pending');
+				this.barElement.classList.remove('reverse-pending');
+				// set bar width
+				const progressWidth = parseFloat(getComputedStyle(this).width);
+				const barWidth = (progressWidth * value) / 100;
+				this.barElement.style.width = barWidth + 'px';
+				// make the right end of the bar round
+				this.barElement.classList[progressWidth - barWidth < 8 ? 'add' : 'remove']('round');
+			}
+		}
+	}
 }
 
 customElements.define('reno-progress', RenoProgress);
