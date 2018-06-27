@@ -87,12 +87,14 @@
 					errorNode.appendChild(node.ownerDocument.createTextNode(node.validationMessage));
 				}
 			}
+			return this;
 		}
 		showFormMessages (form, rootSelector, errorSelector) {
 			const elements = form.elements, length = form.length;
 			for (let j = 0; j < length; ++j) {
 				this.showElementMessages(elements[j], rootSelector, errorSelector);
 			}
+			return this;
 		}
 		showMessages () {
 			const forms = this.querySelectorAll('form'),
@@ -101,6 +103,7 @@
 			for (let i = 0; i < forms.length; ++i) {
 				this.showFormMessages(forms[i], rootSelector, errorSelector);
 			}
+			return this;
 		}
 		// event handlers
 		handleEvent (e) {
