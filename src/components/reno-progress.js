@@ -1,7 +1,6 @@
 class RenoProgress extends HTMLElement {
 	connectedCallback() {
 		this.barElement = this.ownerDocument.createElement('div');
-		this.barElement.classList.add('bar');
 		this.appendChild(this.barElement);
 		this.updateProgress(this.getAttribute('progress'));
 	}

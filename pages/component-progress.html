@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="../styles.css">
   <script src="../main.js"></script>
   <style>
-    reno-progress {
+    reno-progress,
+    .reno-progress {
       width: 350px;
     }
   </style>
@@ -27,13 +28,26 @@
   <p>
     <code>&lt;reno-progress progress="percentage_number_here"&gt;&lt;/reno-progress&gt;</code>
   </p>
-  <!-- <div id="test2" class="reno-progress progress-0"></div> -->
   <reno-progress id="test2" progress="0"></reno-progress>
 
   <h2>Query indeterminate and determinate</h2>
   <p>
     <code>&lt;reno-progress progress="reverse-pending"&gt;&lt;/reno-progress&gt;</code> (then change progress to any number to indicate a determinate progress)</p>
   <reno-progress id="test3" progress="reverse-pending"></reno-progress>
+
+  <h2>Indeterminate (CSS only versions)</h2>
+  <p>
+    <code>&lt;div class=&quot;reno-progress&quot;&gt;&lt;div class=&quot;pending&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code>
+  </p>
+  <div class="reno-progress">
+    <div class="pending"></div>
+  </div>
+  <p>
+    <code>&lt;div class=&quot;reno-progress&quot;&gt;&lt;div class=&quot;reverse-pending&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code>
+  </p>
+  <div class="reno-progress">
+    <div class="reverse-pending"></div>
+  </div>
 
   <script>
     // mock up progress
