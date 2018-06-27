@@ -1,0 +1,77 @@
+reno-progress {
+  display: block;
+  position: relative;
+  background-color: transparent;
+  min-width: 24px;
+  height: 8px;
+  border: 1px solid $reno-color-light-gray;
+  border-radius: 50px;
+
+  // determinate
+  .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $reno-color-primary;
+    width: 0;
+    height: 8px;
+    border-radius: 50px 0 0 50px;
+    transition: width 1s cubic-bezier(0.2, 0.47, 0.51, 0.91);
+
+    &.round {
+      border-radius: 50px;
+    }
+  }
+
+  // indeterminate
+  .bar.pending {
+    animation: reno-progress-pending 1.5s cubic-bezier(0.2, 0.47, 0.51, 0.91) infinite;
+  }
+
+  // reverse indeterminate
+  .bar.reverse-pending {
+    animation: reno-progress-reverse-pending 1.5s cubic-bezier(0.2, 0.47, 0.51, 0.91) infinite;
+  }
+}
+
+@keyframes reno-progress-pending {
+  0% {
+    margin-left: 0;
+    width: 0;
+    border-radius: 50px 0 0 50px;
+  }
+  10% {
+    border-radius: 0;
+  }
+  70% {
+    margin-left: 150px;
+    width: 200px;
+    border-radius: 0;
+  }
+  100% {
+    margin-left: 350px;
+    width: 0;
+    border-radius: 0 50px 50px 0;
+  }
+}
+
+@keyframes reno-progress-reverse-pending {
+  0% {
+    margin-left: 350px;
+    width: 0;
+    border-radius: 0 50px 50px 0;
+  }
+  10% {
+    border-radius: 0;
+  }
+  70% {
+    margin-left: 0;
+    width: 200px;
+    border-radius: 0;
+  }
+  100% {
+    margin-left: 0;
+    width: 0;
+    border-radius: 50px 0 0 50px;
+  }
+}
