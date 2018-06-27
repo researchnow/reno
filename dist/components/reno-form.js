@@ -148,6 +148,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 						}errorNode.appendChild(node.ownerDocument.createTextNode(node.validationMessage));
 					}
 				}
+				return this;
 			}
 		}, {
 			key: 'showFormMessages',
@@ -157,6 +158,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				for (var j = 0; j < length; ++j) {
 					this.showElementMessages(elements[j], rootSelector, errorSelector);
 				}
+				return this;
 			}
 		}, {
 			key: 'showMessages',
@@ -167,6 +169,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				for (var i = 0; i < forms.length; ++i) {
 					this.showFormMessages(forms[i], rootSelector, errorSelector);
 				}
+				return this;
 			}
 			// event handlers
 

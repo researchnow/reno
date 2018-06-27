@@ -58,6 +58,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var oldOpacity = getComputedStyle(curtain).getPropertyValue('opacity'); // needed to sync
 				curtain.style.opacity = opacity;
 				this.state = 'obscuring';
+				return this;
 			}
 		}, {
 			key: 'reveal',
@@ -100,6 +101,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				curtain.style.opacity = 0;
 				this.state = 'revealing';
+				return this;
 			}
 		}, {
 			key: 'revealNow',
@@ -109,6 +111,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				curtain.style.opacity = 0;
 				this.style.height = 'auto';
 				this.state = '';
+				return this;
 			}
 		}, {
 			key: 'selectPages',

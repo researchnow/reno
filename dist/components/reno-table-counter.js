@@ -43,11 +43,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 				var total = this.getAttribute('total');
 				if (offset === null || limit === null || total === null) return;
 
-				offset = Math.max(0, parseInt(offset, 10));
-				limit = Math.max(1, parseInt(limit, 10));
-				total = Math.max(0, parseInt(total, 10));
+				offset = Math.max(0, +offset);
+				limit = Math.max(1, +limit);
+				total = Math.max(0, +total);
 
-				this.innerHTML = '<span class="items">' + String(offset + 1) + '-' + String(offset + limit) + '</span> of <span class="total">' + String(total) + '</span>';
+				this.innerHTML = '<span class="items">' + String(offset + 1) + '-' + String(Math.min(offset + limit, total)) + '</span> of <span class="total">' + String(total) + '</span>';
 			}
 		}], [{
 			key: 'observedAttributes',

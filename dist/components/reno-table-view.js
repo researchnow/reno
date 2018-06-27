@@ -138,8 +138,6 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 				if (!this.html) return;
 
 				// prepare parameters
-				var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
-				var limit = Math.max(1, parseInt(this.getAttribute('limit') || '10', 10));
 				var labels = this.getAttribute('labels') !== null;
 				var noColGroup = this.getAttribute('nocolgroup') !== null;
 
@@ -214,8 +212,8 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 				var url = this.getAttribute('url');
 				if (!url || !this.fieldList) return;
 
-				var offset = Math.max(0, parseInt(this.getAttribute('offset') || '0', 10));
-				var limit = Math.max(1, parseInt(this.getAttribute('limit') || '10', 10));
+				var offset = Math.max(0, +(this.getAttribute('offset') || '0'));
+				var limit = Math.max(1, +(this.getAttribute('limit') || '10'));
 				var fields = this.fieldList.filter(function (field) {
 					_newArrowCheck(this, _this5);
 
@@ -236,7 +234,6 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 				heya.io(this.sanitizeRequest({ url: url, method: 'GET', query: request })).then(function (page) {
 					_newArrowCheck(this, _this5);
 
-					var self = this;
 					page = this.sanitizeResponse(page);
 					this.page = page instanceof Array ? { data: page } : page;
 					this.total = this.page.total;

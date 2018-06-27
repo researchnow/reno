@@ -8,7 +8,6 @@
 	<script src="../main.js"></script>
 	<style>
 		.content, .loading {
-			max-width: 200px;
 			max-height: 240px;
 		}
 		#reno-popup-container {
@@ -32,7 +31,7 @@
 
 <br/>
 
-<h2>Placement & alignment</h2>
+<h2>Placement &amp; alignment</h2>
 <div class="popups-container">
 	<reno-popup placement="left">
 		<label class="label">p: left (a: center)</label>
@@ -168,7 +167,7 @@
 				alignment: 'left'
 			});
 			Reno.utils.popup.isOpen() && e.detail.value == "" && Reno.utils.popup.close();
-		})
+		});
 	})();
-	</script>
+</script>
 </html>

@@ -80,18 +80,19 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 			key: 'refresh',
 			value: function refresh() {
 				this.view && this.view.io();
+				return this;
 			}
 		}, {
 			key: 'redraw',
 			value: function redraw() {
 				this.view && this.view.render();
+				return this;
 			}
 		}, {
 			key: 'render',
 			value: function render() {
 				var _this5 = this;
 
-				var filter = this.getAttribute('filter');
 				this.html(_templateObject);
 				if (!this.view) {
 					this.view = this.querySelector('reno-table-view');
@@ -104,6 +105,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 					}.bind(this));
 					this.view.setAttribute('offset', '0');
 				}
+				return this;
 			}
 			// event handlers
 
