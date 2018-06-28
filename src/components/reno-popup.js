@@ -17,9 +17,6 @@ class RenoPopup extends HTMLElement {
 			case 'click':
 				this.handle = on(this, 'click', this);
 				break;
-			case 'reno-change':
-				this.handle = on(this, 'reno-change', this);
-				break;
 			default:
 			// case 'mouseover':
 				this.handle = on(this, 'mouseover,mouseout', this);
