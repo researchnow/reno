@@ -44,11 +44,7 @@ var RenoProgress = function (_HTMLElement) {
 					this.barElement.classList.remove('pending');
 					this.barElement.classList.remove('reverse-pending');
 					// set bar width
-					var progressWidth = parseFloat(getComputedStyle(this).width);
-					var barWidth = progressWidth * value / 100;
-					this.barElement.style.width = barWidth + 'px';
-					// make the right end of the bar round
-					this.barElement.classList[progressWidth - barWidth < 8 ? 'add' : 'remove']('round');
+					this.barElement.style.width = value + '%';
 				}
 			}
 		}

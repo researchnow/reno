@@ -16,12 +16,8 @@ reno-progress,
     background-color: $reno-color-primary;
     width: 0;
     height: 8px;
-    border-radius: 50px 0 0 50px;
+    border-radius: 50px;
     transition: width 1s cubic-bezier(0.2, 0.47, 0.51, 0.91);
-
-    &.round {
-      border-radius: 50px;
-    }
 
     // indeterminate
     &.pending {

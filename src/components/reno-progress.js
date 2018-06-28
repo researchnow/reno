@@ -1,6 +1,6 @@
 class RenoProgress extends HTMLElement {
 	connectedCallback() {
-		this.barElement = this.ownerDocument.createElement('div');
+    this.barElement = this.ownerDocument.createElement('div');
 		this.appendChild(this.barElement);
 		this.updateProgress(this.getAttribute('progress'));
 	}
@@ -26,11 +26,7 @@ class RenoProgress extends HTMLElement {
 				this.barElement.classList.remove('pending');
 				this.barElement.classList.remove('reverse-pending');
 				// set bar width
-				const progressWidth = parseFloat(getComputedStyle(this).width);
-				const barWidth = (progressWidth * value) / 100;
-				this.barElement.style.width = barWidth + 'px';
-				// make the right end of the bar round
-				this.barElement.classList[progressWidth - barWidth < 8 ? 'add' : 'remove']('round');
+				this.barElement.style.width = value + '%';
 			}
 		}
 	}
