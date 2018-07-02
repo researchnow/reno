@@ -59,7 +59,8 @@
 		get disabled ()  { return this.firstChild && this.firstChild.disabled || false; }
 		set disabled (x) { this[x ? 'setAttribute' : 'removeAttribute']('disabled', ''); }
 		notifyAboutChange () {
-			this.dispatchEvent(new CustomEvent('reno-change', {bubbles: true, detail: {value: this.firstChild.value}}));
+      this.dispatchEvent(new CustomEvent('reno-change', {bubbles: true, detail: {value: this.firstChild.value}}));
+      return this;
 		}
 		// event handlers
 		handleEvent (e) {
