@@ -25,7 +25,7 @@
 
 	exports.default = function (number) {
 		var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-		var millenia = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ',';
+		var millennia = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ',';
 		var decimal = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '.';
 
 		_newArrowCheck(undefined, undefined);
@@ -37,6 +37,6 @@
 		for (var i = leadingGroup; i < fractionPos; i += 3) {
 			result.push(s.slice(i, i + 3));
 		}
-		return (number < 0 ? '-' : '') + result.join(millenia) + (fractionPos < s.length ? decimal + s.slice(fractionPos + 1) : '');
+		return (number < 0 ? '-' : '') + result.join(millennia) + (fractionPos < s.length ? decimal + s.slice(fractionPos + 1) : '');
 	}.bind(undefined);
 });

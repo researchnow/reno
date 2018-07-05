@@ -101,6 +101,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 			key: 'notifyAboutChange',
 			value: function notifyAboutChange() {
 				this.dispatchEvent(new CustomEvent('reno-change', { bubbles: true, detail: { value: this.firstChild.value } }));
+				return this;
 			}
 			// event handlers
 

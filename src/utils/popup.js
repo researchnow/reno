@@ -49,8 +49,8 @@ export function open (popupComponent, options) {
 	});
 }
 
-export function close () {
-	const popupContainer = document.getElementById('reno-popup-container');
+export function close (doc) {
+	const popupContainer = (doc || document).getElementById('reno-popup-container');
 	if (!popupContainer) return;
 	popupContainer.classList.remove('open');
 	popupContainer.classList.add('close');
@@ -58,9 +58,16 @@ export function close () {
 	return Promise.resolve(true);
 }
 
-export function isOpen () {
-	const popupContainer = document.getElementById('reno-popup-container');
+export function isOpen (doc) {
+	const popupContainer = (doc || document).getElementById('reno-popup-container');
 	return popupContainer && popupContainer.classList.contains('open');
+}
+
+export function hidePopup(e) {
+	const popup = e.target.ownerDocument.getElementById('reno-popup-container');
+	if (popup && !popup.contains(e.target)) {
+		Reno.utils.popup.close();
+	}
 }
 
 const defaultRender = data =>

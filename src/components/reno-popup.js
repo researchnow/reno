@@ -1,16 +1,9 @@
 let handleClick = null;
 
-const hidePopup = e => {
-	const popup = document.getElementById('reno-popup-container');
-	if (popup && !popup.contains(e.target)) {
-		Reno.utils.popup.close();
-	}
-};
-
 class RenoPopup extends HTMLElement {
 	connectedCallback () {
 		if (!handleClick) {
-			handleClick = on(document, 'click', hidePopup);
+			handleClick = on(document, 'click', Reno.utils.popup.hidePopup);
 		}
 		// listen to events on the entire component
 		switch(this.getAttribute('trigger')) {

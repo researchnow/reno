@@ -19,6 +19,7 @@
 	exports.open = open;
 	exports.close = close;
 	exports.isOpen = isOpen;
+	exports.hidePopup = hidePopup;
 	exports.enhanceListContent = enhanceListContent;
 
 	function _newArrowCheck(innerThis, boundThis) {
@@ -105,8 +106,8 @@
 		}.bind(this));
 	}
 
-	function close() {
-		var popupContainer = document.getElementById('reno-popup-container');
+	function close(doc) {
+		var popupContainer = (doc || document).getElementById('reno-popup-container');
 		if (!popupContainer) return;
 		popupContainer.classList.remove('open');
 		popupContainer.classList.add('close');
@@ -114,9 +115,16 @@
 		return Promise.resolve(true);
 	}
 
-	function isOpen() {
-		var popupContainer = document.getElementById('reno-popup-container');
+	function isOpen(doc) {
+		var popupContainer = (doc || document).getElementById('reno-popup-container');
 		return popupContainer && popupContainer.classList.contains('open');
+	}
+
+	function hidePopup(e) {
+		var popup = e.target.ownerDocument.getElementById('reno-popup-container');
+		if (popup && !popup.contains(e.target)) {
+			Reno.utils.popup.close();
+		}
 	}
 
 	var defaultRender = function (data) {

@@ -8,18 +8,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 var handleClick = null;
-
-var hidePopup = function (e) {
-	_newArrowCheck(undefined, undefined);
-
-	var popup = document.getElementById('reno-popup-container');
-	if (popup && !popup.contains(e.target)) {
-		Reno.utils.popup.close();
-	}
-}.bind(undefined);
 
 var RenoPopup = function (_HTMLElement) {
 	_inherits(RenoPopup, _HTMLElement);
@@ -34,7 +23,7 @@ var RenoPopup = function (_HTMLElement) {
 		key: 'connectedCallback',
 		value: function connectedCallback() {
 			if (!handleClick) {
-				handleClick = on(document, 'click', hidePopup);
+				handleClick = on(document, 'click', Reno.utils.popup.hidePopup);
 			}
 			// listen to events on the entire component
 			switch (this.getAttribute('trigger')) {
