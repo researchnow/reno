@@ -7,20 +7,20 @@
  * @returns {*}
  */
 
-export default (total, array, quantum=1) => {
+export default (total, array, quantum = 1) => {
   let SD = 0; // standard divisor
   let values = array.map((value, index) => {
     SD += value;
     return {id: index, original: value};
   });
-	if (SD <= 0) {
-		return values.map(item => item.original);
-	}
+  if (SD <= 0) {
+    return values.map(item => item.original);
+  }
   let allocated = 0;
   values.forEach(item => {
     const quota = (item.original / SD) * total;
     item.value = Math.floor(quota / quantum) * quantum;
-    item.frac  = quota % quantum;
+    item.frac = quota % quantum;
     allocated += item.value;
   });
   if (allocated < total) {

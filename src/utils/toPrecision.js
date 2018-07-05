@@ -9,9 +9,9 @@ for (let next = eps; next + 1 > 1; eps = next, next = 0.5 * next);
  */
 const toPrecision = (number, decimalPlaces) => {
   number = number || 0;
-  if (typeof number == "string") number = parseFloat(number);
+  if (typeof number == 'string') number = parseFloat(number);
   return parseFloat((number + number * toPrecision.epsilon).toFixed(decimalPlaces));
-}
+};
 
 toPrecision.epsilon = eps;
 

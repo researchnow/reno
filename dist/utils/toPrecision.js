@@ -1,6 +1,6 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports"], factory);
+    define(['exports'], factory);
   } else if (typeof exports !== "undefined") {
     factory(exports);
   } else {
@@ -11,7 +11,7 @@
     global.toPrecision = mod.exports;
   }
 })(this, function (exports) {
-  "use strict";
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -36,7 +36,7 @@
     _newArrowCheck(undefined, undefined);
 
     number = number || 0;
-    if (typeof number == "string") number = parseFloat(number);
+    if (typeof number == 'string') number = parseFloat(number);
     return parseFloat((number + number * toPrecision.epsilon).toFixed(decimalPlaces));
   }.bind(undefined);
 

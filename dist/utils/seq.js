@@ -1,6 +1,6 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports"], factory);
+    define(['exports'], factory);
   } else if (typeof exports !== "undefined") {
     factory(exports);
   } else {
@@ -11,7 +11,7 @@
     global.seq = mod.exports;
   }
 })(this, function (exports) {
-  "use strict";
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -24,22 +24,24 @@
     }
   }
 
-  exports.default = function (array, Deferred) {
+  // https://github.com/heya/async/blob/master/seq.js
+  // to chain array of then
+
+  var when = function (value) {
+    var Deferred = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Promise;
+
     _newArrowCheck(undefined, undefined);
 
-    var when = function (value) {
-      var Deferred = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Promise;
+    return value && typeof value.then == 'function' ? value : Deferred.resolve(value);
+  }.bind(undefined);
 
-      _newArrowCheck(undefined, undefined);
-
-      return value && typeof value.then == "function" ? value : Deferred.resolve(value);
-    }.bind(undefined);
+  exports.default = function (array, Deferred) {
+    _newArrowCheck(undefined, undefined);
 
     if (!(array instanceof Array)) {
       array = Array.prototype.slice.call(_arguments, 0);
       Deferred = null;
     }
-
     return function (initial) {
       _newArrowCheck(undefined, undefined);
 
