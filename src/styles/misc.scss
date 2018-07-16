@@ -5,132 +5,107 @@
 // constants
 
 $reno-box-colors: (
-	white: ($reno-color-white),
-	dirty-white: ($reno-color-dirty-white)
+  white: (
+    $reno-color-white
+  ),
+  dirty-white: (
+    $reno-color-dirty-white
+  )
 );
 
 $reno-box-borders: (
-	with-border: ($reno-color-light-gray),
-	no-border: (transparent)
+  with-border: (
+    $reno-color-light-gray
+  ),
+  no-border: (
+    transparent
+  )
 );
 
 $reno-box-shadows: (
-	shadow-down: (0, 2px, 4px, 0, rgba(34,34,34,0.07)),
-	shadow-up: (0, -2px, 4px, 0, rgba(34,34,34,0.07)),
-	shadow-z0: (0, 0, 0, 0, 0),
-	shadow-z1: (0, 2px, 4px, 0, rgba(34,34,34,0.07)),
-	shadow-z2: (0, 2px, 7px, 0, rgba(34,34,34,0.2))
+  shadow-down: (
+    0,
+    2px,
+    4px,
+    0,
+    rgba(34, 34, 34, 0.07)
+  ),
+  shadow-up: (
+    0,
+    -2px,
+    4px,
+    0,
+    rgba(34, 34, 34, 0.07)
+  ),
+  shadow-z0: (
+    0,
+    0,
+    0,
+    0,
+    0
+  ),
+  shadow-z1: (
+    0,
+    2px,
+    4px,
+    0,
+    rgba(34, 34, 34, 0.07)
+  ),
+  shadow-z2: (
+    0,
+    2px,
+    7px,
+    0,
+    rgba(34, 34, 34, 0.2)
+  )
 );
 
 @mixin reno-box-color($color) {
-	background-color: $color;
+  background-color: $color;
 }
 
 @mixin reno-box-border($border-color) {
-	border: 1px solid $border-color;
+  border: 1px solid $border-color;
 }
 
 @mixin reno-box-shadow($h-shadow, $y-shadow, $blur, $spread, $color) {
-	box-shadow: $h-shadow $y-shadow $blur $spread $color;
+  box-shadow: $h-shadow $y-shadow $blur $spread $color;
 }
 
 @function reno-box-name($name) {
-	@if $name == white or $name == no-border or $name == shadow-down {
-		@return '';
-	}
-	@return -#{$name};
+  @if $name == white or $name == no-border or $name == shadow-down {
+    @return '';
+  }
+  @return -#{$name};
 }
 
 // generate classes
 
 @each $color-name, $color-parameters in $reno-box-colors {
-	@each $shadow-name, $shadow-parameters in $reno-box-shadows {
-		@each $border-name, $border-parameters in $reno-box-borders {
-			$color: reno-box-name($color-name);
-			$shadow: reno-box-name($shadow-name);
-			$border: reno-box-name($border-name);
-			.reno-box#{$color}#{$border}#{$shadow} {
-				@include reno-box-color($color-parameters...);
-				@include reno-box-border($border-parameters...);
-				@include reno-box-shadow($shadow-parameters...);
-			}
-		}
-	}
+  @each $shadow-name, $shadow-parameters in $reno-box-shadows {
+    @each $border-name, $border-parameters in $reno-box-borders {
+      $color: reno-box-name($color-name);
+      $shadow: reno-box-name($shadow-name);
+      $border: reno-box-name($border-name);
+      .reno-box#{$color}#{$border}#{$shadow} {
+        @include reno-box-color($color-parameters...);
+        @include reno-box-border($border-parameters...);
+        @include reno-box-shadow($shadow-parameters...);
+      }
+    }
+  }
 }
 
 .reno-rule-default {
-	box-sizing: border-box;
-	height: 3px;
-	background-color: $reno-color-medium-light-gray;
-	border: 1px solid $reno-color-white;
+  box-sizing: border-box;
+  height: 3px;
+  background-color: $reno-color-medium-light-gray;
+  border: 1px solid $reno-color-white;
 }
 
 .reno-rule-light {
-	box-sizing: border-box;
-	height: 3px;
-	background-color: $reno-color-light-gray;
-	border: 1px solid $reno-color-white;
-}
-
-reno-toggle, reno-toggle[status="off"] {
-	@extend .reno-pill;
-	background-color: $reno-color-white;
-	input {
-		display: none;
-	}
-
-	&:before {
-		background-color: $reno-color-medium-light-gray;
-		left: 2px;
-	}
-
-	&:after {
-		content: 'OFF';
-		color: $reno-color-medium-dark-gray;
-		left: 19px;
-	}
-}
-
-reno-toggle[status="on"] {
-	@extend .reno-pill;
-	background-color: $reno-color-primary;
-
-	&:before {
-		background-color: $reno-color-white;
-		left: 28px;
-	}
-
-	&:after {
-		content: 'ON';
-		color: $reno-color-white;
-		left: 8px;
-	}
-}
-
-.reno-pill {
-	display: inline-block;
-	width: 44px;
-	height: 18px;
-	border: 1px solid $reno-color-light-gray;
-	border-radius: 10px;
-	cursor: pointer;
-	position: relative;
-	transition: all .3s ease-in;
-
-	&:before {
-		content: '';
-		position: absolute;
-		top: 2px;
-		height: 14px;
-		width: 14px;
-		border-radius: 7px;
-		transition: all .3s ease-in;
-	}
-
-	&:after {
-		position: absolute;
-		top: -3px;
-		font-size: 9px;
-		font-weight: 500;
-	}
+  box-sizing: border-box;
+  height: 3px;
+  background-color: $reno-color-light-gray;
+  border: 1px solid $reno-color-white;
 }
