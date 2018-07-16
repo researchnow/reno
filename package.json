@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.dev.config.js  --progress --colors --open --inline",
     "build:dev": "webpack --config ./webpack.dev.config.js --progress --colors",
-    "build:font": "rm -rf ./tmpfont && node ./scripts/svg-extract.js src/images/reno-icons.svg ./tmpfont && webfont \"./tmpfont/*.svg\" -d src/fonts/ -t scss -f reno -c reno-icon -p ../fonts/ && rm -fr ./tmpfont",
+    "build:font": "rm -rf ./tmpfont && node ./scripts/svg-extract.js src/images/reno-icons.svg ./tmpfont && webfont \"./tmpfont/*.svg\" -d src/fonts/ -t scss -f reno -c reno-icon -p ../fonts/ && rm -fr ./tmpfont && cp src/images/reno-icons.svg pages/",
     "build": "webpack -p --config ./webpack.prod.config.js --progress --colors",
     "dist-components": "BABEL_ENV=components babel src/components/ -d dist/components/",
     "dist-react": "BABEL_ENV=react babel src/react/ -d dist/react/",
