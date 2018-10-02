@@ -70,7 +70,7 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 					return propagateTo(this.pager, attrName, newVal);
 				}
 				propagateTo(this.view, attrName, newVal);
-				if (attrName !== 'labels' && attrName !== 'fields') {
+				if (attrName !== 'labels' && attrName !== 'fields' && attrName !== 'offset') {
 					this.view && this.view.setAttribute('offset', '0');
 				}
 			}
@@ -103,7 +103,6 @@ function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { t
 
 						return propagateTo(this.view, name, this.getAttribute(name));
 					}.bind(this));
-					this.view.setAttribute('offset', '0');
 				}
 				return this;
 			}
