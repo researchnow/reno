@@ -24,7 +24,7 @@
 				return propagateTo(this.pager, attrName, newVal);
 			}
 			propagateTo(this.view, attrName, newVal);
-			if (attrName !== 'labels' && attrName !== 'fields') {
+			if (attrName !== 'labels' && attrName !== 'fields' && attrName !== 'offset') {
 				this.view && this.view.setAttribute('offset', '0');
 			}
 		}
@@ -66,7 +66,6 @@
 				this.pager   = this.querySelector('reno-table-pager');
 				this.counter = this.querySelector('reno-table-counter');
 				RenoTable.observedAttributes.forEach(name => propagateTo(this.view, name, this.getAttribute(name)));
-				this.view.setAttribute('offset', '0');
 			}
 			return this;
 		}
