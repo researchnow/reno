@@ -19,8 +19,8 @@
     "prepublishOnly": "npm run dist && npm run build"
   },
   "dependencies": {
-    "@clubajax/custom-elements-polyfill": "^0.9.3",
-    "@clubajax/on": "^2.1.8",
+    "@clubajax/custom-elements-polyfill": "clubajax/custom-elements-polyfill",
+    "@clubajax/on": "clubajax/on",
     "heya-io": "^1.2.6",
     "hyperhtml": "^2.14.0"
   },
