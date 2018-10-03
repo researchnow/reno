@@ -30,7 +30,12 @@
 							(element.tagName === 'INPUT' ? `[type=${element.type}]` : '') +
 							(element.validationMessage ? ' - ' + element.validationMessage : ''));
 					alert(values.join('\n'));
-				}
+        }
+        function readValues (id) {
+					const form = document.getElementById(id);
+					const values = form.getValues();
+					alert(JSON.stringify(values, null, '  '));
+        }
 			</script>
 	</head>
 	<body class="reno">
@@ -118,6 +123,7 @@
 		<p>
 			<button onclick="flipDisabled('form1')">Flip disabled</button>&nbsp;
 			<button onclick="showValues('form1')">Show values</button>
+			<button onclick="readValues('form1')">JSON</button>
 		</p>
 
 		<h2>More complex form with validation and generic messages</h2>
@@ -177,6 +183,7 @@
 		<p>
 			<button onclick="flipDisabled('form2')">Flip disabled</button>&nbsp;
 			<button onclick="showValues('form2')">Show values</button>
+			<button onclick="readValues('form2')">JSON</button>
 		</p>
 
 		<h2>More complex form with validation and custom messages</h2>
@@ -266,6 +273,7 @@
 		<p>
 			<button onclick="flipDisabled('form3')">Flip disabled</button>&nbsp;
 			<button onclick="showValues('form3')">Show values</button>
+			<button onclick="readValues('form3')">JSON</button>
 		</p>
 	</body>
 </html>
