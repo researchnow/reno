@@ -9,55 +9,55 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 (function () {
-	'use strict';
+  'use strict';
 
-	var RenoTableCounter = function (_HTMLElement) {
-		_inherits(RenoTableCounter, _HTMLElement);
+  var RenoTableCounter = function (_HTMLElement) {
+    _inherits(RenoTableCounter, _HTMLElement);
 
-		function RenoTableCounter() {
-			_classCallCheck(this, RenoTableCounter);
+    function RenoTableCounter() {
+      _classCallCheck(this, RenoTableCounter);
 
-			return _possibleConstructorReturn(this, (RenoTableCounter.__proto__ || Object.getPrototypeOf(RenoTableCounter)).apply(this, arguments));
-		}
+      return _possibleConstructorReturn(this, (RenoTableCounter.__proto__ || Object.getPrototypeOf(RenoTableCounter)).apply(this, arguments));
+    }
 
-		_createClass(RenoTableCounter, [{
-			key: 'connectedCallback',
+    _createClass(RenoTableCounter, [{
+      key: 'connectedCallback',
 
-			// life-cycle methods
-			value: function connectedCallback() {
-				this.render();
-			}
-		}, {
-			key: 'attributeChangedCallback',
-			value: function attributeChangedCallback() {
-				this.render();
-			}
-			// custom methods
+      // life-cycle methods
+      value: function connectedCallback() {
+        this.render();
+      }
+    }, {
+      key: 'attributeChangedCallback',
+      value: function attributeChangedCallback() {
+        this.render();
+      }
+      // custom methods
 
-		}, {
-			key: 'render',
-			value: function render() {
-				// prepare parameters
-				var offset = this.getAttribute('offset');
-				var limit = this.getAttribute('limit');
-				var total = this.getAttribute('total');
-				if (offset === null || limit === null || total === null) return;
+    }, {
+      key: 'render',
+      value: function render() {
+        // prepare parameters
+        var offset = this.getAttribute('offset');
+        var limit = this.getAttribute('limit');
+        var total = this.getAttribute('total');
+        if (offset === null || limit === null || total === null) return;
 
-				offset = Math.max(0, +offset);
-				limit = Math.max(1, +limit);
-				total = Math.max(0, +total);
+        offset = Math.max(0, +offset);
+        limit = Math.max(1, +limit);
+        total = Math.max(0, +total);
 
-				this.innerHTML = '<span class="items">' + String(offset + 1) + '-' + String(Math.min(offset + limit, total)) + '</span> of <span class="total">' + String(total) + '</span>';
-			}
-		}], [{
-			key: 'observedAttributes',
-			get: function get() {
-				return ['offset', 'limit', 'total'];
-			}
-		}]);
+        this.innerHTML = '<span class="items">' + String(offset + 1) + '-' + String(Math.min(offset + limit, total)) + '</span> of <span class="total">' + String(total) + '</span>';
+      }
+    }], [{
+      key: 'observedAttributes',
+      get: function get() {
+        return ['offset', 'limit', 'total'];
+      }
+    }]);
 
-		return RenoTableCounter;
-	}(HTMLElement);
+    return RenoTableCounter;
+  }(HTMLElement);
 
-	customElements.define('reno-table-counter', RenoTableCounter);
+  customElements.define('reno-table-counter', RenoTableCounter);
 })();
