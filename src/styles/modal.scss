@@ -1,0 +1,118 @@
+#reno-modal-container {
+  display: none;
+
+  .reno-modal-background {
+    display: block;
+    position: absolute;
+    border: none;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $reno-color-white;
+    opacity: 0.7;
+  }
+
+  .reno-modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1;
+
+    position: absolute;
+    border: none;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  .reno-modal {
+    @extend .reno-box-with-border-shadow-z2;
+    display: block;
+    flex: 0 1 auto;
+
+    width: 600px;
+
+    &.small {
+      width: 400px;
+    }
+    // &.medium { width: 600px; }
+    &.large {
+      width: 900px;
+    }
+    &.x-large {
+      width: 1200px;
+    }
+
+    font-size: 14px;
+    color: $reno-color-dark-gray;
+    background-color: $reno-color-dirty-white;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      font-size: 16px;
+      color: $reno-color-black;
+      background-color: $reno-color-white;
+      padding: $reno-spacing-default $reno-spacing-large;
+      border-bottom: 1px solid $reno-color-medium-light-gray;
+
+      & > div {
+        flex: 0 1 auto;
+      }
+
+      .close {
+        background: none;
+        border: none;
+        padding: 0;
+
+        font-size: 20px;
+        color: $reno-color-medium-dark-gray;
+      }
+    }
+
+    .content {
+      padding: $reno-spacing-default $reno-spacing-large;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      padding: $reno-spacing-default $reno-spacing-large;
+
+      button {
+        flex: 0 0 auto;
+        display: block;
+        margin-left: 1em;
+      }
+
+      button:first-of-type {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+#reno-modal-container.open {
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

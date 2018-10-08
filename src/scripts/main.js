@@ -23,6 +23,7 @@ import cleanRegExp from '../utils/cleanRegExp';
 import clone       from '../utils/clone';
 import debounce    from '../utils/debounce';
 import delay       from '../utils/delay';
+import * as modal  from '../utils/modal';
 import getPath     from '../utils/getPath';
 import isEqual     from '../utils/isEqual';
 import pumpEvent   from '../utils/pumpEvent';
@@ -53,6 +54,7 @@ if (window) {
 	Reno.utils.clone       = clone;
 	Reno.utils.debounce    = debounce;
 	Reno.utils.delay       = delay;
+	Reno.utils.modal       = modal;
 	Reno.utils.getPath     = getPath;
 	Reno.utils.isEqual     = isEqual;
 	Reno.utils.pumpEvent   = pumpEvent;

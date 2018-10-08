@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Reno: modal</title>
+	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	<link rel="stylesheet" href="../styles.css">
+	<script src="../main.js"></script>
+</head>
+<body class="reno">
+<h1>Reno: modal</h1>
+
+<p><button id="simple" class="reno-button-secondary">Simple modal dialog</button></p>
+
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+<p><button id="one" class="reno-button-secondary">Modal dialog #1</button></p>
+
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+</body>
+
+<script>
+ (function () {
+   document.getElementById('simple').onclick = function () {
+    Reno.utils.modal.open({
+      title: 'Simple dialog',
+      content: 'Hello, world!',
+      buttons: ['OK', 'Cancel']
+    });
+  };
+  document.getElementById('one').onclick = function () {
+    Reno.utils.modal.open({
+      title: hyperHTML.wire()`<strong>Super</strong> simple dialog`,
+      content: hyperHTML.wire()`Hello, <em>world</em>!`,
+      buttons: ['OK', 'Cancel', '!Delete'],
+      eventHandler: e => {
+        alert('You pressed ' + e.target.innerText);
+        Reno.utils.modal.close();
+      }
+    });
+  };
+ })();
+</script>
+
+</html>
