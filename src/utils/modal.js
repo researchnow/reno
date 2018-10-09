@@ -1,5 +1,7 @@
 let handle = null;
 
+const sizes = ['small', 'medium', 'large', 'x-large'];
+
 export function open(options) {
   options = options || {};
 
@@ -28,6 +30,10 @@ export function open(options) {
     modal = modalContainer.querySelector('.reno-modal'),
     html = hyperHTML.bind(modal);
 
+  modal.className = 'reno-modal'; // clear all other CSS class names
+  options.size && modal.classList.add(options.size);
+  options.customClass && modal.classList.add(options.customClass);
+
   if (!options.title && !options.buttons) {
     html`${{any: options.content, placeholder: placeholder}}`;
     handle = on.makeMultiHandle([
@@ -37,7 +43,9 @@ export function open(options) {
     return;
   }
 
-const title = options.title ? hyperHTML.wire()`<div class="title"><div>${{any: options.title}}</div><div><button class="close" index="">&times;</button></div></div>` : '',
+const title = options.title ? hyperHTML.wire()`<div class="title"><div>${{any: options.title}}</div><div><button class="close" index="">&times;</button></div></div>` : '';
+let buttons = options.buttons;
+if (buttons instanceof Array && buttons.every(button => typeof button == 'string')) {
     buttons = options.buttons.map((button, index) => {
       let className = 'reno-button',
         text = button;
@@ -72,10 +80,10 @@ const title = options.title ? hyperHTML.wire()`<div class="title"><div>${{any: o
       }
       return hyperHTML.wire()`<button key=${text + '/' + className} index=&{index} class=${className}>${text}</button>`;
     });
+    buttons = buttons.length ? hyperHTML.wire()`<div class="buttons">${buttons}</div>` : '';
+  }
 
-  html`${title}<div class="content">${{any: options.content, placeholder: placeholder}}</div>${
-    buttons.length ? hyperHTML.wire()`<div class="buttons">${buttons}</div>` : ''
-  }`;
+  html`${title}<div class="content">${{any: options.content, placeholder: placeholder}}</div>${buttons}`;
   handle = on.makeMultiHandle([
     on(modal, 'click', 'button', eventHandler),
     on(doc, 'keyup:Escape', eventHandler)
