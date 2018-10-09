@@ -36,16 +36,17 @@ export function open(options) {
 
   if (!options.title && !options.buttons) {
     html`${{any: options.content, placeholder: placeholder}}`;
-    handle = on.makeMultiHandle([
-      on(modal, 'click', 'button', eventHandler),
-      on(doc, 'keyup:Escape', eventHandler)
-    ]);
+    handle = on.makeMultiHandle([on(modal, 'click', 'button', eventHandler), on(doc, 'keyup:Escape', eventHandler)]);
     return;
   }
 
-const title = options.title ? hyperHTML.wire()`<div class="title"><div>${{any: options.title}}</div><div><button class="close" index="">&times;</button></div></div>` : '';
-let buttons = options.buttons;
-if (buttons instanceof Array && buttons.every(button => typeof button == 'string')) {
+  const title = options.title
+    ? hyperHTML.wire()`<div class="title"><div>${{
+        any: options.title
+      }}</div><div><button class="close" index="">&times;</button></div></div>`
+    : '';
+  let buttons = options.buttons;
+  if (buttons instanceof Array && buttons.every(button => typeof button == 'string')) {
     buttons = options.buttons.map((button, index) => {
       let className = 'reno-button',
         text = button;
@@ -84,10 +85,7 @@ if (buttons instanceof Array && buttons.every(button => typeof button == 'string
   }
 
   html`${title}<div class="content">${{any: options.content, placeholder: placeholder}}</div>${buttons}`;
-  handle = on.makeMultiHandle([
-    on(modal, 'click', 'button', eventHandler),
-    on(doc, 'keyup:Escape', eventHandler)
-  ]);
+  handle = on.makeMultiHandle([on(modal, 'click', 'button', eventHandler), on(doc, 'keyup:Escape', eventHandler)]);
 }
 
 export function close(doc) {
@@ -101,10 +99,9 @@ export function close(doc) {
 }
 
 export function isOpen(doc) {
-  doc = doc || document;
-  return doc.body.classList.contains('reno-modal-open');
+  return (doc || document).body.classList.contains('reno-modal-open');
 }
 
-function defaultEventHandler (e) {
+function defaultEventHandler(e) {
   close(e.target.ownerDocument);
 }

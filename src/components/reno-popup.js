@@ -26,20 +26,39 @@ class RenoPopup extends HTMLElement {
 
 		switch (e.type) {
 			case 'click':
-				Reno.utils.popup.isOpen() ? Reno.utils.popup.close() : Reno.utils.popup.open(this);
+				Reno.utils.popup.isOpen() ? this.close() : this.open();
 				break;
 			case 'mouseover':
-				Reno.utils.popup.open(this);
+				this.open();
 				break;
 			case 'mouseout':
-				const popup = document.getElementById('reno-popup-container');
+				const popup = this.ownerDocument.getElementById('reno-popup-container');
 				if (!e.relatedTarget || popup && !popup.contains(e.relatedTarget)) {
-					Reno.utils.popup.close();
+					this.close();
 				}
 				break;
 		}
 		e.stopPropagation();
-	}
+  }
+  open() {
+    const options = {
+      document: this.ownerDocument,
+      anchor: this,
+      content: clone(this.querySelector('.content')),
+      loading: clone(this.querySelector('.loading')),
+      placement: this.getAttribute('placement'),
+      alignment: this.getAttribute('alignment')
+    };
+    Reno.utils.popup.open(options);
+    return options;
+  }
+  close() {
+    Reno.utils.popup.close();
+  }
+}
+
+function clone(node) {
+  return node && node.cloneNode(true);
 }
 
 customElements.define('reno-popup', RenoPopup);

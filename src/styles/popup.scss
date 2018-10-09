@@ -1,49 +1,51 @@
 #reno-popup-container {
-	display: none;
+  display: none;
+  position: absolute;
+  z-index: 1;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
 }
 
-#reno-popup-container.open {
-	display: block;
-	position: absolute;
-	z-index: 1;
-	border: none;
-	background: none;
-	padding: 0;
-	margin: 0;
+body.reno-popup-open #reno-popup-container {
+  display: block;
 }
 
-#reno-popup-container .content, #reno-popup-container .loading {
-	@extend .reno-box-with-border-shadow-z1;
-	background-color: $reno-color-white;
-	overflow-y: scroll;
+#reno-popup-container .content,
+#reno-popup-container .loading {
+  @extend .reno-box-with-border-shadow-z1;
+  background-color: $reno-color-white;
+  overflow-y: scroll;
 }
 
 #reno-popup-container .loading {
-	padding: 4px 12px;
+  padding: 4px 12px;
 }
 
 #reno-popup-container .content.tooltip {
-	@extend .reno-caption;
-	margin: 0px;
-	color: $reno-color-white;
-	background-color: $reno-color-dark-gray;
-	padding: 4px 12px;
+  @extend .reno-caption;
+  margin: 0px;
+  color: $reno-color-white;
+  background-color: $reno-color-dark-gray;
+  padding: 4px 12px;
 }
 
 #reno-popup-container .content.list {
-	&>div {
-		padding: 4px 12px;
-		cursor: pointer;
+  & > div {
+    padding: 4px 12px;
+    cursor: pointer;
 
-		&:hover {
-			background-color: $reno-color-light-gray;
-		}
-	}
+    &:hover {
+      background-color: $reno-color-light-gray;
+    }
+  }
 }
 
 reno-popup {
-	display: inline-block;
-	.content, .loading {
-		display: none;
-	}
+  display: inline-block;
+  .content,
+  .loading {
+    display: none;
+  }
 }

@@ -1,109 +1,66 @@
-const {resolve} = require('path');
-const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-	devtool: 'cheap-module-source-map',
-	entry: [
-		// 'react-hot-loader/patch',
-		// activate HMR for React
-
-		// 'webpack-dev-server/client?http://localhost:8080',
-		// bundle the client for webpack-dev-server
-		// and connect to the provided endpoint
-
-		// 'webpack/hot/only-dev-server',
-		// bundle the client for hot reloading
-		// only- means to only hot reload for successful updates
-
-		resolve('src/scripts/main.js'),
-		resolve('src/scripts/app.js')
-		// the entry point of our app
-	],
-	output: {
-		filename: 'main.js',
-		path: resolve('docs'), // actually it is a demo
-		pathinfo: true,
-		chunkFilename: 'static/js/[name].chunk.js',
-		publicPath: '/',
-		devtoolModuleFilenameTemplate: info => resolve(info.absoluteResourcePath)
-	},
-	resolve: {
-		// This allows you to set a fallback for where Webpack should look for modules.
-		// We placed these paths second because we want `node_modules` to "win"
-		// if there are any conflicts. This matches Node resolution mechanism.
-		// https://github.com/facebookincubator/create-react-app/issues/253
-		modules: ['node_modules', resolve('node_modules')],
-		// These are the reasonable defaults supported by the Node ecosystem.
-		// We also include JSX as a common component filename extension to support
-		// some tools, although we do not recommend using it, see:
-		// https://github.com/facebookincubator/create-react-app/issues/290
-		extensions: ['.js', '.json', '.jsx'],
-		alias: {
-			// Support React Native Web
-			// https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-			'react-native': 'react-native-web'
-		}
-	},
-	devServer: {
-		// hot: true,
-		// enable HMR on the server
-
-		contentBase: resolve('.'),
-		// match the output path
-
-		publicPath: '/'
-		// match the output `publicPath`
-	},
-	module: {
-		strictExportPresence: true,
-		rules: [
-			{
-				test: /\.jsx?$/,
-				use: ['babel-loader'],
-				exclude: /node_modules/
-			},
-			{
-				test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-				loader: require.resolve('url-loader'),
-				options: {
-					limit: 10000,
-					name: 'media/[name].[hash:8].[ext]'
-				}
-			},
-			{
-				test: /\.scss$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-			},
-			{
-				test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-				use: 'url-loader'
-			}
-		]
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			inject: true,
-			template: resolve('src/index.html')
-		}),
-
-		new webpack.HotModuleReplacementPlugin(),
-		// enable HMR globally
-
-		// Watcher doesn't work well if you mistype casing in a path so we use
-		// a plugin that prints an error when you attempt to do this.
-		// See https://github.com/facebookincubator/create-react-app/issues/240
-		new CaseSensitivePathsPlugin(),
-
-		new webpack.NamedModulesPlugin(),
-		// prints more readable module names in the browser console on HMR updates
-
-		new MiniCssExtractPlugin({
-			filename: 'styles.css'
-		}),
-
-		new webpack.IgnorePlugin(/caniuse-lite\/data\/regions/)
-	]
+  entry: {modern: ['./src/scripts/main.js', './src/scripts/app.js']},
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            sourceType: 'unambiguous',
+            presets: [
+              [
+                '@babel/env',
+                {
+                  modules: false,
+                  useBuiltIns: 'usage',
+                  targets: {
+                    browsers: ['Chrome >= 60', 'Safari >= 10.1', 'iOS >= 10.3', 'Firefox >= 54', 'Edge >= 15']
+                  }
+                }
+              ],
+              '@babel/react'
+              // '@babel/stage-2'
+            ],
+            plugins: [['@babel/plugin-proposal-class-properties', {loose: true}]]
+          }
+        },
+        exclude: /\b(?:core-js|prop-types|react-enroute|custom-elements-polyfill)\b/
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
+  },
+  output: {
+    path: __dirname + '/docs',
+    publicPath: '/',
+    filename: '[name].js'
+  },
+  plugins: [
+    new CleanWebpackPlugin('./docs', {}),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      // hash: true,
+      template: './src/index.html',
+      filename: 'index.html'
+    })
+  ],
+  devServer: {}
 };

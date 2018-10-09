@@ -1,68 +1,59 @@
-export function open(popupComponent, options) {
+export function open(options) {
   options = options || {};
-  const popupContent = options.content || popupComponent.querySelector('.content') || popupComponent;
-  if (!popupContent) return;
+  const data = options.data;
+  if (!options.anchor || (!options.content && typeof data != 'function')) return;
 
-  const data = options.data || popupContent.data;
-
-  // if there's no content, do nothing
-  if (!popupContent.childNodes.length && typeof data != 'function') return;
-
-  const popupLoading = options.loading || popupComponent.querySelector('.loading');
+  const doc = options.document || document;
 
   // if there's content => close other popups
   close();
 
   // find/create a popup container
-  let popupContainer = popupComponent.ownerDocument.getElementById('reno-popup-container');
+  let popupContainer = doc.getElementById('reno-popup-container');
   if (!popupContainer) {
-    popupContainer = popupComponent.ownerDocument.createElement('div');
+    popupContainer = doc.createElement('div');
     popupContainer.id = 'reno-popup-container';
-    popupComponent.ownerDocument.body.appendChild(popupContainer);
+    doc.body.appendChild(popupContainer);
   }
 
   // popup styles
-  popupContainer.classList.remove('close');
-  popupContainer.classList.add('open');
+  doc.body.classList.remove('reno-popup-close');
+  doc.body.classList.add('reno-popup-open');
 
   // form content
-  const placeholder = popupLoading
-    ? popupLoading.cloneNode(true)
-    : hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`;
-  let content;
+  const placeholder = options.loading || hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`;
+  let content = options.content;
   if (data) {
     content = data();
-    if (typeof content.then == 'function') {
+    if (content && typeof content.then == 'function') {
       content = content.then(data => {
-        window.requestAnimationFrame(() => calculatePlacement(popupComponent, popupContainer, options));
+        window.requestAnimationFrame(() => calculatePlacement(options.anchor, popupContainer, options));
         return data;
       });
     }
-  } else {
-    content = popupContent.cloneNode(true);
   }
   hyperHTML.bind(popupContainer)`${{any: content, placeholder: placeholder}}`;
 
   return new Promise(resolve => {
     window.requestAnimationFrame(() => {
-      calculatePlacement(popupComponent, popupContainer, options);
+      calculatePlacement(options.anchor, popupContainer, options);
       resolve(true);
     });
   });
 }
 
 export function close(doc) {
-  const popupContainer = (doc || document).getElementById('reno-popup-container');
+  doc = doc || document;
+  const popupContainer = doc.getElementById('reno-popup-container');
   if (!popupContainer) return;
-  popupContainer.classList.remove('open');
-  popupContainer.classList.add('close');
+  doc.body.classList.remove('reno-popup-open');
+  doc.body.classList.add('reno-popup-close');
   hyperHTML.bind(popupContainer)``;
   return Promise.resolve(true);
 }
 
 export function isOpen(doc) {
-  const popupContainer = (doc || document).getElementById('reno-popup-container');
-  return popupContainer && popupContainer.classList.contains('open');
+  return (doc || document).body.classList.contains('reno-popup-open');
 }
 
 export function hidePopup(e) {
