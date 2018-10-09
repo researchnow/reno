@@ -11,11 +11,23 @@ try {
   // supress
 }
 require('@clubajax/custom-elements-polyfill');
-const hyperHTML = require('hyperhtml/cjs');
-if (window && !window.hyperHTML) {
+
+import hyperHTML from 'hyperhtml/esm';
+
+if (!window.hyperHTML) {
   window.hyperHTML = hyperHTML;
 }
-const on = require('@clubajax/on');
-if (window && !window.on) {
-  window.on = on;
-}
+// const hyperHTML = require('hyperhtml/cjs');
+// if (!window.hyperHTML) {
+//   window.hyperHTML = hyperHTML;
+// }
+
+window.customLoader = f => {
+  window.on = f();
+  window.customLoader = null;
+};
+require('@clubajax/on');
+// const on = require('@clubajax/on');
+// if (!window.on) {
+//   window.on = on;
+// }

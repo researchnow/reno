@@ -18,6 +18,7 @@ const modernConfig = {
                 '@babel/env',
                 {
                   modules: false,
+                  loose: true,
                   useBuiltIns: 'usage',
                   targets: {
                     browsers: ['Chrome >= 60', 'Safari >= 10.1', 'iOS >= 10.3', 'Firefox >= 54', 'Edge >= 15']
@@ -29,7 +30,7 @@ const modernConfig = {
             plugins: [['@babel/plugin-proposal-class-properties', {loose: true}]]
           }
         },
-        exclude: /\b(?:core-js|prop-types|react-enroute)\b/
+        exclude: /\b(?:core-js|prop-types|react-enroute|custom-elements-polyfill)\b/
       },
       {
         test: /\.scss$/,
@@ -104,6 +105,7 @@ const legacyConfig = {
                 '@babel/env',
                 {
                   modules: false,
+                  loose: true,
                   useBuiltIns: 'usage',
                   targets: {
                     browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']
