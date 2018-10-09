@@ -20,8 +20,8 @@ export function open(options) {
   }
 
   // modal styles
-  modalContainer.classList.remove('close');
-  modalContainer.classList.add('open');
+  doc.body.classList.remove('reno-modal-close');
+  doc.body.classList.add('reno-modal-open');
 
   const placeholder = options.loading || hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`,
     eventHandler = options.eventHandler || defaultEventHandler,
@@ -83,17 +83,18 @@ const title = options.title ? hyperHTML.wire()`<div class="title"><div>${{any: o
 }
 
 export function close(doc) {
-  const modalContainer = (doc || document).getElementById('reno-modal-container');
+  doc = doc || document;
+  const modalContainer = doc.getElementById('reno-modal-container');
   if (!modalContainer) return;
   handle && handle.remove();
-  modalContainer.classList.remove('open');
-  modalContainer.classList.add('close');
+  doc.body.classList.remove('reno-modal-open');
+  doc.body.classList.add('reno-modal-close');
   hyperHTML.bind(modalContainer.querySelector('.reno-modal'))``;
 }
 
 export function isOpen(doc) {
-  const modalContainer = (doc || document).getElementById('reno-modal-container');
-  return modalContainer && modalContainer.classList.contains('open');
+  doc = doc || document;
+  return doc.body.classList.contains('reno-modal-open');
 }
 
 function defaultEventHandler (e) {

@@ -1,5 +1,6 @@
 #reno-modal-container {
   display: none;
+  filter: none;
 
   .reno-modal-background {
     display: block;
@@ -18,7 +19,7 @@
   .reno-modal-content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     z-index: 1;
 
@@ -38,6 +39,8 @@
     flex: 0 1 auto;
 
     width: 600px;
+
+    margin-top: 10vh;
 
     &.small {
       width: 400px;
@@ -103,7 +106,7 @@
   }
 }
 
-#reno-modal-container.open {
+body.reno-modal-open #reno-modal-container {
   display: block;
   position: absolute;
   z-index: 1000;
