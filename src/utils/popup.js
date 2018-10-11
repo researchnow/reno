@@ -3,7 +3,7 @@ export function open(options) {
   const data = options.data;
   if (!options.anchor || (!options.content && typeof data != 'function')) return;
 
-  const doc = options.document || document;
+  const doc = options.anchor.ownerDocument;
 
   // if there's content => close other popups
   close();
