@@ -4,7 +4,7 @@ The biggest little UI in the world.
 
 ## Requirements
 
-Node, npm or yarn.
+Node and npm.
 
 ## Running locally
 
@@ -28,8 +28,7 @@ Node, npm or yarn.
 
 In order to use it on other projects:
 
-* Upgrade Reno: `npm update reno`, then `yarn`. Or (the same): `npm update reno && yarn`.
-  * Alternative: the other way around &mdash; `yarn upgrade reno`, then `npm i`.
+* Upgrade Reno: `npm update reno`.
 
 For local development, the simplest thing to do is linking instead of doing publishing cycles:
 
