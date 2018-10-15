@@ -2,6 +2,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 
 const modernConfig = {
   entry: {modern: ['./src/scripts/main.js', './src/scripts/app.js']},
@@ -13,6 +16,7 @@ const modernConfig = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
+            sourceType: 'unambiguous',
             presets: [
               [
                 '@babel/env',
@@ -27,7 +31,12 @@ const modernConfig = {
               ],
               '@babel/react'
             ],
-            plugins: [['@babel/plugin-proposal-class-properties', {loose: true}]]
+            plugins: [
+              ['@babel/plugin-proposal-class-properties', {loose: true}],
+              "@babel/plugin-syntax-dynamic-import",
+              "@babel/plugin-proposal-export-namespace-from",
+              "@babel/plugin-proposal-throw-expressions"
+            ]
           }
         },
         exclude: /\b(?:core-js|prop-types|react-enroute|custom-elements-polyfill)\b/
@@ -70,11 +79,13 @@ const modernConfig = {
       filename: 'index.html'
     }),
     new CopyWebpackPlugin([
-			{
-				from: './pages',
-				to: 'pages'
-			}
-		]),
+      {
+        from: './pages',
+        to: 'pages'
+      }
+    ]),
+    new OptimizeCssAssetsPlugin(),
+    new Visualizer({filename: './statistics-modern.html'})
   ],
   optimization: {
     splitChunks: {
@@ -83,6 +94,7 @@ const modernConfig = {
           name: 'styles',
           test: /\.css$/,
           chunks: 'all',
+          minChunks: 1,
           enforce: true
         }
       }
@@ -100,6 +112,7 @@ const legacyConfig = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
+            sourceType: 'unambiguous',
             presets: [
               [
                 '@babel/env',
@@ -114,7 +127,12 @@ const legacyConfig = {
               ],
               '@babel/react'
             ],
-            plugins: [['@babel/plugin-proposal-class-properties', {loose: true}]]
+            plugins: [
+              ['@babel/plugin-proposal-class-properties', {loose: true}],
+              "@babel/plugin-syntax-dynamic-import",
+              "@babel/plugin-proposal-export-namespace-from",
+              "@babel/plugin-proposal-throw-expressions"
+            ]
           }
         },
         exclude: /\b(?:core-js|prop-types|react-enroute|custom-elements-polyfill)\b/
@@ -136,6 +154,26 @@ const legacyConfig = {
     path: __dirname + '/docs',
     publicPath: '/',
     filename: '[name].js'
+  },
+  plugins: [new Visualizer({filename: './statistics-legacy.html'})],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        sourceMap: false,
+        parallel: true,
+        uglifyOptions: {
+          compress: {inline: false},
+          output: {
+            comments: false,
+            beautify: false,
+            preserve_line: false,
+            semicolons: false,
+            indent_level: 0,
+            indent_start: 0
+          }
+        }
+      })
+    ]
   }
 };
 

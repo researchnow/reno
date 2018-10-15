@@ -25,9 +25,13 @@ module.exports = {
                 }
               ],
               '@babel/react'
-              // '@babel/stage-2'
             ],
-            plugins: [['@babel/plugin-proposal-class-properties', {loose: true}]]
+            plugins: [
+              ['@babel/plugin-proposal-class-properties', {loose: true}],
+              "@babel/plugin-syntax-dynamic-import",
+              "@babel/plugin-proposal-export-namespace-from",
+              "@babel/plugin-proposal-throw-expressions"
+            ]
           }
         },
         exclude: /\b(?:core-js|prop-types|react-enroute|custom-elements-polyfill)\b/
