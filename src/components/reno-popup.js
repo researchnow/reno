@@ -1,44 +1,44 @@
 let handleClick = null;
 
 class RenoPopup extends HTMLElement {
-	connectedCallback () {
-		if (!handleClick) {
-			handleClick = on(document, 'click', Reno.utils.popup.hidePopup);
-		}
-		// listen to events on the entire component
-		switch(this.getAttribute('trigger')) {
-			case 'click':
-				this.handle = on(this, 'click', this);
-				break;
-			default:
-			// case 'mouseover':
-				this.handle = on(this, 'mouseover,mouseout', this);
-				break;
-		}
-	}
-	disconnectedCallback () {
-		this.handle.remove();
-	}
-	handleEvent (e) {
-		// handle events
-		const trigger = this.getAttribute('trigger') || 'mouseover';
-		if (trigger !== e.type && (trigger !== 'mouseover' || e.type !== 'mouseout')) return;
+  connectedCallback() {
+    if (!handleClick) {
+      handleClick = on(this.ownerDocument, 'click', Reno.utils.popup.hidePopup);
+    }
+    // listen to events on the entire component
+    switch (this.getAttribute('trigger')) {
+      case 'click':
+        this.handle = on(this, 'click', this);
+        break;
+      default:
+        // case 'mouseover':
+        this.handle = on(this, 'mouseover,mouseout', this);
+        break;
+    }
+  }
+  disconnectedCallback() {
+    this.handle.remove();
+  }
+  handleEvent(e) {
+    // handle events
+    const trigger = this.getAttribute('trigger') || 'mouseover';
+    if (trigger !== e.type && (trigger !== 'mouseover' || e.type !== 'mouseout')) return;
 
-		switch (e.type) {
-			case 'click':
-				Reno.utils.popup.isOpen() ? this.close() : this.open();
-				break;
-			case 'mouseover':
-				this.open();
-				break;
-			case 'mouseout':
-				const popup = this.ownerDocument.getElementById('reno-popup-container');
-				if (!e.relatedTarget || popup && !popup.contains(e.relatedTarget)) {
-					this.close();
-				}
-				break;
-		}
-		e.stopPropagation();
+    switch (e.type) {
+      case 'click':
+        Reno.utils.popup.isOpen() ? this.close() : this.open();
+        break;
+      case 'mouseover':
+        this.open();
+        break;
+      case 'mouseout':
+        const popup = this.ownerDocument.getElementById('reno-popup-container');
+        if (!e.relatedTarget || (popup && !popup.contains(e.relatedTarget))) {
+          this.close();
+        }
+        break;
+    }
+    e.stopPropagation();
   }
   open() {
     const options = {
@@ -50,6 +50,15 @@ class RenoPopup extends HTMLElement {
       alignment: this.getAttribute('alignment')
     };
     Reno.utils.popup.open(options);
+    if (typeof this.clickCallback == 'function') {
+      const handle = on(this.ownerDocument, 'click', e => {
+        handle.remove();
+        const popup = this.ownerDocument.getElementById('reno-popup-container'),
+          flag = popup && popup.contains(e.target);
+        this.close();
+        flag && this.clickCallback(e, this);
+      });
+    }
     return options;
   }
   close() {

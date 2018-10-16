@@ -137,6 +137,15 @@
 </div>
 
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+<reno-popup id="action-popup" alignment="left" trigger="click">
+	<div>Click me!</div>
+	<div class="content list">
+    <div action="1">Action #1</div>
+    <div action="2">Action #2</div>
+  </div>
+</reno-popup>
+
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 <p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
@@ -172,7 +181,18 @@
           alignment: 'left'
         });
       }
-		});
+    });
+	})();
+
+  // test search + popup list feature
+	(function() {
+    const popupComponent = document.getElementById('action-popup');
+    popupComponent.clickCallback = (e, popup) => {
+      const node = on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, '[action]');
+      if (node) {
+        alert('Action #' + node.getAttribute('action'));
+      }
+    };
 	})();
 </script>
 </html>
