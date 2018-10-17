@@ -1,3 +1,5 @@
+let handle = null;
+
 export function open(options) {
   options = options || {};
   const data = options.data;
@@ -21,7 +23,8 @@ export function open(options) {
   doc.body.classList.add('reno-popup-open');
 
   // form content
-  const placeholder = options.loading || hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`;
+  const placeholder = options.loading || hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`,
+    eventHandler = options.eventHandler || defaultEventHandler;
   let content = options.content;
   if (data) {
     content = data();
@@ -33,6 +36,7 @@ export function open(options) {
     }
   }
   hyperHTML.bind(popupContainer)`${{any: content, placeholder: placeholder}}`;
+  handle = on(popupContainer, 'click', eventHandler);
 
   return new Promise(resolve => {
     window.requestAnimationFrame(() => {
@@ -46,6 +50,7 @@ export function close(doc) {
   doc = doc || document;
   const popupContainer = doc.getElementById('reno-popup-container');
   if (!popupContainer) return;
+  handle && handle.remove();
   doc.body.classList.remove('reno-popup-open');
   doc.body.classList.add('reno-popup-close');
   hyperHTML.bind(popupContainer)``;
@@ -62,6 +67,8 @@ export function hidePopup(e) {
     Reno.utils.popup.close();
   }
 }
+
+function defaultEventHandler(e) {}
 
 const defaultRender = data =>
   hyperHTML.wire()`<div class="content list">${
