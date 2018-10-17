@@ -988,7 +988,7 @@ function n(){return e.apply(this,arguments)||this}!function(e,n){e.prototype=Obj
 var t=n.prototype
 return t.open=function(){var n=this,e=u(this.querySelector(".content")),t=this.getAttribute("title")||u(this.querySelector(".title")),o=this.getAttribute("buttons")
 o=o&&"string"==typeof o?o.split(/\s*,\s*/g):u(this.querySelector(".buttons"))
-var r={document:this.ownerDocument,size:this.getAttribute("size"),customClass:this.getAttribute("customclass"),content:e,title:t,buttons:o,buttonStyle:this.getAttribute("buttonstyle"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-modal-click",{bubbles:!0,detail:{source:e.target,original:e,component:n}})),n.close()}}
+var r={document:this.ownerDocument,size:this.getAttribute("size"),customClass:this.getAttribute("customclass"),content:e,title:t,buttons:o,buttonStyle:this.getAttribute("buttonstyle"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-modal-click",{bubbles:!0,detail:{source:e.target,original:e}})),n.close()}}
 return Reno.utils.modal.open(r),r},t.close=function(){Reno.utils.modal.close(this.ownerDocument)},n}(o(HTMLElement))
 function u(e){return e&&e.cloneNode(!0)}customElements.define("reno-modal",a)},function(e,n,t){function o(e){var t="function"==typeof Map?new Map:void 0
 return(o=function(e){if(null===e||!function(e){return-1!==Function.toString.call(e).indexOf("[native code]")}(e))return e
@@ -1011,9 +1011,9 @@ if(n===e.type||"mouseover"===n&&"mouseout"===e.type){switch(e.type){case"click":
 break
 case"mouseover":this.open()
 break
-case"mouseout":var t=this.ownerDocument.getElementById("reno-popup-container");(!e.relatedTarget||t&&!t.contains(e.relatedTarget))&&this.close()}e.stopPropagation()}},t.open=function(){var n=this,e={document:this.ownerDocument,anchor:this,content:c(this.querySelector(".content")),loading:c(this.querySelector(".loading")),placement:this.getAttribute("placement"),alignment:this.getAttribute("alignment"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-popup-click",{bubbles:!0,detail:{source:e.target,original:e,component:n}})),n.close()}}
+case"mouseout":var t=this.ownerDocument.getElementById("reno-popup-container");(!e.relatedTarget||t&&!t.contains(e.relatedTarget))&&this.close()}e.stopPropagation()}},t.open=function(){var n=this,e={document:this.ownerDocument,anchor:this,content:function(e){return e&&e.cloneNode(!0)}(this.querySelector(".content")),placement:this.getAttribute("placement"),alignment:this.getAttribute("alignment"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-popup-click",{bubbles:!0,detail:{source:e.target,original:e}})),n.close()}}
 return Reno.utils.popup.open(e),e},t.close=function(){Reno.utils.popup.close()},n}(o(HTMLElement))
-function c(e){return e&&e.cloneNode(!0)}customElements.define("reno-popup",u)},function(e,n,t){function o(e,n){for(var t=0;t<n.length;t++){var o=n[t]
+customElements.define("reno-popup",u)},function(e,n,t){function o(e,n){for(var t=0;t<n.length;t++){var o=n[t]
 o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function r(e){var t="function"==typeof Map?new Map:void 0
 return(r=function(e){if(null===e||!function(e){return-1!==Function.toString.call(e).indexOf("[native code]")}(e))return e
 if("function"!=typeof e)throw new TypeError("Super expression must either be null or a function")
