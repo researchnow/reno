@@ -20,10 +20,7 @@ class RenoModal extends HTMLElement {
         ? e => this.eventHandler(e, this)
         : e => {
             this.dispatchEvent(
-              new CustomEvent('reno-modal-click', {
-                bubbles: true,
-                detail: {source: e.target, original: e, component: this}
-              })
+              new CustomEvent('reno-modal-click', {bubbles: true, detail: {source: e.target, original: e}})
             );
             this.close();
           }

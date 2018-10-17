@@ -45,17 +45,13 @@ class RenoPopup extends HTMLElement {
       document: this.ownerDocument,
       anchor: this,
       content: clone(this.querySelector('.content')),
-      loading: clone(this.querySelector('.loading')),
       placement: this.getAttribute('placement'),
       alignment: this.getAttribute('alignment'),
       eventHandler: this.eventHandler
         ? e => this.eventHandler(e, this)
         : e => {
             this.dispatchEvent(
-              new CustomEvent('reno-popup-click', {
-                bubbles: true,
-                detail: {source: e.target, original: e, component: this}
-              })
+              new CustomEvent('reno-popup-click', {bubbles: true, detail: {source: e.target, original: e}})
             );
             this.close();
           }
