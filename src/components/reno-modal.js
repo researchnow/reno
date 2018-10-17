@@ -16,14 +16,17 @@ class RenoModal extends HTMLElement {
       title: title,
       buttons: buttons,
       buttonStyle: this.getAttribute('buttonstyle'),
-      eventHandler:
-        this.eventHandler ||
-        (e => {
-          this.dispatchEvent(
-            new CustomEvent('reno-modal-button', {bubbles: true, detail: {source: e.target, original: e}})
-          );
-          this.close();
-        })
+      eventHandler: this.eventHandler
+        ? e => this.eventHandler(e, this)
+        : e => {
+            this.dispatchEvent(
+              new CustomEvent('reno-modal-click', {
+                bubbles: true,
+                detail: {source: e.target, original: e, component: this}
+              })
+            );
+            this.close();
+          }
     };
     Reno.utils.modal.open(options);
     return options;

@@ -47,18 +47,20 @@ class RenoPopup extends HTMLElement {
       content: clone(this.querySelector('.content')),
       loading: clone(this.querySelector('.loading')),
       placement: this.getAttribute('placement'),
-      alignment: this.getAttribute('alignment')
+      alignment: this.getAttribute('alignment'),
+      eventHandler: this.eventHandler
+        ? e => this.eventHandler(e, this)
+        : e => {
+            this.dispatchEvent(
+              new CustomEvent('reno-popup-click', {
+                bubbles: true,
+                detail: {source: e.target, original: e, component: this}
+              })
+            );
+            this.close();
+          }
     };
     Reno.utils.popup.open(options);
-    if (typeof this.clickCallback == 'function') {
-      const handle = on(this.ownerDocument, 'click', e => {
-        handle.remove();
-        const popup = this.ownerDocument.getElementById('reno-popup-container'),
-          flag = popup && popup.contains(e.target);
-        this.close();
-        flag && this.clickCallback(e, this);
-      });
-    }
     return options;
   }
   close() {
