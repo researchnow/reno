@@ -187,11 +187,12 @@
   // test search + popup list feature
 	(function() {
     const popupComponent = document.getElementById('action-popup');
-    popupComponent.clickCallback = (e, popup) => {
+    popupComponent.eventHandler = (e, popup) => {
       const node = on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, '[action]');
       if (node) {
         alert('Action #' + node.getAttribute('action'));
       }
+      popup.close();
     };
 	})();
 </script>

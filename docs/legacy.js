@@ -988,7 +988,7 @@ function n(){return e.apply(this,arguments)||this}!function(e,n){e.prototype=Obj
 var t=n.prototype
 return t.open=function(){var n=this,e=u(this.querySelector(".content")),t=this.getAttribute("title")||u(this.querySelector(".title")),o=this.getAttribute("buttons")
 o=o&&"string"==typeof o?o.split(/\s*,\s*/g):u(this.querySelector(".buttons"))
-var r={document:this.ownerDocument,size:this.getAttribute("size"),customClass:this.getAttribute("customclass"),content:e,title:t,buttons:o,buttonStyle:this.getAttribute("buttonstyle"),eventHandler:this.eventHandler||function(e){n.dispatchEvent(new CustomEvent("reno-modal-button",{bubbles:!0,detail:{source:e.target,original:e}})),n.close()}}
+var r={document:this.ownerDocument,size:this.getAttribute("size"),customClass:this.getAttribute("customclass"),content:e,title:t,buttons:o,buttonStyle:this.getAttribute("buttonstyle"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-modal-click",{bubbles:!0,detail:{source:e.target,original:e,component:n}})),n.close()}}
 return Reno.utils.modal.open(r),r},t.close=function(){Reno.utils.modal.close(this.ownerDocument)},n}(o(HTMLElement))
 function u(e){return e&&e.cloneNode(!0)}customElements.define("reno-modal",a)},function(e,n,t){function o(e){var t="function"==typeof Map?new Map:void 0
 return(o=function(e){if(null===e||!function(e){return-1!==Function.toString.call(e).indexOf("[native code]")}(e))return e
@@ -1011,11 +1011,8 @@ if(n===e.type||"mouseover"===n&&"mouseout"===e.type){switch(e.type){case"click":
 break
 case"mouseover":this.open()
 break
-case"mouseout":var t=this.ownerDocument.getElementById("reno-popup-container");(!e.relatedTarget||t&&!t.contains(e.relatedTarget))&&this.close()}e.stopPropagation()}},t.open=function(){var o=this,e={document:this.ownerDocument,anchor:this,content:c(this.querySelector(".content")),loading:c(this.querySelector(".loading")),placement:this.getAttribute("placement"),alignment:this.getAttribute("alignment")}
-if(Reno.utils.popup.open(e),"function"==typeof this.clickCallback)var r=on(this.ownerDocument,"click",function(e){r.remove()
-var n=o.ownerDocument.getElementById("reno-popup-container"),t=n&&n.contains(e.target)
-o.close(),t&&o.clickCallback(e,o)})
-return e},t.close=function(){Reno.utils.popup.close()},n}(o(HTMLElement))
+case"mouseout":var t=this.ownerDocument.getElementById("reno-popup-container");(!e.relatedTarget||t&&!t.contains(e.relatedTarget))&&this.close()}e.stopPropagation()}},t.open=function(){var n=this,e={document:this.ownerDocument,anchor:this,content:c(this.querySelector(".content")),loading:c(this.querySelector(".loading")),placement:this.getAttribute("placement"),alignment:this.getAttribute("alignment"),eventHandler:this.eventHandler?function(e){return n.eventHandler(e,n)}:function(e){n.dispatchEvent(new CustomEvent("reno-popup-click",{bubbles:!0,detail:{source:e.target,original:e,component:n}})),n.close()}}
+return Reno.utils.popup.open(e),e},t.close=function(){Reno.utils.popup.close()},n}(o(HTMLElement))
 function c(e){return e&&e.cloneNode(!0)}customElements.define("reno-popup",u)},function(e,n,t){function o(e,n){for(var t=0;t<n.length;t++){var o=n[t]
 o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function r(e){var t="function"==typeof Map?new Map:void 0
 return(r=function(e){if(null===e||!function(e){return-1!==Function.toString.call(e).indexOf("[native code]")}(e))return e
@@ -1045,7 +1042,7 @@ t.r(n)
 var o={}
 t.r(o),t.d(o,"open",function(){return M}),t.d(o,"close",function(){return h}),t.d(o,"isOpen",function(){return y})
 var r={}
-t.r(r),t.d(r,"open",function(){return j}),t.d(r,"close",function(){return Q}),t.d(r,"isOpen",function(){return T}),t.d(r,"hidePopup",function(){return L}),t.d(r,"enhanceListContent",function(){return z})
+t.r(r),t.d(r,"open",function(){return Q}),t.d(r,"close",function(){return T}),t.d(r,"isOpen",function(){return L}),t.d(r,"hidePopup",function(){return O}),t.d(r,"enhanceListContent",function(){return U})
 t(88),t(125),t(47),t(0),t(2),t(25),t(24),t(19)
 var A=function t(o){return o&&"object"==typeof o&&"function"!=typeof o?o instanceof Date?new Date(o.getTime()):o instanceof RegExp?new RegExp(o.source,(o.global?"g":"")+(o.multiline?"m":"")+(o.ignoreCase?"i":"")):Object.keys(o).reduce(function(e,n){return e[n]=t(o[n]),e},o instanceof Array?[]:{}):o},i=function(o,r){var A,i
 return void 0===r&&(r=50),function(){for(var e=arguments.length,n=new Array(e),t=0;t<e;t++)n[t]=arguments[t]
@@ -1078,7 +1075,7 @@ break
 default:switch(e.toLowerCase()){case"ok":t="reno-button-ok"
 break
 case"cancel":t="reno-button-cancel"}}return r.buttonStyle&&(t+="-"+r.buttonStyle),hyperHTML.wire()(l(),o+"/"+t,t,o)})).length?hyperHTML.wire()(s(),u):""),i(c(),a,{any:r.content,placeholder:t},u),b=on.makeMultiHandle([on(A,"click","button",o),on(e,"keyup:Escape",o)])}}function h(e){var n=(e=e||document).getElementById("reno-modal-container")
-n&&(b&&b.remove(),e.body.classList.remove("reno-modal-open"),e.body.classList.add("reno-modal-close"),hyperHTML.bind(n.querySelector(".reno-modal"))(a()))}function y(e){return(e||document).body.classList.contains("reno-modal-open")}function I(e){h(e.target.ownerDocument)}t(31)
+n&&(b&&b.remove(),e.body.classList.remove("reno-modal-open"),e.body.classList.add("reno-modal-close"),hyperHTML.bind(n.querySelector(".reno-modal"))(a()))}function y(e){return(e||document).body.classList.contains("reno-modal-open")}function I(e){Reno.utils.modal.close(e.target.ownerDocument)}t(31)
 var m={object:1,function:1},v=function(e,n,t){void 0===t&&(t="."),"string"==typeof n&&(n=n?n.split(t):[])
 for(var o=0;o<n.length;++o){if(!e||!m[typeof e])return
 e=e[n[o]]}return e}
@@ -1089,20 +1086,21 @@ return w=function(){return e},e}function D(){var e=N(['<div class="content list"
 return D=function(){return e},e}function C(){var e=N([""])
 return C=function(){return e},e}function k(){var e=N(["",""])
 return k=function(){return e},e}function B(){var e=N(['<div class="loading">Loading&hellip;</div>'])
-return B=function(){return e},e}function N(e,n){return n||(n=e.slice(0)),e.raw=n,e}function j(n){var e=(n=n||{}).data
+return B=function(){return e},e}function N(e,n){return n||(n=e.slice(0)),e.raw=n,e}var j=null
+function Q(n){var e=(n=n||{}).data
 if(n.anchor&&(n.content||"function"==typeof e)){var t=n.anchor.ownerDocument
-Q()
+T()
 var o=t.getElementById("reno-popup-container")
 o||((o=t.createElement("div")).id="reno-popup-container",t.body.appendChild(o)),t.body.classList.remove("reno-popup-close"),t.body.classList.add("reno-popup-open")
-var r=n.loading||hyperHTML.wire()(B()),A=n.content
-return e&&(A=e())&&"function"==typeof A.then&&(A=A.then(function(e){return window.requestAnimationFrame(function(){return S(n.anchor,o,n)}),e})),hyperHTML.bind(o)(k(),{any:A,placeholder:r}),new Promise(function(e){window.requestAnimationFrame(function(){S(n.anchor,o,n),e(!0)})})}}function Q(e){var n=(e=e||document).getElementById("reno-popup-container")
-if(n)return e.body.classList.remove("reno-popup-open"),e.body.classList.add("reno-popup-close"),hyperHTML.bind(n)(C()),Promise.resolve(!0)}function T(e){return(e||document).body.classList.contains("reno-popup-open")}function L(e){var n=e.target.ownerDocument.getElementById("reno-popup-container")
-n&&!n.contains(e.target)&&Reno.utils.popup.close()}var O=function(e){return hyperHTML.wire()(D(),e.length?e.map(function(e,n){return hyperHTML.wire()(w(),n,e.name)}):hyperHTML.wire()(x()))}
-function z(e,i,n,a){return void 0===n&&(n=O),void 0===a&&(a="[renoindex]"),Promise.resolve(e).then(function(e){return[e,n(e)]}).then(function(e){var r=e[0],A=on(document,"click",function(e){var n=document.getElementById("reno-popup-container"),t=n&&n.contains(e.target)&&on.closest(1===e.target.nodeType?e.target:e.target.parentNode,a)
+var r=n.loading||hyperHTML.wire()(B()),A=n.eventHandler||z,i=n.content
+return e&&(i=e())&&"function"==typeof i.then&&(i=i.then(function(e){return window.requestAnimationFrame(function(){return Y(n.anchor,o,n)}),e})),hyperHTML.bind(o)(k(),{any:i,placeholder:r}),j=on(o,"click",A),new Promise(function(e){window.requestAnimationFrame(function(){Y(n.anchor,o,n),e(!0)})})}}function T(e){var n=(e=e||document).getElementById("reno-popup-container")
+if(n)return j&&j.remove(),e.body.classList.remove("reno-popup-open"),e.body.classList.add("reno-popup-close"),hyperHTML.bind(n)(C()),Promise.resolve(!0)}function L(e){return(e||document).body.classList.contains("reno-popup-open")}function O(e){var n=e.target.ownerDocument.getElementById("reno-popup-container")
+n&&!n.contains(e.target)&&Reno.utils.popup.close()}function z(e){}var S=function(e){return hyperHTML.wire()(D(),e.length?e.map(function(e,n){return hyperHTML.wire()(w(),n,e.name)}):hyperHTML.wire()(x()))}
+function U(e,i,n,a){return void 0===n&&(n=S),void 0===a&&(a="[renoindex]"),Promise.resolve(e).then(function(e){return[e,n(e)]}).then(function(e){var r=e[0],A=on(document,"click",function(e){var n=document.getElementById("reno-popup-container"),t=n&&n.contains(e.target)&&on.closest(1===e.target.nodeType?e.target:e.target.parentNode,a)
 A.remove(),Reno.utils.popup.close()
 var o=t&&/^\[(\w+)\]$/.exec(a)
 t&&i(t,o?r[t.getAttribute(o[1])]:null)})
-return e[1]})}function S(e,n,t){var o=t.placement||e.getAttribute("placement"),r=t.alignment||e.getAttribute("alignment")
+return e[1]})}function Y(e,n,t){var o=t.placement||e.getAttribute("placement"),r=t.alignment||e.getAttribute("alignment")
 n.style.top="0",n.style.left="0"
 var A=e.getBoundingClientRect(),i=n.getBoundingClientRect(),a=getComputedStyle(n).margin,u=/px\b/.test(a)?parseFloat(a):0
 switch(o){case"left":A.left-i.width-u<0?n.style.left=A.right+window.pageXOffset+"px":n.style.left=A.left-i.width+window.pageXOffset-2*u+"px"
@@ -1122,13 +1120,13 @@ case"bottom":n.style.top=c+window.pageYOffset-i.height+"px"
 break
 default:switch(o){case"left":case"right":n.style.top=A.top+window.pageYOffset-u-(i.height-A.height)/2+"px"
 break
-case"top":default:n.style.left=A.left+window.pageXOffset-u-(i.width-A.width)/2+"px"}}}for(var U=arguments,Y=function(e,n,t,o){void 0===n&&(n=0),void 0===t&&(t=","),void 0===o&&(o=".")
+case"top":default:n.style.left=A.left+window.pageXOffset-u-(i.width-A.width)/2+"px"}}}for(var F=arguments,G=function(e,n,t,o){void 0===n&&(n=0),void 0===t&&(t=","),void 0===o&&(o=".")
 for(var r=Math.abs(e).toFixed(n),A=0<n?r.length-n-1:r.length,i=A%3,a=i?[r.slice(0,i)]:[],u=i;u<A;u+=3)a.push(r.slice(u,u+3))
-return(e<0?"-":"")+a.join(t)+(A<r.length?o+r.slice(A+1):"")},F=1,G=F;1<G+1;F=G,G*=.5);var R=function e(n,t){return"string"==typeof(n=n||0)&&(n=parseFloat(n)),parseFloat((n+n*e.epsilon).toFixed(t))}
-R.epsilon=F
-var V=R,W=(t(43),function(){}),H=function(e){e.preventDefault(),e.stopPropagation()},Z=function(e,n){e.x+=n.pageX-e.mouseX,e.y+=n.pageY-e.mouseY},J=function(){function e(e,n,t,o){this.container=e,this.options=n,this.node=t,this.container.classList.add("reno-dnd-dragged-container"),this.node.ownerDocument.documentElement.classList.add("reno-dnd-in-flight"),this.node.classList.add("reno-dnd-dragged"),this.mouseX=o.pageX,this.mouseY=o.pageY,this.avatar=(n.makeAvatar||function(e){var n=e.node,t=n.getBoundingClientRect(),o=window.getComputedStyle(n),r=n.cloneNode(!0)
-return e.x=t.left-parseFloat(o.marginLeft)+window.pageXOffset,e.y=t.top-parseFloat(o.marginTop)+window.pageYOffset,r.style.position="absolute",r.style.height=o.height,r.style.width=o.width,r.style.left=e.x+"px",r.style.top=e.y+"px",r.classList.remove("reno-dnd-dragged"),r.classList.add(e.options.avatarClass||"reno-dnd-avatar"),n.ownerDocument.body.appendChild(r),r})(this),this.moving=n.moving||Z,this.over=n.over||W,this.handles=[on(t.ownerDocument,"mouseup",this.done.bind(this)),on(t.ownerDocument,"mousemove",this.move.bind(this)),on(t.ownerDocument,"dragstart",H),on(t.ownerDocument.body,"selectstart",H)],(this.options.init||W)(this)}var n=e.prototype
-return n.destroy=function(){this.handles.forEach(function(e){return e.remove()}),this.handles=[],this.container.classList.remove("reno-dnd-dragged-container"),this.node.ownerDocument.documentElement.classList.remove("reno-dnd-in-flight"),this.node.classList.remove("reno-dnd-dragged"),this.previousOverItem&&this.previousOverItem.classList.remove("reno-dnd-over"),(this.options.destroy||W)(this)},n.done=function(e){H(e),(this.options.drop||W)(this),this.avatar.parentNode.removeChild(this.avatar),this.destroy()},n.move=function(e){H(e),this.moving(this,e),this.mouseX=e.pageX,this.mouseY=e.pageY,this.avatar.style.left=this.x+"px",this.avatar.style.top=this.y+"px",this.over(this)},e}(),P={a:1,input:1,select:1,button:1,textarea:1,option:1},_=function(e,n){var t=function(t,o){return function(e,n){n=n||e.target,e.button||1===P[n.tagName.toLowerCase()]||n.classList.contains("reno-dnd-ignore")||(new J(t,o,n,e),H(e))}}(e,n=n||{}),o=n.filter||".reno-dnd-item"
+return(e<0?"-":"")+a.join(t)+(A<r.length?o+r.slice(A+1):"")},R=1,V=R;1<V+1;R=V,V*=.5);var W=function e(n,t){return"string"==typeof(n=n||0)&&(n=parseFloat(n)),parseFloat((n+n*e.epsilon).toFixed(t))}
+W.epsilon=R
+var H=W,Z=(t(43),function(){}),J=function(e){e.preventDefault(),e.stopPropagation()},P=function(e,n){e.x+=n.pageX-e.mouseX,e.y+=n.pageY-e.mouseY},_=function(){function e(e,n,t,o){this.container=e,this.options=n,this.node=t,this.container.classList.add("reno-dnd-dragged-container"),this.node.ownerDocument.documentElement.classList.add("reno-dnd-in-flight"),this.node.classList.add("reno-dnd-dragged"),this.mouseX=o.pageX,this.mouseY=o.pageY,this.avatar=(n.makeAvatar||function(e){var n=e.node,t=n.getBoundingClientRect(),o=window.getComputedStyle(n),r=n.cloneNode(!0)
+return e.x=t.left-parseFloat(o.marginLeft)+window.pageXOffset,e.y=t.top-parseFloat(o.marginTop)+window.pageYOffset,r.style.position="absolute",r.style.height=o.height,r.style.width=o.width,r.style.left=e.x+"px",r.style.top=e.y+"px",r.classList.remove("reno-dnd-dragged"),r.classList.add(e.options.avatarClass||"reno-dnd-avatar"),n.ownerDocument.body.appendChild(r),r})(this),this.moving=n.moving||P,this.over=n.over||Z,this.handles=[on(t.ownerDocument,"mouseup",this.done.bind(this)),on(t.ownerDocument,"mousemove",this.move.bind(this)),on(t.ownerDocument,"dragstart",J),on(t.ownerDocument.body,"selectstart",J)],(this.options.init||Z)(this)}var n=e.prototype
+return n.destroy=function(){this.handles.forEach(function(e){return e.remove()}),this.handles=[],this.container.classList.remove("reno-dnd-dragged-container"),this.node.ownerDocument.documentElement.classList.remove("reno-dnd-in-flight"),this.node.classList.remove("reno-dnd-dragged"),this.previousOverItem&&this.previousOverItem.classList.remove("reno-dnd-over"),(this.options.destroy||Z)(this)},n.done=function(e){J(e),(this.options.drop||Z)(this),this.avatar.parentNode.removeChild(this.avatar),this.destroy()},n.move=function(e){J(e),this.moving(this,e),this.mouseX=e.pageX,this.mouseY=e.pageY,this.avatar.style.left=this.x+"px",this.avatar.style.top=this.y+"px",this.over(this)},e}(),X={a:1,input:1,select:1,button:1,textarea:1,option:1},K=function(e,n){var t=function(t,o){return function(e,n){n=n||e.target,e.button||1===X[n.tagName.toLowerCase()]||n.classList.contains("reno-dnd-ignore")||(new _(t,o,n,e),J(e))}}(e,n=n||{}),o=n.filter||".reno-dnd-item"
 return on(e,"mousedown",o,t)}
 window&&(window.Reno||(window.Reno={utils:{}}),Reno.utils||(Reno.utils={}),Reno.utils.apportion=function(t,e,o){void 0===o&&(o=1)
 var r=0,n=e.map(function(e,n){return r+=e,{id:n,original:e}})
@@ -1155,14 +1153,14 @@ if(n.constructor!==t.constructor)return!1
 var r=Object.keys(n).sort(E),A=Object.keys(t).sort(E)
 if(r.length!=A.length)return!1
 for(var i=0;i<r.length;++i){var a=r[i]
-if(a!==A[i]||!e(n[a],t[a]))return!1}return!0},Reno.utils.pumpEvent=function(n,t,o,e,r){return void 0===o&&(o=""),void 0===e&&(e=500),void 0===r&&(r=i),r(function(e){n.setAttribute(t,v(e,o))},e)},Reno.utils.pumpValue=function(n,t,o,e,r){return void 0===e&&(e=500),void 0===r&&(r=i),r(function(e){t.setAttribute(o,(n||e.target).value)},e)},Reno.utils.popup=r,Reno.utils.seq=function(n,t){return n instanceof Array||(n=Array.prototype.slice.call(U,0),t=null),function(e){return n.reduce(function(e,n){return e.then(n)},function(e,n){return void 0===n&&(n=Promise),e&&"function"==typeof e.then?e:n.resolve(e)}(e,t))}},Reno.utils.throttle=function(i,a){void 0===a&&(a=50)
+if(a!==A[i]||!e(n[a],t[a]))return!1}return!0},Reno.utils.pumpEvent=function(n,t,o,e,r){return void 0===o&&(o=""),void 0===e&&(e=500),void 0===r&&(r=i),r(function(e){n.setAttribute(t,v(e,o))},e)},Reno.utils.pumpValue=function(n,t,o,e,r){return void 0===e&&(e=500),void 0===r&&(r=i),r(function(e){t.setAttribute(o,(n||e.target).value)},e)},Reno.utils.popup=r,Reno.utils.seq=function(n,t){return n instanceof Array||(n=Array.prototype.slice.call(F,0),t=null),function(e){return n.reduce(function(e,n){return e.then(n)},function(e,n){return void 0===n&&(n=Promise),e&&"function"==typeof e.then?e:n.resolve(e)}(e,t))}},Reno.utils.throttle=function(i,a){void 0===a&&(a=50)
 var u,c,s=+new Date
 return function(){for(var e=arguments.length,n=new Array(e),t=0;t<e;t++)n[t]=arguments[t]
 if(c=n,!u){var o=+new Date,r=s+a-o
 if(r<=0){var A=c
 c=null,s=o,i.apply(void 0,A)}else u=setTimeout(function(){var e=c
-u=c=null,s=o,i.apply(void 0,e)},r)}}},Reno.utils.formatCurrency=function(e){var n="$"+Y(Math.abs(e),2)
-return e<0?"("+n+")":n},Reno.utils.formatNumber=Y,Reno.utils.toPrecision=V,Reno.utils.toTitleCase=function(e){return e.replace(/\b\w+\b/g,function(e){return e.charAt(0).toUpperCase()+e.substr(1).toLowerCase()})},Reno.utils.dnd={start:_,init:function(e){var n=e.container.getBoundingClientRect(),t=window.getComputedStyle(e.container),o={left:n.left+window.pageXOffset+parseFloat(t.borderLeftWidth),right:n.right+window.pageXOffset-parseFloat(t.borderRightWidth)-parseFloat(t.marginRight),top:n.top+window.pageYOffset+parseFloat(t.borderTopWidth),bottom:n.bottom+window.pageYOffset-parseFloat(t.borderBottomWidth)-parseFloat(t.marginBottom)}
+u=c=null,s=o,i.apply(void 0,e)},r)}}},Reno.utils.formatCurrency=function(e){var n="$"+G(Math.abs(e),2)
+return e<0?"("+n+")":n},Reno.utils.formatNumber=G,Reno.utils.toPrecision=H,Reno.utils.toTitleCase=function(e){return e.replace(/\b\w+\b/g,function(e){return e.charAt(0).toUpperCase()+e.substr(1).toLowerCase()})},Reno.utils.dnd={start:K,init:function(e){var n=e.container.getBoundingClientRect(),t=window.getComputedStyle(e.container),o={left:n.left+window.pageXOffset+parseFloat(t.borderLeftWidth),right:n.right+window.pageXOffset-parseFloat(t.borderRightWidth)-parseFloat(t.marginRight),top:n.top+window.pageYOffset+parseFloat(t.borderTopWidth),bottom:n.bottom+window.pageYOffset-parseFloat(t.borderBottomWidth)-parseFloat(t.marginBottom)}
 t=window.getComputedStyle(e.avatar),o.left-=parseFloat(t.marginLeft),o.right-=parseFloat(t.marginLeft)+parseFloat(t.borderLeftWidth)+parseFloat(t.width)+parseFloat(t.borderRightWidth),o.top-=parseFloat(t.marginTop),o.bottom-=parseFloat(t.marginTop)+parseFloat(t.borderTopWidth)+parseFloat(t.height)+parseFloat(t.borderBottomWidth),e.containerBox=o
 for(var r=e.container.querySelectorAll(e.options.target||".reno-dnd-item"),A=[],i=0;i<r.length;++i)n=r[i].getBoundingClientRect(),A.push({node:r[i],left:n.left+window.pageXOffset,right:n.right+window.pageXOffset,top:n.top+window.pageYOffset,bottom:n.bottom+window.pageYOffset})
 e.itemBoxes=A},over:function(n){n.itemBoxes.some(function(e){return e.left<=n.mouseX&&n.mouseX<e.right&&e.top<=n.mouseY&&n.mouseY<e.bottom&&(e.node!==n.previousOverItem&&(n.previousOverItem&&n.previousOverItem.classList.remove("reno-dnd-over"),n.previousOverItem=e.node,n.previousOverItem.classList.add("reno-dnd-over")),!0)})||(n.previousOverItem&&n.previousOverItem.classList.remove("reno-dnd-over"),n.previousOverItem=null)},moving:function(e,n){e.x+=n.pageX-e.mouseX,e.x=Math.max(e.containerBox.left,Math.min(e.containerBox.right,e.x)),e.y+=n.pageY-e.mouseY,e.y=Math.max(e.containerBox.top,Math.min(e.containerBox.bottom,e.y))},movingX:function(e,n){e.x+=n.pageX-e.mouseX,e.x=Math.max(e.containerBox.left,Math.min(e.containerBox.right,e.x))},movingY:function(e,n){e.y+=n.pageY-e.mouseY,e.y=Math.max(e.containerBox.top,Math.min(e.containerBox.bottom,e.y))},rearrangeable:{dropX:function(n){n.previousOverItem&&(n.itemBoxes.some(function(e){return n.mouseX<(e.left+e.right)/2&&(e.node!==n.node&&n.container.insertBefore(n.node,e.node),!0)})||n.container.appendChild(n.node))},dropY:function(n){n.previousOverItem&&(n.itemBoxes.some(function(e){return n.mouseY<(e.top+e.bottom)/2&&(e.node!==n.node&&n.container.insertBefore(n.node,e.node),!0)})||n.container.appendChild(n.node))}}})
