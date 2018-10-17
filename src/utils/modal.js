@@ -1,7 +1,5 @@
 let handle = null;
 
-const sizes = ['small', 'medium', 'large', 'x-large'];
-
 export function open(options) {
   options = options || {};
 
@@ -103,5 +101,5 @@ export function isOpen(doc) {
 }
 
 function defaultEventHandler(e) {
-  close(e.target.ownerDocument);
+  Reno.utils.modal.close(e.target.ownerDocument);
 }
