@@ -77,7 +77,7 @@ export function open(options) {
       if (options.buttonStyle) {
         className += '-' + options.buttonStyle;
       }
-      return hyperHTML.wire()`<button key=${text + '/' + className} index=&{index} class=${className}>${text}</button>`;
+      return hyperHTML.wire()`<button key=${text + '/' + className} index=${index} class=${className}>${text}</button>`;
     });
     buttons = buttons.length ? hyperHTML.wire()`<div class="buttons">${buttons}</div>` : '';
   }
