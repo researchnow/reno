@@ -45,8 +45,18 @@
     top: 0;
     bottom: 0;
 
+    .reno-busy-spinner {
+      font-size: $reno-spacing;
+      margin-top: 0.5em;
+      padding: 1em;
+      border-radius: 1em;
+      background-color: $reno-color-dirty-white;
+    }
+
     .reno-busy-message {
-      margin-bottom: 1em;
+      padding: 1em;
+      border-radius: 1em;
+      background-color: $reno-color-dirty-white;
     }
   }
 }

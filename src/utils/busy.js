@@ -16,7 +16,7 @@ export function open(options) {
       <div class="reno-busy-background"></div>
       <div class="reno-busy-content">
         <div class="reno-busy-message"></div>
-        <div class="reno-spinner">Busy&hellip;</div>
+        <div class="reno-busy-spinner"><div class="reno-spinner">Busy&hellip;</div></div>
       </div>
     </div>`;
     busyContainer.ownerDocument.body.appendChild(busyContainer);
