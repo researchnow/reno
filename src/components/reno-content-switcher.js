@@ -106,8 +106,7 @@
 				return;
 			}
 			if (e.target === this.lastElementChild && this.state === 'revealing') {
-				const curtain = this.lastElementChild;
-				curtain.style.display = 'none';
+				this.lastElementChild.style.display = 'none';
 				this.state = '';
 			}
 		}

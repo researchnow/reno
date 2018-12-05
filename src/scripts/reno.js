@@ -16,6 +16,7 @@ import pumpValue from '../utils/pumpValue';
 import * as popup from '../utils/popup';
 import seq from '../utils/seq';
 import throttle from '../utils/throttle';
+import * as busy from '../utils/busy';
 
 import formatCurrency from '../utils/formatCurrency';
 import formatNumber from '../utils/formatNumber';
@@ -47,6 +48,7 @@ if (window) {
   Reno.utils.popup = popup;
   Reno.utils.seq = seq;
   Reno.utils.throttle = throttle;
+  Reno.utils.busy = busy;
 
   Reno.utils.formatCurrency = formatCurrency;
   Reno.utils.formatNumber = formatNumber;

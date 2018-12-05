@@ -67,7 +67,7 @@
 						<div class="strong">I/O error. Please try again later.</div>
 						<div>The support team is automatically notified.</div>
 					</div>
-					<div class="page spinner"><div class="reno-spinner">Loading...</div></div>
+					<div class="page spinner"><div class="reno-spinner">Loading&hellip;;</div></div>
 				</reno-content-switcher>
 				<div class="control-bar">
 					<reno-table-pager></reno-table-pager>
