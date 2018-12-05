@@ -1,6 +1,6 @@
 {
   "name": "@researchnow/reno",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "The biggest little UI in the world.",
   "publishConfig": {
     "registry": "http://npm-dev.researchnow.com:4873/"
@@ -17,7 +17,7 @@
   "dependencies": {
     "@clubajax/custom-elements-polyfill": "^0.9.3",
     "@clubajax/on": "^2.1.8",
-    "heya-io": "^1.2.6",
+    "heya-io": "^1.3.0",
     "hyperhtml": "^2.20.2"
   },
   "devDependencies": {
