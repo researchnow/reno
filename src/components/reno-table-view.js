@@ -40,7 +40,7 @@
       this.removeEventListener('click', this.onClick);
     }
     static get observedAttributes() {
-      return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup'];
+      return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'sortable'];
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
       if (this.blacklistedAttributes[attrName] == 1) {
@@ -52,14 +52,28 @@
         return this.render();
       }
       if (attrName === 'fields') {
-        this.fieldList = (newVal || 'name').split(',').map(field => field.trim());
-        this.fieldMap = this.fieldMap || {};
+        this.fieldList = (newVal || 'name')
+          .split(',')
+          .map(field => field.trim())
+          .filter(field => field);
+        this.fieldMap = {};
         this.fieldList.forEach(field => {
           if (!Object.prototype.hasOwnProperty.call(this.fieldMap, field)) {
             const start = field.charAt(0) === '-' ? 1 : 0;
             this.fieldMap[field] = field.charAt(start).toUpperCase() + field.substr(start + 1).replace(/_|\-/g, ' ');
           }
         });
+      } else if (attrName === 'sortable') {
+        if (newVal === null) {
+          this.sortableList = this.sortableMap = null;
+        } else {
+          this.sortableList = newVal
+            .split(',')
+            .map(field => field.trim())
+            .filter(field => field);
+          this.sortableMap = {};
+          this.sortableList.forEach(field => (this.sortableMap[field] = 1));
+        }
       }
       this.io();
     }
@@ -78,47 +92,58 @@
       const sortList = {};
       (this.getAttribute('sort') || '')
         .split(',')
-        .forEach(
-          field =>
-            field.charAt(0) === '-' ? (sortList[field.substr(1)] = 'descending') : (sortList[field] = 'ascending')
+        .forEach(field =>
+          field.charAt(0) === '-' ? (sortList[field.substr(1)] = 'descending') : (sortList[field] = 'ascending')
         );
 
       // prepare the colgroup
       let cols = [];
       if (!noColGroup) {
         cols = this.fieldList.map(field => {
-          const cssClasses = 'field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
+          const cssClasses =
+            'field-' +
+            field +
+            (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '') +
+            (!this.sortableList || this.sortableMap[field] === 1 ? ' sortable' : '');
           return hyperHTML.wire()`<col class="${cssClasses}"></col>`;
         });
         cols = hyperHTML.wire()`<colgroup>${cols}</colgroup>`;
       }
 
       // prepare the header
-      const headRowCells = this.fieldList.filter(field => this.fieldMap[field] !== null).map(field => {
-        const cssClasses = 'td field-' + field + (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '');
-        let fieldName = this.fieldMap[field];
-        if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-        return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${renderValue(
-          fieldName
-        )}</span></div>`;
-      });
+      const headRowCells = this.fieldList
+        .filter(field => this.fieldMap[field] !== null)
+        .map(field => {
+          const cssClasses =
+            'td field-' +
+            field +
+            (typeof sortList[field] == 'string' ? ' ' + sortList[field] : '') +
+            (!this.sortableList || this.sortableMap[field] === 1 ? ' sortable' : '');
+          let fieldName = this.fieldMap[field];
+          if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
+          return hyperHTML.wire()`<div class="${cssClasses}" field="${field}"><span>${renderValue(
+            fieldName
+          )}</span></div>`;
+        });
       const header = hyperHTML.wire()`<div class="thead"><div class="tr">${headRowCells}</div></div>`;
 
       // prepare the body
       const bodyRows = this.page.data.map(o => {
-        const bodyRowCells = this.fieldList.filter(field => this.fieldMap[field] !== null).map(field => {
-          const value = this.formatFieldValue(o, field);
-          if (labels) {
-            let fieldName = this.fieldMap[field];
-            if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
-            return hyperHTML.wire()`<div class="${'td field-' + field}">
-							<div class="label">${renderValue(fieldName)}</div>
-							<div class="value">${renderValue(value)}</div></div>`;
-          }
-          return hyperHTML.wire()`<div class="${'td field-' + field}">${
-            typeof value == 'object' ? value : {html: value}
-          }</div>`;
-        });
+        const bodyRowCells = this.fieldList
+          .filter(field => this.fieldMap[field] !== null)
+          .map(field => {
+            const value = this.formatFieldValue(o, field);
+            if (labels) {
+              let fieldName = this.fieldMap[field];
+              if (fieldName === undefined) fieldName = '<em>' + field + '</em>';
+              return hyperHTML.wire()`<div class="${'td field-' + field}"><div class="label">${renderValue(
+                fieldName
+              )}</div><div class="value">${renderValue(value)}</div></div>`;
+            }
+            return hyperHTML.wire()`<div class="${'td field-' + field}">${
+              typeof value == 'object' ? value : {html: value}
+            }</div>`;
+          });
         return hyperHTML.wire(o)`<div class="tr">${bodyRowCells}</div>`;
       });
 
@@ -185,15 +210,15 @@
         )
           break;
         const field = node.getAttribute('field');
-        if (field) {
+        if (field && node.classList.contains('sortable')) {
           // process sorting events
           if (field.charAt(0) !== '-') {
             // ignore technical fields
             const currentState = node.classList.contains('ascending')
               ? -1
               : node.classList.contains('descending')
-                ? 1
-                : 0;
+              ? 1
+              : 0;
             this.dispatchEvent(
               new CustomEvent('reno-table-sort-requested', {bubbles: true, detail: {field, currentState}})
             );

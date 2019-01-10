@@ -30,7 +30,7 @@
       Object.keys(supportedEvents).forEach(eventName => this.removeEventListener(eventName, this));
     }
     static get observedAttributes() {
-      return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'around'];
+      return ['offset', 'limit', 'fields', 'sort', 'filter', 'url', 'labels', 'nocolgroup', 'sortable', 'around'];
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
       if (attrName === 'around') {

@@ -22,6 +22,10 @@ reno-table-view {
 	}
 
 	.thead {
+    cursor: default;
+    .sortable {
+      cursor: pointer;
+    }
 		.ascending, .descending {
 			& > span {
 				display: inline-block;
@@ -44,9 +48,6 @@ reno-table-view {
 		.descending > span::after {
 			content: $reno-icon-menu-up;
 			top: 6px;
-		}
-		[field^="-"] {
-			cursor: default;
 		}
 	}
 
