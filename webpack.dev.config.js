@@ -28,9 +28,9 @@ module.exports = {
             ],
             plugins: [
               ['@babel/plugin-proposal-class-properties', {loose: true}],
-              "@babel/plugin-syntax-dynamic-import",
-              "@babel/plugin-proposal-export-namespace-from",
-              "@babel/plugin-proposal-throw-expressions"
+              '@babel/plugin-syntax-dynamic-import',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-throw-expressions'
             ]
           }
         },

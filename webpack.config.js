@@ -33,9 +33,9 @@ const modernConfig = {
             ],
             plugins: [
               ['@babel/plugin-proposal-class-properties', {loose: true}],
-              "@babel/plugin-syntax-dynamic-import",
-              "@babel/plugin-proposal-export-namespace-from",
-              "@babel/plugin-proposal-throw-expressions"
+              '@babel/plugin-syntax-dynamic-import',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-throw-expressions'
             ]
           }
         },
@@ -43,14 +43,7 @@ const modernConfig = {
       },
       {
         test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {minimize: {preset: 'advanced'}}
-          },
-          'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   },
@@ -129,9 +122,9 @@ const legacyConfig = {
             ],
             plugins: [
               ['@babel/plugin-proposal-class-properties', {loose: true}],
-              "@babel/plugin-syntax-dynamic-import",
-              "@babel/plugin-proposal-export-namespace-from",
-              "@babel/plugin-proposal-throw-expressions"
+              '@babel/plugin-syntax-dynamic-import',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-throw-expressions'
             ]
           }
         },

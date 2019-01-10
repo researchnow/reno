@@ -31,7 +31,7 @@
 				return {offset, total: data.length, data: data.slice(offset, offset + limit)};
 			}
 			return data;
-		}); //.then(delay(2000));
+		});//.then(delay(5000));
 	});
 
 	// utilities
