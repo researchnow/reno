@@ -1,10 +1,11 @@
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715072
 
 // @import "./colors";
+@import "./axiom-design-tokens";
 
 
 // constants
-
+/*
 $reno-header-state: (
 	1: (34px, 40px),
 	2: (24px, 32px),
@@ -12,16 +13,38 @@ $reno-header-state: (
 	4: (16px, 24px)
 );
 
+$reno-font-style: 	gotham a, gotham b, sans-serif;
+$reno-font-color: 300;
+
+*/
+
+// Axiom Header
+
+$reno-header-state: (
+	1: (52px, 64px),
+	2: (44px, 52px),
+	3: (36px, 44px),
+	4: (30px, 36px),
+	5: (24px, 28px),
+	6: (20px, 24px),
+);
+
+
+$reno-font-style: $ax-def-ft-fam;
+$reno-font-color: $ax-txt-c;
+$reno-font-weight: $ax-def-ft-wt;
+
 
 // generate classes
 
 @each $state-index, $style-parameters in $reno-header-state {
 	.reno-header#{$state-index}, .reno-header#{$state-index}-reverse, .reno h#{$state-index}, .reno-dark h#{$state-index} {
-		font-family: gotham a, gotham b, sans-serif;
+		font-family: $reno-font-style;
 		font-size:   nth($style-parameters, 1);
-		font-weight: 300;
+		font-weight: $reno-font-weight;
 		line-height: nth($style-parameters, 2);
-		color: $reno-color-dark-gray;
+		// color: $reno-color-dark-gray;
+		color: $reno-font-color;
 	}
 	.reno-header#{$state-index}-reverse, .reno-dark h#{$state-index} {
 		color: $reno-color-light-gray;
@@ -29,21 +52,23 @@ $reno-header-state: (
 }
 
 .reno-body, .reno-body-reverse, .reno-body-bold, .reno-body-bold-reverse, .reno, .reno-dark {
-	font-family: gotham a, gotham b, sans-serif;
+	font-family: $reno-font-style;
 	font-size:   14px;
-	font-weight: 300;
+	font-weight: $reno-font-weight;
 	line-height: 24px;
-	color: $reno-color-dark-gray;
+	// color: $reno-color-dark-gray;
+	color: $reno-font-color;
 }
 
 .reno-caption, .reno-caption-reverse, .reno-caption-bold, .reno-caption-bold-reverse, .reno legend, .reno-dark legend,
 .reno caption, .reno caption b, .reno caption strong, .reno-dark caption, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption, .reno figcaption b, .reno figcaption strong, .reno-dark figcaption, .reno-dark figcaption b, .reno-dark figcaption strong {
-	font-family: gotham a, gotham b, sans-serif;
+	font-family: $reno-font-style;
 	font-size:   12px;
 	line-height: 20px;
 	font-weight: 400;
-	color: $reno-color-dark-gray;
+	// color: $reno-color-dark-gray;
+	color: $reno-font-color;
 }
 
 .reno-body-reverse, .reno-body-bold-reverse, .reno-dark, .reno-caption-reverse, .reno-caption-bold-reverse,
@@ -56,6 +81,6 @@ $reno-header-state: (
 .reno-caption-bold, .reno-caption-bold-reverse, .reno legend, .reno-dark legend,
 .reno caption b, .reno caption strong, .reno-dark caption b, .reno-dark caption strong,
 .reno figcaption b, .reno figcaption strong, .reno-dark figcaption b, .reno-dark figcaption strong {
-	font-family: gotham a, gotham b, sans-serif;
+	font-family: $reno-font-style;
 	font-weight: 500;
 }

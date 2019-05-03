@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Reno: spinner</title>
+	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+	<link rel="stylesheet" href="../modern.css">
+	<script type="module" src="../modern.js"></script>
+	<script nomodule src="../legacy.js"></script>
+	<style>
+		.reno-spinner.custom {
+			font-size: 8px;
+			background: linear-gradient(to right, rgba(255, 0, 0, 0) 0%, red 75%);
+		}
+		.reno-spinner.custom:after {
+			width: 50%;
+			height: 50%
+		}
+	</style>
+</head>
+
+<body class="reno">
+	<h1>Reno: spinner</h1>
+
+	<p>A spinner is a CSS-only component.</p>
+
+	<h2>Usage example</h2>
+	<p><code>&lt;div class=&quot;reno-spinner&quot;&gt;Loading...&lt;/div&gt;</code></p>
+
+	<h2>Generic spinner</h2>
+	<div class="reno-spinner">Loading...</div>
+
+	<h2>Custom spinner</h2>
+	<div class="reno-spinner custom">Loading...</div>
+</body>
+
+</html>

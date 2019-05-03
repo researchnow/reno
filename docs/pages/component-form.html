@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8" />
+	    <title>Reno: form</title>
+			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+      <link rel="stylesheet" href="../modern.css">
+      <script type="module" src="../modern.js"></script>
+      <script nomodule src="../legacy.js"></script>
+      <!-- application-specific styles and scripts -->
+			<style>
+				td {
+					vertical-align: top;
+				}
+				input[type="text"], select, textarea, reno-search, .reno-text-groups-stacked .reno-number {
+					width: 15em;
+				}
+				textarea {
+					height: 3em;
+				}
+			</style>
+			<script>
+				function flipDisabled (id) {
+					const form = document.getElementById(id);
+					form[form.getAttribute('disabled') === null ? 'setAttribute' : 'removeAttribute']('disabled', '');
+				}
+				function showValues (id) {
+					const form = document.getElementById(id);
+					const values = form.getElements(true).
+						map(element => element.name + ' = ' + element.value + '   ' + element.tagName +
+							(element.tagName === 'INPUT' ? `[type=${element.type}]` : '') +
+							(element.validationMessage ? ' - ' + element.validationMessage : ''));
+					alert(values.join('\n'));
+        }
+        function readValues (id) {
+					const form = document.getElementById(id);
+					const values = form.getValues();
+					alert(JSON.stringify(values, null, '  '));
+        }
+			</script>
+	</head>
+	<body class="reno">
+		<h1>Reno: form</h1>
+
+		<h2>Simple form with validation</h2>
+		<reno-form id="form1">
+			<form action='..'>
+				<fieldset>
+					<legend>Simple form with validation</legend>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<div class="reno-check-groups-stacked">
+										<div class="reno-caption-bold">Checkboxes</div>
+										<label><input type="checkbox" name="c01" value="c01" checked> Checkbox #1</label>
+										<label><input type="checkbox" name="c02" value="c02"        > Checkbox #2</label>
+										<label><input type="checkbox" name="c03" value="c03" checked> Checkbox #3</label>
+										<label><input type="checkbox" name="c04" value="c04"        > Checkbox #4</label>
+										<label><input type="checkbox" name="c05" value="c05" checked> Checkbox #5</label>
+									</div>
+									<div class="reno-check-groups-stacked">
+										<div class="reno-caption-bold">Radio buttons</div>
+										<label><input type="radio" name="r01" value="r01"        > Radio #1</label>
+										<label><input type="radio" name="r01" value="r02"        > Radio #2</label>
+										<label><input type="radio" name="r01" value="r03" checked> Radio #3</label>
+										<label><input type="radio" name="r01" value="r04"        > Radio #4</label>
+										<label><input type="radio" name="r01" value="r05"        > Radio #5</label>
+									</div>
+								</td>
+								<td>
+									<div class="reno-text-groups-stacked">
+										<label>
+											<span>Text field</span>
+											<input type="text" name="t01" value="" placeholder="Placeholder">
+										</label>
+										<label>
+											<span>Required text field</span>
+											<input type="text" name="t02" value="" placeholder="Placeholder" required>
+											<span class="error error-generic">Wrong value.</span>
+										</label>
+										<label>
+											<span>Regex field</span>
+											<input type="text" name="t03" value="" placeholder="Amount (1.00, 2, 123.45)" pattern="^\d+(?:\.\d{2})?$">
+											<span class="error error-generic">Wrong value.</span>
+										</label>
+										<label>
+											<span>Reno Search field</span>
+											<reno-search name="t04" value="" placeholder="Placeholder"></reno-search>
+										</label>
+										<label>
+											<span>Number field with step 5</span>
+											<div class="reno-number"><input type="number" name="t05" value="50" step="5" min="0" max="100" placeholder="Placeholder"></div>
+										</label>
+										<label>
+											<span>Required select field</span>
+											<select required name="t06" placeholder="Placeholder" required>
+												<option value="" hidden>Placeholder</option>
+												<optgroup label="Fruit">
+													<option value="apple">Apple</option>
+													<option value="banana">Banana</option>
+													<option value="orange">Orange</option>
+												</optgroup>
+												<optgroup label="Numbers">
+													<option value="one">One</option>
+													<option value="two">Two</option>
+													<option value="three">Three</option>
+												</optgroup>
+											</select>
+											<span class="error error-generic">Wrong value.</span>
+										</label>
+										<label>
+											<span>Text area field</span>
+											<textarea name="t07" value="" placeholder="Placeholder"></textarea>
+										</label>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</fieldset>
+			</form>
+		</reno-form>
+		<p>
+			<button onclick="flipDisabled('form1')">Flip disabled</button>&nbsp;
+			<button onclick="showValues('form1')">Show values</button>
+			<button onclick="readValues('form1')">JSON</button>
+		</p>
+
+		<h2>More complex form with validation and generic messages</h2>
+		<reno-form id="form2" rootselector="label" errorselector=".error-generic" showmessages>
+			<form action='..'>
+				<fieldset>
+					<legend>More complex form with validation and generic messages</legend>
+					<div class="reno-text-groups-stacked">
+						<label>
+							<span>Text field</span>
+							<input type="text" name="t01" value="" placeholder="Placeholder">
+						</label>
+						<label>
+							<span>Required text field</span>
+							<input type="text" name="t02" value="" placeholder="Placeholder" required>
+							<span class="error error-generic"></span>
+						</label>
+						<label>
+							<span>Regex field</span>
+							<input type="text" name="t03" value="" placeholder="Amount (1.00, 2, 123.45)" pattern="^\d+(?:\.\d{2})?$">
+							<span class="error error-generic"></span>
+						</label>
+						<label>
+							<span>Reno Search field</span>
+							<reno-search name="t04" value="" placeholder="Placeholder"></reno-search>
+							<span class="error error-generic"></span>
+						</label>
+						<label>
+							<span>Number field with step 5</span>
+							<div class="reno-number"><input type="number" name="t05" value="50" step="5" min="0" max="100" placeholder="Placeholder"></div>
+						</label>
+						<label>
+							<span>Required select field</span>
+							<select required name="t06" placeholder="Placeholder" required>
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange">Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+							<span class="error error-generic"></span>
+						</label>
+						<label>
+							<span>Text area field</span>
+							<textarea name="t07" value="" placeholder="Placeholder"></textarea>
+						</label>
+					</div>
+				</fieldset>
+			</form>
+		</reno-form>
+		<p>
+			<button onclick="flipDisabled('form2')">Flip disabled</button>&nbsp;
+			<button onclick="showValues('form2')">Show values</button>
+			<button onclick="readValues('form2')">JSON</button>
+		</p>
+
+		<h2>More complex form with validation and custom messages</h2>
+		<reno-form id="form3" rootselector="label" showmessages>
+			<form action='..'>
+				<fieldset>
+					<legend>More complex form with validation and custom messages</legend>
+					<div class="reno-text-groups-stacked">
+						<label>
+							<span>Text field</span>
+							<input type="text" name="t01" value="" placeholder="Placeholder">
+						</label>
+						<label>
+							<span>Required text field</span>
+							<input type="text" name="t02" value="" placeholder="Placeholder" required>
+							<span class="error error-customError">Custom error</span>
+							<span class="error error-patternMismatch">Pattern mismatch</span>
+							<span class="error error-rangeOverflow">Range overflow</span>
+							<span class="error error-rangeUnderflow">Range underflow</span>
+							<span class="error error-stepMismatch">Step mismatch</span>
+							<span class="error error-tooLong">Too long</span>
+							<span class="error error-typeMismatch">Type mismatch</span>
+							<span class="error error-valueMissing">Value missing</span>
+						</label>
+						<label>
+							<span>Regex field with valid message</span>
+							<input type="text" name="t03" value="" placeholder="Amount (1.00, 2, 123.45)" pattern="^\d+(?:\.\d{2})?$">
+							<span class="error error-customError">Custom error</span>
+							<span class="error error-patternMismatch">Pattern mismatch</span>
+							<span class="error error-rangeOverflow">Range overflow</span>
+							<span class="error error-rangeUnderflow">Range underflow</span>
+							<span class="error error-stepMismatch">Step mismatch</span>
+							<span class="error error-tooLong">Too long</span>
+							<span class="error error-typeMismatch">Type mismatch</span>
+							<span class="error error-valueMissing">Value missing</span>
+							<span class="error no-error">Value looks good</span>
+						</label>
+						<label>
+							<span>Reno Search field</span>
+							<reno-search name="t04" value="" placeholder="Placeholder"></reno-search>
+							<span class="error error-customError">Custom error</span>
+							<span class="error error-patternMismatch">Pattern mismatch</span>
+							<span class="error error-rangeOverflow">Range overflow</span>
+							<span class="error error-rangeUnderflow">Range underflow</span>
+							<span class="error error-stepMismatch">Step mismatch</span>
+							<span class="error error-tooLong">Too long</span>
+							<span class="error error-typeMismatch">Type mismatch</span>
+							<span class="error error-valueMissing">Value missing</span>
+						</label>
+						<label>
+							<span>Number field with step 5</span>
+							<div class="reno-number"><input type="number" name="t05" value="50" step="5" min="0" max="100" placeholder="Placeholder"></div>
+							<span class="error"></span>
+						</label>
+						<label>
+							<span>Required select field</span>
+							<select name="t06" placeholder="Placeholder" required>
+								<option value="" hidden>Placeholder</option>
+								<optgroup label="Fruit">
+									<option value="apple">Apple</option>
+									<option value="banana">Banana</option>
+									<option value="orange">Orange</option>
+								</optgroup>
+								<optgroup label="Numbers">
+									<option value="one">One</option>
+									<option value="two">Two</option>
+									<option value="three">Three</option>
+								</optgroup>
+							</select>
+							<span class="error error-customError">Custom error</span>
+							<span class="error error-patternMismatch">Pattern mismatch</span>
+							<span class="error error-rangeOverflow">Range overflow</span>
+							<span class="error error-rangeUnderflow">Range underflow</span>
+							<span class="error error-stepMismatch">Step mismatch</span>
+							<span class="error error-tooLong">Too long</span>
+							<span class="error error-typeMismatch">Type mismatch</span>
+							<span class="error error-valueMissing">Value missing</span>
+						</label>
+						<label>
+							<span>Text area field</span>
+							<textarea name="t07" value="" placeholder="Placeholder"></textarea>
+						</label>
+					</div>
+				</fieldset>
+			</form>
+		</reno-form>
+		<p>
+			<button onclick="flipDisabled('form3')">Flip disabled</button>&nbsp;
+			<button onclick="showValues('form3')">Show values</button>
+			<button onclick="readValues('form3')">JSON</button>
+		</p>
+	</body>
+</html>

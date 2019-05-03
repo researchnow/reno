@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8" />
+	    <title>Reno: drag and drop</title>
+			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+      <link rel="stylesheet" href="../modern.css">
+      <script type="module" src="../modern.js"></script>
+      <script nomodule src="../legacy.js"></script>
+      <!-- application-specific styles and scripts -->
+			<style>
+				.container {
+					font-size: 18pt;
+					color: black;
+
+					margin: 2em;
+					border: 3px solid #ddd;
+					padding: 1em;
+
+					transition: background-color 0.5s;
+				}
+				.vertical {
+					display: flex;
+					flex-direction: column;
+					max-width: 20em;
+				}
+				.horizontal {
+					display: flex;
+				}
+				.item {
+					font-size: 18pt;
+					color: black;
+					cursor: pointer;
+					flex: 1 1 auto;
+					margin: 0.5em;
+					border: 3px solid #ccc;
+					padding: 1em;
+				}
+				.item::selection {
+					background-color: transparent;
+				}
+				.reno-dnd-dragged-container {
+					background-color: white;
+				}
+				.reno-dnd-avatar {
+					background-color: #fcc;
+					opacity: 0.5;
+				}
+				.reno-dnd-dragged {
+					background-color: #cfc;
+					opacity: 0.5;
+				}
+				body {
+					transition: background-color 0.5s;
+				}
+				.reno-dnd-in-flight body {
+					background-color: #eee;
+				}
+				.reno-dnd-over {
+					background-color: #ffe;
+				}
+				.reno-dnd-target {
+					margin: 0.5em;
+				}
+				.reno-dnd-target .reno-dnd-item {
+					margin: 0;
+				}
+			</style>
+			<script>
+				function init (mover) {
+					Reno.utils.dnd.init(mover);
+					mover.avatar.classList.remove('reno-dnd-target');
+				}
+
+				function drop (mover) {
+					if (mover.previousOverItem) {
+						if (mover.previousOverItem !== mover.node) {
+							let target = mover.previousOverItem;
+							if (target.classList.contains('reno-dnd-item')) {
+								target = target.ownerDocument.createElement('div');
+								target.classList.add('reno-dnd-target');
+								mover.previousOverItem.classList.remove('reno-dnd-target');
+								mover.previousOverItem.parentNode.replaceChild(target, mover.previousOverItem);
+								target.appendChild(mover.previousOverItem);
+							}
+							mover.node.classList.remove('reno-dnd-target');
+							target.appendChild(mover.node);
+						}
+					} else {
+						const parent = mover.node.parentNode;
+						mover.container.appendChild(mover.node);
+						mover.node.classList.add('reno-dnd-target');
+						if (!parent.firstElementChild) {
+							parent.parentNode.removeChild(parent);
+						}
+					}
+				}
+
+				document.addEventListener('DOMContentLoaded', () => {
+					Reno.utils.dnd.start(document.getElementById('v'), {
+						init: Reno.utils.dnd.init,
+						over: Reno.utils.dnd.over,
+						drop: Reno.utils.dnd.rearrangeable.dropY,
+						moving: Reno.utils.dnd.movingY
+					});
+					Reno.utils.dnd.start(document.getElementById('h'), {
+						init: Reno.utils.dnd.init,
+						over: Reno.utils.dnd.over,
+						drop: Reno.utils.dnd.rearrangeable.dropX,
+						moving: Reno.utils.dnd.movingX
+					});
+					Reno.utils.dnd.start(document.getElementById('g'), {
+						target: '.reno-dnd-target',
+						init: init,
+						over: Reno.utils.dnd.over,
+						drop: drop
+					});
+				});
+			</script>
+	</head>
+	<body class="reno">
+		<h1>Reno: drag and drop</h1>
+
+		<h2>Rearrange vertically</h2>
+
+		<div id="v" class="container vertical">
+			<div class="item reno-dnd-item">One</div>
+			<div class="item reno-dnd-item">Two</div>
+			<div class="item reno-dnd-item">Three</div>
+			<div class="item reno-dnd-item">Four</div>
+			<div class="item reno-dnd-item">Five</div>
+		</div>
+
+		<h2>Rearrange horizontally</h2>
+
+		<div id="h" class="container horizontal">
+			<div class="item reno-dnd-item">One</div>
+			<div class="item reno-dnd-item">Two</div>
+			<div class="item reno-dnd-item">Three</div>
+			<div class="item reno-dnd-item">Four</div>
+			<div class="item reno-dnd-item">Five</div>
+		</div>
+
+		<h2>Group</h2>
+
+		<div id="g" class="container vertical">
+			<div class="item reno-dnd-item reno-dnd-target">One</div>
+			<div class="item reno-dnd-item reno-dnd-target">Two</div>
+			<div class="item reno-dnd-item reno-dnd-target">Three</div>
+			<div class="item reno-dnd-item reno-dnd-target">Four</div>
+			<div class="item reno-dnd-item reno-dnd-target">Five</div>
+		</div>
+
+		<h2>Filler</h2>
+
+		<p>Lorem ipsum dolor sit amet, odio consul ea pri, has ridens repudiandae ea, pro ex aliquid accusata. Vix te magna iudicabit, in quot nobis has, mel ex ludus melius ocurreret. Ad homero vidisse quo, soluta possim omittam pri in. Eam adhuc erroribus ex,
+			sed lorem delectus liberavisse ad.</p>
+		<p>Nisl integre scriptorem te has, eam te iisque denique qualisque. Mei laudem aperiam facilisi ut, id altera tritani recteque nam, est id vitae facilisi evertitur. Democritum repudiandae ea ius. Duo cu tritani invenire, ius illum alterum phaedrum eu, nec
+			officiis interesset ei. Mei elit disputationi ad.</p>
+		<p>Te quidam labitur abhorreant usu. Habeo deseruisse ut eum, usu ei unum tractatos. Id est ferri movet nostrum, nullam platonem periculis no quo. Falli vivendum at vis, amet possim moderatius et pri. Salutandi instructior mei ut, augue quidam necessitatibus
+			mel id. Mutat primis qui ex, adipisci quaestio eu duo, at sea wisi causae periculis.</p>
+		<p>Per summo debitis ut. Quem mucius constituam mel ut, eos quodsi animal appetere ex. At doming nostrud vel, inani voluptatum no sed. Et vis exerci vidisse praesent, eam impedit definitionem ea, apeirian vituperatoribus sed no.</p>
+		<p>Nec augue dolor laoreet ad. Ut eos perfecto nominati. Dolorum appellantur id sed, vis probatus constituam appellantur ea. Cu animal alterum molestie has. Tempor praesent tincidunt eu ius, ei oportere posidonium comprehensam pri.</p>
+	</body>
+</html>

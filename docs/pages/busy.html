@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="UTF-8" />
+	    <title>Reno: busy</title>
+			<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
+      <link rel="stylesheet" href="../modern.css">
+      <script type="module" src="../modern.js"></script>
+      <script nomodule src="../legacy.js"></script>
+      <!-- application-specific styles and scripts -->
+      <script>
+				document.addEventListener('DOMContentLoaded', () => {
+          on(document.getElementById('busy'),'click', () => Reno.utils.busy.open('I am very busy!'));
+          on(document, 'keyup:Escape', () => Reno.utils.busy.close());
+				});
+			</script>
+	</head>
+	<body class="reno">
+		<h1>Reno: busy</h1>
+
+    <p><button id="busy">Busy</button>&nbsp;&mdash; click this button to go busy. Escape the busy state by hitting "Esc".</p>
+
+		<h2>Filler</h2>
+
+		<p>Lorem ipsum dolor sit amet, odio consul ea pri, has ridens repudiandae ea, pro ex aliquid accusata. Vix te magna iudicabit, in quot nobis has, mel ex ludus melius ocurreret. Ad homero vidisse quo, soluta possim omittam pri in. Eam adhuc erroribus ex,
+			sed lorem delectus liberavisse ad.</p>
+		<p>Nisl integre scriptorem te has, eam te iisque denique qualisque. Mei laudem aperiam facilisi ut, id altera tritani recteque nam, est id vitae facilisi evertitur. Democritum repudiandae ea ius. Duo cu tritani invenire, ius illum alterum phaedrum eu, nec
+			officiis interesset ei. Mei elit disputationi ad.</p>
+		<p>Te quidam labitur abhorreant usu. Habeo deseruisse ut eum, usu ei unum tractatos. Id est ferri movet nostrum, nullam platonem periculis no quo. Falli vivendum at vis, amet possim moderatius et pri. Salutandi instructior mei ut, augue quidam necessitatibus
+			mel id. Mutat primis qui ex, adipisci quaestio eu duo, at sea wisi causae periculis.</p>
+		<p>Per summo debitis ut. Quem mucius constituam mel ut, eos quodsi animal appetere ex. At doming nostrud vel, inani voluptatum no sed. Et vis exerci vidisse praesent, eam impedit definitionem ea, apeirian vituperatoribus sed no.</p>
+		<p>Nec augue dolor laoreet ad. Ut eos perfecto nominati. Dolorum appellantur id sed, vis probatus constituam appellantur ea. Cu animal alterum molestie has. Tempor praesent tincidunt eu ius, ei oportere posidonium comprehensam pri.</p>
+	</body>
+</html>
