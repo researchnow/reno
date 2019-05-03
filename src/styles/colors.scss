@@ -1,18 +1,30 @@
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715073
-
+@import "./colors-axiom";
 
 // brand colors
 
+// Default 
+/*
 $reno-color-primary:   #0077bf;
 $reno-color-secondary: #5fc4e3;
 $reno-color-tertiary:  #103a5d;
 $reno-color-success:   #4e9d2d;
 $reno-color-alert:     #f49e40;
 $reno-color-error:     #de4216;
+*/
+
+// Axiom Brand Colors
+
+$reno-color-primary:   $ax-c-pri;
+$reno-color-secondary: $ax-c-dynata-blue;
+$reno-color-tertiary:  $ax-c-dynata-navy;
+$reno-color-success:   $ax-c-succ;
+$reno-color-alert:     $ax-c-alrt;
+$reno-color-error:     $ax-c-err;
 
 
 // grays
-
+/*
 $reno-color-black:             #222;
 $reno-color-dark-gray:         #646464; // 70% black
 $reno-color-medium-dark-gray:  #9b9b9b; // 45% black
@@ -21,12 +33,24 @@ $reno-color-light-gray:        #e7e7e7; // 11% black
 $reno-color-super-light-gray:  #f2f2f2; //  6% black
 $reno-color-dirty-white:       #fafafa;
 $reno-color-white:             #fff;
+*/
+
+// Axiom Neutrals
+
+$reno-color-black:                $ax-c-dk-0;
+$reno-color-dark-gray:            $ax-c-dk-3;
+$reno-color-medium-dark-gray:     $ax-c-dk-6;
+$reno-color-medium-light-gray:    $ax-c-lt-6;
+$reno-color-light-gray:           $ax-c-lt-3;
+$reno-color-super-light-gray:     $ax-c-lt-2;
+$reno-color-dirty-white:          $ax-c-lt-1;
+$reno-color-white:                $ax-c-lt-0;
 
 
 // grays with opacity
 
-$reno-gray-dark:         rgba(#222, 0.70);
-$reno-gray-medium-dark:  rgba(#222, 0.45);
-$reno-gray-medium-light: rgba(#222, 0.20);
-$reno-gray-light:        rgba(#222, 0.11);
-$reno-gray-super-light:  rgba(#222, 0.06);
+$reno-gray-dark:         rgba($reno-color-black, 0.70);
+$reno-gray-medium-dark:  rgba($reno-color-black, 0.45);
+$reno-gray-medium-light: rgba($reno-color-black, 0.20);
+$reno-gray-light:        rgba($reno-color-black, 0.11);
+$reno-gray-super-light:  rgba($reno-color-black, 0.06);
