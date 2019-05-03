@@ -1,6 +1,11 @@
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/241662650
 
+@import "./axiom-design-tokens";
 
+
+// Default
+
+/*
 $reno-spacing-tiny:        4px;
 $reno-spacing-small:       8px;
 $reno-spacing-default:    16px;
@@ -8,6 +13,18 @@ $reno-spacing-large:      24px;
 $reno-spacing-x-large:    40px;
 $reno-spacing-xx-large:   64px;
 $reno-spacing-xxx-large: 104px;
+*/
+
+
+// Axiom
+
+$reno-spacing-tiny:        $ax-spc-xxs;
+$reno-spacing-small:       $ax-spc-xs;
+$reno-spacing-default:     $ax-spc-s;
+$reno-spacing-large:       $ax-spc-m;
+$reno-spacing-x-large:     $ax-spc-l;
+$reno-spacing-xx-large:    $ax-spc-xl;
+$reno-spacing-xxx-large:   104px;
 
 $reno-spacing: $reno-spacing-default;
 
