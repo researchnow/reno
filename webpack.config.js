@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -23,6 +23,7 @@ const modernConfig = {
                 {
                   modules: false,
                   loose: true,
+                  corejs: '3.2.1', // TODO: automate it
                   useBuiltIns: 'usage',
                   targets: {
                     browsers: ['Chrome >= 60', 'Safari >= 10.1', 'iOS >= 10.3', 'Firefox >= 54', 'Edge >= 15']
@@ -60,7 +61,7 @@ const modernConfig = {
     filename: '[name].js'
   },
   plugins: [
-    new CleanWebpackPlugin('docs', {}),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
@@ -112,6 +113,7 @@ const legacyConfig = {
                 {
                   modules: false,
                   loose: true,
+                  corejs: '3.2.1', // TODO: automate it
                   useBuiltIns: 'usage',
                   targets: {
                     browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']
