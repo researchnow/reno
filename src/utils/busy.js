@@ -25,9 +25,9 @@ export function open(options) {
   if (!handle) {
     busyContainer.addEventListener('transitionend', e => {
       if (e.target === busyContainer && busyContainer.ownerDocument.body.classList.contains('reno-busy-close')) {
-				busyContainer.style.display = 'none';
+        busyContainer.style.display = 'none';
         hyperHTML.bind(busyContainer.querySelector('.reno-busy-message'))``;
-			}
+      }
     });
   }
 
@@ -40,7 +40,7 @@ export function open(options) {
   busyContainer.style.display = 'block';
 
   const oldOpacity = getComputedStyle(busyContainer).getPropertyValue('opacity'); // needed to sync
-  busyContainer.style.opacity = ('opacity' in options) ? options.opacity : 1;
+  busyContainer.style.opacity = 'opacity' in options ? options.opacity : 1;
 }
 
 export function close(doc) {
@@ -71,7 +71,7 @@ export function updateMessage(options) {
   }
 
   const doc = options.document || document;
-  if (!Response.utils.busy.isOpen(doc)) return false;
+  if (!Reno.utils.busy.isOpen(doc)) return false;
 
   const busyContainer = doc.getElementById('reno-busy-container');
   if (!busyContainer) return false;
@@ -81,4 +81,30 @@ export function updateMessage(options) {
 
   hyperHTML.bind(msg)`${{any: options.message || ''}}`;
   return true;
+}
+
+export function wrap(fn, options) {
+  const doc = (options && options.document) || document;
+  Reno.utils.busy.open(options);
+  let result;
+  try {
+    result = fn();
+  } catch(error) {
+    Reno.utils.busy.close(doc);
+    throw error;
+  }
+  if (result && typeof result.then == 'function') {
+    return result.then(
+      value => {
+        Reno.utils.busy.close(doc);
+        return value;
+      },
+      error => {
+        Reno.utils.busy.close(doc);
+        return Promise.reject(error);
+      }
+    );
+  }
+  Reno.utils.busy.close(doc);
+  return result;
 }
