@@ -36,7 +36,6 @@
   .reno-modal {
     @extend .reno-box-with-border-shadow-z2;
     display: block;
-    position: fixed;
     flex: 0 1 auto;
 
     width: 600px;
