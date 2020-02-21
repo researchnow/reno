@@ -42,8 +42,8 @@ For local development, the simplest thing to do is linking instead of doing publ
 ## Publishing Reno
 
 - Make sure it works.
-- Build a distribution: `npm run dist`.
-- Bump the version.
+- Build a distribution: `npm run build`.
+- Bump the version in package.json.
   - Optional: rebuild lock files.
     - For npm: `npm i`.
     - For yarn: `yarn`.
@@ -51,7 +51,7 @@ For local development, the simplest thing to do is linking instead of doing publ
 - Tag it. Example:
   - Mark it up: `git tag 1.0.9`.
   - Push tags up: `git push --tags`.
-- Publish it: `npm publish`.
+- ~~Publish it: `npm publish`.~~
 
 ## Designs
 
