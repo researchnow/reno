@@ -1,3 +1,5 @@
+import {version} from 'core-js';
+
 let handle = null;
 
 export function open(options) {
@@ -97,6 +99,13 @@ export function enhanceListContent(data, clickCallback, render = defaultRender, 
     });
 }
 
+function alignAtTop(popupContainer) {
+  // when content is too long - move to top of page
+  popupContainer.style.top = window.pageYOffset + 20 + 'px';
+  popupContainer.style.maxHeight = window.innerHeight - 40 + 'px';
+  popupContainer.style.borderBottom = '1px solid #e7e7e7';
+}
+
 function calculatePlacement(popupComponent, popupContainer, options) {
   const placement = options.placement || popupComponent.getAttribute('placement');
   let alignment = options.alignment || popupComponent.getAttribute('alignment');
@@ -112,8 +121,18 @@ function calculatePlacement(popupComponent, popupContainer, options) {
   switch (placement) {
     case 'left':
       if (popupComponentDomRect.left - popupContainerDomRect.width - popupContainerMargin < 0) {
-        popupContainer.style.left = popupComponentDomRect.right + window.pageXOffset + 'px';
+        // not enough room on the left
+        if (window.innerWidth - popupComponentDomRect.right > popupComponentDomRect.left) {
+          // there is more room on the right, so put popup there
+          popupContainer.style.left = popupComponentDomRect.right + window.pageXOffset + 'px';
+          popupContainer.style.maxWidth = window.innerWidth - popupComponentDomRect.right - 18 + 'px';
+        } else {
+          // there is more room on the left, so put popup there
+          popupContainer.style.left = 18 + 'px';
+          popupContainer.style.maxWidth = popupComponentDomRect.left - 20 + 'px';
+        }
       } else {
+        // plenty of room, proceed as planned
         popupContainer.style.left =
           popupComponentDomRect.left -
           popupContainerDomRect.width +
@@ -124,20 +143,58 @@ function calculatePlacement(popupComponent, popupContainer, options) {
       break;
     case 'right':
       if (popupComponentDomRect.right + popupContainerDomRect.width + popupContainerMargin > window.innerWidth) {
-        popupContainer.style.left =
-          popupComponentDomRect.left -
-          popupContainerDomRect.width +
-          window.pageXOffset -
-          2 * popupContainerMargin +
-          'px';
+        // not enough room on the right
+        if (window.innerWidth - popupComponentDomRect.right > popupComponentDomRect.left) {
+          // more room on the right, so put popup there
+          popupContainer.style.left = popupComponentDomRect.right + window.pageXOffset + 'px';
+          popupContainer.style.maxWidth = window.innerWidth - popupComponentDomRect.right - 18 + 'px';
+        } else {
+          // more room on the left, so put popup there
+          popupContainer.style.left = 18 + 'px';
+          popupContainer.style.maxWidth = popupComponentDomRect.left - 20 + 'px';
+        }
       } else {
+        // plenty of room, proceed as planned
         popupContainer.style.left = popupComponentDomRect.right + window.pageXOffset + 'px';
       }
+
       break;
     case 'top':
-      if (popupComponentDomRect.top - popupContainerDomRect.height - popupContainerMargin < 0) {
-        popupContainer.style.top = popupComponentDomRect.bottom + window.pageYOffset + 'px';
+      if (popupContainerDomRect.height + popupContainerMargin > popupComponentDomRect.top) {
+        // not enough room on top
+        if (popupComponentDomRect.top < window.innerHeight - popupComponentDomRect.bottom) {
+          // more room on the bottom, so put popup there
+          const neededSpace = popupContainerDomRect.height + popupContainerMargin;
+          const availableSpace = window.innerHeight - popupComponentDomRect.bottom;
+
+          if (neededSpace > availableSpace) {
+            // not enough space on bottom
+            if (neededSpace > window.innerHeight) {
+              // container is bigger than the window
+              alignAtTop(popupContainer);
+            } else {
+              // container is too big, but not bigger than window, so set max height
+              popupContainer.style.maxHeight = window.innerHeight - popupComponentDomRect.bottom - 20 + 'px';
+              popupContainer.style.borderBottom = '1px solid #e7e7e7';
+              popupContainer.style.top = popupComponentDomRect.bottom + window.pageYOffset + 'px';
+            }
+          } else {
+            // enough space on bottom
+            popupContainer.style.top = popupComponentDomRect.bottom + window.pageYOffset + 'px';
+          }
+        } else {
+          // more room on the top, so put popup there
+          if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+            // container is bigger than the window
+            alignAtTop(popupContainer);
+          } else {
+            // container is too big, but not bigger than window, so set max height
+            popupContainer.style.maxHeight = popContainerDomRect.top + window.pageYOffset + 'px';
+            popupContainer.style.borderBottom = '1px solid #e7e7e7';
+          }
+        }
       } else {
+        // plenty of room, proceed as planned
         popupContainer.style.top =
           popupComponentDomRect.top -
           popupContainerDomRect.height +
@@ -145,17 +202,50 @@ function calculatePlacement(popupComponent, popupContainer, options) {
           2 * popupContainerMargin +
           'px';
       }
+
       break;
     default:
-      // case 'bottom':
-      if (popupComponentDomRect.bottom + popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
-        popupContainer.style.top =
-          popupComponentDomRect.top -
-          popupContainerDomRect.height +
-          window.pageYOffset -
-          2 * popupContainerMargin +
-          'px';
+      const spaceOnBottom = window.innerHeight - popupComponentDomRect.bottom;
+      if (popupContainerDomRect.height + popupContainerMargin > spaceOnBottom) {
+        // not enough room on bottom
+        if (popupComponentDomRect.top > spaceOnBottom) {
+          // more room on the top, so put popup there
+          const potentialTop =
+            popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2 * popupContainerMargin;
+          if (potentialTop < 0) {
+            // not enough space on the top
+            if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+              // container is bigger than the window
+              alignAtTop(popupContainer);
+            } else {
+              // container is too big, but not bigger than window, so set max height
+              popupContainer.style.top = window.pageYOffset + 18 + 'px';
+              popupContainer.style.maxHeight = window.innerHeight - popupComponentDomRect.bottom + 'px';
+              popupContainer.style.borderBottom = '1px solid #e7e7e7';
+            }
+          } else {
+            // enough space on the top
+            popupContainer.style.top =
+              popupComponentDomRect.top -
+              popupContainerDomRect.height +
+              window.pageYOffset -
+              2 * popupContainerMargin +
+              'px';
+          }
+        } else {
+          // more room on the bottom, so put popup there
+          if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+            // container is bigger than the window
+            alignAtTop(popupContainer);
+          } else {
+            // container is too big, but not bigger than window, so set max height
+            popupContainer.style.maxHeight = window.innerHeight - popupComponentDomRect.bottom - 20 + 'px';
+            popupContainer.style.borderBottom = '1px solid #e7e7e7';
+            popupContainer.style.top = popupComponentDomRect.bottom + window.pageYOffset + 'px';
+          }
+        }
       } else {
+        // plenty of room, proceed as planned
         popupContainer.style.top = popupComponentDomRect.bottom + window.pageYOffset + 'px';
       }
       break;
@@ -165,37 +255,85 @@ function calculatePlacement(popupComponent, popupContainer, options) {
   switch (alignment) {
     case 'left':
       popupContainer.style.left = anchor + window.pageXOffset + 'px';
+      if (popupContainerDomRect.width + popupContainerMargin > window.innerWidth - popupComponentDomRect.left) {
+        // too wide for window, use max width
+        popupContainer.style.maxWidth = window.innerWidth - 36 + 'px';
+      }
+
       break;
     case 'right':
-      popupContainer.style.left = anchor + window.pageXOffset - popupContainerDomRect.width + 'px';
+      if (popupContainerDomRect.width + popupContainerMargin > popupComponentDomRect.right) {
+        // too wide for window, use max width and stop from going off left of page
+        popupContainer.style.left = 18 + 'px';
+        popupContainer.style.maxWidth = anchor - 18 + 'px';
+      } else {
+        popupContainer.style.left = anchor + window.pageXOffset - popupContainerDomRect.width + 'px';
+      }
+
       break;
     case 'top':
-      popupContainer.style.top = anchor + window.pageYOffset + 'px';
+      if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+        // container is longer than the page, so stop at top and add max height
+        alignAtTop(popupContainer);
+      } else {
+        popupContainer.style.top = anchor + window.pageYOffset + 'px';
+        popupContainer.style.maxHeight = window.innerHeight - popupComponentDomRect.top - 20 + 'px';
+      }
+
       break;
     case 'bottom':
-      popupContainer.style.top = anchor + window.pageYOffset - popupContainerDomRect.height + 'px';
+      if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
+        // container is longer than the page, so stop at top and add max height
+        alignAtTop(popupContainer);
+      } else {
+        popupContainer.style.top = anchor + window.pageYOffset - popupContainerDomRect.height + 'px';
+        popupContainer.style.maxHeight = popupComponentDomRect.bottom - 20 + 'px';
+      }
       break;
     default:
       // case 'center':
       switch (placement) {
         case 'left':
         case 'right':
-          popupContainer.style.top =
+          const potentialTop = (popupContainer.style.top =
             popupComponentDomRect.top +
             window.pageYOffset -
             popupContainerMargin -
-            (popupContainerDomRect.height - popupComponentDomRect.height) / 2 +
-            'px';
+            (popupContainerDomRect.height - popupComponentDomRect.height) / 2);
+          if (potentialTop < 0) {
+            // if container won't fit on page when centered, stop at top and add max height
+            alignAtTop(popupContainer);
+          } else {
+            popupContainer.style.top =
+              popupComponentDomRect.top +
+              window.pageYOffset -
+              popupContainerMargin -
+              (popupContainerDomRect.height - popupComponentDomRect.height) / 2 +
+              'px';
+          }
+
           break;
         case 'top':
         default:
           // case 'bottom':
-          popupContainer.style.left =
+          const potentialLeft =
             popupComponentDomRect.left +
             window.pageXOffset -
             popupContainerMargin -
-            (popupContainerDomRect.width - popupComponentDomRect.width) / 2 +
-            'px';
+            (popupContainerDomRect.width - popupComponentDomRect.width) / 2;
+          if (potentialLeft < 0) {
+            // if container won't fit on page when centered, stop at left and add max width
+            popupContainer.style.left = 18 + 'px';
+            popupContainer.style.maxWidth = window.innerWidth - 36 + 'px';
+          } else {
+            popupContainer.style.left =
+              popupComponentDomRect.left +
+              window.pageXOffset -
+              popupContainerMargin -
+              (popupContainerDomRect.width - popupComponentDomRect.width) / 2 +
+              'px';
+          }
+
           break;
       }
       break;
