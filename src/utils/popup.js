@@ -1,5 +1,3 @@
-import {version} from 'core-js';
-
 let handle = null;
 
 export function open(options) {
@@ -189,7 +187,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
             alignAtTop(popupContainer);
           } else {
             // container is too big, but not bigger than window, so set max height
-            popupContainer.style.maxHeight = popContainerDomRect.top + window.pageYOffset + 'px';
+            popupContainer.style.maxHeight = popupContainerDomRect.top + window.pageYOffset + 'px';
             popupContainer.style.borderBottom = '1px solid #e7e7e7';
           }
         }
