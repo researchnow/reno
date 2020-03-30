@@ -1,199 +1,228 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8" />
-	<title>Reno: popup</title>
-	<link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css">
-	<link rel="stylesheet" href="../modern.css">
-	<script type="module" src="../modern.js"></script>
-	<script nomodule src="../legacy.js"></script>
-	<style>
-		.content, .loading {
-			max-height: 240px;
-		}
-		#reno-popup-container {
-			width: 250px;
-		}
-	</style>
-</head>
-<body class="reno">
-<h1>Reno: popup</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Reno: popup</title>
+    <link rel="stylesheet" href="https://www.researchnow.com/fonts/457338/297A2A400E28CCCA6.css" />
+    <link rel="stylesheet" href="../modern.css" />
+    <script type="module" src="../modern.js"></script>
+    <script nomodule src="../legacy.js"></script>
+    <style>
+      .content,
+      .loading {
+        max-height: 240px;
+      }
 
-<h2>Search + popup</h2>
+      #reno-popup-container {
+        width: 250px;
+      }
 
-<reno-popup id="search-popup" alignment="left" trigger="reno-change">
-	<reno-search placeholder="Placeholder"></reno-search>
-	<div class="content" url="data/data.json"></div>
-</reno-popup>
+      reno-popup {
+        width: 181px;
+      }
+    </style>
+  </head>
 
-<!-- <div id="search-popup">
+  <body class="reno">
+    <h1>Reno: popup</h1>
+
+    <h2>Search + popup</h2>
+
+    <reno-popup id="search-popup" alignment="left" trigger="reno-change">
+      <reno-search placeholder="Placeholder"></reno-search>
+      <div class="content" url="data/data.json"></div>
+    </reno-popup>
+
+    <!-- <div id="search-popup">
 	<reno-search placeholder="Placeholder"></reno-search>
 </div> -->
 
-<br/>
+    <br />
 
-<h2>Placement &amp; alignment</h2>
-<div class="popups-container">
-	<reno-popup placement="left">
-		<label class="label">p: left (a: center)</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+    <h2>Placement &amp; alignment</h2>
+    <div class="popups-container" style="margin-top:75px;">
+      <reno-popup placement="top" alignment="left">
+        <label class="label">p: top (a: left)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="top">
-		<label class="label">p: top (a: center)</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="top" alignment="center">
+        <label class="label">p: top (a: center)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup>
-		<label class="label">Default (p: bottom, a: center)</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="top" alignment="right">
+        <label class="label">p: top (a: right)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="right">
-		<label class="label">p: right (a: center)</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="left" alignment="top">
+        <label class="label">p: left (a: top)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<br/>
+      <reno-popup placement="left" alignment="center">
+        <label class="label">p: left (a: center)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="left" alignment="bottom">
-		<label class="label">p: left, a: bottom</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="left" alignment="bottom">
+        <label class="label">p: left (a: bottom)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="left" alignment="top">
-		<label class="label">p: left, a: top</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="right" alignment="top">
+        <label class="label">p: right (a: top)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="right" alignment="bottom">
-		<label class="label">p: right, a: bottom</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="right" alignment="center">
+        <label class="label">p: right (a: center)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="right" alignment="top">
-		<label class="label">p: right: a: top</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="right" alignment="bottom">
+        <label class="label">p: right (a: bottom)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<br/>
+      <reno-popup placement="bottom" alignment="left">
+        <label class="label">p: bottom (a: left)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="top" alignment="left">
-		<label class="label">p: top, a: left</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup>
+        <label class="label">Default (p: bottom, a: center)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
 
-	<reno-popup placement="top" alignment="right">
-		<label class="label">p: top, a: right</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+      <reno-popup placement="bottom" alignment="right">
+        <label class="label">p: bottom (a: right)</label>
+        <div class="content tooltip">
+          <div>popup content</div>
+          <div>popup content</div>
+        </div>
+      </reno-popup>
+    </div>
 
-	<reno-popup placement="bottom" alignment="left">
-		<label class="label">(p: bottom) a: left</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+    <p class="grey-text">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+      of Lorem Ipsum.
+    </p>
 
-	<reno-popup placement="bottom" alignment="right">
-		<label class="label">(p: bottom) a: right</label>
-		<div class="content tooltip">
-			<div>popup content</div>
-			<div>popup content</div>
-		</div>
-	</reno-popup>
+    <reno-popup id="action-popup" alignment="left" trigger="click">
+      <div>Click me!</div>
+      <div class="content list">
+        <div action="1">Action #1</div>
+        <div action="2">Action #2</div>
+      </div>
+    </reno-popup>
 
-</div>
+    <p class="grey-text">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+      of Lorem Ipsum.
+    </p>
+    <p class="grey-text">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
+      of Lorem Ipsum.
+    </p>
 
-<p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <reno-popup trigger="click">
+      <label class="label">(p: bottom, a: center) - out of screen</label>
+      <div class="content tooltip">
+        Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy Lorem Ipsum is simply dummy text textLorem Ipsum is
+        simply dummy text
+      </div>
+    </reno-popup>
+  </body>
+  <script defer>
+    // test search + popup list feature
+    (function() {
+      const popupComponent = document.getElementById('search-popup');
+      popupComponent.addEventListener('reno-change', function(e) {
+        const popupContent = popupComponent.querySelector('.content') || popupComponent;
+        const url = (popupContent && popupContent.getAttribute('url')) || 'data/data.json';
 
-<reno-popup id="action-popup" alignment="left" trigger="click">
-	<div>Click me!</div>
-	<div class="content list">
-    <div action="1">Action #1</div>
-    <div action="2">Action #2</div>
-  </div>
-</reno-popup>
+        // customize these
+        const data = heya.io
+          .get(url)
+          .then(data =>
+            data
+              .filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase()))
+              .map(item => ((item.id = item.name), item))
+          );
+        const clickCallback = (node, item) => {
+          on.closest(e.target, 'reno-search').setAttribute('value', '');
+          alert(JSON.stringify(item, null, '  '));
+        };
 
-<p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-<p class="grey-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        if (e.detail.value == '') {
+          Reno.utils.popup.close();
+        } else {
+          Reno.utils.popup.open({
+            anchor: popupComponent.querySelector('reno-search'),
+            data: () => Reno.utils.popup.enhanceListContent(data, clickCallback),
+            alignment: 'left'
+          });
+        }
+      });
+    })();
 
-<reno-popup trigger="click">
-	<label class="label">(p: bottom, a: center) - out of screen</label>
-	<div class="content tooltip">Lorem Ipsum is simply dummy textLorem Ipsum is simply dummy Lorem Ipsum is simply dummy text textLorem Ipsum is simply dummy text</div>
-</reno-popup>
-
-</body>
-<script defer>
-	// test search + popup list feature
-	(function() {
-		const popupComponent = document.getElementById('search-popup');
-		popupComponent.addEventListener('reno-change', function(e) {
-
-			const popupContent = popupComponent.querySelector('.content') || popupComponent;
-			const url = popupContent && popupContent.getAttribute('url') || 'data/data.json';
-
-			// customize these
-			const data = heya.io.get(url).
-				then(data => data.filter(item => item.name.toLowerCase().includes(e.detail.value.toLowerCase())).map(item => ((item.id = item.name), item)));
-			const clickCallback = (node, item) => {
-				on.closest(e.target, 'reno-search').setAttribute('value', '');
-				alert(JSON.stringify(item, null, '  '));
+    // test search + popup list feature
+    (function() {
+      const popupComponent = document.getElementById('action-popup');
+      popupComponent.eventHandler = (e, popup) => {
+        const node = on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, '[action]');
+        if (node) {
+          alert('Action #' + node.getAttribute('action'));
+        }
+        popup.close();
       };
-
-      if (e.detail.value == '') {
-        Reno.utils.popup.close();
-      } else {
-        Reno.utils.popup.open({
-          anchor: popupComponent.querySelector('reno-search'),
-          data: () => Reno.utils.popup.enhanceListContent(data, clickCallback),
-          alignment: 'left'
-        });
-      }
-    });
-	})();
-
-  // test search + popup list feature
-	(function() {
-    const popupComponent = document.getElementById('action-popup');
-    popupComponent.eventHandler = (e, popup) => {
-      const node = on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, '[action]');
-      if (node) {
-        alert('Action #' + node.getAttribute('action'));
-      }
-      popup.close();
-    };
-	})();
-</script>
+    })();
+  </script>
 </html>
