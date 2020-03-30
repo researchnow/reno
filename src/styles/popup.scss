@@ -8,9 +8,29 @@
   margin: 0;
   overflow: scroll;
 
-  /* .content.list.domain__headerActions--versionsList {
+  .child-container {
     position: relative;
-  } */
+  }
+
+  .top-20 {
+    margin-top: 20px;
+  }
+
+  .height-padd {
+    margin-bottom: -20px;
+  }
+
+  .height-dbl-padd {
+    margin-bottom: -40px;
+  }
+
+  .width-padd {
+    margin-right: 18px;
+  }
+
+  .padd-left {
+    margin-left: 18px;
+  }
 }
 
 body.reno-popup-open #reno-popup-container {
