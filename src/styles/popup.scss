@@ -1,3 +1,6 @@
+$reno-popup-default-padding: $reno-spacing-default;
+$reno-popup-double-padding: $reno-spacing-default * 2;
+
 #reno-popup-container {
   display: none;
   position: absolute;
