@@ -56,7 +56,7 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
-    new CleanWebpackPlugin('./docs', {}),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
