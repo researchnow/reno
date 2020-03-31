@@ -1,14 +1,16 @@
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/241662650
 
-
-$reno-spacing-tiny:        4px;
-$reno-spacing-small:       8px;
-$reno-spacing-default:    16px;
-$reno-spacing-large:      24px;
-$reno-spacing-x-large:    40px;
-$reno-spacing-xx-large:   64px;
+$reno-spacing-tiny: 4px;
+$reno-spacing-small: 8px;
+$reno-spacing-default: 16px;
+$reno-spacing-large: 24px;
+$reno-spacing-x-large: 40px;
+$reno-spacing-xx-large: 64px;
 $reno-spacing-xxx-large: 104px;
 
 $reno-spacing: $reno-spacing-default;
 
-$reno-outside-offset:  10000px; // used to place elements outside of a page to the left
+$reno-outside-offset: 10000px; // used to place elements outside of a page to the left
+
+$reno-popup-default-padding: $reno-spacing-default;
+$reno-popup-double-padding: $reno-spacing-default * 2;

@@ -103,7 +103,7 @@ export function enhanceListContent(data, clickCallback, render = defaultRender, 
 function alignAtTop(popupContainer, popupContent, popupContainerDomRect, popupContainerMargin) {
   // when content is too long - move to top of page
   popupContainer.style.top = window.pageYOffset + 'px';
-  popupContent.classList.add('top-20');
+  popupContent.classList.add('padd-top');
 
   popupContent.style.maxHeight = popupContainerDomRect.height + popupContainerMargin + 'px';
 
@@ -245,7 +245,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
             } else {
               // container is too big, but not bigger than window, so set max height
               popupContainer.style.top = window.pageYOffset + 'px';
-              popupContent.classList.add('top-20');
+              popupContent.classList.add('padd-top');
               popupContent.style.maxHeight = popupComponentDomRect.top + 'px';
               popupContent.classList.add('height-padd');
             }
@@ -323,7 +323,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         if (popupContainerDomRect.height + popupContainerMargin > popupComponentDomRect.bottom) {
           // needs more space
           popupContainer.style.top = window.pageYOffset + 'px';
-          popupContent.classList.add('top-20');
+          popupContent.classList.add('padd-top');
           popupContent.style.maxHeight = popupComponentDomRect.bottom + 'px';
         } else {
           popupContainer.style.top = anchor + window.pageYOffset - popupContainerDomRect.height + 'px';
