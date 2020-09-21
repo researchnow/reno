@@ -29,7 +29,7 @@ export function open(options) {
   if (data) {
     content = data();
     if (content && typeof content.then == 'function') {
-      content = content.then(data => {
+      content = content.then((data) => {
         window.requestAnimationFrame(() => calculatePlacement(options.anchor, popupContainer, options));
         return data;
       });
@@ -41,9 +41,14 @@ export function open(options) {
 
   handle = on(popupContainer, 'click', eventHandler);
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     window.requestAnimationFrame(() => {
-      calculatePlacement(options.anchor, popupContainer, options);
+      if (options.anchor.classList == 'container darwin-editor') {
+        // special style for darwin editor toolbar
+        popupContainer.classList.add('darwinEditor');
+      } else {
+        calculatePlacement(options.anchor, popupContainer, options);
+      }
       resolve(true);
     });
   });
@@ -73,7 +78,7 @@ export function hidePopup(e) {
 
 function defaultEventHandler(e) {}
 
-const defaultRender = data =>
+const defaultRender = (data) =>
   hyperHTML.wire()`<div class="content list">${
     data.length
       ? data.map((value, index) => hyperHTML.wire()`<div renoindex="${index}">${value.name}</div>`)
@@ -82,10 +87,10 @@ const defaultRender = data =>
 
 export function enhanceListContent(data, clickCallback, render = defaultRender, selector = '[renoindex]') {
   return Promise.resolve(data)
-    .then(data => [data, render(data)])
-    .then(array => {
+    .then((data) => [data, render(data)])
+    .then((array) => {
       const data = array[0],
-        handle = on(document, 'click', e => {
+        handle = on(document, 'click', (e) => {
           const popup = document.getElementById('reno-popup-container');
           const node =
             popup &&
@@ -398,16 +403,13 @@ function calculatePlacement(popupComponent, popupContainer, options) {
             const isCoveringBtn =
               topOfPopup - window.pageYOffset + popupContainer.getBoundingClientRect().height + popupContainerMargin >
               popupComponentDomRect.top;
-            if (
-              (isOffPage && placement == 'top' && isFlipped == true) ||
-              (isOffPage && placement == 'bottom' && isFlipped == false)
-            ) {
+            if ((isOffPage && placement == 'top' && isFlipped) || (isOffPage && placement == 'bottom' && !isFlipped)) {
               // popup is going off bottom of page
               popupContent.style.maxHeight = window.innerHeight - popupComponentDomRect.bottom + 'px';
               popupContent.classList.add('height-padd');
             } else if (
-              (isCoveringBtn && placement == 'top' && isFlipped == false) ||
-              (isCoveringBtn && placement == 'bottom' && isFlipped == true)
+              (isCoveringBtn && placement == 'top' && !isFlipped) ||
+              (isCoveringBtn && placement == 'bottom' && isFlipped)
             ) {
               // popup is on top and covering the popup button
               popupContent.style.maxHeight = popupComponentDomRect.top - topOfPopup + 'px';
