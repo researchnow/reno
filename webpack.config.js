@@ -72,12 +72,7 @@ const modernConfig = {
       template: './src/index.html',
       filename: 'index.html'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: './pages',
-        to: 'pages'
-      }
-    ]),
+    new CopyWebpackPlugin({patterns: [{from: './pages', to: 'pages'}]}),
     new OptimizeCssAssetsPlugin(),
     new Visualizer({filename: './statistics-modern.html'})
   ],
