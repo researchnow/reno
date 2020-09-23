@@ -3,10 +3,9 @@ let handle = null;
 export function open(options) {
   options = options || {};
   const data = options.data;
-  if (!options.anchor || (!options.content && typeof data != 'function')) return;
+  if (!options.popupClass && (!options.anchor || (!options.content && typeof data != 'function'))) return;
 
-  const doc = options.anchor.ownerDocument;
-
+  const doc = options.anchor ? options.anchor.ownerDocument : document;
   // if there's content => close other popups
   close();
 
@@ -21,6 +20,7 @@ export function open(options) {
   // popup styles
   doc.body.classList.remove('reno-popup-close');
   doc.body.classList.add('reno-popup-open');
+  if (options.popupClass) popupContainer.className = options.popupClass;
 
   // form content
   const placeholder = options.loading || hyperHTML.wire()`<div class="loading">Loading&hellip;</div>`,
@@ -43,7 +43,7 @@ export function open(options) {
 
   return new Promise(resolve => {
     window.requestAnimationFrame(() => {
-      calculatePlacement(options.anchor, popupContainer, options);
+      if (options.anchor) calculatePlacement(options.anchor, popupContainer, options);
       resolve(true);
     });
   });
@@ -55,6 +55,7 @@ export function close(doc) {
   if (!popupContainer) return;
   handle && handle.remove();
   doc.body.classList.remove('reno-popup-open');
+  popupContainer.className = '';
   doc.body.classList.add('reno-popup-close');
   hyperHTML.bind(popupContainer)``;
   return Promise.resolve(true);
@@ -75,9 +76,7 @@ function defaultEventHandler(e) {}
 
 const defaultRender = data =>
   hyperHTML.wire()`<div class="content list">${
-    data.length
-      ? data.map((value, index) => hyperHTML.wire()`<div renoindex="${index}">${value.name}</div>`)
-      : hyperHTML.wire()`<div>No results found.</div>`
+    data.length ? data.map((value, index) => hyperHTML.wire()`<div renoindex="${index}">${value.name}</div>`) : hyperHTML.wire()`<div>No results found.</div>`
   }</div>`;
 
 export function enhanceListContent(data, clickCallback, render = defaultRender, selector = '[renoindex]') {
@@ -87,10 +86,7 @@ export function enhanceListContent(data, clickCallback, render = defaultRender, 
       const data = array[0],
         handle = on(document, 'click', e => {
           const popup = document.getElementById('reno-popup-container');
-          const node =
-            popup &&
-            popup.contains(e.target) &&
-            on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
+          const node = popup && popup.contains(e.target) && on.closest(e.target.nodeType === 1 ? e.target : e.target.parentNode, selector);
           handle.remove();
           Reno.utils.popup.close();
           const prop = node && /^\[(\w+)\]$/.exec(selector);
@@ -149,12 +145,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         }
       } else {
         // plenty of room, proceed as planned
-        popupContainer.style.left =
-          popupComponentDomRect.left -
-          popupContainerDomRect.width +
-          window.pageXOffset -
-          2 * popupContainerMargin +
-          'px';
+        popupContainer.style.left = popupComponentDomRect.left - popupContainerDomRect.width + window.pageXOffset - 2 * popupContainerMargin + 'px';
       }
       break;
     case 'right':
@@ -172,8 +163,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
             popupContent.classList.add('padd-left');
             popupContainer.style.maxWidth = popupComponentDomRect.left + 'px';
           } else {
-            popupContainer.style.left =
-              popupComponentDomRect.left - popupContainerDomRect.width - popupContainerMargin + 'px';
+            popupContainer.style.left = popupComponentDomRect.left - popupContainerDomRect.width - popupContainerMargin + 'px';
           }
         }
       } else {
@@ -219,12 +209,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         }
       } else {
         // plenty of room, proceed as planned
-        popupContainer.style.top =
-          popupComponentDomRect.top -
-          popupContainerDomRect.height +
-          window.pageYOffset -
-          2 * popupContainerMargin +
-          'px';
+        popupContainer.style.top = popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2 * popupContainerMargin + 'px';
       }
 
       break;
@@ -235,8 +220,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         if (popupComponentDomRect.top > spaceOnBottom) {
           isFlipped = true;
           // more room on the top, so put popup there
-          const potentialTop =
-            popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2 * popupContainerMargin;
+          const potentialTop = popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2 * popupContainerMargin;
           if (potentialTop < 0 || potentialTop < window.pageYOffset) {
             // not enough space on the top
             if (popupContainerDomRect.height + popupContainerMargin > window.innerHeight) {
@@ -251,12 +235,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
             }
           } else {
             // enough space on the top
-            popupContainer.style.top =
-              popupComponentDomRect.top -
-              popupContainerDomRect.height +
-              window.pageYOffset -
-              2 * popupContainerMargin +
-              'px';
+            popupContainer.style.top = popupComponentDomRect.top - popupContainerDomRect.height + window.pageYOffset - 2 * popupContainerMargin + 'px';
           }
         } else {
           // more room on the bottom, so put popup there
@@ -336,10 +315,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         case 'left':
         case 'right':
           const potentialTop =
-            popupComponentDomRect.top +
-            window.pageYOffset -
-            popupContainerMargin -
-            (popupContainerDomRect.height - popupComponentDomRect.height) / 2;
+            popupComponentDomRect.top + window.pageYOffset - popupContainerMargin - (popupContainerDomRect.height - popupComponentDomRect.height) / 2;
           if (
             potentialTop < 0 ||
             potentialTop < window.pageYOffset ||
@@ -347,19 +323,10 @@ function calculatePlacement(popupComponent, popupContainer, options) {
           ) {
             if (popupContainerDomRect.height + popupContainerMargin < popupComponentDomRect.bottom) {
               // can fit if aligned to bottom
-              popupContainer.style.top =
-                popupComponentDomRect['bottom'] -
-                popupContainerMargin +
-                window.pageYOffset -
-                popupContainerDomRect.height +
-                'px';
-            } else if (
-              popupContainerDomRect.height + popupContainerMargin <
-              window.innerHeight - popupComponentDomRect.top
-            ) {
+              popupContainer.style.top = popupComponentDomRect['bottom'] - popupContainerMargin + window.pageYOffset - popupContainerDomRect.height + 'px';
+            } else if (popupContainerDomRect.height + popupContainerMargin < window.innerHeight - popupComponentDomRect.top) {
               // can fit if aligned to top
-              popupContainer.style.top =
-                popupComponentDomRect['top'] - popupContainerMargin + window.pageYOffset + 'px';
+              popupContainer.style.top = popupComponentDomRect['top'] - popupContainerMargin + window.pageYOffset + 'px';
             } else {
               // won't fit aligned top or bottom, so stop at top and add max height
               alignAtTop(popupContainer, popupContent, popupContainerDomRect, popupContainerMargin);
@@ -367,11 +334,7 @@ function calculatePlacement(popupComponent, popupContainer, options) {
           } else {
             // fits with center alignment
             popupContainer.style.top =
-              popupComponentDomRect.top +
-              window.pageYOffset -
-              popupContainerMargin -
-              (popupContainerDomRect.height - popupComponentDomRect.height) / 2 +
-              'px';
+              popupComponentDomRect.top + window.pageYOffset - popupContainerMargin - (popupContainerDomRect.height - popupComponentDomRect.height) / 2 + 'px';
           }
 
           break;
@@ -379,46 +342,27 @@ function calculatePlacement(popupComponent, popupContainer, options) {
         default:
           // case 'bottom':
           const potentialLeft =
-            popupComponentDomRect.left +
-            window.pageXOffset -
-            popupContainerMargin -
-            (popupContainerDomRect.width - popupComponentDomRect.width) / 2;
-          if (
-            potentialLeft < 0 ||
-            potentialLeft + popupContainerDomRect.width + popupContainerMargin > window.innerWidth
-          ) {
+            popupComponentDomRect.left + window.pageXOffset - popupContainerMargin - (popupContainerDomRect.width - popupComponentDomRect.width) / 2;
+          if (potentialLeft < 0 || potentialLeft + popupContainerDomRect.width + popupContainerMargin > window.innerWidth) {
             // if container won't fit on page when centered, stop at left and add max width
             popupContainer.style.left = window.pageXOffset + 'px';
             popupContent.classList.add('padd-left', 'width-padd');
             popupContainer.style.maxWidth = window.innerWidth + 'px';
             const topOfPopup = Number(popupContainer.style.top.substring(0, popupContainer.style.top.length - 2));
-            const isOffPage =
-              topOfPopup - window.pageYOffset + popupContainer.getBoundingClientRect().height + popupContainerMargin >
-              window.innerHeight;
+            const isOffPage = topOfPopup - window.pageYOffset + popupContainer.getBoundingClientRect().height + popupContainerMargin > window.innerHeight;
             const isCoveringBtn =
-              topOfPopup - window.pageYOffset + popupContainer.getBoundingClientRect().height + popupContainerMargin >
-              popupComponentDomRect.top;
-            if (
-              (isOffPage && placement == 'top' && isFlipped == true) ||
-              (isOffPage && placement == 'bottom' && isFlipped == false)
-            ) {
+              topOfPopup - window.pageYOffset + popupContainer.getBoundingClientRect().height + popupContainerMargin > popupComponentDomRect.top;
+            if ((isOffPage && placement == 'top' && isFlipped) || (isOffPage && placement == 'bottom' && !isFlipped)) {
               // popup is going off bottom of page
               popupContent.style.maxHeight = window.innerHeight - popupComponentDomRect.bottom + 'px';
               popupContent.classList.add('height-padd');
-            } else if (
-              (isCoveringBtn && placement == 'top' && isFlipped == false) ||
-              (isCoveringBtn && placement == 'bottom' && isFlipped == true)
-            ) {
+            } else if ((isCoveringBtn && placement == 'top' && !isFlipped) || (isCoveringBtn && placement == 'bottom' && isFlipped)) {
               // popup is on top and covering the popup button
               popupContent.style.maxHeight = popupComponentDomRect.top - topOfPopup + 'px';
             }
           } else {
             popupContainer.style.left =
-              popupComponentDomRect.left +
-              window.pageXOffset -
-              popupContainerMargin -
-              (popupContainerDomRect.width - popupComponentDomRect.width) / 2 +
-              'px';
+              popupComponentDomRect.left + window.pageXOffset - popupContainerMargin - (popupContainerDomRect.width - popupComponentDomRect.width) / 2 + 'px';
           }
 
           break;
