@@ -31,6 +31,8 @@
     "@babel/preset-react": "^7.10.4",
     "autoprefixer": "^10.0.0",
     "babel-loader": "^8.1.0",
+    "browserslist": "^4.14.4",
+    "caniuse-lite": "^1.0.30001135",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.1.1",
     "core-js": "^3.6.5",
