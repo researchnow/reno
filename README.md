@@ -16,10 +16,6 @@ Node and npm.
 
       npm start
 
-- To generate a distribution from source files:
-
-      npm run dist
-
 - To generate a static version of the demo website:
 
       npm run build
@@ -43,15 +39,16 @@ For local development, the simplest thing to do is linking instead of doing publ
 
 - Make sure it works.
 - Build a distribution: `npm run build`.
-- Bump the version in package.json.
-  - Optional: rebuild lock files.
-    - For npm: `npm i`.
-    - ~~For yarn: `yarn`.~~
+- Bump the version in `package.json`.
+  - For npm: `npm i`.
+- If the documentation has changed (in `/pages`):
+  - Run `npm run build` to regenerate `/docs`.
+    - DO NOT EDIT `/docs` MANUALLY!
 - Commit everything.
 - Tag it. Example:
   - Mark it up: `git tag 1.0.9`.
   - Push tags up: `git push --tags`.
-- ~~Publish it: `npm publish`.~~
+- Update the version in the dependency link.
 
 ## Designs
 
