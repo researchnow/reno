@@ -46,7 +46,7 @@ For local development, the simplest thing to do is linking instead of doing publ
 - Bump the version in package.json.
   - Optional: rebuild lock files.
     - For npm: `npm i`.
-    - For yarn: `yarn`.
+    - ~~For yarn: `yarn`.~~
 - Commit everything.
 - Tag it. Example:
   - Mark it up: `git tag 1.0.9`.
