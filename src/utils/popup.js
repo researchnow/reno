@@ -43,7 +43,7 @@ export function open(options) {
 
   return new Promise(resolve => {
     window.requestAnimationFrame(() => {
-      if (!options.popupClass) calculatePlacement(options.anchor, popupContainer, options);
+      if (options.anchor) calculatePlacement(options.anchor, popupContainer, options);
       resolve(true);
     });
   });

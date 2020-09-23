@@ -1693,7 +1693,7 @@ r||((r=n.createElement("div")).id="reno-popup-container",n.body.appendChild(r)),
 var o=t.loading||hyperHTML.wire()(Q()),A=t.eventHandler||Y,i=t.content
 e&&(i=e())&&"function"==typeof i.then&&(i=i.then(function(e){return window.requestAnimationFrame(function(){return H(t.anchor,r,t)}),e}))
 var a=hyperHTML.wire()(j())
-return hyperHTML.bind(a)(N(),{any:i,placeholder:o}),hyperHTML.bind(r)(B(),{any:a}),L=on(r,"click",A),new Promise(function(e){window.requestAnimationFrame(function(){t.popupClass||H(t.anchor,r,t),e(!0)})})}}function S(e){var t=(e=e||document).getElementById("reno-popup-container")
+return hyperHTML.bind(a)(N(),{any:i,placeholder:o}),hyperHTML.bind(r)(B(),{any:a}),L=on(r,"click",A),new Promise(function(e){window.requestAnimationFrame(function(){t.anchor&&H(t.anchor,r,t),e(!0)})})}}function S(e){var t=(e=e||document).getElementById("reno-popup-container")
 if(t)return L&&L.remove(),e.body.classList.remove("reno-popup-open"),t.className="",e.body.classList.add("reno-popup-close"),hyperHTML.bind(t)(C()),Promise.resolve(!0)}function z(e){return(e||document).body.classList.contains("reno-popup-open")}function U(e){var t=e.target.ownerDocument.getElementById("reno-popup-container")
 t&&!t.contains(e.target)&&Reno.utils.popup.close()}function Y(e){}var F=function(e){return hyperHTML.wire()(D(),e.length?e.map(function(e,t){return hyperHTML.wire()(k(),t,e.name)}):hyperHTML.wire()(E()))}
 function R(e,i,t,a){return void 0===t&&(t=F),void 0===a&&(a="[renoindex]"),Promise.resolve(e).then(function(e){return[e,t(e)]}).then(function(e){var o=e[0],A=on(document,"click",function(e){var t=document.getElementById("reno-popup-container"),n=t&&t.contains(e.target)&&on.closest(1===e.target.nodeType?e.target:e.target.parentNode,a)
