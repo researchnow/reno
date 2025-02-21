@@ -1,3 +1,5 @@
+@use "colors";
+
 // @import "./colors";
 
 .reno-form, .reno {
@@ -7,41 +9,41 @@
 			left: -999999px;
 
 			&:checked ~ span.toggle {
-				background-color: $reno-color-primary;
+				background-color: colors.$reno-color-primary;
 
 				&:before {
-					background-color: $reno-color-white;
+					background-color: colors.$reno-color-white;
 					left: calc(100% - 16px);
 				}
 
 				&:after {
 					content: 'ON';
-					color: $reno-color-white;
+					color: colors.$reno-color-white;
 					left: calc(2px + 0.5em);
 				}
 			}
 
 			&:disabled ~ span.toggle {
-				background-color: $reno-color-super-light-gray;
+				background-color: colors.$reno-color-super-light-gray;
 
 				&:before {
-					background-color: $reno-color-medium-light-gray;
+					background-color: colors.$reno-color-medium-light-gray;
 				}
 
 				&:after {
-					color: $reno-color-medium-light-gray;
+					color: colors.$reno-color-medium-light-gray;
 				}
 			}
 
 			&[checked]:disabled ~ span.toggle {
-				background-color: $reno-color-super-light-gray;
+				background-color: colors.$reno-color-super-light-gray;
 
 				&:before {
-					background-color: $reno-color-medium-light-gray;
+					background-color: colors.$reno-color-medium-light-gray;
 				}
 
 				&:after {
-					color: $reno-color-medium-light-gray;
+					color: colors.$reno-color-medium-light-gray;
 				}
 			}
 		}
@@ -54,8 +56,8 @@
 			width: calc(16px + 3em);
 			height: 18px;
 			top: 6px;
-			background-color: $reno-color-white;
-			border: 1px solid $reno-color-light-gray;
+			background-color: colors.$reno-color-white;
+			border: 1px solid colors.$reno-color-light-gray;
 			border-radius: 10px;
 			cursor: pointer;
 			transition: all .3s ease-in;
@@ -69,7 +71,7 @@
 				border-radius: 7px;
 				transition: all .3s ease-in;
 
-				background-color: $reno-color-medium-light-gray;
+				background-color: colors.$reno-color-medium-light-gray;
 				left: 2px;
 			}
 
@@ -77,14 +79,14 @@
 				content: 'OFF';
 				position: absolute;
 				top: -1px;
-				color: $reno-color-medium-dark-gray;
+				color: colors.$reno-color-medium-dark-gray;
 				left: 18px;
 			}
 		}
 
 		> input[type="checkbox"]:active ~ span.toggle, > input[type="checkbox"]:focus ~ span.toggle {
-			border-color: $reno-color-secondary;
-			box-shadow: 0 0 2px 0 $reno-color-secondary;
+			border-color: colors.$reno-color-secondary;
+			box-shadow: 0 0 2px 0 colors.$reno-color-secondary;
 		}
 	}
 }

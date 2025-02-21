@@ -1,3 +1,6 @@
+@use "colors";
+@use "spacing";
+
 // @import "./colors";
 // @import "./spacing";
 
@@ -6,13 +9,13 @@
 .reno-spinner {
 	display: block;
 
-	font-size: $reno-spacing;
+	font-size: spacing.$reno-spacing;
 	// margin: $reno-spacing-xxx-large auto;
 	text-indent: -9999em;
 	width: 3em;
 	height: 3em;
 	border-radius: 50%;
-	background: linear-gradient(to right, rgba($reno-color-black, 0) 50%, $reno-color-black 75%);
+	background: linear-gradient(to right, rgba(colors.$reno-color-black, 0) 50%, colors.$reno-color-black 75%);
 	position: relative;
 	animation: reno-loader 1s infinite linear;
 	transform: translateZ(0);
@@ -24,7 +27,7 @@
 		position: absolute;
 		top: 50%;
 		left: 0;
-		background-color: $reno-color-dirty-white;
+		background-color: colors.$reno-color-dirty-white;
 	}
 
 	&:after {
@@ -38,7 +41,7 @@
 		right: 0;
 		border-radius: 50%;
 		margin: auto;
-		background-color: $reno-color-dirty-white;
+		background-color: colors.$reno-color-dirty-white;
 	}
 
 	@-webkit-keyframes reno-loader {

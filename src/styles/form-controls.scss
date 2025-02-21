@@ -1,3 +1,5 @@
+@use "spacing";
+
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715069
 
 // @import "./form-controls-label";
@@ -21,7 +23,7 @@
 			margin-bottom: 12px;
 		}
 		> label {
-			margin-bottom: $reno-spacing-default;
+			margin-bottom: spacing.$reno-spacing-default;
 		}
 		> * {
 			display: block;
@@ -29,7 +31,7 @@
 	}
 
 	.reno-check-groups-inline {
-		margin-bottom: $reno-spacing-default;
+		margin-bottom: spacing.$reno-spacing-default;
 		line-height: 20px;
 
 		> label {
@@ -39,7 +41,7 @@
 
 	.reno-text-groups-stacked {
 		> label {
-			margin-bottom: $reno-spacing-default;
+			margin-bottom: spacing.$reno-spacing-default;
 
 			> span {
 				@extend .reno-caption-bold;

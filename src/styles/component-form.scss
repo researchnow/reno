@@ -1,3 +1,5 @@
+@use "colors";
+
 // @import "./colors";
 
 /* reno-form */
@@ -8,7 +10,7 @@ reno-form {
 	.reno-text-groups-stacked {
 		label .error, label .error-generic {
 			display: none;
-			color: $reno-color-error;
+			color: colors.$reno-color-error;
 		}
 
 		label [name]:invalid + .error-generic {
@@ -28,7 +30,7 @@ reno-form {
 
 		.validity-valid > .no-error {
 			display: block;
-			color: $reno-color-success;
+			color: colors.$reno-color-success;
 		}
 	}
 }

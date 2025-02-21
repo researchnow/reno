@@ -1,3 +1,5 @@
+@use "colors";
+
 // @import "./colors";
 
 
@@ -5,7 +7,7 @@
 
 .reno-form, .reno, .reno-dark {
 	label:focus {
-		outline: 1px solid $reno-color-super-light-gray;
+		outline: 1px solid colors.$reno-color-super-light-gray;
 	}
 }
 

@@ -1,3 +1,5 @@
+@use "colors";
+
 reno-progress,
 .reno-progress {
   display: block;
@@ -5,7 +7,7 @@ reno-progress,
   background-color: transparent;
   min-width: 24px;
   height: 8px;
-  border: 1px solid $reno-color-light-gray;
+  border: 1px solid colors.$reno-color-light-gray;
   border-radius: 50px;
 
   // determinate
@@ -13,7 +15,7 @@ reno-progress,
     position: absolute;
     top: 0;
     left: 0;
-    background-color: $reno-color-primary;
+    background-color: colors.$reno-color-primary;
     width: 0;
     height: 8px;
     border-radius: 50px;

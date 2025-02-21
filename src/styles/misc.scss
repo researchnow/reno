@@ -1,3 +1,5 @@
+@use "colors";
+
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/229474528
 
 // @import "./colors";
@@ -6,16 +8,16 @@
 
 $reno-box-colors: (
   white: (
-    $reno-color-white
+    colors.$reno-color-white
   ),
   dirty-white: (
-    $reno-color-dirty-white
+    colors.$reno-color-dirty-white
   )
 );
 
 $reno-box-borders: (
   with-border: (
-    $reno-color-light-gray
+    colors.$reno-color-light-gray
   ),
   no-border: (
     transparent
@@ -99,13 +101,13 @@ $reno-box-shadows: (
 .reno-rule-default {
   box-sizing: border-box;
   height: 3px;
-  background-color: $reno-color-medium-light-gray;
-  border: 1px solid $reno-color-white;
+  background-color: colors.$reno-color-medium-light-gray;
+  border: 1px solid colors.$reno-color-white;
 }
 
 .reno-rule-light {
   box-sizing: border-box;
   height: 3px;
-  background-color: $reno-color-light-gray;
-  border: 1px solid $reno-color-white;
+  background-color: colors.$reno-color-light-gray;
+  border: 1px solid colors.$reno-color-white;
 }

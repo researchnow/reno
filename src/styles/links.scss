@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "colors";
+
 // Source: https://projects.invisionapp.com/share/E2ASEPKTN#/screens/223715070
 
 // @import "./colors";
@@ -12,9 +15,9 @@ $reno-links-states: (
 );
 
 $reno-links-styles: (
-	default: $reno-color-primary,
+	default: colors.$reno-color-primary,
 	quiet:   #b9b9b9,
-	caution: $reno-color-error,
+	caution: colors.$reno-color-error,
 	reverse: #efefef
 );
 
@@ -34,8 +37,8 @@ $reno-links-styles: (
 		$state: reno-link-name($state-name);
 		a.reno-link#{$style}#{$state} {
 			color: $style-color;
-			opacity: nth($state-parameters, 2);
-			text-decoration: nth($state-parameters, 1);
+			opacity: list.nth($state-parameters, 2);
+			text-decoration: list.nth($state-parameters, 1);
 		}
 		@if $state == '' {
 			a.reno-link#{$style}:disabled { @extend .reno-link#{$style}-disabled; }
