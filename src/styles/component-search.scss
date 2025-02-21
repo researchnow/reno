@@ -1,3 +1,6 @@
+@use "../fonts/reno";
+@use "colors";
+
 // @import "./font";
 // @import "./colors";
 
@@ -6,21 +9,21 @@
 reno-search {
 	display: inline-block;
 	position: relative;
-	border: 1px solid $reno-color-light-gray;
+	border: 1px solid colors.$reno-color-light-gray;
 	border-radius: 2px;
-	background-color: $reno-color-white;
+	background-color: colors.$reno-color-white;
 	width: 171px;
 	font-size: 14px;
 	font-weight: 300;
 
 	&[disabled] {
-		border-color: $reno-color-super-light-gray;
-		background-color: $reno-color-super-light-gray;
+		border-color: colors.$reno-color-super-light-gray;
+		background-color: colors.$reno-color-super-light-gray;
 	}
 
 	&.focused {
-		border-color: $reno-color-secondary;
-		box-shadow: 0 0 2px 0 $reno-color-secondary;
+		border-color: colors.$reno-color-secondary;
+		box-shadow: 0 0 2px 0 colors.$reno-color-secondary;
 	}
 
 	span {
@@ -28,9 +31,9 @@ reno-search {
 	}
 
 	span:after {
-		content: $reno-icon-magnify;
+		content: reno.$reno-icon-magnify;
 		font-family: "reno" !important;
-		color: $reno-color-medium-light-gray;
+		color: colors.$reno-color-medium-light-gray;
 		font-size: 14px;
 		position: absolute;
 		top: 6px;
@@ -38,8 +41,8 @@ reno-search {
 	}
 
 	span.has-value:after {
-		content: $reno-icon-window-close;
-		color: $reno-color-medium-light-gray;
+		content: reno.$reno-icon-window-close;
+		color: colors.$reno-color-medium-light-gray;
 		top: 8px;
 		right: 6px;
 	}
@@ -49,25 +52,25 @@ reno-search {
 		background-color: transparent;
 		border: none;
 		outline: none;
-		color: $reno-color-dark-gray;
+		color: colors.$reno-color-dark-gray;
 		width: calc(100% - 20px);
 	}
 
 	input[type="text"]::placeholder {
-		color: $reno-color-medium-dark-gray;
+		color: colors.$reno-color-medium-dark-gray;
 	}
 }
 
 fieldset:disabled reno-search {
-	border-color: $reno-color-super-light-gray;
-	background-color: $reno-color-super-light-gray;
+	border-color: colors.$reno-color-super-light-gray;
+	background-color: colors.$reno-color-super-light-gray;
 }
 
 .reno, .reno-dark {
 	reno-search input[type="text"] {
 		background-color: transparent;
 		border: none;
-		color: $reno-color-dark-gray;
+		color: colors.$reno-color-dark-gray;
 
 		&:focus, &:active {
 			border: none;

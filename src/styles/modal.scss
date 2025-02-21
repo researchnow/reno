@@ -1,3 +1,6 @@
+@use "colors";
+@use "spacing";
+
 #reno-modal-container {
   display: none;
   filter: none;
@@ -12,7 +15,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: $reno-color-white;
+    background-color: colors.$reno-color-white;
     opacity: 0.7;
   }
 
@@ -34,7 +37,7 @@
   }
 
   .reno-modal {
-    @extend .reno-box-with-border-shadow-z2;
+    @extend .reno-box-with-border-shadow-z2 !optional;
     display: block;
     flex: 0 1 auto;
 
@@ -54,8 +57,8 @@
     }
 
     font-size: 14px;
-    color: $reno-color-dark-gray;
-    background-color: $reno-color-dirty-white;
+    color: colors.$reno-color-dark-gray;
+    background-color: colors.$reno-color-dirty-white;
 
     > .title {
       display: flex;
@@ -63,10 +66,10 @@
       align-items: center;
 
       font-size: 16px;
-      color: $reno-color-black;
-      background-color: $reno-color-white;
-      padding: $reno-spacing-default $reno-spacing-large;
-      border-bottom: 1px solid $reno-color-medium-light-gray;
+      color: colors.$reno-color-black;
+      background-color: colors.$reno-color-white;
+      padding: spacing.$reno-spacing-default spacing.$reno-spacing-large;
+      border-bottom: 1px solid colors.$reno-color-medium-light-gray;
 
       & > div {
         flex: 0 1 auto;
@@ -78,12 +81,12 @@
         padding: 0;
 
         font-size: 20px;
-        color: $reno-color-medium-dark-gray;
+        color: colors.$reno-color-medium-dark-gray;
       }
     }
 
     > .content {
-      padding: $reno-spacing-default $reno-spacing-large;
+      padding: spacing.$reno-spacing-default spacing.$reno-spacing-large;
     }
 
     > .buttons {
@@ -91,7 +94,7 @@
       justify-content: flex-end;
       align-items: center;
 
-      padding: $reno-spacing-default $reno-spacing-large;
+      padding: spacing.$reno-spacing-default spacing.$reno-spacing-large;
 
       button {
         flex: 0 0 auto;

@@ -1,3 +1,6 @@
+@use "../fonts/reno";
+@use "colors";
+
 // @import "./colors";
 
 
@@ -11,32 +14,32 @@
 		width: 100%;
 		&:before {
 			font-family: 'reno';
-			content: $reno-icon-chevron-up;
+			content: reno.$reno-icon-chevron-up;
 			position: absolute;
 			top: 5px;
 			right: 0;
 			font-size: 1.3em;
 			text-align: center;
-			color: $reno-color-medium-dark-gray;
+			color: colors.$reno-color-medium-dark-gray;
 		}
 		&:after {
 			font-family: 'reno';
-			content: $reno-icon-chevron-down;
+			content: reno.$reno-icon-chevron-down;
 			position: absolute;
 			right: 0;
 			top: 14px;
 			font-size: 1.3em;
 			text-align: center;
-			color: $reno-color-medium-dark-gray;
+			color: colors.$reno-color-medium-dark-gray;
 		}
 	}
 
 	input[type="number"] {
 		font-family: gotham a, gotham b, sans-serif;
-		color: $reno-color-dark-gray;
+		color: colors.$reno-color-dark-gray;
 		padding: 7px 30px 7px 11px;
-		border: 1px solid $reno-color-light-gray;
-		background-color: $reno-color-white;
+		border: 1px solid colors.$reno-color-light-gray;
+		background-color: colors.$reno-color-white;
 		text-align: right;
 		height: 32px;
 		box-sizing: border-box;
@@ -55,29 +58,29 @@
 	}
 
 	input[type="number"]::placeholder {
-		color: $reno-color-medium-dark-gray;
+		color: colors.$reno-color-medium-dark-gray;
 	}
 
 	input[type="number"]:active, input[type="number"]:focus {
-		border-color: $reno-color-secondary;
-		box-shadow: 0 0 2px 0 $reno-color-secondary;
+		border-color: colors.$reno-color-secondary;
+		box-shadow: 0 0 2px 0 colors.$reno-color-secondary;
 		outline: none;
 	}
 
 	input[type="number"]:disabled {
-		border-color: $reno-color-super-light-gray;
-		background-color: $reno-color-super-light-gray;
+		border-color: colors.$reno-color-super-light-gray;
+		background-color: colors.$reno-color-super-light-gray;
 		box-shadow: none;
-		color: $reno-color-medium-dark-gray;
+		color: colors.$reno-color-medium-dark-gray;
 	}
 
 	input[type="number"]:invalid {
-		border-color: $reno-color-error;
+		border-color: colors.$reno-color-error;
 	}
 
 	input[type="number"]:invalid:focus {
-		border-color: $reno-color-error;
-		box-shadow: 0 0 2px 0 $reno-color-error;
+		border-color: colors.$reno-color-error;
+		box-shadow: 0 0 2px 0 colors.$reno-color-error;
 	}
 }
 

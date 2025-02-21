@@ -1,3 +1,6 @@
+@use "colors";
+@use "spacing";
+
 // @import "./colors";
 // @import "./spacing";
 
@@ -11,67 +14,67 @@
 	}
 
 	input[type="checkbox"], input[type="radio"] {
-		margin-right: $reno-spacing-small;
+		margin-right: spacing.$reno-spacing-small;
 	}
 
 	input[type="checkbox"] {
 		position: relative;
-		left: -$reno-outside-offset;
+		left: -(spacing.$reno-outside-offset);
 		width: 20px;
 
 		&::before {
 			content: "";
 	    display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset;
+			left: spacing.$reno-outside-offset;
 			bottom: 0;
 	    height: 14px;
 	    width:  14px;
-	    border: 1px solid $reno-color-medium-dark-gray;
-			background-color: $reno-color-white;
+	    border: 1px solid colors.$reno-color-medium-dark-gray;
+			background-color: colors.$reno-color-white;
 		}
 
 		&::after {
 	    content: none;
 		  display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 3px;
+			left: spacing.$reno-outside-offset + 3px;
 			bottom: 6px;
 		  height: 4px;
 		  width: 8px;
-		  border-left: 1px solid $reno-color-black;
-		  border-bottom: 1px solid $reno-color-black;
+		  border-left: 1px solid colors.$reno-color-black;
+		  border-bottom: 1px solid colors.$reno-color-black;
 		  transform: rotate(-45deg);
 		}
 	}
 
 	input[type="radio"] {
 		position: relative;
-		left: -$reno-outside-offset;
+		left: -(spacing.$reno-outside-offset);
 		width: 20px;
 
 		&::before {
 			content: "";
 	    display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset;
+			left: spacing.$reno-outside-offset;
 			bottom: 0;
 	    height: 14px;
 	    width:  14px;
-	    border: 1px solid $reno-color-medium-dark-gray;
+	    border: 1px solid colors.$reno-color-medium-dark-gray;
 			border-radius: 50%;
-			background-color: $reno-color-white;
+			background-color: colors.$reno-color-white;
 		}
 
 		&::after {
 	    content: none;
 		  display: inline-block;
 			position: absolute;
-			left: $reno-outside-offset + 3px;
+			left: spacing.$reno-outside-offset + 3px;
 			bottom: 3px;
 	    height: 10px;
 	    width:  10px;
-	    background-color: $reno-color-black;
+	    background-color: colors.$reno-color-black;
 			border-radius: 50%;
 		}
 	}
@@ -84,26 +87,26 @@
 
 	input[type="checkbox"]:active, input[type="checkbox"]:focus, input[type="radio"]:active, input[type="radio"]:focus {
 		&::before {
-			border-color: $reno-color-secondary;
-			box-shadow: 0 0 2px 0 $reno-color-secondary;
+			border-color: colors.$reno-color-secondary;
+			box-shadow: 0 0 2px 0 colors.$reno-color-secondary;
 		}
 	}
 
 	input[type="checkbox"]:disabled, input[type="radio"]:disabled {
 		&::before {
-			border-color: $reno-color-medium-light-gray;
+			border-color: colors.$reno-color-medium-light-gray;
 			box-shadow: none;
 		}
 	}
 
 	input[type="checkbox"]:disabled {
 		&::after {
-			border-color: $reno-color-medium-light-gray;
+			border-color: colors.$reno-color-medium-light-gray;
 		}
 	}
 	input[type="radio"]:disabled {
 		&::after {
-			background-color: $reno-color-medium-light-gray;
+			background-color: colors.$reno-color-medium-light-gray;
 		}
 	}
 }

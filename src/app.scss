@@ -1,24 +1,24 @@
-@import "styles/spacing";
-@import "styles/colors";
+@use "styles/spacing";
+@use "styles/colors";
 
 
 // general styles
 
-.reno { background-color: $reno-color-dirty-white; }
+.reno { background-color: colors.$reno-color-dirty-white; }
 
-.reno-dark { background-color: $reno-color-black; }
+.reno-dark { background-color: colors.$reno-color-black; }
 
 // table
 
 table {
 	border-spacing: 0;
 	border-collapse: collapse;
-	border: 1px solid $reno-color-light-gray;
+	border: 1px solid colors.$reno-color-light-gray;
 }
 
 th, td {
 	padding: 6pt 12pt;
-	border: 1px solid $reno-color-super-light-gray;
+	border: 1px solid colors.$reno-color-super-light-gray;
 }
 
 
@@ -27,47 +27,47 @@ th, td {
 section {
 	padding: 1em 3em;
 	margin: 1em 0;
-	border: 1px solid $reno-color-light-gray;
+	border: 1px solid colors.$reno-color-light-gray;
 }
 
 
 // helper classes to showcase color variables
 
-.reno-color-primary   {color: white; background-color: $reno-color-primary;}
-.reno-color-secondary {color: white; background-color: $reno-color-secondary;}
-.reno-color-tertiary  {color: white; background-color: $reno-color-tertiary;}
-.reno-color-success   {color: white; background-color: $reno-color-success;}
-.reno-color-alert     {color: white; background-color: $reno-color-alert;}
-.reno-color-error     {color: white; background-color: $reno-color-error;}
+.reno-color-primary   {color: white; background-color: colors.$reno-color-primary;}
+.reno-color-secondary {color: white; background-color: colors.$reno-color-secondary;}
+.reno-color-tertiary  {color: white; background-color: colors.$reno-color-tertiary;}
+.reno-color-success   {color: white; background-color: colors.$reno-color-success;}
+.reno-color-alert     {color: white; background-color: colors.$reno-color-alert;}
+.reno-color-error     {color: white; background-color: colors.$reno-color-error;}
 
-.reno-color-black             {color: white; background-color: $reno-color-black;}
-.reno-color-dark-gray         {color: white; background-color: $reno-color-dark-gray;}
-.reno-color-medium-dark-gray  {color: white; background-color: $reno-color-medium-dark-gray;}
+.reno-color-black             {color: white; background-color: colors.$reno-color-black;}
+.reno-color-dark-gray         {color: white; background-color: colors.$reno-color-dark-gray;}
+.reno-color-medium-dark-gray  {color: white; background-color: colors.$reno-color-medium-dark-gray;}
 
-.reno-color-medium-light-gray {color: black; background-color: $reno-color-medium-light-gray;}
-.reno-color-light-gray        {color: black; background-color: $reno-color-light-gray;}
-.reno-color-super-light-gray  {color: black; background-color: $reno-color-super-light-gray;}
+.reno-color-medium-light-gray {color: black; background-color: colors.$reno-color-medium-light-gray;}
+.reno-color-light-gray        {color: black; background-color: colors.$reno-color-light-gray;}
+.reno-color-super-light-gray  {color: black; background-color: colors.$reno-color-super-light-gray;}
 
-.reno-gray-dark               {color: white; background-color: $reno-gray-dark;}
-.reno-gray-medium-dark        {color: white; background-color: $reno-gray-medium-dark;}
+.reno-gray-dark               {color: white; background-color: colors.$reno-gray-dark;}
+.reno-gray-medium-dark        {color: white; background-color: colors.$reno-gray-medium-dark;}
 
-.reno-gray-medium-light       {color: black; background-color: $reno-gray-medium-light;}
-.reno-gray-light              {color: black; background-color: $reno-gray-light;}
-.reno-gray-super-light        {color: black; background-color: $reno-gray-super-light;}
+.reno-gray-medium-light       {color: black; background-color: colors.$reno-gray-medium-light;}
+.reno-gray-light              {color: black; background-color: colors.$reno-gray-light;}
+.reno-gray-super-light        {color: black; background-color: colors.$reno-gray-super-light;}
 
-.reno-color-dirty-white       {color: black; background-color: $reno-color-dirty-white;}
-.reno-color-white             {color: black; background-color: $reno-color-white;}
+.reno-color-dirty-white       {color: black; background-color: colors.$reno-color-dirty-white;}
+.reno-color-white             {color: black; background-color: colors.$reno-color-white;}
 
 
 // helper classes to showcase spacing variables
 
-.reno-spacing-tiny      {background-color: $reno-color-primary; width: $reno-spacing-tiny;      height: $reno-spacing-tiny;}
-.reno-spacing-small     {background-color: $reno-color-primary; width: $reno-spacing-small;     height: $reno-spacing-small;}
-.reno-spacing           {background-color: $reno-color-primary; width: $reno-spacing;           height: $reno-spacing;}
-.reno-spacing-large     {background-color: $reno-color-primary; width: $reno-spacing-large;     height: $reno-spacing-large;}
-.reno-spacing-x-large   {background-color: $reno-color-primary; width: $reno-spacing-x-large;   height: $reno-spacing-x-large;}
-.reno-spacing-xx-large  {background-color: $reno-color-primary; width: $reno-spacing-xx-large;  height: $reno-spacing-xx-large;}
-.reno-spacing-xxx-large {background-color: $reno-color-primary; width: $reno-spacing-xxx-large; height: $reno-spacing-xxx-large;}
+.reno-spacing-tiny      {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-tiny;      height: spacing.$reno-spacing-tiny;}
+.reno-spacing-small     {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-small;     height: spacing.$reno-spacing-small;}
+.reno-spacing           {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing;           height: spacing.$reno-spacing;}
+.reno-spacing-large     {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-large;     height: spacing.$reno-spacing-large;}
+.reno-spacing-x-large   {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-x-large;   height: spacing.$reno-spacing-x-large;}
+.reno-spacing-xx-large  {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-xx-large;  height: spacing.$reno-spacing-xx-large;}
+.reno-spacing-xxx-large {background-color: colors.$reno-color-primary; width: spacing.$reno-spacing-xxx-large; height: spacing.$reno-spacing-xxx-large;}
 
 
 // application-specific helper classes
@@ -91,7 +91,7 @@ section {
 }
 
 .grey-text {
-	color: $reno-color-light-gray;
+	color: colors.$reno-color-light-gray;
 }
 
 .popups-container {
@@ -101,7 +101,7 @@ section {
 
 reno-popup {
 	margin: 5px 10px;
-	background-color: $reno-color-light-gray;
+	background-color: colors.$reno-color-light-gray;
 }
 
 reno-popup[trigger="search"] {

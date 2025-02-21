@@ -1,5 +1,8 @@
-$reno-popup-default-padding: $reno-spacing-default;
-$reno-popup-double-padding: $reno-spacing-default * 2;
+@use "colors";
+@use "spacing";
+
+$reno-popup-default-padding: spacing.$reno-spacing-default;
+$reno-popup-double-padding: spacing.$reno-spacing-default * 2;
 
 #reno-popup-container {
   display: none;
@@ -42,8 +45,8 @@ body.reno-popup-open #reno-popup-container {
 
 #reno-popup-container .content,
 #reno-popup-container .loading {
-  @extend .reno-box-with-border-shadow-z1;
-  background-color: $reno-color-white;
+  @extend .reno-box-with-border-shadow-z1 !optional;
+  background-color: colors.$reno-color-white;
   overflow-y: scroll;
 }
 
@@ -52,10 +55,10 @@ body.reno-popup-open #reno-popup-container {
 }
 
 #reno-popup-container .content.tooltip {
-  @extend .reno-caption;
+  @extend .reno-caption !optional;
   margin: 0px;
-  color: $reno-color-white;
-  background-color: $reno-color-dark-gray;
+  color: colors.$reno-color-white;
+  background-color: colors.$reno-color-dark-gray;
   padding: 4px 12px;
 }
 
@@ -65,7 +68,7 @@ body.reno-popup-open #reno-popup-container {
     cursor: pointer;
 
     &:hover {
-      background-color: $reno-color-light-gray;
+      background-color: colors.$reno-color-light-gray;
     }
   }
 }

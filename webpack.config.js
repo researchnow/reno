@@ -2,9 +2,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
+const Visualizer = require('webpack-visualizer-plugin2');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const modernConfig = {
   entry: {modern: ['./src/scripts/main.js', './src/scripts/app.js']},
@@ -73,7 +73,7 @@ const modernConfig = {
       filename: 'index.html'
     }),
     new CopyWebpackPlugin({patterns: [{from: './pages', to: 'pages'}]}),
-    new OptimizeCssAssetsPlugin(),
+    new CssMinimizerPlugin(),
     new Visualizer({filename: './statistics-modern.html'})
   ],
   optimization: {
@@ -148,20 +148,17 @@ const legacyConfig = {
   plugins: [new Visualizer({filename: './statistics-legacy.html'})],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        sourceMap: false,
-        parallel: true,
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           compress: {inline: false},
-          output: {
+          format: {
             comments: false,
             beautify: false,
-            preserve_line: false,
-            semicolons: false,
             indent_level: 0,
             indent_start: 0
           }
-        }
+        },
+        parallel: true,
       })
     ]
   }
