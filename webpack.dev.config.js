@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {modern: ['./src/scripts/main.js', './src/scripts/app.js']},
@@ -18,6 +19,7 @@ module.exports = {
                 '@babel/env',
                 {
                   modules: false,
+                  loose: true,
                   corejs: '3.2.1', // TODO: automate it
                   useBuiltIns: 'usage',
                   targets: {
@@ -65,7 +67,8 @@ module.exports = {
       // hash: true,
       template: './src/index.html',
       filename: 'index.html'
-    })
+    }),
+    new CopyWebpackPlugin({patterns: [{from: './pages', to: 'pages'}]}),
   ],
   devServer: {}
 };

@@ -1,6 +1,6 @@
 {
   "name": "@researchnow/reno",
-  "version": "1.16.0",
+  "version": "2.0.0",
   "description": "The biggest little UI in the world.",
   "publishConfig": {
     "registry": "http://npm-dev.researchnow.com:4873/"
@@ -50,6 +50,6 @@
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.0",
-    "webpack-visualizer-plugin": "^0.1.11"
+    "webpack-visualizer-plugin2": "^1.2.0"
   }
 }

@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
-const Visualizer = require('webpack-visualizer-plugin');
+const Visualizer = require('webpack-visualizer-plugin2');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const modernConfig = {
@@ -149,9 +149,6 @@ const legacyConfig = {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        minify: {
-          sourceMap: false,
-        },
         terserOptions: {
           compress: {inline: false},
           format: {
